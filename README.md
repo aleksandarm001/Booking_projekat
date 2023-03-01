@@ -1,1 +1,1 @@
-# Booking_projekat
+# BookingBuddies
