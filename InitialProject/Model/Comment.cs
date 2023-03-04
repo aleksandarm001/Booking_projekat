@@ -21,7 +21,7 @@ namespace InitialProject.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), CreationTime.ToString(), Text, User.Id.ToString() };
+            string[] csvValues = { Id.ToString(), CreationTime.ToString(), Text, User.UserId.ToString() };
             return csvValues;
         }
 
@@ -30,7 +30,7 @@ namespace InitialProject.Model
             Id = Convert.ToInt32(values[0]);
             CreationTime = Convert.ToDateTime(values[1]);
             Text = values[2];
-            User = new User() { Id = Convert.ToInt32(values[3]) };
+            User = new User() { UserId = Convert.ToInt32(values[3]) };
         }
     }
 }

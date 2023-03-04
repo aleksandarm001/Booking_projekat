@@ -1,18 +1,12 @@
-﻿using InitialProject.CustomClasses;
-using InitialProject.Serializer;
+﻿using InitialProject.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Xaml.Schema;
-using static System.Net.Mime.MediaTypeNames;
-using System.Xml.Linq;
+
 
 namespace InitialProject.Model
 {
-    public enum AccommodationType {appartment = 0, house, shack}
+    public enum AccommodationType { appartment = 0, house, shack }
     public class Accommodation : ISerializable
     {
         public string Name { get; set; }
@@ -22,13 +16,13 @@ namespace InitialProject.Model
         public int MinReservationDays { get; set; }
         public int DaysBeforeCancelling { get; set; }
         public List<String> Images { get; set; }
-        public List<Reservation> Reservations { get; set; }
+        public List<AccommodationReservation> Reservations { get; set; }
         public int AccommodationID { get; set; }
 
 
-        public Accommodation(int accommodationID, string name, Location location, AccommodationType type, int maxGuestNumber, 
+        public Accommodation(int accommodationID, string name, Location location, AccommodationType type, int maxGuestNumber,
             int minReservationDays, int daysBeforeCancelling, List<String> images,
-            List<Reservation> reservations)
+            List<AccommodationReservation> reservations)
         {
             AccommodationID = accommodationID;
             Name = name;
@@ -50,10 +44,10 @@ namespace InitialProject.Model
             MinReservationDays = 0;
             DaysBeforeCancelling = 0;
             Images = new List<String>();
-            Reservations = new List<Reservation>();
+            Reservations = new List<AccommodationReservation>();
         }
 
-       
+
         public string[] ToCSV()
         {
             string[] csvValues = { AccommodationID.ToString(),
@@ -77,5 +71,9 @@ namespace InitialProject.Model
             DaysBeforeCancelling = Convert.ToInt32(values[6]);
             Images = values[7].Split(";").ToList<string>();
         }
+    }
+
+    public class AccommodationReservation
+    {
     }
 }
