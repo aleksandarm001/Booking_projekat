@@ -1,4 +1,5 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,27 +10,27 @@ using System.Xaml.Schema;
 
 namespace InitialProject.Model
 {
-    public enum Type {appartment = 0, house, shack}
-    public class Accommodation
+    public enum AccommodationType {appartment = 0, house, shack}
+    public class Accommodation : ISerializable
     {
-        private string accommodationID;
+        private int accommodationID;
         private string name;
         private Location location;
-        private Type type;
+        private AccommodationType accommodationType;
         private int maxGuestNumber;
         private int minReservationDays;
         private int daysBeforeCancelling = 1;
-        private List<String> images = new List<String>(); 
-        private List<Reservation> reservations = new List<Reservation>();
+        private List<string> images = new List<string>(); 
+        private List<Reservation> reservations = new List<Reservation>(); 
 
-        public Accommodation(string accommodationID, string name, Location location, Type type, int maxGuestNumber, 
+        public Accommodation(int accommodationID, string name, Location location, AccommodationType type, int maxGuestNumber, 
             int minReservationDays, int daysBeforeCancelling, List<String> images,
             List<Reservation> reservations)
         {
             this.accommodationID = accommodationID;
             this.name = name;
             this.location = location;
-            this.type = type;
+            this.accommodationType = type;
             this.maxGuestNumber = maxGuestNumber;
             this.minReservationDays = minReservationDays;
             this.daysBeforeCancelling = daysBeforeCancelling;
@@ -38,32 +39,27 @@ namespace InitialProject.Model
         }
         public Accommodation()
         {
-            this.accommodationID = "";
-            this.name = "";
             this.location = new Location();
-            this.type = Type.appartment;
-            maxGuestNumber = 0;
-            minReservationDays = 0;
-            daysBeforeCancelling = 1;
             this.images = new List<String>();
             this.Reservations = new List<Reservation>();
         }
 
         public string Name { get => name; set => name = value; }
         public Location Location { get => location; set => location = value; }
-        public Type Type { get => type; set => type = value; }
+        public AccommodationType Type { get => accommodationType; set => accommodationType = value; }
         public int MaxGuestNumber { get => maxGuestNumber; set => maxGuestNumber = value; }
         public int MinReservationDays { get => minReservationDays; set => minReservationDays = value; }
         public int DaysBeforeCancelling { get => daysBeforeCancelling; set => daysBeforeCancelling = value; }
         public List<String> Images { get => images; set => images = value; }
         public List<Reservation> Reservations { get => reservations; set => reservations = value; }
+        public int AccommodationID { get => accommodationID; set => accommodationID = value; }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { accommodationID,
+            string[] csvValues = { AccommodationID.ToString(),
                 name,
                 location.ToString(),
-                type.ToString(),
+                accommodationType.ToString(),
                 maxGuestNumber.ToString(),
                 minReservationDays.ToString(),
                 daysBeforeCancelling.ToString(),
@@ -72,13 +68,14 @@ namespace InitialProject.Model
         }
         public void FromCSV(string[] values)
         {
-            accommodationID = values[0];
+            AccommodationID = Convert.ToInt32(values[0]);
             name = values[1];
             location = location.fromStringToLocation(values[2]);
-            maxGuestNumber = Convert.ToInt32(values[3]);
-            minReservationDays = Convert.ToInt32(values[4]);
-            daysBeforeCancelling = Convert.ToInt32(values[5]);
-            images = values[6].Split(";").ToList<string>();
+            accommodationType = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[3]);
+            maxGuestNumber = Convert.ToInt32(values[4]);
+            minReservationDays = Convert.ToInt32(values[5]);
+            daysBeforeCancelling = Convert.ToInt32(values[6]);
+            images = values[7].Split(";").ToList<string>();
         }
     }
 }

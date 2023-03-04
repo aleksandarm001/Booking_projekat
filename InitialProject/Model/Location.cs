@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using InitialProject.Serializer;
 using System.Threading.Tasks;
 
 namespace InitialProject.Model
@@ -28,8 +29,6 @@ namespace InitialProject.Model
         }
         public Location()
         {
-            this.city = "";
-            this.country = "";
         }
 
         public override string ToString()

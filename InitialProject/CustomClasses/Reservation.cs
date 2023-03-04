@@ -1,13 +1,14 @@
 ﻿using InitialProject.Model;
 using System;
 using System.Collections.Generic;
+using InitialProject.Serializer;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace InitialProject.CustomClasses
 {
-    public class Reservation
+    public class Reservation : ISerializable
     {
         private string accommodationID;
         private DateTime startDate;
@@ -17,11 +18,17 @@ namespace InitialProject.CustomClasses
 
         public Reservation(string accommodationID, DateTime startDate, DateTime endDate)
         {
-            this.AccommodationID = accommodationID;
-            this.StartDate = startDate;
-            this.EndDate = endDate;
+            this.accommodationID = accommodationID;
+            this.startDate = startDate;
+            this.endDate = endDate;
             sStartDate = string.Format("{0:dd.MM.yyyy.}", startDate);
             sEndDate = string.Format("{0:dd.MM.yyyy.}", endDate);
+        }
+
+        public Reservation()
+        {
+            startDate = new DateTime();
+            endDate = new DateTime();
         }
 
         public DateTime StartDate { get => startDate; set => startDate = value; }
