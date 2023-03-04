@@ -11,18 +11,18 @@ namespace InitialProject.Model
     public enum Type {appartment = 0, house, shack}
     public class Accommodation
     {
-        private string accomodationID;
-        private string naziv;
+        private string accommodationID;
+        private string name;
         private Location location;
         private Type type;
         private int maxGuestNumber;
         private int minReservationDays;
         private int daysBeforeCancelling = 1;
-        private List<Image> images = new List<Image>();
+        private List<String> images = new List<String>();
 
-        public Accommodation(string naziv, Location location, Type type, int maxGuestNumber, int minReservationDays, int daysBeforeCancelling, List<Image> images)
+        public Accommodation(string naziv, Location location, Type type, int maxGuestNumber, int minReservationDays, int daysBeforeCancelling, List<String> images)
         {
-            this.naziv = naziv;
+            this.name = naziv;
             this.location = location;
             this.type = type;
             this.maxGuestNumber = maxGuestNumber;
@@ -32,23 +32,44 @@ namespace InitialProject.Model
         }
         public Accommodation()
         {
-            this.naziv = "";
+            this.name = "";
             this.location = new Location();
             this.type = Type.appartment;
             maxGuestNumber = 0;
             minReservationDays = 0;
             daysBeforeCancelling = 1;
-            this.images = new List<Image>();
+            this.images = new List<String>();
         }
 
-        public string Naziv { get => naziv; set => naziv = value; }
+        public string Name { get => name; set => name = value; }
         public Location Location { get => location; set => location = value; }
         public Type Type { get => type; set => type = value; }
         public int MaxGuestNumber { get => maxGuestNumber; set => maxGuestNumber = value; }
         public int MinReservationDays { get => minReservationDays; set => minReservationDays = value; }
         public int DaysBeforeCancelling { get => daysBeforeCancelling; set => daysBeforeCancelling = value; }
-        public List<Image> Images { get => images; set => images = value; }
+        public List<String> Images { get => images; set => images = value; }
 
-
+        public string[] ToCSV()
+        {
+            string[] csvValues = { accommodationID,
+                name,
+                location.ToString(),
+                type.ToString(),
+                maxGuestNumber.ToString(),
+                minReservationDays.ToString(),
+                daysBeforeCancelling.ToString(),
+                String.Join(";", images)};
+            return csvValues;
+        }
+        public void FromCSV(string[] values)
+        {
+            accommodationID = values[0];
+            name = values[1];
+            location = location.fromStringToLocation(values[2]);
+            maxGuestNumber = Convert.ToInt32(values[3]);
+            minReservationDays = Convert.ToInt32(values[4]);
+            daysBeforeCancelling = Convert.ToInt32(values[5]);
+            images = values[6].Split(";").ToList<string>();
+        }
     }
 }
