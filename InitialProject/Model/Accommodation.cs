@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Xaml.Schema;
+using static System.Net.Mime.MediaTypeNames;
+using System.Xml.Linq;
 
 namespace InitialProject.Model
 {
@@ -40,7 +42,13 @@ namespace InitialProject.Model
         }
         public Accommodation()
         {
+            AccommodationID = 0;
+            Name = "";
             Location = new Location();
+            accommodationType = 0;
+            MaxGuestNumber = 0;
+            MinReservationDays = 0;
+            DaysBeforeCancelling = 0;
             Images = new List<String>();
             Reservations = new List<Reservation>();
         }

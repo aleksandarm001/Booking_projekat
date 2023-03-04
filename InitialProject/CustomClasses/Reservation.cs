@@ -27,6 +27,7 @@ namespace InitialProject.CustomClasses
 
         public Reservation()
         {
+            AccommodationID = 0;
             StartDate = new DateTime();
             EndDate = new DateTime();
             SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate);

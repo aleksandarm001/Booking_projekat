@@ -26,7 +26,12 @@ namespace InitialProject.Model
         }
         public User()
         {
-
+            UserId = 0;
+            Username = "";
+            Password = "";
+            Email = "";
+            PhoneNumber = "";
+            UserType = 0;
         }
 
         public string[] ToCSV()
