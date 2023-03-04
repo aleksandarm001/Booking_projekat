@@ -14,7 +14,6 @@ namespace InitialProject.Model
         public string Description { get; set; }
         public string Language { get; set; }
         public int MaxGuestNumber { get; set; }
-
         public List<int> KeyPointsId { get; set; }
         public List<Location> KeyPoints { get; set; }
         public DateTime StartingDateTimes { get; set; }
@@ -47,8 +46,6 @@ namespace InitialProject.Model
             Images = images;
         }
 
-
-
         public void FromCSV(string[] values)
         {
             TourId = Convert.ToInt32(values[0]);
@@ -65,9 +62,6 @@ namespace InitialProject.Model
             Images = values[10].Split(";").ToList<string>();
 
         }
-
-
-
 
         public string[] ToCSV()
         {

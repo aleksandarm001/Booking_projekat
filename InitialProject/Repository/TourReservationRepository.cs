@@ -12,12 +12,15 @@ namespace InitialProject.Repository
 
         private readonly Serializer<TourReservation> _serializer;
 
+        private TourRepository _tourRepository;
+
         private List<TourReservation> _tourReservations;
 
         public TourReservationRepository()
         {
             _serializer = new Serializer<TourReservation>();
             _tourReservations = _serializer.FromCSV(FilePath);
+            _tourRepository = new TourRepository();
         }
 
         public TourReservation GetByTourAndReservationId(int tourId, int reservationId)
@@ -36,6 +39,9 @@ namespace InitialProject.Repository
             _tourReservations= _serializer.FromCSV(FilePath);
             _tourReservations.Add(tourReservation);
             _serializer.ToCSV(FilePath, _tourReservations);
+            Tour tour = _tourRepository.GetByTourId(tourReservation.TourId);
+            tour.MaxGuestNumber -= tourReservation.NumberOfVisitors;
+            _tourRepository.Update(tour);
             return tourReservation;
         }
 
@@ -45,6 +51,9 @@ namespace InitialProject.Repository
             TourReservation founded = _tourReservations.Find(c => c.TourId == tourReservation.TourId && c.ReservationId == tourReservation.ReservationId);
             _tourReservations.Remove(founded);
             _serializer.ToCSV(FilePath, _tourReservations);
+            Tour tour = _tourRepository.GetByTourId(tourReservation.TourId);
+            tour.MaxGuestNumber += tourReservation.NumberOfVisitors;
+            _tourRepository.Update(tour);
         }
 
         public TourReservation Update(TourReservation tourReservation)
@@ -54,6 +63,10 @@ namespace InitialProject.Repository
             _tourReservations.Remove(current);
             _tourReservations.Add(tourReservation);       
             _serializer.ToCSV(FilePath, _tourReservations);
+            Tour tour = _tourRepository.GetByTourId(tourReservation.TourId);
+            tour.MaxGuestNumber += current.NumberOfVisitors;
+            tour.MaxGuestNumber -= tourReservation.NumberOfVisitors;
+            _tourRepository.Update(tour);
             return tourReservation;
         }
 
