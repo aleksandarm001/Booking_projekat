@@ -32,5 +32,16 @@ namespace InitialProject.Model
             this.country = "";
         }
 
+        public override string ToString()
+        {
+            return city + ";" + country;
+        }
+        public Location fromStringToLocation(string s)
+        {
+            string[] locations = new string[2];
+            locations = s.Split(';');
+            return new Location(locations[0], locations[1]);
+        }
+
     }
 }
