@@ -10,34 +10,32 @@ namespace InitialProject.CustomClasses
 {
     public class Reservation : ISerializable
     {
-        private string accommodationID;
-        private DateTime startDate;
-        private string sStartDate;
-        private DateTime endDate;
-        private string sEndDate;
+        public string AccommodationID { get; set; }
+        public DateTime StartDate { get; set; }
+        public string SStartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string SEndDate { get; set; }
 
         public Reservation(string accommodationID, DateTime startDate, DateTime endDate)
         {
-            this.accommodationID = accommodationID;
-            this.startDate = startDate;
-            this.endDate = endDate;
-            sStartDate = string.Format("{0:dd.MM.yyyy.}", startDate);
-            sEndDate = string.Format("{0:dd.MM.yyyy.}", endDate);
+            AccommodationID = accommodationID;
+            StartDate = startDate;
+            EndDate = endDate;
+            SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate);
+            SEndDate = string.Format("{0:dd.MM.yyyy.}", EndDate);
         }
 
         public Reservation()
         {
-            startDate = new DateTime();
-            endDate = new DateTime();
+            StartDate = new DateTime();
+            EndDate = new DateTime();
+            SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate);
+            SEndDate = string.Format("{0:dd.MM.yyyy.}", EndDate);
         }
-
-        public DateTime StartDate { get => startDate; set => startDate = value; }
-        public DateTime EndDate { get => endDate; set => endDate = value; }
-        public string AccommodationID { get => accommodationID; set => accommodationID = value; }
-
+       
         public override string ToString()
         {
-            return accommodationID + ";" + startDate.ToString() + ";" + endDate.ToString();
+            return AccommodationID + ";" + StartDate.ToString() + ";" + EndDate.ToString();
         }
         public Reservation fromStringToReservation(string s)
         {
@@ -48,19 +46,19 @@ namespace InitialProject.CustomClasses
         public string[] ToCSV()
         {
             string[] csvValues = {
-                accommodationID,
-                startDate.ToString(),
-                endDate.ToString()};
+                AccommodationID,
+                StartDate.ToString(),
+                EndDate.ToString()};
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-            accommodationID = values[0];
-            startDate = DateTime.Parse(values[1]);
-            sStartDate = string.Format("{0:dd.MM.yyyy.}", startDate);
-            endDate = DateTime.Parse(values[2]); 
-            sEndDate = string.Format("{0:dd.MM.yyyy.}", endDate);
+            AccommodationID = values[0];
+            StartDate = DateTime.Parse(values[1]);
+            SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate);
+            EndDate = DateTime.Parse(values[2]); 
+            SEndDate = string.Format("{0:dd.MM.yyyy.}", EndDate);
         }
     }
 }

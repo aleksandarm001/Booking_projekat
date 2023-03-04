@@ -9,31 +9,23 @@ namespace InitialProject.Model
 {
     public class Location
     {
-        private string city;
-        private string country;
-
-        public string City 
-        {
-            get => city; 
-            set => city = value; 
-        }
-        public string Country { 
-            get => country; 
-            set => country = value; 
-        }
+        public string City { get; set; }
+        public string Country { get; set; }
 
         public Location(string city, string country)
         {
-            this.city = city;
-            this.country = country;
+            City = city;
+            Country = country;
         }
         public Location()
         {
+            City = "";
+            Country = "";
         }
 
         public override string ToString()
         {
-            return city + ";" + country;
+            return City + ";" + Country;
         }
         public Location fromStringToLocation(string s)
         {
