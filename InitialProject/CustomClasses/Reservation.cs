@@ -11,23 +11,39 @@ namespace InitialProject.CustomClasses
     public class Reservation : ISerializable
     {
         public int AccommodationID { get; set; }
+        public int UserID { get; set; }
+        public int TourID { get; set; }
         public DateTime StartDate { get; set; }
         public string SStartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string SEndDate { get; set; }
 
-        public Reservation(int accommodationID, DateTime startDate, DateTime endDate)
+
+        public Reservation(int accommodationID, int userID, int tourID,DateTime startDate, DateTime endDate)
         {
             AccommodationID = accommodationID;
+            UserID = userID;
+            TourID = tourID;
             StartDate = startDate;
             EndDate = endDate;
             SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate);
             SEndDate = string.Format("{0:dd.MM.yyyy.}", EndDate);
         }
-
+        public Reservation(int accommodationID, int userID, DateTime startDate, DateTime endDate)
+        {
+            AccommodationID = accommodationID;
+            UserID = userID;
+            TourID = -1;
+            StartDate = startDate;
+            EndDate = endDate;
+            SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate);
+            SEndDate = string.Format("{0:dd.MM.yyyy.}", EndDate);
+        }
         public Reservation()
         {
-            AccommodationID = 0;
+            AccommodationID = -1;
+            TourID = -1;
+            UserID = -1;
             StartDate = new DateTime();
             EndDate = new DateTime();
             SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate);
@@ -38,16 +54,13 @@ namespace InitialProject.CustomClasses
         {
             return AccommodationID.ToString() + ";" + StartDate.ToString() + ";" + EndDate.ToString();
         }
-        public Reservation fromStringToReservation(string s)
-        {
-            string[] reservation = new string[3];
-            reservation = s.Split(';');
-            return new Reservation(Convert.ToInt32(reservation[0]),DateTime.Parse(reservation[1]), DateTime.Parse(reservation[2]));
-        }
+       
         public string[] ToCSV()
         {
             string[] csvValues = {
+                UserID.ToString(),
                 AccommodationID.ToString(),
+                TourID.ToString(),
                 StartDate.ToString(),
                 EndDate.ToString()};
             return csvValues;
@@ -55,10 +68,12 @@ namespace InitialProject.CustomClasses
 
         public void FromCSV(string[] values)
         {
-            AccommodationID = Convert.ToInt32(values[0]);
-            StartDate = DateTime.Parse(values[1]);
+            UserID = Convert.ToInt32(values[0]);
+            TourID = Convert.ToInt32(values[1]);
+            AccommodationID = Convert.ToInt32(values[2]);
+            StartDate = DateTime.Parse(values[3]);
             SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate);
-            EndDate = DateTime.Parse(values[2]); 
+            EndDate = DateTime.Parse(values[4]); 
             SEndDate = string.Format("{0:dd.MM.yyyy.}", EndDate);
         }
     }
