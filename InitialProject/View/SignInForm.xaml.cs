@@ -1,6 +1,7 @@
 ﻿using InitialProject.Forms;
 using InitialProject.Model;
 using InitialProject.Repository;
+using InitialProject.View;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -50,8 +51,12 @@ namespace InitialProject
             {
                 if(user.Password == txtPassword.Password)
                 {
+                    /*
                     CommentsOverview commentsOverview = new CommentsOverview(user);
                     commentsOverview.Show();
+                    */
+                    Guest1View guest1View = new Guest1View();
+                    guest1View.Show();
                     Close();
                 } 
                 else

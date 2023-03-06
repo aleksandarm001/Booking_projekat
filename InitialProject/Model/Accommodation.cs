@@ -1,4 +1,5 @@
-﻿using InitialProject.Serializer;
+﻿using InitialProject.CustomClasses;
+using InitialProject.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace InitialProject.Model
 {
-    public enum AccommodationType { appartment = 0, house, shack }
+    public enum AccommodationType { Appartment = 0, House, Shack }
     public class Accommodation : ISerializable
     {
         public string Name { get; set; }
@@ -16,13 +17,13 @@ namespace InitialProject.Model
         public int MinReservationDays { get; set; }
         public int DaysBeforeCancelling { get; set; }
         public List<String> Images { get; set; }
-        public List<AccommodationReservation> Reservations { get; set; }
+        public List<Reservation> Reservations { get; set; }
         public int AccommodationID { get; set; }
 
 
         public Accommodation(int accommodationID, string name, Location location, AccommodationType type, int maxGuestNumber,
             int minReservationDays, int daysBeforeCancelling, List<String> images,
-            List<AccommodationReservation> reservations)
+            List<Reservation> reservations)
         {
             AccommodationID = accommodationID;
             Name = name;
@@ -44,20 +45,21 @@ namespace InitialProject.Model
             MinReservationDays = 0;
             DaysBeforeCancelling = 0;
             Images = new List<String>();
-            Reservations = new List<AccommodationReservation>();
+            Reservations = new List<Reservation>();
         }
 
 
         public string[] ToCSV()
         {
-            string[] csvValues = { AccommodationID.ToString(),
+            string[] csvValues = { 
+                AccommodationID.ToString(),
                 Name,
                 Location.ToString(),
                 accommodationType.ToString(),
                 MaxGuestNumber.ToString(),
-                MinReservationDays.ToString(),
-                DaysBeforeCancelling.ToString(),
-                string.Join(";", Images)};
+                MinReservationDays.ToString()};
+            //DaysBeforeCancelling.ToString()
+            //string.Join(";", Images)
             return csvValues;
         }
         public void FromCSV(string[] values)
@@ -68,12 +70,8 @@ namespace InitialProject.Model
             accommodationType = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[3]);
             MaxGuestNumber = Convert.ToInt32(values[4]);
             MinReservationDays = Convert.ToInt32(values[5]);
-            DaysBeforeCancelling = Convert.ToInt32(values[6]);
-            Images = values[7].Split(";").ToList<string>();
+            //DaysBeforeCancelling = Convert.ToInt32(values[6]);
+            //Images = values[7].Split(";").ToList<string>();
         }
-    }
-
-    public class AccommodationReservation
-    {
     }
 }

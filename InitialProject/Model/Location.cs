@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using InitialProject.Serializer;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace InitialProject.Model
 {
-    public class Location
+    public class Location: ISerializable
     {
         public string City { get; set; }
         public string Country { get; set; }
@@ -27,6 +28,10 @@ namespace InitialProject.Model
         {
             return City + ";" + Country;
         }
+        public string ToString2()
+        {
+            return City + " " + Country;
+        }
         public Location fromStringToLocation(string s)
         {
             string[] locations = new string[2];
@@ -34,5 +39,19 @@ namespace InitialProject.Model
             return new Location(locations[0], locations[1]);
         }
 
+        public string[] ToCSV()
+        {
+            string[] csvValues = {
+                Country,
+                City};
+            
+            return csvValues;
+        }
+
+        public void FromCSV(string[] values)
+        {
+            Country = values[0];
+            City = values[1];
+        }
     }
 }
