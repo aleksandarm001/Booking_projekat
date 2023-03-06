@@ -1,0 +1,67 @@
+﻿<Window x:Class="InitialProject.View.Accommodation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InitialProject.View"
+        mc:Ignorable="d"
+        Title="Accommodation" Height="556" Width="917">
+    <Grid Margin="10,10,0,-6">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"></RowDefinition>
+            <RowDefinition Height="55*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="13*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid Grid.Column="1" Grid.Row="1" Margin="15,43,15,31">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Lokacija" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tip" Width="80"></DataGridTextColumn>
+                <DataGridTextColumn Header="Maksimalan Broj Gostiju"></DataGridTextColumn>
+                <DataGridTextColumn Header="Minimalan broj dana za rezervaciju"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DatePicker HorizontalAlignment="Center" Margin="0,31,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+        <DatePicker HorizontalAlignment="Center" Margin="0,86,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+        <Label Content="Datum dolaska" HorizontalAlignment="Left" Margin="15,6,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="Datum odlaska" HorizontalAlignment="Left" Margin="15,61,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="Grad" HorizontalAlignment="Left" Margin="15,115,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Center" Margin="0,140,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+        <Label Content="Drzava" HorizontalAlignment="Left" Margin="15,167,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Center" Margin="0,193,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+        <Label Content="Tip smjestaja" HorizontalAlignment="Left" Margin="15,220,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Center" Margin="0,246,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+        <Label Content="Broj gostiju" HorizontalAlignment="Left" Margin="15,273,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Center" Margin="0,299,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+        <Label Content="Broj dana za rezervaciju" HorizontalAlignment="Left" Margin="15,326,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Center" Margin="0,352,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="130"/>
+        <Button Content="Primijeni" HorizontalAlignment="Center" Margin="0,389,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="30"/>
+        
+        <GridSplitter Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="530" Margin="170,0,0,0" VerticalAlignment="Top" Width="3" Grid.RowSpan="2"/>
+        
+        <ToolBar Grid.Column="1" HorizontalAlignment="Left" Height="40" VerticalAlignment="Center" Width="735">
+            <TextBox Height="25" TextWrapping="Wrap" Text="TextBox" Width="120" HorizontalAlignment="Left"/>
+        </ToolBar>
+        
+        <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="592,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+        <Label Grid.Column="1" Content="Sortiraj po" HorizontalAlignment="Left" Margin="527,4,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="BookingBuddies" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <GridSplitter HorizontalAlignment="Left" Height="180" Margin="79,-30,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="3" RenderTransformOrigin="0.5,0.5">
+            <GridSplitter.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90.014"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </GridSplitter.RenderTransform>
+        </GridSplitter>
+    </Grid>
+
+</Window>

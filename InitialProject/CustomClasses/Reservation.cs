@@ -17,6 +17,7 @@ namespace InitialProject.CustomClasses
         public string SStartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string SEndDate { get; set; }
+        public float AvgRating { get; set; }
 
 
         public Reservation(int accommodationID, int userID, int tourID,DateTime startDate, DateTime endDate)
@@ -62,7 +63,8 @@ namespace InitialProject.CustomClasses
                 AccommodationID.ToString(),
                 TourID.ToString(),
                 StartDate.ToString(),
-                EndDate.ToString()};
+                EndDate.ToString(),
+                AvgRating.ToString()};
             return csvValues;
         }
 
@@ -75,6 +77,7 @@ namespace InitialProject.CustomClasses
             SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate);
             EndDate = DateTime.Parse(values[4]); 
             SEndDate = string.Format("{0:dd.MM.yyyy.}", EndDate);
+            AvgRating = float.Parse(values[5]);
         }
     }
 }
