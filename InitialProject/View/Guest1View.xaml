@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="Accommodation" Height="556" Width="917">
-    <Grid Margin="10,10,0,-6">
+        Title="Accommodation" Height="683" Width="917">
+    <Grid Margin="10,10,0,13">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="7*"></RowDefinition>
@@ -16,6 +16,7 @@
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="13*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+
 
         <DataGrid Grid.Column="1" Grid.Row="1" Margin="15,43,15,31"
                   ItemsSource="{Binding Path = Accommodations, UpdateSourceTrigger=PropertyChanged}"
@@ -30,37 +31,50 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <DatePicker Name ="CommingDate" HorizontalAlignment="Center" Margin="0,41,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
-        <DatePicker Name ="LeavingDate"  HorizontalAlignment="Center" Margin="0,96,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+
+        <DatePicker Name ="CommingDate" HorizontalAlignment="Center" 
+                    Margin="0,41,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130" 
+                    SelectedDate="{Binding SelectedStartDate, Mode=TwoWay}"/>
+        
+
+        <DatePicker Name ="LeavingDate"  HorizontalAlignment="Center" Margin="0,96,0,0" Grid.Row="1" 
+                    VerticalAlignment="Top" Width="130"
+                     SelectedDate="{Binding SelectedEndDate, Mode=TwoWay}"/>
+        
         <Label Content="Datum dolaska" HorizontalAlignment="Left" Margin="15,16,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <Label Content="Datum odlaska" HorizontalAlignment="Left" Margin="15,71,0,0" Grid.Row="1" VerticalAlignment="Top"/>
 
         <Label Content="Grad" HorizontalAlignment="Left" Margin="15,168,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <ComboBox Name="CityCmbx" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
                   ItemsSource="{Binding Cities}" HorizontalAlignment="Center" Margin="0,193,0,0" 
-                  Grid.Row="1" VerticalAlignment="Top" Width="130" SelectionChanged="Filter_Countries" SelectedIndex="0">
-        </ComboBox>
+                  Grid.Row="1" VerticalAlignment="Top" Width="130" SelectionChanged="Filter_Countries" SelectedIndex="0"/>
+
 
         <Label Content="Drzava" HorizontalAlignment="Left" Margin="15,121,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <ComboBox Name ="CountryCmbx" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
                   ItemsSource="{Binding Countries}"  HorizontalAlignment="Center" Margin="0,147,0,0" 
                   Grid.Row="1" VerticalAlignment="Top" Width="130" SelectionChanged="Filter_Cities" SelectedIndex="0">
-            
+
         </ComboBox>
 
         <Label Content="Tip smjestaja" HorizontalAlignment="Left" Margin="15,220,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <ComboBox Name="TypeCmbx" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
                   HorizontalAlignment="Center" Margin="0,246,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130">
-            <ComboBoxItem Content="Apartman"></ComboBoxItem>
-            <ComboBoxItem Content="Kuca"></ComboBoxItem>
-            <ComboBoxItem Content="Koliba"></ComboBoxItem>
+            <ComboBoxItem Content=""></ComboBoxItem>
+            <ComboBoxItem Content="Appartment"></ComboBoxItem>
+            <ComboBoxItem Content="House"></ComboBoxItem>
+            <ComboBoxItem Content="Shack"></ComboBoxItem>
         </ComboBox>
 
         <Label Content="Broj gostiju" HorizontalAlignment="Left" Margin="15,273,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox Name="GuestNumberCmbx" HorizontalAlignment="Center" Margin="0,299,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+        <TextBox Name="GuestNumber" HorizontalAlignment="Center" Margin="0,299,0,0" 
+                 Grid.Row="1" VerticalAlignment="Top" Width="130"
+                 Text="{Binding Path=StrNumberOfGuests, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Content="Broj dana za rezervaciju" HorizontalAlignment="Left" Margin="15,326,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox Name ="DaysReservationCmbx" HorizontalAlignment="Center" Margin="0,352,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
+        <TextBox Name ="DaysReservation" HorizontalAlignment="Center" Margin="0,352,0,0" 
+                 Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"
+                 Text="{Binding Path=StrReservationDays, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Button Content="Primijeni" Click="ApplyAdditionalSearch" HorizontalAlignment="Center" Margin="0,389,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="30"/>
 

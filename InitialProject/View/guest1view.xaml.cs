@@ -19,6 +19,8 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using InitialProject.Model;
 using System.Diagnostics.Metrics;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace InitialProject.View
 {
@@ -27,12 +29,85 @@ namespace InitialProject.View
     /// </summary>
     public partial class Guest1View : Window
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
+
+        private string _city;
+        public string City
+        {
+            get => _city;
+            set
+            {
+                if(value != _city)
+                {
+                    _city = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public static ObservableCollection<string> Countries { get; set; }
+        private string _country;
+        public string Country
+        {
+            get => _country;
+            set
+            {
+                if (value != _country)
+                {
+                    _country = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int NumberOfGuests { get; set; }
+        private string _strNumberOfGuests;
+        public string StrNumberOfGuests
+        {
+            get => _strNumberOfGuests;
+            set
+            {
+                if (value != _strNumberOfGuests)
+                {
+                    try
+                    {
+                        int _numberOfGuests;
+                        int.TryParse(value, out _numberOfGuests);
+                        NumberOfGuests = _numberOfGuests;
+                        MessageBox.Show(NumberOfGuests.ToString());
+                    }
+                    catch (Exception) { }
+                    _strNumberOfGuests = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int ReservationDays { get; set; }
+        private string _strReservationDays;
+        public string StrReservationDays
+        {
+            get => _strReservationDays;
+            set
+            {
+                if (value != _strReservationDays)
+                {
+                    try
+                    {
+                        int _reservationDays;
+                        int.TryParse(value, out _reservationDays);
+                        ReservationDays = _reservationDays;
+                    }
+                    catch (Exception) { }
+                    _strReservationDays = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public static CollectionViewSource CollectionViewLocations { get; set; }
         public static ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
+        public DateTime SelectedStartDate { get; set; }
+        public DateTime SelectedEndDate { get; set; }
 
         private readonly AccommodationRepository _repository;
         private readonly LocationRepository _lrepository;
@@ -47,6 +122,8 @@ namespace InitialProject.View
             Locations = new ObservableCollection<Location>((IEnumerable<Location>)_lrepository.getAll());
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
+            SelectedStartDate = DateTime.Today;
+            SelectedEndDate = DateTime.Today;
             readCitiesAndCountries();
         }
         private void readCitiesAndCountries()
@@ -64,6 +141,35 @@ namespace InitialProject.View
         }
         private void ApplyAdditionalSearch(object sender, RoutedEventArgs e)
         {
+            string _accommodationType = TypeCmbx.Text;
+            ObservableCollection<Accommodation> TempAccommodations = new ObservableCollection<Accommodation>((IEnumerable<Accommodation>)_repository.getAll());
+            Accommodations.Clear();
+            if(TypeCmbx.SelectedIndex == 0)
+            {
+                foreach(Accommodation accommodation in TempAccommodations)
+                {
+                    Accommodations.Add(accommodation);
+                }
+            }
+            else if (TypeCmbx.SelectedItem != null)
+            {
+                foreach(Accommodation accommodation in TempAccommodations)
+                {
+                    if(TypeCmbx.SelectedIndex == 1 && accommodation.accommodationType == AccommodationType.Appartment)
+                    {
+                        Accommodations.Add(accommodation);
+                    }else if (TypeCmbx.SelectedIndex == 2 && accommodation.accommodationType == AccommodationType.House)
+                    {
+                        Accommodations.Add(accommodation);
+                    }
+                    else if(TypeCmbx.SelectedIndex == 3 && accommodation.accommodationType == AccommodationType.Shack)
+                    {
+                        Accommodations.Add(accommodation);
+                    }
+                }
+            }
+
+            //if(City == " " )
 
         }
 
@@ -107,6 +213,10 @@ namespace InitialProject.View
         private void Filter_Countries(object sender, SelectionChangedEventArgs e)
         {
             
+        }
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace InitialProject.Model
 {
-    public enum AccommodationType { Appartment = 0, House, Shack }
+    public enum AccommodationType { Appartment = 0, House = 1, Shack = 2}
     public class Accommodation : ISerializable
     {
         public string Name { get; set; }
