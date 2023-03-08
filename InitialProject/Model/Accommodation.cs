@@ -16,7 +16,7 @@ namespace InitialProject.Model
         public int MaxGuestNumber { get; set; }
         public int MinReservationDays { get; set; }
         public int DaysBeforeCancelling { get; set; }
-        public List<String> Images { get; set; }
+        public List<string> Images { get; set; }
         public List<Reservation> Reservations { get; set; }
         public int AccommodationID { get; set; }
 

@@ -13,3 +13,4 @@
 13|Modern Villa|Cancun;Mexico|1|5|8
 14|Historic Townhouse|Boston;United States|2|9|4
 15|Cosy Chalet|Zermatt;Switzerland|0|4|5
+16|HotelBG|Belgrade;Serbia|0|3|6

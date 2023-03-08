@@ -32,6 +32,15 @@ namespace InitialProject.View
         public event PropertyChangedEventHandler PropertyChanged;
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
+        public static ObservableCollection<string> Countries { get; set; }
+        public string AccommodationName { get; set; }
+        public static CollectionViewSource CollectionViewLocations { get; set; }
+        public static ObservableCollection<Accommodation> Accommodations { get; set; }
+        public Accommodation SelectedAccommodation { get; set; }
+        public DateTime SelectedStartDate { get; set; }
+        public DateTime SelectedEndDate { get; set; }
+        private readonly AccommodationRepository _repository;
+        private readonly LocationRepository _locationRepository;
 
         private string _city;
         public string City
@@ -46,7 +55,6 @@ namespace InitialProject.View
                 }
             }
         }
-        public static ObservableCollection<string> Countries { get; set; }
         private string _country;
         public string Country
         {
@@ -103,33 +111,24 @@ namespace InitialProject.View
                 }
             }
         }
-        public static CollectionViewSource CollectionViewLocations { get; set; }
-        public static ObservableCollection<Accommodation> Accommodations { get; set; }
-        public Accommodation SelectedAccommodation { get; set; }
-        public DateTime SelectedStartDate { get; set; }
-        public DateTime SelectedEndDate { get; set; }
-
-        private readonly AccommodationRepository _repository;
-        private readonly LocationRepository _lrepository;
-
         public Guest1View()
         {
             InitializeComponent();
             DataContext = this;
             _repository = new AccommodationRepository();
-            _lrepository = new LocationRepository();
-            Accommodations = new ObservableCollection<Accommodation>((IEnumerable<Accommodation>)_repository.getAll());
-            Locations = new ObservableCollection<Location>((IEnumerable<Location>)_lrepository.getAll());
+            _locationRepository = new LocationRepository();
+            Accommodations = new ObservableCollection<Accommodation>(_repository.getAll());
+            Locations = new ObservableCollection<Location>(_locationRepository.getAll());
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             SelectedStartDate = DateTime.Today;
             SelectedEndDate = DateTime.Today;
-            readCitiesAndCountries();
+            ReadCitiesAndCountries();
         }
-        private void readCitiesAndCountries()
+        private void ReadCitiesAndCountries()
         {
-            Cities.Add(" ");
-            Countries.Add(" ");
+            Cities.Add("");
+            Countries.Add("");
             foreach (Location l in Locations)
             {
                 Cities.Add(l.City);
@@ -139,38 +138,30 @@ namespace InitialProject.View
                 }
             }
         }
+        public static ObservableCollection<string> SortObservableCollection(ObservableCollection<string> inputCollection)
+        {
+            // Create a new ObservableCollection<string> with the sorted items
+            ObservableCollection<string> sortedCollection = new ObservableCollection<string>(inputCollection.OrderBy(x => x));
+
+            // Return the sorted collection
+            return sortedCollection;
+        }
         private void ApplyAdditionalSearch(object sender, RoutedEventArgs e)
         {
-            string _accommodationType = TypeCmbx.Text;
-            ObservableCollection<Accommodation> TempAccommodations = new ObservableCollection<Accommodation>((IEnumerable<Accommodation>)_repository.getAll());
+            //napraviti medju kolekciju u koju ces ubacivati medjurezultate pretrage
+            //koju ces popunjavati u svakom ifu odnosno filtrirati
             Accommodations.Clear();
-            if(TypeCmbx.SelectedIndex == 0)
+            ObservableCollection<Accommodation> tempAccommodations = new ObservableCollection<Accommodation>(_repository.getAll());
+            if(AccommodationName != null)
             {
-                foreach(Accommodation accommodation in TempAccommodations)
+                foreach(Accommodation accommodation in tempAccommodations)
                 {
-                    Accommodations.Add(accommodation);
-                }
-            }
-            else if (TypeCmbx.SelectedItem != null)
-            {
-                foreach(Accommodation accommodation in TempAccommodations)
-                {
-                    if(TypeCmbx.SelectedIndex == 1 && accommodation.accommodationType == AccommodationType.Appartment)
-                    {
-                        Accommodations.Add(accommodation);
-                    }else if (TypeCmbx.SelectedIndex == 2 && accommodation.accommodationType == AccommodationType.House)
-                    {
-                        Accommodations.Add(accommodation);
-                    }
-                    else if(TypeCmbx.SelectedIndex == 3 && accommodation.accommodationType == AccommodationType.Shack)
+                    if (accommodation.Name.ToLower().Contains(AccommodationName.ToLower()))
                     {
                         Accommodations.Add(accommodation);
                     }
                 }
             }
-
-            //if(City == " " )
-
         }
 
         private void Filter_Cities(object sender, SelectionChangedEventArgs e)
@@ -189,17 +180,17 @@ namespace InitialProject.View
                 }
             }catch(System.NullReferenceException)
             {
-                readCitiesAndCountries();
+                ReadCitiesAndCountries();
             }
-            if (country == " ")
+            if (country == "")
             {
                 Cities.Clear();
-                readCitiesAndCountries();
+                ReadCitiesAndCountries();
             }
             else
             {
                 Cities.Clear();
-                Cities.Add(" ");
+                Cities.Add("");
                 foreach (Location loc in Locations)
                 {
                     if (loc.Country == country)
