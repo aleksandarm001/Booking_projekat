@@ -1,24 +1,10 @@
-﻿using InitialProject.CustomClasses;
-using InitialProject.Model;
+﻿using InitialProject.Model;
 using InitialProject.Repository;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows;
-using System.Collections.ObjectModel;
-using InitialProject.Model;
-using System.Diagnostics.Metrics;
 
 namespace InitialProject.View
 {
@@ -73,7 +59,7 @@ namespace InitialProject.View
             string country = "";
             try
             {
-                if(cmbx.SelectedItem != null)
+                if (cmbx.SelectedItem != null)
                 {
                     country = cmbx.SelectedItem.ToString();
                 }
@@ -81,7 +67,8 @@ namespace InitialProject.View
                 {
                     cmbx.SelectedItem = 0;
                 }
-            }catch(System.NullReferenceException)
+            }
+            catch (System.NullReferenceException)
             {
                 readCitiesAndCountries();
             }
@@ -106,7 +93,7 @@ namespace InitialProject.View
         }
         private void Filter_Countries(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
     }
 }

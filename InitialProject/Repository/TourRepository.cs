@@ -11,26 +11,32 @@ namespace InitialProject.Repository
 
     {
 
-        private const string FilePath = "../../../Resources/Data/tours.csv";
+        private const string FilePath = "../../../Resources/Data/tours.txt";
 
         private readonly Serializer<Tour> _serializer;
 
         private List<Tour> _tours;
 
+        private LocationRepository _locationRepository;
+
         public TourRepository()
         {
             _serializer = new Serializer<Tour>();
+            _locationRepository = new LocationRepository();
             _tours = _serializer.FromCSV(FilePath);
         }
         public Tour GetByTourId(int tourId)
         {
-            _tours = _serializer.FromCSV(FilePath);
             return _tours.FirstOrDefault(t => t.TourId == tourId);
         }
 
         public List<Tour> GetAll() 
         {
-            return _serializer.FromCSV(FilePath);
+            foreach(Tour t in _tours)
+            {
+                t.Location = _locationRepository.GetById(t.LocationId);
+            }
+            return _tours;
         }
 
         public Tour Save(Tour tour)

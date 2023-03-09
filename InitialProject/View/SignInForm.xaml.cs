@@ -46,19 +46,21 @@ namespace InitialProject
 
         private void SignIn(object sender, RoutedEventArgs e)
         {
+
+
             User user = _repository.GetByUsername(Username);
             if (user != null)
             {
-                if(user.Password == txtPassword.Password)
+                if (user.Password == txtPassword.Password)
                 {
-                    /*
-                    CommentsOverview commentsOverview = new CommentsOverview(user);
-                    commentsOverview.Show();
-                    */
-                    Guest1View guest1View = new Guest1View();
-                    guest1View.Show();
+
+/*                    CommentsOverview commentsOverview = new CommentsOverview(user);
+                    commentsOverview.Show();*/
+
+                    TourView tourView = new TourView();
+                    tourView.Show();
                     Close();
-                } 
+                }
                 else
                 {
                     MessageBox.Show("Wrong password!");
@@ -68,7 +70,7 @@ namespace InitialProject
             {
                 MessageBox.Show("Wrong username!");
             }
-            
+
         }
     }
 }

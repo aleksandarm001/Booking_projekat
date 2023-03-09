@@ -20,6 +20,7 @@ namespace InitialProject.Model
         public int Duration { get; set; }
         public List<String> Images { get; set; }
 
+
         public Tour()
         {
             Name = "";
@@ -51,21 +52,19 @@ namespace InitialProject.Model
             TourId = Convert.ToInt32(values[0]);
             Name = values[1];
             LocationId = Convert.ToInt32(values[2]);
-            Description = values[4];
-            Language = values[5];
-            MaxGuestNumber = Convert.ToInt32(values[6]);
-
-            KeyPointsId = values[7].Split(";").Select(int.Parse).ToList();
-
-            StartingDateTimes = Convert.ToDateTime(values[8]);
-            Duration = Convert.ToInt32(values[9]);
-            Images = values[10].Split(";").ToList<string>();
+            Description = values[3];
+            Language = values[4];
+            MaxGuestNumber = Convert.ToInt32(values[5]);
+            KeyPointsId = values[6].Split(";").Select(int.Parse).ToList();
+            StartingDateTimes = Convert.ToDateTime(values[7]);
+            Duration = Convert.ToInt32(values[8]);
+            Images = values[9].Split(";").ToList<string>();
 
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { TourId.ToString(), Name, Location.ToString(), Description, Language, MaxGuestNumber.ToString(), KeyPoints.ToString(), StartingDateTimes.ToString(), Duration.ToString(), Images.ToString() };
+            string[] csvValues = { TourId.ToString(), Name, LocationId.ToString(), Description, Language, MaxGuestNumber.ToString(), KeyPoints.ToString(), StartingDateTimes.ToString(), Duration.ToString(), Images.ToString() };
             return csvValues;
         }
     }

@@ -19,7 +19,7 @@ namespace InitialProject.Repository
         public LocationRepository()
         {
             _serializer = new Serializer<Location>();
-            _locations = new List<Location>();
+            _locations = _serializer.FromCSV(FilePath);
         }
         public List<Location> getAll()
         {
@@ -38,6 +38,11 @@ namespace InitialProject.Repository
             Location foundedLocation = _locations.Find(loc => loc.City == location.City && location.Country == location.Country);
             _locations.Remove(foundedLocation);
             _serializer.ToCSV(FilePath, _locations);
+        }
+
+        public Location GetById(int id)
+        {
+            return _locations.Find(l => l.Id == id);
         }
     }
 }
