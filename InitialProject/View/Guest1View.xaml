@@ -24,7 +24,8 @@
                   IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Width="100" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Lokacija" Width="100" Binding="{Binding Location}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Country" Width="100" Binding="{Binding Location.Country}"></DataGridTextColumn>
+                <DataGridTextColumn Header="City" Width="100" Binding="{Binding Location.City}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Tip" Width="80" Binding="{Binding accommodationType}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Maksimalan Broj Gostiju" Binding="{Binding MaxGuestNumber}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Minimalan broj dana za rezervaciju" Binding="{Binding MinReservationDays}"></DataGridTextColumn>
@@ -83,12 +84,12 @@
             </GridSplitter.RenderTransform>
         </GridSplitter>
         <Label Content="Ime Smjestaja" HorizontalAlignment="Left" Margin="15,52,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox x:Name ="DaysReservation_Copy" HorizontalAlignment="Center" Margin="0,78,0,0" 
+        <TextBox Name ="AccommodationNameTextBox" HorizontalAlignment="Center" Margin="0,78,0,0" 
             Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"
             Text="{Binding AccommodationName}"/>
-        <CheckBox Content="Appartment" Name="ACheckBox" HorizontalAlignment="Left" Margin="33,226,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <CheckBox Content="Appartment" Name="AppartmentCheckBox" HorizontalAlignment="Left" Margin="33,226,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <CheckBox Content="House" Name ="HouseCheckBox" HorizontalAlignment="Left" Margin="33,246,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <CheckBox Content="Shack" Name ="ShackCheckbox" HorizontalAlignment="Left" Margin="33,266,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <CheckBox Content="Shack" Name ="ShackCheckBox" HorizontalAlignment="Left" Margin="33,266,0,0" Grid.Row="1" VerticalAlignment="Top"/>
     </Grid>
 
 </Window>

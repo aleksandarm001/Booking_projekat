@@ -35,6 +35,10 @@ namespace InitialProject.Model
             Images = images;
             Reservations = reservations;
         }
+        ~Accommodation()
+        {
+
+        }
         public Accommodation()
         {
             AccommodationID = 0;

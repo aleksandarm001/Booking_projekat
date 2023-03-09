@@ -41,6 +41,8 @@ namespace InitialProject
         {
             InitializeComponent();
             DataContext = this;
+            Username = "Pera";
+
             _repository = new UserRepository();
         }
 

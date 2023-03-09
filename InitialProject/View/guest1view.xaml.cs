@@ -21,21 +21,32 @@ using InitialProject.Model;
 using System.Diagnostics.Metrics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Collections.Specialized;
 
 namespace InitialProject.View
 {
     /// <summary>
     /// Interaction logic for guest1view.xaml
     /// </summary>
-    public partial class Guest1View : Window
+    public partial class Guest1View : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<string> Countries { get; set; }
         public string AccommodationName { get; set; }
-        public static CollectionViewSource CollectionViewLocations { get; set; }
-        public static ObservableCollection<Accommodation> Accommodations { get; set; }
+
+        private ObservableCollection<Accommodation> _accommodations;
+        public ObservableCollection<Accommodation> Accommodations
+        {
+            get { return _accommodations; }
+            set
+            {
+                _accommodations = value;
+                OnPropertyChanged(nameof(Accommodations));
+            }
+        }
+
         public Accommodation SelectedAccommodation { get; set; }
         public DateTime SelectedStartDate { get; set; }
         public DateTime SelectedEndDate { get; set; }
@@ -82,7 +93,6 @@ namespace InitialProject.View
                         int _numberOfGuests;
                         int.TryParse(value, out _numberOfGuests);
                         NumberOfGuests = _numberOfGuests;
-                        MessageBox.Show(NumberOfGuests.ToString());
                     }
                     catch (Exception) { }
                     _strNumberOfGuests = value;
@@ -138,30 +148,51 @@ namespace InitialProject.View
                 }
             }
         }
-        public static ObservableCollection<string> SortObservableCollection(ObservableCollection<string> inputCollection)
-        {
-            // Create a new ObservableCollection<string> with the sorted items
-            ObservableCollection<string> sortedCollection = new ObservableCollection<string>(inputCollection.OrderBy(x => x));
-
-            // Return the sorted collection
-            return sortedCollection;
-        }
         private void ApplyAdditionalSearch(object sender, RoutedEventArgs e)
         {
-            //napraviti medju kolekciju u koju ces ubacivati medjurezultate pretrage
-            //koju ces popunjavati u svakom ifu odnosno filtrirati
-            Accommodations.Clear();
             ObservableCollection<Accommodation> tempAccommodations = new ObservableCollection<Accommodation>(_repository.getAll());
-            if(AccommodationName != null)
+            string _country = CountryCmbx.Text;
+            string _city = CityCmbx.Text;
+
+            if(AppartmentCheckBox.IsChecked == true && HouseCheckBox.IsChecked == true && ShackCheckBox.IsChecked == false)
             {
-                foreach(Accommodation accommodation in tempAccommodations)
-                {
-                    if (accommodation.Name.ToLower().Contains(AccommodationName.ToLower()))
-                    {
-                        Accommodations.Add(accommodation);
-                    }
-                }
+                var filteredCollectionByTypes = tempAccommodations.Where(a =>
+                    (a.accommodationType == AccommodationType.Appartment || a.accommodationType == AccommodationType.House));
+                tempAccommodations = new ObservableCollection<Accommodation>(filteredCollectionByTypes);
+            }else if(AppartmentCheckBox.IsChecked == true && ShackCheckBox.IsChecked == true && HouseCheckBox.IsChecked == false)
+            {
+                var filteredCollectionByTypes = tempAccommodations.Where(a =>
+                    (a.accommodationType == AccommodationType.Appartment || a.accommodationType == AccommodationType.Shack));
+                tempAccommodations = new ObservableCollection<Accommodation>(filteredCollectionByTypes);
             }
+            else if (HouseCheckBox.IsChecked == true && ShackCheckBox.IsChecked == true && AppartmentCheckBox.IsChecked == false)
+            {
+                var filteredCollectionByTypes = tempAccommodations.Where(a =>
+                    (a.accommodationType == AccommodationType.House || a.accommodationType == AccommodationType.Shack));
+                tempAccommodations = new ObservableCollection<Accommodation>(filteredCollectionByTypes);
+            }
+            else if (HouseCheckBox.IsChecked == true && ShackCheckBox.IsChecked == true && AppartmentCheckBox.IsChecked == true)
+            {
+                /* DO NOTHING */
+            }
+            else
+            {
+               var filteredCollectionByTypes = tempAccommodations.Where(a =>
+               (AppartmentCheckBox.IsChecked == false || a.accommodationType == AccommodationType.Appartment) &&
+               (HouseCheckBox.IsChecked == false || a.accommodationType == AccommodationType.House) &&
+               (ShackCheckBox.IsChecked == false || a.accommodationType == AccommodationType.Shack));
+               tempAccommodations = new ObservableCollection<Accommodation>(filteredCollectionByTypes);
+            }
+
+            var filteredCollection = tempAccommodations.Where(a =>
+                (string.IsNullOrEmpty(AccommodationName) || a.Name.ToLower().Contains(AccommodationName.ToLower())) &&
+                (string.IsNullOrEmpty(_country) || a.Location.Country == _country) &&
+                (string.IsNullOrEmpty(_city) || a.Location.City == _city) &&
+                (string.IsNullOrEmpty(GuestNumber.Text) || a.MaxGuestNumber >= Convert.ToInt32(GuestNumber.Text)) &&
+                (string.IsNullOrEmpty(DaysReservation.Text) || a.MinReservationDays <= Convert.ToInt32(DaysReservation.Text)));
+
+            Accommodations = new ObservableCollection<Accommodation>(filteredCollection);
+           
         }
 
         private void Filter_Cities(object sender, SelectionChangedEventArgs e)
@@ -209,5 +240,6 @@ namespace InitialProject.View
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        
     }
 }
