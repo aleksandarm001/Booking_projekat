@@ -37,5 +37,11 @@ namespace InitialProject.View
             Guest1View guest1View = new Guest1View(Locations);
             guest1View.Show();
         }
+
+        private void Owner_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            RegisterNewAccommodation newAccommodation = new RegisterNewAccommodation();
+            newAccommodation.Show();
+        }
     }
 }

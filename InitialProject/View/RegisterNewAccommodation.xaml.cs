@@ -62,7 +62,7 @@ namespace InitialProject.View
                 }
             }
         }
-
+        /*
         public string AccommodationCity
         {
             get => _accommodationCity;
@@ -101,7 +101,7 @@ namespace InitialProject.View
                 }
             }
         }
-
+        */
         public int AccomodationMaxGuests
         {
             get => _maxGuests;
@@ -149,7 +149,7 @@ namespace InitialProject.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public RegisterNewAccommodation(Accommodation accommodation)
+        public RegisterNewAccommodation()
         {
             InitializeComponent();
             DataContext = this;
@@ -157,28 +157,42 @@ namespace InitialProject.View
             _accommodationRepository = new AccommodationRepository();
             _locationRepository = new LocationRepository();
 
+            Locations = new ObservableCollection<Location>(_locationRepository.getAll());
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
 
-
-            _accommodationName = accommodation.Name;
-            _accommodationCity = accommodation.Location.City;
-            _accommodationCountry = accommodation.Location.Country;
-            _accommodationType = accommodation.accommodationType.ToString();
-            _maxGuests = accommodation.MaxGuestNumber;
-            _minDays = accommodation.MinReservationDays;
-            _cancelationDays = accommodation.DaysBeforeCancelling;
-
             ReadCitiesAndCountries();
-
+                
         }
 
         private void NewAccommodationRegistration(object sender, RoutedEventArgs e)
         {
-            /*
-                Accommodation newAccommodation = new Accommodation(Name,)
-                Accommodation registerdAccommodation = accommodationRepository.Save(newAccomodation);
-            */
+
+            Accommodation newAccommodation = new Accommodation();
+            newAccommodation.Name = AccommodationName;
+            newAccommodation.MaxGuestNumber = AccomodationMaxGuests;
+            newAccommodation.DaysBeforeCancelling = AccomodationCancelationDays;
+            newAccommodation.MinReservationDays = AccomodationReservationMinDays;
+            newAccommodation.Location = new Location(CityComboBox.Text,CountriesComboBox.Text);
+            switch (TypeComboBox.Text)
+            {
+                case "Apartmant":
+                    newAccommodation.accommodationType = AccommodationType.Appartment;
+                    break;
+
+                case "Shack":
+                    newAccommodation.accommodationType = AccommodationType.Shack;
+                    break;
+
+                case "House":
+                    newAccommodation.accommodationType = AccommodationType.House;
+                    break;
+            }
+            
+                Accommodation registerdAccommodation = _accommodationRepository.Save(newAccommodation);
+                
+                
+            
         }
 
         private void ReadCitiesAndCountries()
@@ -232,7 +246,7 @@ namespace InitialProject.View
                         Cities.Add(loc.City);
                     }
                 }
-                CityCmbx.SelectedIndex = 1;
+                CityComboBox.SelectedIndex = 1;
             }
         }
 
