@@ -5,8 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="AccommodationReservationForm" Height="450" Width="800">
+        Title="AccommodationReservationForm" Height="450" Width="600">
     <Grid>
-        
+        <DatePicker HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top"/>
+        <Label Content="Start Date" FontSize="10" HorizontalAlignment="Left" Margin="5,32,0,0" VerticalAlignment="Top"/>
+        <Label Content="End Date" FontSize ="10" HorizontalAlignment="Left" Margin="5,82,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="20" Margin="10,155,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="102"/>
+        <Label Content="Days" FontSize ="10" HorizontalAlignment="Left" Margin="5,132,0,0" VerticalAlignment="Top"/>
+        <DataGrid HorizontalAlignment="Left" Height="251" Margin="158,44,0,0" VerticalAlignment="Top" Width="419">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Accommodation Name"></DataGridTextColumn>
+                <DataGridTextColumn Header="Start Date"></DataGridTextColumn>
+                <DataGridTextColumn Header="End Date"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Window>

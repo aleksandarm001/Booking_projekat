@@ -240,6 +240,11 @@ namespace InitialProject.View
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
+
+        private void BookClick(object sender, RoutedEventArgs e)
+        {
+            AccommodationReservationForm accommodationReservationFormWindow = new AccommodationReservationForm(SelectedAccommodation);
+            accommodationReservationFormWindow.ShowDialog();
+        }
     }
 }

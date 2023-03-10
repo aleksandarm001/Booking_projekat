@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InitialProject.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,12 @@ namespace InitialProject.View
     /// </summary>
     public partial class AccommodationReservationForm : Window
     {
-        public AccommodationReservationForm()
+
+        public Accommodation Accommodation { get; set; } 
+        public AccommodationReservationForm(Accommodation accommodation)
         {
             InitializeComponent();
+            this.Accommodation = accommodation;
         }
     }
 }
