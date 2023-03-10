@@ -2,6 +2,7 @@
 using InitialProject.Model;
 using InitialProject.Repository;
 using InitialProject.View;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -15,6 +16,8 @@ namespace InitialProject
     {
 
         private readonly UserRepository _repository;
+        private readonly LocationRepository _locationRepository;
+        public static ObservableCollection<Location> Locations {get; set;}
 
         private string _username;
         public string Username
@@ -41,34 +44,29 @@ namespace InitialProject
         {
             InitializeComponent();
             DataContext = this;
+            Username = "Pera";
+
+            _locationRepository = new LocationRepository();
             _repository = new UserRepository();
+
+            Locations = new ObservableCollection<Location>(_locationRepository.getAll());
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
         {
-/*
-            TourView tourView = new TourView();
-            tourView.Show();
-            Close();*/
-
-/*            Guest1View guest1View = new Guest1View();
-            guest1View.Show();
-            Close();*/
-
-
             User user = _repository.GetByUsername(Username);
             if (user != null)
             {
-                if (user.Password == txtPassword.Password)
+                if(user.Password == txtPassword.Password)
                 {
-
-/*                    CommentsOverview commentsOverview = new CommentsOverview(user);
-                    commentsOverview.Show();*/
-
-                    TourView tourView = new TourView(user.Id);
-                    tourView.Show();
+                    /*
+                    CommentsOverview commentsOverview = new CommentsOverview(user);
+                    commentsOverview.Show();
+                    */
+                    Guest1View guest1View = new Guest1View(Locations);
+                    guest1View.Show();
                     Close();
-                }
+                } 
                 else
                 {
                     MessageBox.Show("Wrong password!");
@@ -78,7 +76,7 @@ namespace InitialProject
             {
                 MessageBox.Show("Wrong username!");
             }
-
+            
         }
     }
 }
