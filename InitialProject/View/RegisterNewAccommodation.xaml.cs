@@ -35,13 +35,13 @@ namespace InitialProject.View
         public static ObservableCollection<Location> Locations { get; set; }
 
         private string _accommodationName;
-
+        /*
         private string _accommodationCity;
 
         private string _accommodationCountry;
 
         private string _accommodationType;
-
+        */
         private int _maxGuests;
 
         private int _minDays;
@@ -102,7 +102,7 @@ namespace InitialProject.View
             }
         }
         */
-        public int AccomodationMaxGuests
+        public int AccommodationMaxGuests
         {
             get => _maxGuests;
             set
@@ -160,7 +160,7 @@ namespace InitialProject.View
             Locations = new ObservableCollection<Location>(_locationRepository.getAll());
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
-
+            AccomodationCancelationDays = 1;
             ReadCitiesAndCountries();
                 
         }
@@ -170,13 +170,13 @@ namespace InitialProject.View
 
             Accommodation newAccommodation = new Accommodation();
             newAccommodation.Name = AccommodationName;
-            newAccommodation.MaxGuestNumber = AccomodationMaxGuests;
+            newAccommodation.MaxGuestNumber = AccommodationMaxGuests;
             newAccommodation.DaysBeforeCancelling = AccomodationCancelationDays;
             newAccommodation.MinReservationDays = AccomodationReservationMinDays;
             newAccommodation.Location = new Location(CityComboBox.Text,CountriesComboBox.Text);
             switch (TypeComboBox.Text)
             {
-                case "Apartmant":
+                case "Appartment":
                     newAccommodation.accommodationType = AccommodationType.Appartment;
                     break;
 
@@ -189,9 +189,7 @@ namespace InitialProject.View
                     break;
             }
             
-                Accommodation registerdAccommodation = _accommodationRepository.Save(newAccommodation);
-                
-                
+                Accommodation registerdAccommodation = _accommodationRepository.Save(newAccommodation);   
             
         }
 
