@@ -48,6 +48,3 @@
 48|Helsinki|Finska
 49|Brazzaville|Kongo
 50|Vientiane|Laos
-51|Trebinje|Bosna i Hercegovina
-52|Maribor|Slovenija
-53|Subotica|Srbija
