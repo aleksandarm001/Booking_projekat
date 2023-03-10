@@ -21,11 +21,11 @@ namespace InitialProject.Model
         public int AccommodationID { get; set; }
 
 
-        public Accommodation(int accommodationID, string name, Location location, AccommodationType type, int maxGuestNumber,
+        public Accommodation(string name, Location location, AccommodationType type, int maxGuestNumber,
             int minReservationDays, int daysBeforeCancelling, List<String> images,
             List<Reservation> reservations)
         {
-            AccommodationID = accommodationID;
+            
             Name = name;
             Location = location;
             accommodationType = type;
@@ -35,6 +35,8 @@ namespace InitialProject.Model
             Images = images;
             Reservations = reservations;
         }
+
+        
         ~Accommodation()
         {
 
