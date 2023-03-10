@@ -41,7 +41,7 @@
         <Label Content="Drzava" HorizontalAlignment="Left" Margin="15,96,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <ComboBox Name ="CountryCmbx" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
                   ItemsSource="{Binding Countries}"  HorizontalAlignment="Center" Margin="0,122,0,0" 
-                  Grid.Row="1" VerticalAlignment="Top" Width="130" SelectionChanged="Filter_Cities" SelectedIndex="0">
+                  Grid.Row="1" VerticalAlignment="Top" Width="130" SelectionChanged="FilterCities" SelectedIndex="0">
 
         </ComboBox>
 
