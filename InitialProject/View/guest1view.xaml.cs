@@ -35,6 +35,12 @@ namespace InitialProject.View
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<string> Countries { get; set; }
         public string AccommodationName { get; set; }
+        public Accommodation SelectedAccommodation { get; set; }
+        public DateTime SelectedStartDate { get; set; }
+        public DateTime SelectedEndDate { get; set; }
+
+        private readonly AccommodationRepository _repository;
+        private readonly LocationRepository _locationRepository;
 
         private ObservableCollection<Accommodation> _accommodations;
         public ObservableCollection<Accommodation> Accommodations
@@ -46,12 +52,6 @@ namespace InitialProject.View
                 OnPropertyChanged(nameof(Accommodations));
             }
         }
-
-        public Accommodation SelectedAccommodation { get; set; }
-        public DateTime SelectedStartDate { get; set; }
-        public DateTime SelectedEndDate { get; set; }
-        private readonly AccommodationRepository _repository;
-        private readonly LocationRepository _locationRepository;
 
         private string _city;
         public string City
@@ -121,32 +121,19 @@ namespace InitialProject.View
                 }
             }
         }
-        public Guest1View()
+        public Guest1View(ObservableCollection<Location> locations)
         {
             InitializeComponent();
             DataContext = this;
             _repository = new AccommodationRepository();
             _locationRepository = new LocationRepository();
             Accommodations = new ObservableCollection<Accommodation>(_repository.getAll());
-            Locations = new ObservableCollection<Location>(_locationRepository.getAll());
+            Locations = locations;
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             SelectedStartDate = DateTime.Today;
             SelectedEndDate = DateTime.Today;
             ReadCitiesAndCountries();
-        }
-        private void ReadCitiesAndCountries()
-        {
-            Cities.Add("");
-            Countries.Add("");
-            foreach (Location l in Locations)
-            {
-                Cities.Add(l.City);
-                if (!Countries.Contains(l.Country))
-                {
-                    Countries.Add(l.Country);
-                }
-            }
         }
         private void ApplyAdditionalSearch(object sender, RoutedEventArgs e)
         {
@@ -194,8 +181,22 @@ namespace InitialProject.View
             Accommodations = new ObservableCollection<Accommodation>(filteredCollection);
            
         }
-
-        private void Filter_Cities(object sender, SelectionChangedEventArgs e)
+        private void ReadCitiesAndCountries()
+        {
+            Cities.Clear();
+            Countries.Clear();
+            Cities.Add("");
+            Countries.Add("");
+            foreach (Location l in Locations)
+            {
+                Cities.Add(l.City);
+                if (!Countries.Contains(l.Country))
+                {
+                    Countries.Add(l.Country);
+                }
+            }
+        }
+        private void FilterCities(object sender, SelectionChangedEventArgs e)
         {
             ComboBox cmbx = (ComboBox)sender;
             string country = "";
@@ -215,7 +216,6 @@ namespace InitialProject.View
             }
             if (country == "")
             {
-                Cities.Clear();
                 ReadCitiesAndCountries();
             }
             else
