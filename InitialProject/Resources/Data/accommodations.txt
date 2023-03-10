@@ -15,3 +15,4 @@
 15|Cosy Chalet|Zermatt;Switzerland|Appartment|4|5|1
 16|HotelBG|Belgrade;Serbia|Appartment|3|6|1
 17|Sisa|Berlin;Germany|Shack|0|2|5
+18|asdaasd|Tokyo;Japan|House|2|3|1
