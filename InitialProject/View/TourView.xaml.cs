@@ -23,20 +23,19 @@
     /// </summary>
     public partial class TourView : Window
     {
+        private int UserId { get; }
         public ObservableCollection<Tour> Tours { get; set; }
         public Tour SelectedTour { get; set; }
         
         private TourRepository _tourRepository;
 
-        public TourView()
+        public TourView(int userId)
         {
             InitializeComponent();
-
-
-
             DataContext = this;
+            UserId = userId;
             _tourRepository = new TourRepository();
-            SelectedTour = new Tour();
+           // SelectedTour = new Tour();
             Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
         }
 
@@ -44,5 +43,27 @@
         {
 
         }
+
+        private void Rezervisi_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedTour == null) 
+            {
+                string messageBoxText = "Morate prvo izabrati turu!";
+                string caption = "Rezervacija ture";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result;
+
+                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+            }
+            else
+            {
+                TourReservation tourReservation = new TourReservation(UserId, SelectedTour);
+                tourReservation.Show();
+                //Close();
+            }
+        }
+
+     
     }
 }

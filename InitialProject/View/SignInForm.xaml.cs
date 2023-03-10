@@ -46,6 +46,14 @@ namespace InitialProject
 
         private void SignIn(object sender, RoutedEventArgs e)
         {
+/*
+            TourView tourView = new TourView();
+            tourView.Show();
+            Close();*/
+
+/*            Guest1View guest1View = new Guest1View();
+            guest1View.Show();
+            Close();*/
 
 
             User user = _repository.GetByUsername(Username);
@@ -57,7 +65,7 @@ namespace InitialProject
 /*                    CommentsOverview commentsOverview = new CommentsOverview(user);
                     commentsOverview.Show();*/
 
-                    TourView tourView = new TourView();
+                    TourView tourView = new TourView(user.Id);
                     tourView.Show();
                     Close();
                 }

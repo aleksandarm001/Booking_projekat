@@ -64,7 +64,7 @@ namespace InitialProject.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { TourId.ToString(), Name, LocationId.ToString(), Description, Language, MaxGuestNumber.ToString(), KeyPoints.ToString(), StartingDateTimes.ToString(), Duration.ToString(), Images.ToString() };
+            string[] csvValues = { TourId.ToString(), Name, LocationId.ToString(), Description, Language, MaxGuestNumber.ToString(), 0.ToString(), StartingDateTimes.ToString(), Duration.ToString(), 0.ToString() };
             return csvValues;
         }
     }
