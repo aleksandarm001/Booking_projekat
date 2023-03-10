@@ -1,5 +1,8 @@
-﻿using System;
+﻿using InitialProject.Model;
+using InitialProject.Repository;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,14 +22,20 @@ namespace InitialProject.View
     /// </summary>
     public partial class StartWindow : Window
     {
+        private readonly LocationRepository _locationRepository;
+        public static ObservableCollection<Location> Locations { get; set; }
         public StartWindow()
         {
             InitializeComponent();
+            DataContext = this;
+            _locationRepository = new LocationRepository();
+            Locations = new ObservableCollection<Location>(_locationRepository.getAll());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Guest1_ButtonClick(object sender, RoutedEventArgs e)
         {
-
+            Guest1View guest1View = new Guest1View(Locations);
+            guest1View.Show();
         }
     }
 }
