@@ -14,7 +14,9 @@ namespace InitialProject.View
         public event PropertyChangedEventHandler PropertyChanged;
         public Tour Tour { get; set; }
         public int UserId { get; set; }
-        private ReservationRepository _reservationRepository { get; set; }
+        private ReservationRepository _reservationRepository;
+        private TourRepository _tourRepository;
+
 
         public int NumberOfGuests { get; set; }
         private string _strNumberOfGuests;
@@ -47,6 +49,7 @@ namespace InitialProject.View
             DataContext = this;
             Tour = t;
             UserId = userId;
+            _tourRepository = new TourRepository();
             _reservationRepository = new ReservationRepository();
 
         }
@@ -74,8 +77,9 @@ namespace InitialProject.View
             }
             else
             {
-                Reservation reservation = new Reservation(UserId, Tour.TourId, Tour.StartingDateTimes, NumberOfGuests);
+                Reservation reservation = new Reservation(UserId, Tour.TourId, Tour.StartingDateTimes, Tour.Duration, NumberOfGuests);
                 _reservationRepository.Save(reservation);
+                _tourRepository.ReduceMaxGuestNumber(Tour.TourId, NumberOfGuests);
                 MessageBox.Show("Rezervacija uspjesna");
                 this.Close();
             }
