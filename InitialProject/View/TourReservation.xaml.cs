@@ -1,25 +1,51 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Model;
 using InitialProject.Repository;
+using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace InitialProject.View
 {
-    /// <summary>
-    /// Interaction logic for TourReservation.xaml
-    /// </summary>
-    public partial class TourReservation : Window
+    public partial class TourReservation : Window, INotifyPropertyChanged
     {
-        public int NumberOfGuests { get; set; }
-        public Tour tour { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public Tour Tour { get; set; }
         public int UserId { get; set; }
         private ReservationRepository _reservationRepository { get; set; }
+
+        public int NumberOfGuests { get; set; }
+        private string _strNumberOfGuests;
+
+    
+
+        public string StrNumberOfGuests
+        {
+            get => _strNumberOfGuests;
+            set
+            {
+                if (value != _strNumberOfGuests)
+                {
+                    try
+                    {
+                        int _numberOfGuests;
+                        int.TryParse(value, out _numberOfGuests);
+                        NumberOfGuests = _numberOfGuests;
+                    }
+                    catch (Exception) { }
+                    _strNumberOfGuests = value;
+                    //OnPropertyChanged(nameof(StrNumberOfGuests));
+                }
+            }
+        }
 
         public TourReservation(int userId, Tour t)
         {
             InitializeComponent();
             DataContext = this;
-            tour = t;
+            Tour = t;
             UserId = userId;
             _reservationRepository = new ReservationRepository();
 
@@ -27,19 +53,28 @@ namespace InitialProject.View
 
         private void Potvrdi_Click(object sender, RoutedEventArgs e)
         {
-            if (NumberOfGuests > tour.MaxGuestNumber)
+
+            if (NumberOfGuests > Tour.MaxGuestNumber)
             {
-                string messageBoxText = "Na ovoj turi nema dovoljno slobodnih mjesta, tj broj slobodnih mjesta je manji od trazenog broja gostiju!";
+                string messageBoxText = "Nema dovoljno mjesta. Broj preostalih mjesta je "+ Tour.MaxGuestNumber;
                 string caption = "Rezervacija ture";
-                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxButton button = MessageBoxButton.YesNo;
                 MessageBoxImage icon = MessageBoxImage.Warning;
                 MessageBoxResult result;
 
                 result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                if (result == MessageBoxResult.Yes) 
+                { 
+                    
+                }
+                else 
+                {
+                    this.Close();
+                }
             }
             else
             {
-                Reservation reservation = new Reservation(UserId, tour.TourId, tour.StartingDateTimes, NumberOfGuests);
+                Reservation reservation = new Reservation(UserId, Tour.TourId, Tour.StartingDateTimes, NumberOfGuests);
                 _reservationRepository.Save(reservation);
                 MessageBox.Show("Rezervacija uspjesna");
                 this.Close();
@@ -50,6 +85,11 @@ namespace InitialProject.View
         private void Odustani_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
