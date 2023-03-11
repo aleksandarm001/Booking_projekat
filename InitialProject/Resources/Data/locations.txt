@@ -92,3 +92,6 @@
 92|Tbilisi|Georgia
 93|Anshan|China
 94|Bucharest|Romania
+95|Serbia|Novi Sad
+96|Serbia|Belgrade
+97|Serbia|Subotica

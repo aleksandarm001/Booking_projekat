@@ -16,3 +16,4 @@
 16|HotelBG|Belgrade;Serbia|Appartment|3|6|1
 17|Sisa|Berlin;Germany|Shack|0|2|5
 18|asdaasd|Tokyo;Japan|House|2|3|1
+19|asdas|São Paulo;Brazil|House|3|1|1
