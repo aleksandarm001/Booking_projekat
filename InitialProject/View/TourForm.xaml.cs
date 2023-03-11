@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,6 +26,7 @@ namespace InitialProject.View
     {
         private readonly LanguageRepository _languageRepository;
         private readonly TourRepository _tourRepository;
+        private readonly int tourId;
         public static ObservableCollection<Language> Languages { get; set; }
 
         public TourForm()
@@ -33,6 +35,7 @@ namespace InitialProject.View
             DataContext = this;
             _languageRepository = new LanguageRepository();
             _tourRepository = new TourRepository();
+            tourId = _tourRepository.NextId();
             Languages = new ObservableCollection<Language>(_languageRepository.GetAll());
 
         }
@@ -52,7 +55,7 @@ namespace InitialProject.View
 
         private void AddKeyPoint_ButtonClick(object sender, RoutedEventArgs e)
         {
-            TourPointForm addTourPoint = new TourPointForm();
+            TourPointForm addTourPoint = new TourPointForm(tourId);
             addTourPoint.Show();
         }
 
@@ -89,13 +92,7 @@ namespace InitialProject.View
             DateTime dateTime1 = new DateTime();
             dateTime1 = DateTime.Now;
 
-            DateTime dateTime2 = new DateTime();
-            dateTime2 = DateTime.Now;
-
-            List<DateTime> list = new List<DateTime>();
-            list.Add(dateTime1);
-            list.Add(dateTime2);
-            tour.StartingDateTimes = list;
+            tour.StartingDateTime = dateTime1;
 
             TourPoint pt = new TourPoint();
             pt.TourId = 1;

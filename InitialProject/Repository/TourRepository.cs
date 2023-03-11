@@ -34,7 +34,7 @@ namespace InitialProject.Repository
         {
             foreach(Tour t in _tours)
             {
-                t.Location = _locationRepository.GetById(t.LocationId);
+                t.Location = _locationRepository.GetById(t.TourId);
             }
             return _tours;
         }

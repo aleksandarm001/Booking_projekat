@@ -15,7 +15,7 @@ namespace InitialProject.Model
         public Language Language { get; set; }
         public int MaxGuestNumber { get; set; }
         public List<TourPoint> KeyPoints { get; set; }
-        public List<DateTime> StartingDateTimes { get; set; }
+        public DateTime StartingDateTime { get; set; }
         public int Duration { get; set; }
 
         //public List<String> Images { get; set; }
@@ -28,12 +28,12 @@ namespace InitialProject.Model
             Language = new Language();
             MaxGuestNumber = 1;
             KeyPoints = new List<TourPoint>();
-            StartingDateTimes = new List<DateTime>();
+            StartingDateTime = DateTime.Now;
             Duration = 1;
             //Images = new List<String>();
         }
 
-        public Tour(string name, Location location, string description, Language language, int maxGuestNumber, List<TourPoint> keyPoints, List<DateTime> startingDateTimes, int duration)
+        public Tour(string name, Location location, string description, Language language, int maxGuestNumber, List<TourPoint> keyPoints, DateTime startingDateTimes, int duration)
         {
             Name = name;
             Location = location;
@@ -41,7 +41,7 @@ namespace InitialProject.Model
             Language = language;
             MaxGuestNumber = maxGuestNumber;
             KeyPoints = keyPoints;
-            StartingDateTimes = startingDateTimes;
+            StartingDateTime = startingDateTimes;
             Duration = duration;
             //Images = images;
         }
@@ -51,28 +51,30 @@ namespace InitialProject.Model
             TourId = Convert.ToInt32(values[0]);
             Name = values[1];
             Location = Location.fromStringToLocation(values[2]);
-            Description = values[4];
-            Language = Language.fromStringToLanguage(values[5]);
-            MaxGuestNumber = Convert.ToInt32(values[6]);
-            StartingDateTimes = values[7].Split(";").Select(s => DateTime.Parse(s)).ToList(); 
-            Duration = Convert.ToInt32(values[8]);
+            Description = values[3];
+            Language = Language.fromStringToLanguage(values[4]);
+            MaxGuestNumber = Convert.ToInt32(values[5]);
+            StartingDateTime = DateTime.Parse(values[6]); 
+            Duration = Convert.ToInt32(values[7]);
             //Images = values[9].Split(";").ToList<string>();
 
-        }
+        }//1|Test|zrenjanin;serbia|TestDesc|srpski|5|3/11/2023 10:34:37 PM;3/11/2023 10:34:37 PM;|5
+
 
         public string DateTimeToCSV(List<DateTime> startingDateTimes) 
         {
             StringBuilder dateTimes = new StringBuilder();
             foreach (DateTime startingDateTime in startingDateTimes)
             {
-                dateTimes.Append(startingDateTime.ToString() + ";");
+                dateTimes.Append(";" + startingDateTime.ToString());
             }
-            return dateTimes.ToString();
+            
+            return dateTimes.ToString().Substring(1);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { TourId.ToString(), Name, Location.ToString(), Description, Language.ToString(), MaxGuestNumber.ToString(), DateTimeToCSV(StartingDateTimes), Duration.ToString() };
+            string[] csvValues = { TourId.ToString(), Name, Location.ToString(), Description, Language.ToString(), MaxGuestNumber.ToString(), StartingDateTime.ToString(), Duration.ToString() };
             return csvValues;
         }
     }
