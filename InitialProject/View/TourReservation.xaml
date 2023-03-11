@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="TourReservation" Height="250" Width="400">
     <Grid>
-        <TextBlock Text="Unesite broj gostiju za koji zelite da rezervisete izabranu turu!" Margin="10,20,0,0"/>
-        <TextBox Text="{Binding Path=NumberOfGuests,Mode=TwoWay}" Margin="175,54,135,117"/>
-        <Button Content="Potvrdi" Click="Potvrdi_Click" HorizontalAlignment="Left" Margin="80,180,0,0" VerticalAlignment="Top" Width="70" Height="30"/>
-        <Button Content="Odustani" Click="Odustani_Click" HorizontalAlignment="Left" Margin="230,180,0,0" VerticalAlignment="Top" Width="70" Height="30"/>
+        <TextBlock TextAlignment="Center" Text="Unesite broj ljudi za koji vrsite rezervaciju!" HorizontalAlignment="Left" Height="36" Margin="26,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="364"/>
+        <TextBox Name="NumberOfGuestTextBox"  HorizontalAlignment="Center" Text="{Binding Path=StrNumberOfGuests, UpdateSourceTrigger=PropertyChanged}" Height="29" Margin="0,67,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="94"/>
+        <Button Content="Potvrdi" HorizontalAlignment="Left" Height="33" Margin="76,172,0,0" VerticalAlignment="Top" Width="100" Click="Potvrdi_Click"/>
+        <Button Content="Odustani" HorizontalAlignment="Left" Height="33" Margin="248,172,0,0" VerticalAlignment="Top" Width="100" Click="Odustani_Click"/>
 
 
     </Grid>

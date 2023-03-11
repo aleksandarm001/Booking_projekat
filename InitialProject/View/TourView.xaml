@@ -31,23 +31,35 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Content="Drzava" HorizontalAlignment="Left" Margin="15,25,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.33,-2.806"/>
-        <TextBox Name="DrzavaBox" HorizontalAlignment="Left" Margin="9,55,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+        <Label Content="Drzava" HorizontalAlignment="Left" Margin="15,40,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <ComboBox Name ="CountryCmbx" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                  ItemsSource="{Binding Countries}"  HorizontalAlignment="Center" Margin="0,70,0,0" 
+                  Grid.Row="1" VerticalAlignment="Top" Width="130" SelectionChanged="FilterCities" SelectedIndex="0">
 
-        <Label Content="Grad" HorizontalAlignment="Left" Margin="15,90,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.526,-2.205"/>
-        <TextBox Name="GradBox" HorizontalAlignment="Left" Margin="10,120,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+        </ComboBox>
 
-        <Label Content="Jezik" HorizontalAlignment="Left" Margin="15,160,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.435,-3.338"/>
-        <TextBox Name="LanguageBox" HorizontalAlignment="Left" Margin="9,190,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+        <Label Content="Grad" HorizontalAlignment="Left" Margin="15,110,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <ComboBox Name="CityCmbx" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                  ItemsSource="{Binding Cities}" HorizontalAlignment="Center" Margin="0,140,0,0" 
+                  Grid.Row="1" VerticalAlignment="Top" Width="130" SelectionChanged="Filter_Countries" SelectedIndex="0"/>
 
-        <Label Content="Broj gostiju" HorizontalAlignment="Left" Margin="13,230,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox Name ="NumberOfVisitorsBox" HorizontalAlignment="Left" Margin="10,260,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
+        <Label Content="Jezik" HorizontalAlignment="Left" Margin="15,180,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <ComboBox Name="LanguageCmbx" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                  ItemsSource="{Binding Languages}" HorizontalAlignment="Center" Margin="0,210,0,0" 
+                  Grid.Row="1" VerticalAlignment="Top" Width="130" SelectionChanged="Filter_Countries" SelectedIndex="0"/>
 
-        <Label Content="Trajanje ture" HorizontalAlignment="Left" Margin="13,292,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox x:Name ="Duration_Box" HorizontalAlignment="Left" Margin="10,324,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
 
-        <Button Content="Primijeni" Click="Button_Click" HorizontalAlignment="Center" Margin="0,389,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="30"/>
-        <Button Content="Rezervisi" Click="Rezervisi_Click" HorizontalAlignment="Left" Margin="652,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="30" Grid.Column="1"/>
+        <Label Content="Broj gostiju" HorizontalAlignment="Left" Margin="15,250,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <ComboBox Name="GuestNumberCmbx" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="False" 
+                  ItemsSource="{Binding GuestNumber}" HorizontalAlignment="Center" Margin="0,280,0,0" 
+                  Grid.Row="1" VerticalAlignment="Top" Width="130" SelectionChanged="Filter_Countries" />
+
+        <Label Content="Trajanje ture(h)" HorizontalAlignment="Left" Margin="15,320,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <ComboBox x:Name ="Duration_Box_From" IsEditable="False" ItemsSource="{Binding Path=Duration}" HorizontalAlignment="Left" Margin="20,350,0,0" Grid.Row="1" VerticalAlignment="Top" Width="60"/>
+        <ComboBox x:Name ="Duration_Box_To"  IsEditable="False" ItemsSource="{Binding Path=Duration}" HorizontalAlignment="Left" Margin="90,350,0,0" Grid.Row="1" VerticalAlignment="Top" Width="60"/>
+
+        <Button Content="Primijeni" Click="ApplyFilters_Click" HorizontalAlignment="Left" Margin="53,406,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="30"/>
+        <Button Content="Rezervisi"  Click="Rezervisi_Click" HorizontalAlignment="Left" Margin="652,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="30" Grid.Column="1"/>
         <GridSplitter Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="530" Margin="170,0,0,0" VerticalAlignment="Top" Width="3" Grid.RowSpan="2"/>
 
         <Grid Grid.Row="0" Grid.Column="1">
@@ -64,7 +76,7 @@
                 </TransformGroup>
             </GridSplitter.RenderTransform>
         </GridSplitter>
-       
+
 
     </Grid>
 

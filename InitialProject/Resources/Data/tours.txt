@@ -1,10 +1,10 @@
-1|Dubrovnik|34|Obilazak zidina starog grada|Hrvatski|2|0|03/09/2023 11:30:00|4|0
+1|Dubrovnik|34|Obilazak zidina starog grada|Hrvatski|0|0|03/09/2023 11:30:00|4|0
 2|Tokio|18|Posjet hramu Meiji|Japanski|3|0|03/10/2023 13:00:00|1|0
 3|New York|7|Vožnja biciklom kroz Centralni park|Engleski|1|0|03/11/2023 10:45:00|5|0
 4|Beč|41|Posjet Muzeju umjetnosti povijesti|Njemački|3|0|03/12/2023 15:15:00|2|0
 5|Bangkok|29|Krstarenje rijekom Chao Phraya|Tajlandski|2|0|03/03/2023 08:30:00|3|0
-6|Los Angeles|12|Obilazak muzeja umjetnosti|Engleski|7|0|03/04/2023 12:00:00|4|0
-7|Sidnej|25|Obilazak Operne kuće|Engleski|8|0|03/05/2023 09:15:00|2|0
+6|Los Angeles|12|Obilazak muzeja umjetnosti|Engleski|4|0|03/04/2023 12:00:00|4|0
+7|Sidnej|25|Obilazak Operne kuće|Engleski|0|0|03/05/2023 09:15:00|2|0
 8|Havana|16|Posjet Maleconu|Španjolski|5|0|03/06/2023 14:30:00|1|0
 9|Berlin|48|Obilazak Brandenburških vrata|Njemački|4|0|03/07/2023 11:45:00|3|0
 10|Budimpešta|22|Vožnja brodom Dunavom|Mađarski|8|0|03/08/2023 10:00:00|5|0
