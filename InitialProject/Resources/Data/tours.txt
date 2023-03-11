@@ -7,4 +7,4 @@
 7|Sidnej|25|Obilazak Operne kuće|Engleski|0|0|03/05/2023 09:15:00|2|0
 8|Havana|16|Posjet Maleconu|Španjolski|5|0|03/06/2023 14:30:00|1|0
 9|Berlin|48|Obilazak Brandenburških vrata|Njemački|4|0|03/07/2023 11:45:00|3|0
-10|Budimpešta|22|Vožnja brodom Dunavom|Mađarski|8|0|03/08/2023 10:00:00|5|0
+10|Budimpešta|22|Vožnja brodom Dunavom|Mađarski|3|0|03/08/2023 10:00:00|5|0
