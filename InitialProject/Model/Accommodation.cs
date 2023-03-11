@@ -2,8 +2,11 @@
 using InitialProject.Serializer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-
+using System.Text;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace InitialProject.Model
 {
@@ -19,6 +22,9 @@ namespace InitialProject.Model
         public List<string> Images { get; set; }
         public List<Reservation> Reservations { get; set; }
         public int AccommodationID { get; set; }
+
+        public BitmapImage Image { get; set; }
+        
 
 
         public Accommodation(string name, Location location, AccommodationType type, int maxGuestNumber,
@@ -57,15 +63,32 @@ namespace InitialProject.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { 
+            string testImage = "";
+
+            if(Image != null)
+            {
+                byte[] bytes;
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    PngBitmapEncoder encoder = new PngBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(Image));
+                    encoder.Save(stream);
+                    bytes = stream.ToArray();
+                    testImage = Convert.ToBase64String(bytes);
+                }
+            }
+
+            string[] csvValues = {
                 AccommodationID.ToString(),
                 Name,
                 Location.ToString(),
                 accommodationType.ToString(),
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
-                DaysBeforeCancelling.ToString()};
-                
+                DaysBeforeCancelling.ToString(),
+                testImage
+
+            };  
             //string.Join(";", Images)
             return csvValues;
         }
@@ -80,5 +103,7 @@ namespace InitialProject.Model
             DaysBeforeCancelling = Convert.ToInt32(values[6]);
             //Images = values[7].Split(";").ToList<string>();
         }
+
+        
     }
 }

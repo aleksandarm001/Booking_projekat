@@ -243,8 +243,15 @@ namespace InitialProject.View
 
         private void BookClick(object sender, RoutedEventArgs e)
         {
-            AccommodationReservationForm accommodationReservationFormWindow = new AccommodationReservationForm(SelectedAccommodation);
-            accommodationReservationFormWindow.ShowDialog();
+            if(SelectedAccommodation == null)
+            {
+                MessageBox.Show("Please select accommodation.");
+            }
+            else
+            {
+                AccommodationReservationForm accommodationReservationFormWindow = new AccommodationReservationForm(SelectedAccommodation);
+                accommodationReservationFormWindow.ShowDialog();
+            }
         }
     }
 }

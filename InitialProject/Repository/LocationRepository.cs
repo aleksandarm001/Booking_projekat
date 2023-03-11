@@ -10,7 +10,7 @@ namespace InitialProject.Repository
 {
     internal class LocationRepository
     {
-        private const string FilePath = "../../../Resources/Data/worldcities.csv";
+        private const string FilePath = "../../../Resources/Data/locations.txt";
 
         private readonly Serializer<Location> _serializer;
 
