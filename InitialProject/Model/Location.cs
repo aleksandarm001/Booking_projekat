@@ -26,6 +26,11 @@ namespace InitialProject.Model
             Country = "";
         }
 
+        public Location(string s)
+        {
+            this.s = s;
+        }
+
         public override string ToString()
         {
             return City + ";" + Country;
