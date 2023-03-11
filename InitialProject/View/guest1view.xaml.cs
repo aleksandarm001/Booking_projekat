@@ -36,12 +36,7 @@ namespace InitialProject.View
         public static ObservableCollection<string> Countries { get; set; }
         public string AccommodationName { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
-        public DateTime SelectedStartDate { get; set; }
-        public DateTime SelectedEndDate { get; set; }
-
         private readonly AccommodationRepository _repository;
-        private readonly LocationRepository _locationRepository;
-
         private ObservableCollection<Accommodation> _accommodations;
         public ObservableCollection<Accommodation> Accommodations
         {
@@ -126,13 +121,10 @@ namespace InitialProject.View
             InitializeComponent();
             DataContext = this;
             _repository = new AccommodationRepository();
-            _locationRepository = new LocationRepository();
             Accommodations = new ObservableCollection<Accommodation>(_repository.getAll());
             Locations = locations;
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
-            SelectedStartDate = DateTime.Today;
-            SelectedEndDate = DateTime.Today;
             ReadCitiesAndCountries();
         }
         private void ApplyAdditionalSearch(object sender, RoutedEventArgs e)
@@ -185,8 +177,8 @@ namespace InitialProject.View
         {
             Cities.Clear();
             Countries.Clear();
-            Cities.Add("");
             Countries.Add("");
+            Cities.Add("");
             foreach (Location l in Locations)
             {
                 Cities.Add(l.City);
@@ -205,6 +197,23 @@ namespace InitialProject.View
                 if(cmbx.SelectedItem != null)
                 {
                     country = cmbx.SelectedItem.ToString();
+                    if (country == "")
+                    {
+                        ReadCitiesAndCountries();
+                    }
+                    else
+                    {
+                        Cities.Clear();
+                        Cities.Add("");
+                        foreach (Location loc in Locations)
+                        {
+                            if (loc.Country == country)
+                            {
+                                Cities.Add(loc.City);
+                            }
+                        }
+                        CityCmbx.SelectedIndex = 1;
+                    }
                 }
                 else
                 {
@@ -213,23 +222,6 @@ namespace InitialProject.View
             }catch(System.NullReferenceException)
             {
                 ReadCitiesAndCountries();
-            }
-            if (country == "")
-            {
-                ReadCitiesAndCountries();
-            }
-            else
-            {
-                Cities.Clear();
-                Cities.Add("");
-                foreach (Location loc in Locations)
-                {
-                    if (loc.Country == country)
-                    {
-                        Cities.Add(loc.City);
-                    }
-                }
-                CityCmbx.SelectedIndex = 1;
             }
         }
         private void Filter_Countries(object sender, SelectionChangedEventArgs e)

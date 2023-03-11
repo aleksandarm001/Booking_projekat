@@ -74,7 +74,7 @@ namespace InitialProject.View
             }
             else
             {
-                Reservation reservation = new Reservation(UserId, Tour.TourId, Tour.StartingDateTimes, NumberOfGuests);
+                Reservation reservation = new Reservation(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests);
                 _reservationRepository.Save(reservation);
                 MessageBox.Show("Rezervacija uspjesna");
                 this.Close();

@@ -23,20 +23,20 @@ namespace InitialProject.CustomClasses
         public int NumberOfGuests { get; set; }
 
 
-        public Reservation(int AccomodationId, int UserId, int tourId,DateTime startDate, DateTime endDate)
+        public Reservation(int accomodationId, int userId, int tourId,DateTime startDate, DateTime endDate)
         {
-            AccomodationId = AccomodationId;
-            UserId = UserId;
+            AccomodationId = accomodationId;
+            UserId = userId;
             TourId = tourId;
             StartDate = startDate;
             EndDate = endDate;
             SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate);
             SEndDate = string.Format("{0:dd.MM.yyyy.}", EndDate);
         }
-        public Reservation(int AccomodationId, int UserId, DateTime startDate, DateTime endDate)
+        public Reservation(int accomodationId, int userId, DateTime startDate, DateTime endDate)
         {
-            AccomodationId = AccomodationId;
-            UserId = UserId;
+            AccomodationId = accomodationId;
+            UserId = userId;
             TourId = -1;
             StartDate = startDate;
             EndDate = endDate;
@@ -44,9 +44,9 @@ namespace InitialProject.CustomClasses
             SEndDate = string.Format("{0:dd.MM.yyyy.}", EndDate);
         }
 
-        public Reservation(int UserId, int tourId,DateTime startDate, int numberOfVisitors)
+        public Reservation(int userId, int tourId,DateTime startDate, int numberOfVisitors)
         {
-            UserId = UserId;
+            UserId = userId;
             TourId = tourId;
             StartDate = startDate;
             NumberOfGuests = numberOfVisitors;

@@ -61,6 +61,7 @@
         {
             Languages = new ObservableCollection<string>();
             Languages.Add("");
+            /*
             foreach (Tour t in Tours)
             {
                 if(!Languages.Contains(t.Language))
@@ -68,6 +69,7 @@
                     Languages.Add(t.Language);
                 } 
             }
+            */
         }
 
         private void InitializeGuestNumber()
@@ -166,7 +168,7 @@
                 string _guestNumber = GuestNumberCmbx.Text;
                 string _durationFrom = Duration_Box_From.Text;
                 string _durationTo = Duration_Box_To.Text;
-
+                /*
                 var filteredCollection = tempTours.Where(a =>
                     (string.IsNullOrEmpty(_country) || a.Location.Country == _country) &&
                     (string.IsNullOrEmpty(_city) || a.Location.City == _city) &&
@@ -176,7 +178,7 @@
                     (string.IsNullOrEmpty(_language) || a.Language == _language));
 
                 Tours = new ObservableCollection<Tour>(filteredCollection);
-
+                */
             }
 
         }
