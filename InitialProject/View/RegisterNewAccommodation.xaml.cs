@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using InitialProject.Model;
 using InitialProject.Repository;
+using Microsoft.Win32;
 
 namespace InitialProject.View
 {
@@ -47,6 +48,8 @@ namespace InitialProject.View
         private int _minDays;
 
         private int _cancelationDays;
+
+        private BitmapImage _image;
 
 
 
@@ -142,6 +145,19 @@ namespace InitialProject.View
             }
         }
 
+        public BitmapImage AccommodationImage
+        {
+            get => _image;
+            set
+            {
+                if (value != _image)
+                {
+                    _image = value;
+                    OnPropertyChanged(nameof(AccommodationImage));
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -174,6 +190,7 @@ namespace InitialProject.View
             newAccommodation.DaysBeforeCancelling = AccomodationCancelationDays;
             newAccommodation.MinReservationDays = AccomodationReservationMinDays;
             newAccommodation.Location = new Location(CityComboBox.Text,CountriesComboBox.Text);
+            newAccommodation.Image =  AccommodationImage;
             switch (TypeComboBox.Text)
             {
                 case "Appartment":
@@ -189,8 +206,8 @@ namespace InitialProject.View
                     break;
             }
             
-                Accommodation registerdAccommodation = _accommodationRepository.Save(newAccommodation);   
-            
+                 _accommodationRepository.Save(newAccommodation);
+            Close();
         }
 
         private void ReadCitiesAndCountries()
@@ -251,6 +268,30 @@ namespace InitialProject.View
         private void CancelButton(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void UploadImage(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
+            if(openFileDialog.ShowDialog() == true)
+            {
+                  string imagePath = openFileDialog.FileName;
+                  
+                try
+                {
+                    AccommodationImage = new BitmapImage(new Uri(imagePath));
+                    AccomodationImg.Source = AccommodationImage;
+                }
+                catch(Exception ex)
+                {
+                   MessageBox.Show("Error loading image: " + ex.Message);
+                }
+                
+
+                
+                
+            }
         }
     }
 }
