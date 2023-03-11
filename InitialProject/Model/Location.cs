@@ -10,6 +10,8 @@ namespace InitialProject.Model
 {
     public class Location: ISerializable
     {
+        private string s;
+
         public string City { get; set; }
         public string Country { get; set; }
 
@@ -22,6 +24,11 @@ namespace InitialProject.Model
         {
             City = "";
             Country = "";
+        }
+
+        public Location(string s)
+        {
+            this.s = s;
         }
 
         public override string ToString()

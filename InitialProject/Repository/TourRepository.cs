@@ -11,7 +11,7 @@ namespace InitialProject.Repository
 
     {
 
-        private const string FilePath = "../../../Resources/Data/tours.csv";
+        private const string FilePath = "../../../Resources/Data/tours.txt";
 
         private readonly Serializer<Tour> _serializer;
 

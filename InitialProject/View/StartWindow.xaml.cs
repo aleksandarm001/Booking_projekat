@@ -43,5 +43,12 @@ namespace InitialProject.View
             RegisterNewAccommodation newAccommodation = new RegisterNewAccommodation();
             newAccommodation.Show();
         }
+
+        
+        private void Guide_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            TourForm tour = new TourForm();
+            tour.Show();
+        }
     }
 }
