@@ -10,41 +10,52 @@ namespace InitialProject.CustomClasses
 {
     public class Reservation : ISerializable
     {
-        public int AccommodationID { get; set; }
-        public int UserID { get; set; }
-        public int TourID { get; set; }
+        public int Id { get; set; }
+        public int AccomodationId { get; set; }
+        public int UserId { get; set; }
+        public int TourId { get; set; }
         public DateTime StartDate { get; set; }
         public string SStartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string SEndDate { get; set; }
         public float AvgRating { get; set; }
 
+        public int NumberOfGuests { get; set; }
 
-        public Reservation(int accommodationID, int userID, int tourID,DateTime startDate, DateTime endDate)
+
+        public Reservation(int AccomodationId, int UserId, int tourId,DateTime startDate, DateTime endDate)
         {
-            AccommodationID = accommodationID;
-            UserID = userID;
-            TourID = tourID;
+            AccomodationId = AccomodationId;
+            UserId = UserId;
+            TourId = tourId;
             StartDate = startDate;
             EndDate = endDate;
             SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate);
             SEndDate = string.Format("{0:dd.MM.yyyy.}", EndDate);
         }
-        public Reservation(int accommodationID, int userID, DateTime startDate, DateTime endDate)
+        public Reservation(int AccomodationId, int UserId, DateTime startDate, DateTime endDate)
         {
-            AccommodationID = accommodationID;
-            UserID = userID;
-            TourID = -1;
+            AccomodationId = AccomodationId;
+            UserId = UserId;
+            TourId = -1;
             StartDate = startDate;
             EndDate = endDate;
             SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate);
             SEndDate = string.Format("{0:dd.MM.yyyy.}", EndDate);
+        }
+
+        public Reservation(int UserId, int tourId,DateTime startDate, int numberOfVisitors)
+        {
+            UserId = UserId;
+            TourId = tourId;
+            StartDate = startDate;
+            NumberOfGuests = numberOfVisitors;
         }
         public Reservation()
         {
-            AccommodationID = -1;
-            TourID = -1;
-            UserID = -1;
+            AccomodationId = -1;
+            TourId = -1;
+            UserId = -1;
             StartDate = new DateTime();
             EndDate = new DateTime();
             SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate);
@@ -53,31 +64,37 @@ namespace InitialProject.CustomClasses
        
         public override string ToString()
         {
-            return AccommodationID.ToString() + ";" + StartDate.ToString() + ";" + EndDate.ToString();
+            return AccomodationId.ToString() + ";" + StartDate.ToString() + ";" + EndDate.ToString();
         }
        
         public string[] ToCSV()
         {
             string[] csvValues = {
-                UserID.ToString(),
-                AccommodationID.ToString(),
-                TourID.ToString(),
+                Id.ToString(),
+                UserId.ToString(),
+                AccomodationId.ToString(),
+                TourId.ToString(),
                 StartDate.ToString(),
                 EndDate.ToString(),
-                AvgRating.ToString()};
+                AvgRating.ToString(),
+                NumberOfGuests.ToString()};
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-            UserID = Convert.ToInt32(values[0]);
-            TourID = Convert.ToInt32(values[1]);
-            AccommodationID = Convert.ToInt32(values[2]);
-            StartDate = DateTime.Parse(values[3]);
+            Id = Convert.ToInt32(values[0]);    
+            UserId = Convert.ToInt32(values[1]);
+            TourId = Convert.ToInt32(values[2]);
+            AccomodationId = Convert.ToInt32(values[3]);
+            StartDate = DateTime.Parse(values[4]);
             SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate);
-            EndDate = DateTime.Parse(values[4]); 
+            EndDate = DateTime.Parse(values[5]); 
             SEndDate = string.Format("{0:dd.MM.yyyy.}", EndDate);
-            AvgRating = float.Parse(values[5]);
+            AvgRating = float.Parse(values[6]);
+            NumberOfGuests = Convert.ToInt32(values[7]);
         }
+
+
     }
 }

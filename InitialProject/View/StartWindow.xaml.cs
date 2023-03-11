@@ -38,6 +38,12 @@ namespace InitialProject.View
             guest1View.Show();
         }
 
+        private void Guest2_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            TourView tourView = new TourView(1); 
+            tourView.Show();
+        }
+
         private void Owner_ButtonClick(object sender, RoutedEventArgs e)
         {
             RegisterNewAccommodation newAccommodation = new RegisterNewAccommodation();

@@ -8,12 +8,12 @@ using System.Xml.Linq;
 
 namespace InitialProject.Model
 {
-    public class Location: ISerializable
+    public class Location : ISerializable
     {
-        private string s;
-
-        public string City { get; set; }
+        public int Id { get; set;}
         public string Country { get; set; }
+        public string City { get; set; }
+        
 
         public Location(string city, string country)
         {
@@ -49,16 +49,18 @@ namespace InitialProject.Model
         public string[] ToCSV()
         {
             string[] csvValues = {
-                Country,
-                City};
+                Id.ToString(),
+                City,
+                Country};
             
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-            Country = values[0];
+            Id = Convert.ToInt32(values[0]);
             City = values[1];
+            Country = values[2];
         }
     }
 }

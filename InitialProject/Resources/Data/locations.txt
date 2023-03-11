@@ -1,53 +1,50 @@
-United States|Washington
-China|Beijing
-Japan|Tokyo
-Germany|Berlin
-United Kingdom|London
-India|New Delhi
-France|Paris
-Italy|Rome
-Brazil|Brasília
-Canada|Ottawa
-South Korea|Seoul
-Russia|Moscow
-Australia|Canberra
-Spain|Madrid
-Mexico|Mexico City
-Indonesia|Jakarta
-Turkey|Ankara
-Saudi Arabia|Riyadh
-Switzerland|Bern
-Netherlands|Amsterdam
-Argentina|Buenos Aires
-Poland|Warsaw
-Sweden|Stockholm
-Belgium|Brussels
-Norway|Oslo
-Austria|Vienna
-United Arab Emirates|Abu Dhabi
-Iran|Tehran
-Thailand|Bangkok
-Nigeria|Abuja
-South Africa|Pretoria
-Denmark|Copenhagen
-Malaysia|Kuala Lumpur
-Egypt|Cairo
-Serbia|Belgrade
-Serbia|Novi Sad
-Serbia|Subotica
-Philippines|Manila
-Colombia|Bogota
-Singapore|Singapore
-Finland|Helsinki
-Chile|Santiago
-Pakistan|Islamabad
-Vietnam|Hanoi
-Peru|Lima
-New Zealand|Wellington
-Greece|Athens
-Portugal|Lisbon
-Czech Republic|Prague
-Romania|Bucharest
-Israel|Jerusalem
-Ireland|Dublin
-Hungary|Budapest
+1|Gaborone|Bocvana
+2|Kingston|Jamajka
+3|Tbilisi|Gruzija
+4|Havana|Kuba
+5|Ljubljana|Slovenija
+6|Tirana|Albanija
+7|Tallinn|Estonija
+8|Port Moresby|Papua Nova Gvineja
+9|Brisel|Belgija
+10|Helsinki|Finska
+11|Windhoek|Namibija
+12|Lima|Peru
+13|Bern|Švicarska
+14|Kijev|Ukrajina
+15|Lisabon|Portugal
+16|Sofija|Bugarska
+17|Nairobi|Kenija
+18|Lusaka|Zambija
+19|Luanda|Angola
+20|Belmopan|Belize
+21|Bridgetown|Barbados
+22|Valletta|Malta
+23|Sarajevo|Bosna i Hercegovina
+24|Kopenhagen|Danska
+25|Honiara|Solomonski Otoci
+26|Amsterdam|Nizozemska
+27|Abuja|Nigerija
+28|Dakar|Senegal
+29|Libreville|Gabon
+30|Bratislava|Slovačka
+31|Ljubljana|Slovenija
+32|Port Louis|Mauricijus
+33|Budimpešta|Mađarska
+34|Yamoussoukro|Obala Bjelokosti
+35|Dushanbe|Tadžikistan
+36|Buenos Aires|Argentina
+37|Sarajevo|Bosna i Hercegovina
+38|Bissau|Gvineja Bisau
+39|Chisinau|Moldavija
+40|La Paz|Bolivija
+41|Tripoli|Libija
+42|San Salvador|Salvador
+43|Vilnius|Litva
+44|Tegucigalpa|Honduras
+45|Antananarivo|Madagaskar
+46|Monaco|Monako
+47|Paramaribo|Surinam
+48|Helsinki|Finska
+49|Brazzaville|Kongo
+50|Vientiane|Laos
