@@ -2,6 +2,7 @@
 using InitialProject.Serializer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -97,6 +98,11 @@ namespace InitialProject.Repository
             _tourPoints.Insert(index, tourPoint);
             _serializer.ToCSV(TempFilePath, _tourPoints);
             return tourPoint;
+        }
+
+        public void ClearTemp()
+        {
+            File.WriteAllText(TempFilePath, string.Empty);
         }
 
 

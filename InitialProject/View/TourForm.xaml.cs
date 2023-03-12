@@ -25,6 +25,7 @@ namespace InitialProject.View
     public partial class TourForm : Window
     {
         private readonly LanguageRepository _languageRepository;
+        private readonly TourPointRepository _tourPointRepository;
         private readonly TourRepository _tourRepository;
         private readonly int tourId;
         public static ObservableCollection<Language> Languages { get; set; }
@@ -35,8 +36,10 @@ namespace InitialProject.View
             DataContext = this;
             _languageRepository = new LanguageRepository();
             _tourRepository = new TourRepository();
+            _tourPointRepository = new TourPointRepository();
             tourId = _tourRepository.NextId();
             Languages = new ObservableCollection<Language>(_languageRepository.GetAll());
+            _tourPointRepository.ClearTemp();
 
         }
 

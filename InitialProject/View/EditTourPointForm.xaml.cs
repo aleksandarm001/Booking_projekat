@@ -1,4 +1,5 @@
 ﻿using InitialProject.Model;
+using InitialProject.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,18 +24,31 @@ namespace InitialProject.View
     public partial class EditTourPointForm : Window
     {
         private readonly TourPoint _tourPoint;
-        private readonly List<int> _availableOrders;
+        private readonly TourPointRepository _tourPointRepository;
+
         public static ObservableCollection<int> Orders { get; set; }
 
-        public EditTourPointForm(TourPoint tourPoint,List<int> availableOrders)
+        public List<int> _availableOrders;
+        public List<int> _orders;
+        public List<int> _usedOrders;
+
+
+        public EditTourPointForm(TourPoint tourPoint,List<int> availableOrders,List<int> orders,List<int> usedOrders)
         {
             _tourPoint = tourPoint;
             _availableOrders = availableOrders;
+            _orders = orders;
+            _usedOrders = usedOrders;
+            _tourPointRepository = new TourPointRepository();
+
             InitializeComponent();
             DataContext = this;
+
             FirstName.Content = _tourPoint.Name;
-            Orders = new ObservableCollection<int>(availableOrders);
+            Orders = new ObservableCollection<int>(_orders);
         }
+
+        
 
         
 

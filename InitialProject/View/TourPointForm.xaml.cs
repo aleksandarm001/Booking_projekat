@@ -1,5 +1,6 @@
 ﻿using InitialProject.Model;
 using InitialProject.Repository;
+using Microsoft.VisualStudio.Services.Common;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,6 +21,11 @@ namespace InitialProject.View
         private readonly TourPointRepository _tourPointRepository;
 
         public List<int> availableOrders;
+
+        public List<int> orders;
+
+        public List<int> usedOrders;
+
 
 
 
@@ -48,7 +54,30 @@ namespace InitialProject.View
             }
         }
 
-        
+         
+        private string _Name;
+        public string NameTourPoint
+        {
+            get { return _Name; }
+            set
+            {
+                _Name = value;
+                OnPropertyChanged(nameof(_Name));
+            }
+        }
+
+        private string _Description;
+        public string Description
+        {
+            get { return _Description; }
+            set
+            {
+                _Description = value;
+                OnPropertyChanged(nameof(_Description));
+            }
+        }
+
+
 
         protected void OnPropertyChanged(string propertyName)
         {
@@ -64,37 +93,7 @@ namespace InitialProject.View
             InitializeComponent();
             tourId = tourID;
 
-            TourPoint tp = new TourPoint();
-            tp.Id = 1;
-            tp.TourId = tourId;
-            tp.Name= "antonije";
-            tp.Order = 1;
-            tp.CurrentActive = 0;
-            tp.Description = string.Empty;
-
-            TourPoint tp1 = new TourPoint();
-            tp1.Id = 2;
-            tp1.TourId = tourId;
-            tp1.Name = "antonije1";
-            tp1.Order = 0;
-            tp1.CurrentActive = 0;
-            tp1.Description = string.Empty;
-
-
-            TourPoint tp2 = new TourPoint();
-            tp2.Id = 3;
-            tp2.TourId = tourId;
-            tp2.Name = "antonije2";
-            tp2.Order = 0;
-            tp2.CurrentActive = 0;
-            tp2.Description = string.Empty;
-
-
-
-            List<TourPoint> tourPoints = new List<TourPoint>() 
-            { 
-                tp, tp1, tp2
-            };
+            
 
             _tourPointRepository = new TourPointRepository();
 
@@ -105,7 +104,7 @@ namespace InitialProject.View
 
         }
 
-        public List<int> orederCounter(List<TourPoint> tourPoints)
+        public List<int> OredersCounter(List<TourPoint> tourPoints)
         {
             List<int> list = new List<int>();
             int i = 0;
@@ -119,7 +118,7 @@ namespace InitialProject.View
             return list;
         }
 
-        public List<int> usedOrder(List<TourPoint> tourPoints)
+        public List<int> UsedOrder(List<TourPoint> tourPoints)
         {
             List<int> list = new List<int>();
             foreach(TourPoint tour in tourPoints)
@@ -131,9 +130,9 @@ namespace InitialProject.View
 
         public List<int> availableOrder()
         {
-            List<int> orders = orederCounter(_tourPoints.ToList());
-            List<int> usedOrders = usedOrder(_tourPoints.ToList());
-            List<int> availableOrders = orders.Except(usedOrders).ToList();
+            orders = OredersCounter(_tourPoints.ToList());
+            usedOrders = UsedOrder(_tourPoints.ToList());
+            availableOrders = orders.Except(usedOrders).ToList();
             return availableOrders;
         }
 
@@ -144,7 +143,7 @@ namespace InitialProject.View
                 return; //napraviti window da nije selektovano
             else
             {
-                EditTourPointForm editTour = new EditTourPointForm(SelectedTourPoint, availableOrders);
+                EditTourPointForm editTour = new EditTourPointForm(SelectedTourPoint, availableOrders, orders, usedOrders);
                 editTour.Show();
             }
 
@@ -157,9 +156,33 @@ namespace InitialProject.View
 
         }
 
+        public TourPoint CreateTourPoint()
+        {
+            TourPoint tp = new TourPoint();
+            tp.TourId = tourId;
+            tp.Name = NameTourPoint;
+            tp.Description = Description;
+            tp.Id = _tourPointRepository.NextIdTemp();
+            return tp;
+        }
+
+        public void RefreshTourPoints()
+        {
+            TourPoints.Clear();
+            List<TourPoint> list = new List<TourPoint>();
+            list = _tourPointRepository.getAllTemp();
+            foreach (var tourpoint in list)
+            {
+                TourPoints.Add(tourpoint);
+            }
+        }
+
+
         private void AddTourPoint_ButtonClick(object sender, RoutedEventArgs e)
         {
 
+            _tourPointRepository.SaveTemp(CreateTourPoint());
+            RefreshTourPoints();
         }
     }
 }
