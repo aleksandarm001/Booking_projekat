@@ -108,8 +108,8 @@ namespace InitialProject.View
             AccommodationName = accommodation.Name;
             _reservationRepository = new ReservationRepository();
             Reservations = new List<Reservation>(_reservationRepository.GetReservationsByAccommodationId(SelectedAccommodation.AccommodationID));
-            StartDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today));
-            EndDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today));
+            StartDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
+            EndDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1))));
             DateRanges = new ObservableCollection<DateRange>();
         }
         protected virtual void OnPropertyChanged(string name)
