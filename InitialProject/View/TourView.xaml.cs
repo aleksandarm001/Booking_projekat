@@ -22,8 +22,6 @@
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<string> Countries { get; set; }
-
-        private readonly LocationRepository _locationRepository;
         private int UserId { get; }
         public Tour SelectedTour { get; set; }
 
@@ -46,12 +44,11 @@
             DataContext = this;
             UserId = userId;
             _tourRepository = new TourRepository();
-            _locationRepository = new LocationRepository();
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
-            Locations = new ObservableCollection<Location>(_locationRepository.getAll());
             InitializeLanguages();
+            InitializeLocations();
             InitializeGuestNumber();
             InitializeDuration();
             ReadCitiesAndCountries();
@@ -61,16 +58,28 @@
         {
             Languages = new ObservableCollection<string>();
             Languages.Add("");
-            /*
             foreach (Tour t in Tours)
             {
-                if(!Languages.Contains(t.Language))
+                if (!Languages.Contains(t.Language.Name))
                 {
-                    Languages.Add(t.Language);
-                } 
+                    Languages.Add(t.Language.Name);
+                }
             }
-            */
         }
+
+        private void InitializeLocations()
+        {
+            Locations = new ObservableCollection<Location>();
+            foreach (Tour t in Tours)
+            {
+                if (!Locations.Contains(t.Location))
+                {
+                    Locations.Add(t.Location);
+                }
+            }
+
+        }
+      
 
         private void InitializeGuestNumber()
         {
@@ -92,7 +101,6 @@
         private void InitializeDuration ()
         {
             Duration = new ObservableCollection<int>();
-            //Duration.Add(Convert.ToInt32(""));
             int max = 1;
             foreach(Tour t in Tours)
             {
@@ -139,6 +147,20 @@
                         (a.Location.Country == _country) && (a.Location.City == _city) && (a.MaxGuestNumber!=0));
 
                         Tours = new ObservableCollection<Tour>(filteredCollection);
+                        
+                        if(Tours.Count==0)
+                        {
+                            string messageBoxText1 = "Trenutno ne postoji tura na istoj lokaciji, pogledajte ostale ponudjene ture!";
+                            string caption1 = "Rezervacija ture";
+                            MessageBoxButton button1 = MessageBoxButton.OK;
+                            MessageBoxImage icon1 = MessageBoxImage.Exclamation;
+                            MessageBoxResult result1;
+
+                            result1 = MessageBox.Show(messageBoxText1, caption1, button1, icon1, MessageBoxResult.Yes);
+
+                            Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
+
+                        }
 
                     }
                     else
@@ -168,17 +190,17 @@
                 string _guestNumber = GuestNumberCmbx.Text;
                 string _durationFrom = Duration_Box_From.Text;
                 string _durationTo = Duration_Box_To.Text;
-                /*
+                
                 var filteredCollection = tempTours.Where(a =>
                     (string.IsNullOrEmpty(_country) || a.Location.Country == _country) &&
                     (string.IsNullOrEmpty(_city) || a.Location.City == _city) &&
                     (string.IsNullOrEmpty(_durationFrom) || a.Duration >= Convert.ToInt32(_durationFrom)) &&
                     (string.IsNullOrEmpty(_durationTo) || a.Duration <= Convert.ToInt32(_durationTo)) &&
                     (string.IsNullOrEmpty(_guestNumber) || a.MaxGuestNumber >= Convert.ToInt32(_guestNumber)) &&
-                    (string.IsNullOrEmpty(_language) || a.Language == _language));
+                    (string.IsNullOrEmpty(_language) || a.Language.ToString() == _language));
 
                 Tours = new ObservableCollection<Tour>(filteredCollection);
-                */
+                
             }
 
         }
@@ -191,7 +213,11 @@
             Countries.Add("");
             foreach (Location l in Locations)
             {
-                Cities.Add(l.City);
+                if (!Cities.Contains(l.City)) 
+                {
+                    Cities.Add(l.City);
+                }
+                
                 if (!Countries.Contains(l.Country))
                 {
                     Countries.Add(l.Country);
@@ -213,6 +239,23 @@
                 if (cmbx.SelectedItem != null)
                 {
                     country = cmbx.SelectedItem.ToString();
+                    if (country == "")
+                    {
+                        ReadCitiesAndCountries();
+                    }
+                    else
+                    {
+                        Cities.Clear();
+                        Cities.Add("");
+                        foreach (Location loc in Locations)
+                        {
+                            if (loc.Country == country && !Cities.Contains(loc.City))
+                            {
+                                Cities.Add(loc.City);
+                            }
+                        }
+                        CityCmbx.SelectedIndex = 1;
+                    }
                 }
                 else
                 {
@@ -222,23 +265,6 @@
             catch (System.NullReferenceException)
             {
                 ReadCitiesAndCountries();
-            }
-            if (country == "")
-            {
-                ReadCitiesAndCountries();
-            }
-            else
-            {
-                Cities.Clear();
-                Cities.Add("");
-                foreach (Location loc in Locations)
-                {
-                    if (loc.Country == country)
-                    {
-                        Cities.Add(loc.City);
-                    }
-                }
-                CityCmbx.SelectedIndex = 1;
             }
         }
 

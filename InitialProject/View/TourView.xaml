@@ -26,7 +26,7 @@
                 <DataGridTextColumn Header="Drzava" Width="100" Binding="{Binding Location.Country}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Trajanje ture" Width="100" Binding="{Binding Duration}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Jezik" Width="150" Binding="{Binding Language}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum i vrijeme" Width="150" Binding="{Binding StartingDateTimes}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum i vrijeme" Width="150" Binding="{Binding StartingDateTime}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Broj ljudi" Width="*" Binding="{Binding MaxGuestNumber}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
