@@ -18,6 +18,7 @@ namespace InitialProject.Model
         public Status CurrentActive { get; set; }
         public string Description { get; set; }
         public int Order { get; set; }
+        
 
         public TourPoint()
         {
@@ -38,6 +39,7 @@ namespace InitialProject.Model
             string[] csvValues = {
                 Id.ToString(),
                 Name,
+                TourId.ToString(),
                 CurrentActive.ToString(),
                 Description,
                 Order.ToString(),
@@ -49,9 +51,10 @@ namespace InitialProject.Model
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
+            TourId= Convert.ToInt32(values[2]);
             CurrentActive = (Status)Enum.Parse(typeof(Status), values[3]);
-            Description = values[3];
-            Order = Convert.ToInt32(values[4]);
+            Description = values[4];
+            Order = Convert.ToInt32(values[5]);
         }
 
         

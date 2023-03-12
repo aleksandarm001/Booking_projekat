@@ -11,6 +11,8 @@ namespace InitialProject.Repository
     public class TourPointRepository
     {
         private const string FilePath = "../../../Resources/Data/tourpoints.txt";
+        private const string TempFilePath = "../../../Resources/TempData/tourpoints.txt";
+
 
         private readonly Serializer<TourPoint> _serializer;
 
@@ -58,5 +60,45 @@ namespace InitialProject.Repository
             _serializer.ToCSV(FilePath, _tourPoints);
             return tourPoint;
         }
+
+        public List<TourPoint> getAllTemp()
+        {
+            return _serializer.FromCSV(TempFilePath);
+        }
+        public TourPoint SaveTemp(TourPoint tourPoint)
+        {
+            tourPoint.Id = NextIdTemp();
+            _tourPoints.Add(tourPoint);
+            _serializer.ToCSV(TempFilePath, _tourPoints);
+            return tourPoint;
+        }
+        public int NextIdTemp()
+        {
+            _tourPoints = _serializer.FromCSV(TempFilePath);
+            if (_tourPoints.Count < 1)
+            {
+                return 1;
+            }
+            return _tourPoints.Max(tour => tour.Id) + 1;
+        }
+        public void DeleteTemp(TourPoint tourPoint)
+        {
+            _tourPoints = _serializer.FromCSV(TempFilePath);
+            TourPoint foundedTourPoint = _tourPoints.Find(tour => tour.Id == tourPoint.Id);
+            _tourPoints.Remove(foundedTourPoint);
+            _serializer.ToCSV(TempFilePath, _tourPoints);
+        }
+        public TourPoint UpdateTemp(TourPoint tourPoint)
+        {
+            _tourPoints = _serializer.FromCSV(TempFilePath);
+            TourPoint current = _tourPoints.Find(tour => tour.Id == tourPoint.Id);
+            int index = _tourPoints.IndexOf(current);
+            _tourPoints.Remove(current);
+            _tourPoints.Insert(index, tourPoint);
+            _serializer.ToCSV(TempFilePath, _tourPoints);
+            return tourPoint;
+        }
+
+
     }
 }
