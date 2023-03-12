@@ -18,12 +18,13 @@
         public event PropertyChangedEventHandler PropertyChanged;
         public static ObservableCollection<int> Duration { get; set; }
         public static ObservableCollection<int> GuestNumber { get; set; }
-        public static ObservableCollection<string> Languages { get; set; }
+        public static ObservableCollection<Language> Languages { get; set; }
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<string> Countries { get; set; }
 
         private readonly LocationRepository _locationRepository;
+        private readonly LanguageRepository _languageRepository;
         private int UserId { get; }
         public Tour SelectedTour { get; set; }
 
@@ -47,30 +48,18 @@
             UserId = userId;
             _tourRepository = new TourRepository();
             _locationRepository = new LocationRepository();
+            _languageRepository = new LanguageRepository();
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
             Locations = new ObservableCollection<Location>(_locationRepository.getAll());
-            InitializeLanguages();
+            Languages = new ObservableCollection<Language>(_languageRepository.GetAll());
             InitializeGuestNumber();
             InitializeDuration();
             ReadCitiesAndCountries();
         }
 
-        private void InitializeLanguages()
-        {
-            Languages = new ObservableCollection<string>();
-            Languages.Add("");
-            /*
-            foreach (Tour t in Tours)
-            {
-                if(!Languages.Contains(t.Language))
-                {
-                    Languages.Add(t.Language);
-                } 
-            }
-            */
-        }
+      
 
         private void InitializeGuestNumber()
         {
@@ -92,7 +81,6 @@
         private void InitializeDuration ()
         {
             Duration = new ObservableCollection<int>();
-            //Duration.Add(Convert.ToInt32(""));
             int max = 1;
             foreach(Tour t in Tours)
             {
@@ -168,17 +156,17 @@
                 string _guestNumber = GuestNumberCmbx.Text;
                 string _durationFrom = Duration_Box_From.Text;
                 string _durationTo = Duration_Box_To.Text;
-                /*
+                
                 var filteredCollection = tempTours.Where(a =>
                     (string.IsNullOrEmpty(_country) || a.Location.Country == _country) &&
                     (string.IsNullOrEmpty(_city) || a.Location.City == _city) &&
                     (string.IsNullOrEmpty(_durationFrom) || a.Duration >= Convert.ToInt32(_durationFrom)) &&
                     (string.IsNullOrEmpty(_durationTo) || a.Duration <= Convert.ToInt32(_durationTo)) &&
                     (string.IsNullOrEmpty(_guestNumber) || a.MaxGuestNumber >= Convert.ToInt32(_guestNumber)) &&
-                    (string.IsNullOrEmpty(_language) || a.Language == _language));
+                    (string.IsNullOrEmpty(_language) || a.Language.ToString() == _language));
 
                 Tours = new ObservableCollection<Tour>(filteredCollection);
-                */
+                
             }
 
         }

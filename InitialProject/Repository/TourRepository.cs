@@ -32,10 +32,6 @@ namespace InitialProject.Repository
 
         public List<Tour> GetAll() 
         {
-            foreach(Tour t in _tours)
-            {
-                t.Location = _locationRepository.GetById(t.TourId);
-            }
             return _tours;
         }
 

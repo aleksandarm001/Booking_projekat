@@ -10,7 +10,7 @@
         <Button Content="Owner" HorizontalAlignment="Left" Height="47" Margin="124,63,0,0" VerticalAlignment="Top" Width="199" Click="Owner_ButtonClick"/>
         <Button Content="Guest1" HorizontalAlignment="Left" Height="47" Margin="124,143,0,0" VerticalAlignment="Top" Width="199" Click="Guest1_ButtonClick"/>
         <Button Content="Guide" HorizontalAlignment="Left" Height="47" Margin="124,234,0,0" VerticalAlignment="Top" Width="199" Click="Guide_ButtonClick"/>
-        <Button Content="Guest2" HorizontalAlignment="Left" Height="47" Margin="124,325,0,0" VerticalAlignment="Top" Width="199"/>
+        <Button Content="Guest2" HorizontalAlignment="Left" Height="47" Margin="124,325,0,0" VerticalAlignment="Top" Width="199" Click="Guest2_ButtonClick"/>
 
     </Grid>
 </Window>
