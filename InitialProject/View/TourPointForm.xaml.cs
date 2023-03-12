@@ -143,6 +143,7 @@ namespace InitialProject.View
                 return; //napraviti window da nije selektovano
             else
             {
+                availableOrder();
                 EditTourPointForm editTour = new EditTourPointForm(SelectedTourPoint, availableOrders, orders, usedOrders);
                 editTour.Show();
             }

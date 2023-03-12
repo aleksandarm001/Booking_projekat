@@ -100,6 +100,24 @@ namespace InitialProject.Repository
             return tourPoint;
         }
 
+        public TourPoint UpdateTempOrder(TourPoint tourPoint, int order) 
+        {
+            _tourPoints = _serializer.FromCSV(TempFilePath);
+            foreach(var tour in _tourPoints)
+            {
+                if(tour.Order == order)
+                {
+                    tour.Order = 0;
+                    UpdateTemp(tour);
+                }
+            }
+
+            tourPoint.Order = order;
+            UpdateTemp(tourPoint);
+            return tourPoint;
+
+        }
+
         public void ClearTemp()
         {
             File.WriteAllText(TempFilePath, string.Empty);

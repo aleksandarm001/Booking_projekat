@@ -8,8 +8,8 @@
         Title="EditTourPointForm" Height="64" Width="300" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label x:Name="FirstName" Margin="0,10,0,-10">dsa</Label>
-        <ComboBox Name ="CityComboBox" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
+        <ComboBox Name ="OrderComboBox" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
                       ItemsSource="{Binding Orders}" HorizontalAlignment="Left" Width ="33" SelectedIndex="0" Margin="196,10,0,10"/>
-        <Button Margin="247,10,6,10" Click="Save_ButtonClick">Sacuvaj</Button>
+        <Button Content="Save" HorizontalAlignment="Left" Height="30" Margin="121,76,0,0" VerticalAlignment="Top" Width="95" Click="SaveButtonClick"/>
     </Grid>
 </Window>

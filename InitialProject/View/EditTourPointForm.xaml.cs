@@ -48,13 +48,17 @@ namespace InitialProject.View
             Orders = new ObservableCollection<int>(_orders);
         }
 
-        
 
         
 
-        private void Save_ButtonClick(object sender, RoutedEventArgs e)
+
+        private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
-            
+
+            int broj = int.Parse(OrderComboBox.Text);
+            _tourPointRepository.UpdateTempOrder(_tourPoint, broj);
+            Close();
+
         }
     }
 }
