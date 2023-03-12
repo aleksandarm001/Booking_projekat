@@ -33,7 +33,12 @@
 
             </Grid>
 
-            <DataGrid Grid.Row="0" Margin="234,0,0,6" Grid.ColumnSpan="2">
+            <DataGrid Grid.Row="0" Margin="234,0,0,6" Grid.ColumnSpan="2" 
+                  ItemsSource="{Binding Path = TourPoints, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path= SelectedTourPoint, UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="false"
+                  Visibility ="Visible">
+                
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Naziv" Width="200" Binding="{Binding Name}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Red" Width="100" Binding="{Binding Order}"></DataGridTextColumn>

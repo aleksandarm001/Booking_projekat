@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
 
 
-        <DataGrid Grid.Column="1" Grid.Row="1" Margin="15,27,15,47"
+        <DataGrid Grid.Column="1" Grid.Row="1" Margin="10,29,20,45"
                   ItemsSource="{Binding Path = Accommodations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path= SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
