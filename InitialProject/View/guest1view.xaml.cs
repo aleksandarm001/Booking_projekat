@@ -22,6 +22,7 @@ using System.Diagnostics.Metrics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.Specialized;
+using Microsoft.VisualStudio.Services.Common;
 
 namespace InitialProject.View
 {
@@ -34,6 +35,8 @@ namespace InitialProject.View
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<string> Countries { get; set; }
+        public static ObservableCollection<string> NumberOfGuestsList { get; set; }
+        public static ObservableCollection<string> ReservationDaysList { get; set; }
         public string AccommodationName { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         private readonly AccommodationRepository _repository;
@@ -122,10 +125,39 @@ namespace InitialProject.View
             DataContext = this;
             _repository = new AccommodationRepository();
             Accommodations = new ObservableCollection<Accommodation>(_repository.getAll());
+            NumberOfGuestsList = new ObservableCollection<string>();
+            ReservationDaysList = new ObservableCollection<string>();
             Locations = locations;
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             ReadCitiesAndCountries();
+            InitializeNumberOfGuestsList();
+            InitializeReservationDaysList();
+        }
+
+        private void InitializeNumberOfGuestsList()
+        {
+            foreach(Accommodation accommodation in _accommodations)
+            {
+                if (!NumberOfGuestsList.Contains(accommodation.MaxGuestNumber.ToString()))
+                {
+                    NumberOfGuestsList.Add(accommodation.MaxGuestNumber.ToString());
+                }
+            }
+
+            NumberOfGuestsList = new ObservableCollection<string>(NumberOfGuestsList.OrderBy(n => Convert.ToInt32(n)));
+            NumberOfGuestsList.Insert(0, "");
+        }
+        private void InitializeReservationDaysList()
+        {
+            int i = 1;
+            ReservationDaysList.Add("");
+            int maxNumber = Accommodations.OrderBy(a => a.MinReservationDays).Last().MinReservationDays;
+            while(i <= maxNumber)
+            {
+                ReservationDaysList.Add(i.ToString());
+                i++;
+            }
         }
         private void ApplyAdditionalSearch(object sender, RoutedEventArgs e)
         {
@@ -167,8 +199,10 @@ namespace InitialProject.View
                 (string.IsNullOrEmpty(AccommodationName) || a.Name.ToLower().Contains(AccommodationName.ToLower())) &&
                 (string.IsNullOrEmpty(_country) || a.Location.Country == _country) &&
                 (string.IsNullOrEmpty(_city) || a.Location.City == _city) &&
-                (string.IsNullOrEmpty(GuestNumber.Text) || a.MaxGuestNumber >= Convert.ToInt32(GuestNumber.Text)) &&
-                (string.IsNullOrEmpty(DaysReservation.Text) || a.MinReservationDays <= Convert.ToInt32(DaysReservation.Text)));
+                (string.IsNullOrEmpty(GuestNumber.Text) || a.MaxGuestNumber >= Convert.ToInt32(GuestNumber.Text)) && 
+                (NumberOfGuests == 0 || a.MaxGuestNumber >= NumberOfGuests) && //zakomentarisati ukoliko ne moze combobox
+                (ReservationDays == 0 || a.MinReservationDays <= ReservationDays) && //zakomentarisati ukoliko ne moze combobox
+                (string.IsNullOrEmpty(DaysReservation.Text) || a.MinReservationDays <= Convert.ToInt32(DaysReservation.Text))); 
 
             Accommodations = new ObservableCollection<Accommodation>(filteredCollection);
            
@@ -224,9 +258,13 @@ namespace InitialProject.View
                 ReadCitiesAndCountries();
             }
         }
-        private void Filter_Countries(object sender, SelectionChangedEventArgs e)
+        private void InitializeNumberOfGuests(object sender, SelectionChangedEventArgs e)
         {
-            
+            ComboBox cmbx = (ComboBox)sender;
+            if (!string.IsNullOrEmpty(cmbx.SelectedItem.ToString()))
+            {
+                NumberOfGuests = Convert.ToInt32(cmbx.SelectedItem);
+            }
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -243,6 +281,15 @@ namespace InitialProject.View
             {
                 AccommodationReservationForm accommodationReservationFormWindow = new AccommodationReservationForm(SelectedAccommodation);
                 accommodationReservationFormWindow.ShowDialog();
+            }
+        }
+
+        private void InitializeReservationsDays(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cmbx = (ComboBox)sender;
+            if (!string.IsNullOrEmpty(cmbx.SelectedItem.ToString()))
+            {
+                ReservationDays = Convert.ToInt32(cmbx.SelectedItem);
             }
         }
     }

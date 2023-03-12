@@ -109,7 +109,7 @@ namespace InitialProject.View
             _reservationRepository = new ReservationRepository();
             Reservations = new List<Reservation>(_reservationRepository.GetReservationsByAccommodationId(SelectedAccommodation.AccommodationID));
             StartDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
-            EndDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1))));
+            EndDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
             DateRanges = new ObservableCollection<DateRange>();
         }
         protected virtual void OnPropertyChanged(string name)
@@ -119,7 +119,7 @@ namespace InitialProject.View
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-        private List<DateRange> extractFreeDates(List<Reservation> reservations)
+        private List<DateRange> extractFreeDates(List<Reservation> reservations, DateTime StartDay, DateTime EndDay)
         {
             List<DateRange> result = new List<DateRange>();
             for (var day = StartDay; day.Date <= EndDay; day = day.AddDays(1))
@@ -156,20 +156,18 @@ namespace InitialProject.View
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NoFreeReservation.Visibility = Visibility.Hidden;
+            DateRanges.Clear();
             if (ReservationDays < SelectedAccommodation.MinReservationDays)
             {
                 MessageBox.Show("Minimum number of days to reserve " + AccommodationName + " is " + SelectedAccommodation.MinReservationDays);
             }
             else
             {
-                DateRanges.Clear();
-                List<DateRange> freeDates = extractFreeDates(Reservations);
+                List<DateRange> freeDates = extractFreeDates(Reservations, StartDay, EndDay);
                 if (freeDates.Count == 0)
                 {
                     NoFreeReservation.Visibility = Visibility.Visible;
-                    StartDay = DateTime.Now;
-                    EndDay = StartDay.AddDays(90);
-                    DateRanges = new ObservableCollection<DateRange>(extractFreeDates(Reservations));
+                    DateRanges = new ObservableCollection<DateRange>(extractFreeDates(Reservations, DateTime.Now, DateTime.Now.AddDays(90)));
                 }
                 else
                 {

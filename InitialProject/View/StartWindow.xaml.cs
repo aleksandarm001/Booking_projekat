@@ -23,13 +23,15 @@ namespace InitialProject.View
     public partial class StartWindow : Window
     {
         private readonly LocationRepository _locationRepository;
+        private readonly AccommodationRepository _accommodationRepository;
         public static ObservableCollection<Location> Locations { get; set; }
         public StartWindow()
         {
             InitializeComponent();
             DataContext = this;
             _locationRepository = new LocationRepository();
-            Locations = new ObservableCollection<Location>(_locationRepository.getAll());
+            _accommodationRepository = new AccommodationRepository();
+            Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
         }
 
         private void Guest1_ButtonClick(object sender, RoutedEventArgs e)

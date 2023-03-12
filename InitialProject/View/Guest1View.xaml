@@ -32,32 +32,32 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Content="Grad" HorizontalAlignment="Left" Margin="15,143,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="Grad" HorizontalAlignment="Left" Margin="15,117,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <ComboBox Name="CityCmbx" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
-                  ItemsSource="{Binding Cities}" HorizontalAlignment="Center" Margin="0,168,0,0" 
-                  Grid.Row="1" VerticalAlignment="Top" Width="130" SelectionChanged="Filter_Countries" SelectedIndex="0"/>
+                  ItemsSource="{Binding Cities}" HorizontalAlignment="Center" Margin="0,142,0,0" 
+                  Grid.Row="1" VerticalAlignment="Top" Width="130" SelectedIndex="0"/>
 
 
-        <Label Content="Drzava" HorizontalAlignment="Left" Margin="15,96,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="Drzava" HorizontalAlignment="Left" Margin="15,70,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <ComboBox Name ="CountryCmbx" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
-                  ItemsSource="{Binding Countries}"  HorizontalAlignment="Center" Margin="0,122,0,0" 
+                  ItemsSource="{Binding Countries}"  HorizontalAlignment="Center" Margin="0,96,0,0" 
                   Grid.Row="1" VerticalAlignment="Top" Width="130" SelectionChanged="FilterCities" SelectedIndex="0">
 
         </ComboBox>
 
-        <Label Content="Accommodation Type" HorizontalAlignment="Left" Margin="15,195,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="Accommodation Type" HorizontalAlignment="Left" Margin="15,169,0,0" Grid.Row="1" VerticalAlignment="Top"/>
 
-        <Label Content="Broj gostiju" HorizontalAlignment="Left" Margin="15,294,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox Name="GuestNumber" HorizontalAlignment="Center" Margin="0,320,0,0" 
+        <Label Content="Broj gostiju" HorizontalAlignment="Left" Margin="15,268,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox Name="GuestNumber" HorizontalAlignment="Center" Margin="0,294,0,0" 
                  Grid.Row="1" VerticalAlignment="Top" Width="130"
                  Text="{Binding Path=StrNumberOfGuests, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Content="Broj dana za rezervaciju" HorizontalAlignment="Left" Margin="15,347,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox Name ="DaysReservation" HorizontalAlignment="Center" Margin="0,373,0,0" 
+        <Label Content="Broj dana za rezervaciju" HorizontalAlignment="Left" Margin="15,321,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox Name ="DaysReservation" HorizontalAlignment="Center" Margin="0,347,0,0" 
                  Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"
                  Text="{Binding Path=StrReservationDays, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Button Content="Primijeni" Click="ApplyAdditionalSearch" HorizontalAlignment="Center" Margin="0,410,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="30"/>
+        <Button Content="Primijeni" Click="ApplyAdditionalSearch" HorizontalAlignment="Left" Margin="47,494,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="30"/>
 
         <GridSplitter Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="530" Margin="170,0,0,0" VerticalAlignment="Top" Width="3" Grid.RowSpan="2"/>
 
@@ -86,13 +86,21 @@
                 </TransformGroup>
             </GridSplitter.RenderTransform>
         </GridSplitter>
-        <Label Content="Ime Smjestaja" HorizontalAlignment="Left" Margin="15,52,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox Name ="AccommodationNameTextBox" HorizontalAlignment="Center" Margin="0,78,0,0" 
+        <Label Content="Ime Smjestaja" HorizontalAlignment="Left" Margin="15,26,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox Name ="AccommodationNameTextBox" HorizontalAlignment="Center" Margin="0,52,0,0" 
             Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"
             Text="{Binding AccommodationName}"/>
-        <CheckBox Content="Appartment" Name="AppartmentCheckBox" HorizontalAlignment="Left" Margin="33,226,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <CheckBox Content="House" Name ="HouseCheckBox" HorizontalAlignment="Left" Margin="33,246,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <CheckBox Content="Shack" Name ="ShackCheckBox" HorizontalAlignment="Left" Margin="33,266,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <CheckBox Content="Appartment" Name="AppartmentCheckBox" HorizontalAlignment="Left" Margin="33,200,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <CheckBox Content="House" Name ="HouseCheckBox" HorizontalAlignment="Left" Margin="33,220,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <CheckBox Content="Shack" Name ="ShackCheckBox" HorizontalAlignment="Left" Margin="33,240,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="Broj gostiju" HorizontalAlignment="Left" Margin="15,380,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <ComboBox  Name ="NumberOfGuestsCmbx" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                  ItemsSource="{Binding NumberOfGuestsList}"  HorizontalAlignment="Center" Margin="0,406,0,0" 
+                  Grid.Row="1" VerticalAlignment="Top" Width="130" SelectionChanged="InitializeNumberOfGuests" SelectedIndex="0"/>
+        <Label Content="Broj dana za rezervaciju" HorizontalAlignment="Left" Margin="15,433,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <ComboBox  x:Name ="ReservationDaysCmbx" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+            ItemsSource="{Binding ReservationDaysList}"  HorizontalAlignment="Center" Margin="0,459,0,0" 
+            Grid.Row="1" VerticalAlignment="Top" Width="130" SelectedIndex="0" SelectionChanged="InitializeReservationsDays"/>
 
     </Grid>
 

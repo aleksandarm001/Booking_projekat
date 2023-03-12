@@ -38,7 +38,7 @@ namespace InitialProject.CustomClasses
 
         public bool WithinRange(DateTime value)
         {
-            if(value >= StartDate && value <= EndDate)
+            if(value >= StartDate && value < EndDate)
             {
                 return true;
             }else

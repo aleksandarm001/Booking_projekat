@@ -70,7 +70,7 @@ namespace InitialProject.CustomClasses
             TourId = Convert.ToInt32(values[2]);
             AccomodationId = Convert.ToInt32(values[3]);
             AvgRating = float.Parse(values[4]);
-            NumberOfGuests = Convert.ToInt32(values[4]);
+            NumberOfGuests = Convert.ToInt32(values[5]);
             ReservationDateRange = ReservationDateRange.fromStringToDateRange(values[6]);
         }
 

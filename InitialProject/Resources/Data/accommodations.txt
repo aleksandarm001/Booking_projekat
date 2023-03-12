@@ -21,4 +21,3 @@
 21|Dupe|New York City;United States|Appartment|2|3|1|
 22|Droga|São Paulo;Brazil|House|5|3|2|
 23|JebemTiMajku|Tokyo;Japan|Appartment|4|5|3|
-24||;|Appartment|0|0|1|
