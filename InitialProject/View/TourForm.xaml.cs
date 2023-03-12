@@ -3,6 +3,7 @@ using InitialProject.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -22,7 +23,7 @@ namespace InitialProject.View
     /// <summary>
     /// Interaction logic for TourForm.xaml
     /// </summary>
-    public partial class TourForm : Window
+    public partial class TourForm : Window, INotifyPropertyChanged
     {
         private readonly LanguageRepository _languageRepository;
         private readonly TourPointRepository _tourPointRepository;
@@ -42,6 +43,27 @@ namespace InitialProject.View
             //_tourPointRepository.ClearTemp();
 
         }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private string _language;
+        public string Language
+        {
+            get { return _language; }
+            set
+            {
+                _language = value;
+                OnPropertyChanged(nameof(_language));
+            }
+        }
+
+
 
         private void TextBox_TextChanged(object sender, RoutedEventArgs e)
         {
@@ -111,15 +133,6 @@ namespace InitialProject.View
             tour.KeyPoints = points;
 
             _tourRepository.Save(tour);
-
-
-
-
-
-
-
-
-
 
     }
 

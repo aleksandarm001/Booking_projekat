@@ -1,4 +1,5 @@
 ﻿using InitialProject.Model;
+using InitialProject.Observer;
 using InitialProject.Repository;
 using Microsoft.VisualStudio.Services.Common;
 using Newtonsoft.Json.Linq;
@@ -144,7 +145,7 @@ namespace InitialProject.View
             else
             {
                 availableOrder();
-                EditTourPointForm editTour = new EditTourPointForm(SelectedTourPoint, availableOrders, orders, usedOrders);
+                EditTourPointForm editTour = new EditTourPointForm(SelectedTourPoint, availableOrders, orders, usedOrders, TourPoints);
                 editTour.Show();
             }
 
@@ -179,11 +180,13 @@ namespace InitialProject.View
         }
 
 
+
         private void AddTourPoint_ButtonClick(object sender, RoutedEventArgs e)
         {
 
             _tourPointRepository.SaveTemp(CreateTourPoint());
             RefreshTourPoints();
         }
+
     }
 }
