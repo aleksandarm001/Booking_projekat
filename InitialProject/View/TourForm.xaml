@@ -50,8 +50,8 @@
 
 
             <TextBox Grid.Row="4" Grid.Column="1" Height="30" Text="{Binding Path=MaxGuests, Mode=OneWayToSource}"></TextBox>
-            <ComboBox Name ="TourPointsComboBox"  Grid.Row="5" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
-                      ItemsSource="{Binding KeyPoints}" HorizontalAlignment="Left" Width ="158" Height="30" SelectedIndex="0" Margin="0,6,0,5"></ComboBox>
+            <ComboBox Name ="TourPointsComboBox"  Grid.Row="5" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="False"
+                      ItemsSource="{Binding KeyPoints}"  HorizontalAlignment="Left" Width ="158" Height="30" SelectedIndex="0" Margin="0,6,0,5"></ComboBox>
             <ComboBox Name ="DateTimeComboBox"  Grid.Row="6" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
                       ItemsSource="{Binding DateAndTime}" HorizontalAlignment="Left" Width ="158" Height="30" SelectedIndex="0" Margin="0,6,0,5"></ComboBox>
             <TextBox Grid.Row="7" Grid.Column="1" Height="30" Text="{Binding Path=TourDuratation, Mode=TwoWay}"></TextBox>

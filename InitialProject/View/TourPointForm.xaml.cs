@@ -188,6 +188,7 @@ namespace InitialProject.View
 
             _tourPointRepository.SaveTemp(CreateTourPoint());
             RefreshTourPoints();
+            _keyPoints.Clear();
             foreach(var TourPoint in TourPoints)
             {
                 _keyPoints.Add(TourPoint.Name);
