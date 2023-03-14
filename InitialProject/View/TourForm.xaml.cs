@@ -27,9 +27,15 @@ namespace InitialProject.View
     {
         private readonly LanguageRepository _languageRepository;
         private readonly TourPointRepository _tourPointRepository;
+        private readonly LocationRepository _locationRepository;
         private readonly TourRepository _tourRepository;
         private readonly int tourId;
         public static ObservableCollection<Language> Languages { get; set; }
+        public static ObservableCollection<string> Countries { get; set; }
+        public static ObservableCollection<string> Cities { get; set; }
+        public static ObservableCollection<string> KeyPoints { get; set; }
+        public static ObservableCollection<Location> Locations { get; set; }
+
 
         public TourForm()
         {
@@ -38,12 +44,73 @@ namespace InitialProject.View
             _languageRepository = new LanguageRepository();
             _tourRepository = new TourRepository();
             _tourPointRepository = new TourPointRepository();
+            _locationRepository= new LocationRepository();
             tourId = _tourRepository.NextId();
             Languages = new ObservableCollection<Language>(_languageRepository.GetAll());
+            Locations = new ObservableCollection<Location>(_locationRepository.getAll());
+            Cities = new ObservableCollection<string>();
+            Countries = new ObservableCollection<string>();
+            KeyPoints = new ObservableCollection<string>();
+            ReadCitiesAndCountries();
             _tourPointRepository.ClearTemp();
 
         }
 
+        
+
+        private void ReadCitiesAndCountries()
+        {
+            Cities.Clear();
+            Countries.Clear();
+            Cities.Add("");
+            Countries.Add("");
+            foreach (Location l in Locations)
+            {
+                Cities.Add(l.City);
+                if (!Countries.Contains(l.Country))
+                {
+                    Countries.Add(l.Country);
+                }
+            }
+        }
+
+
+        private void TextBox_TextChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveTour(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddKeyPoint_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            TourPointForm addTourPoint = new TourPointForm(tourId, KeyPoints);
+            addTourPoint.Show();
+        }
+
+        private void AddDatesAndTimes_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            DateTimePicker date = new DateTimePicker();
+            date.Show();
+        }
+
+        private void AddPictures_ButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Cancel_ButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Save_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -63,79 +130,45 @@ namespace InitialProject.View
             }
         }
 
-
-
-        private void TextBox_TextChanged(object sender, RoutedEventArgs e)
+        private string _Name;
+        public string Name
         {
-
+            get { return _Name; }
+            set
+            {
+                _Name = value;
+                OnPropertyChanged(nameof(_Name));
+            }
         }
 
         
-            
-            
-        private void SaveTour(object sender, RoutedEventArgs e)
-        {
 
+        private string _MaxGuests;
+        public string MaxGuests
+        {
+            get { return _MaxGuests; }
+            set
+            {
+                _MaxGuests = value;
+                OnPropertyChanged(nameof(_MaxGuests));
+            }
         }
-
-        private void AddKeyPoint_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            TourPointForm addTourPoint = new TourPointForm(tourId);
-            addTourPoint.Show();
-        }
-
-        private void AddDatesAndTimes_ButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void AddPictures_ButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Cancel_ButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Save_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            Language language = new Language();
-            language.Name = "srpski";
-            Location location = new Location();
-            location.City = "zrenjanin";
-            location.Country = "serbia";
-            Tour tour = new Tour();
-            tour.TourId = 1;
-            tour.Name = "Test";
-            tour.Location = location;
-            tour.Duration = 5;
-            tour.Description= "TestDesc";
-            tour.Language = language;
-            tour.MaxGuestNumber= 5;
-            DateTime dateTime1 = new DateTime();
-            dateTime1 = DateTime.Now;
-
-            tour.StartingDateTime = dateTime1;
-
-            TourPoint pt = new TourPoint();
-            pt.TourId = 1;
-            pt.Name = "Test";
-            pt.Order = 1;
-            pt.CurrentActive = 0;
-            pt.Description= "Tes2t";
-            pt.Id = 1;
-
-            List<TourPoint> points= new List<TourPoint>();
-            points.Add(pt);
-
-            tour.KeyPoints = points;
-
-            _tourRepository.Save(tour);
-
-    }
 
         
+
+        private string _TourDuratation;
+        public string TourDuratation
+        {
+            get { return _TourDuratation; }
+            set
+            {
+                _TourDuratation = value;
+                OnPropertyChanged(nameof(_TourDuratation));
+            }
+        }
+
+
+
+
     }
 }

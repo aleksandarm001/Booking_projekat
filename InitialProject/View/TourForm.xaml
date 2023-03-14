@@ -54,7 +54,7 @@
                       ItemsSource="{Binding KeyPoints}" HorizontalAlignment="Left" Width ="158" Height="30" SelectedIndex="0" Margin="0,6,0,5"></ComboBox>
             <ComboBox Name ="DateTimeComboBox"  Grid.Row="6" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
                       ItemsSource="{Binding DateAndTime}" HorizontalAlignment="Left" Width ="158" Height="30" SelectedIndex="0" Margin="0,6,0,5"></ComboBox>
-            <TextBox Grid.Row="7" Grid.Column="1" Height="30" Text="{Binding Path=AccomodationCancelationDays, Mode=TwoWay}"></TextBox>
+            <TextBox Grid.Row="7" Grid.Column="1" Height="30" Text="{Binding Path=TourDuratation, Mode=TwoWay}"></TextBox>
             <ComboBox Name ="ImagesComboBox"  Grid.Row="8" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
                       ItemsSource="{Binding Pictures}" HorizontalAlignment="Left" Width ="158" Height="30" SelectedIndex="0" Margin="0,6,0,5"></ComboBox>
 

@@ -41,9 +41,14 @@ namespace InitialProject.View
 
         private void Guest2_ButtonClick(object sender, RoutedEventArgs e)
         {
-            TourView tourView = new TourView(1); 
+            TourView tourView = new TourView(1);
             tourView.Show();
         }
+        public int Sum(int[] borjevi)
+        {
+            return 1;
+        }
+
 
         private void Owner_ButtonClick(object sender, RoutedEventArgs e)
         {
@@ -52,10 +57,11 @@ namespace InitialProject.View
         }
 
         
+
         private void Guide_ButtonClick(object sender, RoutedEventArgs e)
         {
             TourForm tour = new TourForm();
             tour.Show();
         }
-    }
+    } 
 }

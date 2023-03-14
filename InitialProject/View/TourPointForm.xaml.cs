@@ -21,12 +21,16 @@ namespace InitialProject.View
 
         private readonly TourPointRepository _tourPointRepository;
 
+        public static ObservableCollection<string> _keyPoints { get; set; }
+
+
         public List<int> availableOrders;
 
         public List<int> orders;
 
         public List<int> usedOrders;
 
+        
 
 
 
@@ -87,19 +91,17 @@ namespace InitialProject.View
 
 
 
-        public TourPointForm(int tourID)
+        public TourPointForm(int tourID, ObservableCollection<string> KeyPoints)
         {
 
             DataContext = this;
             InitializeComponent();
             tourId = tourID;
 
-            
-
             _tourPointRepository = new TourPointRepository();
+            _keyPoints = KeyPoints;
 
             TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.getAllTemp());
-
             availableOrders = availableOrder();
 
 
@@ -186,6 +188,13 @@ namespace InitialProject.View
 
             _tourPointRepository.SaveTemp(CreateTourPoint());
             RefreshTourPoints();
+            foreach(var TourPoint in TourPoints)
+            {
+                _keyPoints.Add(TourPoint.Name);
+            }
+            RefreshTourPoints();
+
+
         }
 
     }
