@@ -40,7 +40,7 @@ namespace InitialProject.View
             _tourPointRepository = new TourPointRepository();
             tourId = _tourRepository.NextId();
             Languages = new ObservableCollection<Language>(_languageRepository.GetAll());
-            //_tourPointRepository.ClearTemp();
+            _tourPointRepository.ClearTemp();
 
         }
 

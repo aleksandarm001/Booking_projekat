@@ -2,10 +2,12 @@
 using InitialProject.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace InitialProject.Repository
 {
@@ -17,6 +19,8 @@ namespace InitialProject.Repository
 
         private readonly Serializer<TourPoint> _serializer;
 
+        private readonly ObservableCollection<TourPoint> _tourPointsToUpdate;
+
         private List<TourPoint> _tourPoints;
 
         public TourPointRepository()
@@ -24,6 +28,9 @@ namespace InitialProject.Repository
             _serializer = new Serializer<TourPoint>();
             _tourPoints = new List<TourPoint>();
         }
+
+        
+
         public List<TourPoint> getAll()
         {
             return _serializer.FromCSV(FilePath);
@@ -51,7 +58,7 @@ namespace InitialProject.Repository
             _tourPoints.Remove(foundedTourPoint);
             _serializer.ToCSV(FilePath, _tourPoints);
         }
-        public TourPoint Update(TourPoint tourPoint)
+        public TourPoint Update(TourPoint tourPoint, ObservableCollection<TourPoint> tourPoints)
         {
             _tourPoints = _serializer.FromCSV(FilePath);
             TourPoint current = _tourPoints.Find(tour => tour.Id == tourPoint.Id);
@@ -97,10 +104,11 @@ namespace InitialProject.Repository
             _tourPoints.Remove(current);
             _tourPoints.Insert(index, tourPoint);
             _serializer.ToCSV(TempFilePath, _tourPoints);
+            CollectionViewSource.GetDefaultView(_tourPoints).Refresh();
             return tourPoint;
         }
 
-        public TourPoint UpdateTempOrder(TourPoint tourPoint, int order) 
+        public TourPoint UpdateTempOrder(TourPoint tourPoint, int order, ObservableCollection<TourPoint> tourPoints) 
         {
             _tourPoints = _serializer.FromCSV(TempFilePath);
             foreach(var tour in _tourPoints)
@@ -109,11 +117,13 @@ namespace InitialProject.Repository
                 {
                     tour.Order = 0;
                     UpdateTemp(tour);
+                    CollectionViewSource.GetDefaultView(tourPoints).Refresh();
                 }
             }
 
             tourPoint.Order = order;
             UpdateTemp(tourPoint);
+            CollectionViewSource.GetDefaultView(tourPoints).Refresh();
             return tourPoint;
 
         }

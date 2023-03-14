@@ -1,5 +1,6 @@
 ﻿using InitialProject.Model;
 using InitialProject.Repository;
+using Microsoft.VisualStudio.Services.Common;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -33,10 +34,8 @@ namespace InitialProject.View
             _usedOrders = usedOrders;
             _tourPointRepository = new TourPointRepository();
             _tourPoints = tourPoints;
-
             InitializeComponent();
             DataContext = this;
-
             FirstName.Content = _tourPoint.Name;
             Orders = new ObservableCollection<int>(_orders);
         }
@@ -50,8 +49,10 @@ namespace InitialProject.View
 
             int broj = int.Parse(OrderComboBox.Text);
             int index = _tourPoints.IndexOf(_tourPoint);
-            _tourPointRepository.UpdateTempOrder(_tourPoint, broj);
-            _tourPoints[index].Order = broj;
+            _tourPointRepository.UpdateTempOrder(_tourPoint, broj, _tourPoints);
+            //_tourPoints[index].Order = broj;
+            _tourPoints.Clear();
+            _tourPoints.AddRange(_tourPointRepository.getAllTemp());
             CollectionViewSource.GetDefaultView(_tourPoints).Refresh();
             Close();
 

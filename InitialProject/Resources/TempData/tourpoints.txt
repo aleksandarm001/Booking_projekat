@@ -1,3 +1,3 @@
-1|asdasd|5|NotActive|asdas|1
-2|asdasddsad|5|NotActive|asdas|2
-3|123|5|NotActive|asdas|3
+1|d|5|NotActive|d|2
+2|dd|5|NotActive|dd|0
+3|ddd|5|NotActive|ddd|3

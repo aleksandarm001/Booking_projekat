@@ -30,7 +30,6 @@ namespace InitialProject.View
             InitializeComponent();
             DataContext = this;
             _locationRepository = new LocationRepository();
-            _tourPointRepository = new TourPointRepository();
             Locations = new ObservableCollection<Location>(_locationRepository.getAll());
         }
 
@@ -55,7 +54,6 @@ namespace InitialProject.View
         
         private void Guide_ButtonClick(object sender, RoutedEventArgs e)
         {
-            _tourPointRepository.ClearTemp();
             TourForm tour = new TourForm();
             tour.Show();
         }
