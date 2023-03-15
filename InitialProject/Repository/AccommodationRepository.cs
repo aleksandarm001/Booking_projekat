@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Linq;
 
 namespace InitialProject.Repository
@@ -33,6 +34,16 @@ namespace InitialProject.Repository
             _accommodations.Add(accommodation);
             _serializer.ToCSV(FilePath, _accommodations);
             return accommodation;
+        }
+        public List<Location> GetAllLocationsFromAccommodations()
+        {
+            List<Location> locations = new List<Location>();
+            _accommodations = _serializer.FromCSV(FilePath);
+            foreach(Accommodation a in _accommodations)
+            {
+                locations.Add(a.Location);
+            }
+            return locations;
         }
         public int NextId()
         {

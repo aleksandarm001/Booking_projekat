@@ -25,11 +25,20 @@ namespace InitialProject.CustomClasses
         public DateRange()
         {
             StartDate = new DateTime();
-            StartDate = new DateTime();
+            EndDate = new DateTime();
         }
+
+        public DateRange(DateTime startDate, int duration)
+        {
+            StartDate = startDate;
+            EndDate = startDate.AddHours(duration);
+            
+            
+        }
+
         public bool WithinRange(DateTime value)
         {
-            if(value >= StartDate && value <= EndDate)
+            if(value >= StartDate && value < EndDate)
             {
                 return true;
             }else

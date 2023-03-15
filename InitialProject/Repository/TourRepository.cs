@@ -32,10 +32,6 @@ namespace InitialProject.Repository
 
         public List<Tour> GetAll() 
         {
-            foreach(Tour t in _tours)
-            {
-                t.Location = _locationRepository.GetById(t.TourId);
-            }
             return _tours;
         }
 
@@ -64,6 +60,18 @@ namespace InitialProject.Repository
                 return 1;
             }
             return _tours.Max(t => t.TourId) + 1;
+        }
+
+        public void ReduceMaxGuestNumber(int tourId, int number)
+        {
+            Tour current = _tours.Find(t=>t.TourId == tourId);
+            int ind = _tours.IndexOf(current);
+            Tour updated = current;
+            updated.MaxGuestNumber -= number;
+            _tours.Remove(current);
+            _tours.Insert(ind,updated);
+            _serializer.ToCSV(FilePath, _tours);
+
         }
 
         public Tour Update(Tour tour)
