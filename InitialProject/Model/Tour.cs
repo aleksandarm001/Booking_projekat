@@ -14,6 +14,7 @@ namespace InitialProject.Model
         public string Description { get; set; }
         public Language Language { get; set; }
         public int MaxGuestNumber { get; set; }
+
         public List<TourPoint> KeyPoints { get; set; }
         public DateTime StartingDateTime { get; set; }
         public int Duration { get; set; }
