@@ -61,19 +61,16 @@ namespace InitialProject.View
             newAccommodation.Show();
         }
 
-        
+
 
         private void Guide_ButtonClick(object sender, RoutedEventArgs e)
         {
             TourForm tour = new TourForm();
             tour.Show();
         }
-    } 
-
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            GuestReviewForm guest =new GuestReviewForm();
+            GuestReviewForm guest = new GuestReviewForm();
             guest.Show();
         }
     }
