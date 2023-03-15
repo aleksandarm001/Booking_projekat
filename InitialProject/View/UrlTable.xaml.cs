@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,9 @@ namespace InitialProject.View
     /// </summary>
     public partial class UrlTable : Window
     {
+        public ObservableCollection<string> Url { get; set; }
+
+       
         public UrlTable()
         {
             InitializeComponent();
