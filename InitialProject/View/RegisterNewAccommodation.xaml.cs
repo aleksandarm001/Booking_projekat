@@ -49,7 +49,6 @@ namespace InitialProject.View
 
         private int _cancelationDays;
 
-        private BitmapImage _image;
 
 
 
@@ -144,7 +143,7 @@ namespace InitialProject.View
                 }
             }
         }
-
+/*
         public BitmapImage AccommodationImage
         {
             get => _image;
@@ -157,7 +156,7 @@ namespace InitialProject.View
                 }
             }
         }
-
+*/
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -190,7 +189,7 @@ namespace InitialProject.View
             newAccommodation.DaysBeforeCancelling = AccomodationCancelationDays;
             newAccommodation.MinReservationDays = AccomodationReservationMinDays;
             newAccommodation.Location = new Location(CityComboBox.Text,CountriesComboBox.Text);
-            newAccommodation.Image =  AccommodationImage;
+            
             switch (TypeComboBox.Text)
             {
                 case "Appartment":
@@ -270,28 +269,10 @@ namespace InitialProject.View
             Close();
         }
 
-        private void UploadImage(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
-            if(openFileDialog.ShowDialog() == true)
-            {
-                  string imagePath = openFileDialog.FileName;
-                  
-                try
-                {
-                    AccommodationImage = new BitmapImage(new Uri(imagePath));
-                    AccomodationImg.Source = AccommodationImage;
-                }
-                catch(Exception ex)
-                {
-                   MessageBox.Show("Error loading image: " + ex.Message);
-                }
-                
-
-                
-                
-            }
+            UrlTable urlTable = new UrlTable();
+            urlTable.Show();
         }
     }
 }
