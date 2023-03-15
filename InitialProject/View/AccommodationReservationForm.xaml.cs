@@ -183,7 +183,8 @@ namespace InitialProject.View
             if(dlg.NumberOfGuests != 0)
             {
                 NumberOfGuests = dlg.NumberOfGuests;
-                Reservation reservation = new Reservation(SelectedAccommodation.AccommodationID, SelectedDateRange, NumberOfGuests);
+                int userID = 1; //defaultni userid za inicijalnu fazu projekta
+                Reservation reservation = new Reservation(SelectedAccommodation.AccommodationID, userID, SelectedDateRange, NumberOfGuests);
                 SelectedAccommodation.Reservations.Add(reservation);
                 _reservationRepository.Save(reservation);
                 MessageBox.Show("You successfuly reserved " + ReservationDays.ToString() + " day(s) at " + AccommodationName);

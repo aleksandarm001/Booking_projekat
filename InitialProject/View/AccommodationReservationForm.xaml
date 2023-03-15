@@ -28,8 +28,8 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Start Date" Binding="{Binding SStartDate}"></DataGridTextColumn>
-                <DataGridTextColumn Header="End Date" Binding="{Binding SEndDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Start Date" Binding="{Binding SStartDate}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="End Date" Binding="{Binding SEndDate}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Apply" Click="Button_Click" HorizontalAlignment="Left" Height="23" Margin="39,205,0,0" VerticalAlignment="Top" Width="58"/>

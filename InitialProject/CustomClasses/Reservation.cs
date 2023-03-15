@@ -38,11 +38,11 @@ namespace InitialProject.CustomClasses
             AvgRating = 0;
         }
 
-        public Reservation(int accomodationId, DateRange dateRange, int guestNumber)
+        public Reservation(int accomodationId, int userId, DateRange dateRange, int guestNumber)
         {
             AccomodationId = accomodationId;
             TourId = -1;
-            UserId = -1;
+            UserId = userId;
             ReservationDateRange = dateRange;
             NumberOfGuests = guestNumber;
         }
