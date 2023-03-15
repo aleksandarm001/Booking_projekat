@@ -32,8 +32,6 @@ namespace InitialProject.CustomClasses
         {
             StartDate = startDate;
             EndDate = startDate.AddHours(duration);
-            
-            
         }
 
         public bool WithinRange(DateTime value)
