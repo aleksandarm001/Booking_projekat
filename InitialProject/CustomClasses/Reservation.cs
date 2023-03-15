@@ -12,7 +12,7 @@ namespace InitialProject.CustomClasses
     {
         public int Id { get; set; }
         public int AccomodationId { get; set; }
-        public int UserId { get; set; }
+        public int UserId { get; set; } //ID usera koji je rezervisao (guest1 ili guest2)
         public int TourId { get; set; }
         public float AvgRating { get; set; }
         public DateRange ReservationDateRange { get; set; }
@@ -46,10 +46,6 @@ namespace InitialProject.CustomClasses
             ReservationDateRange = dateRange;
             NumberOfGuests = guestNumber;
         }
-      
-       
- 
-       
         public string[] ToCSV()
         {
             string[] csvValues = {
@@ -73,7 +69,6 @@ namespace InitialProject.CustomClasses
             NumberOfGuests = Convert.ToInt32(values[5]);
             ReservationDateRange = ReservationDateRange.fromStringToDateRange(values[6]);
         }
-
 
     }
 }

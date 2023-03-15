@@ -56,9 +56,15 @@ namespace InitialProject.Repository
             }
             return _reservations.Max(t => t.Id) + 1;
         }
-    
+        public void Delete(Reservation reservation)
+        {
+            _reservations = _serializer.FromCSV(FilePath);
+            Reservation foundedAccommodation = _reservations.Find(r => r.Id == reservation.Id);
+            _reservations.Remove(foundedAccommodation);
+            _serializer.ToCSV(FilePath, _reservations);
+        }
 
-        
+
 
 
 

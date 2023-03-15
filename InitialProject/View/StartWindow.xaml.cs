@@ -1,4 +1,5 @@
-﻿using InitialProject.Model;
+﻿using InitialProject.CustomClasses;
+using InitialProject.Model;
 using InitialProject.Repository;
 using System;
 using System.Collections.Generic;
@@ -28,14 +29,27 @@ namespace InitialProject.View
 
         private readonly AccommodationRepository _accommodationRepository;
 
+        private readonly GuestReviewRepository _guestReviewRepository;
+        private readonly UserToReviewRepository _userToReviewRepository;
+        private readonly ReservationRepository _reservationRepository;
         public static ObservableCollection<Location> Locations { get; set; }
+        public static ObservableCollection<Reservation> Reservations { get; set; }
+        public static List<GuestReview> GuestReviews {get; set;}
+        public static ObservableCollection<UserToReview> UsersToReview { get; set;}
         public StartWindow()
         {
             InitializeComponent();
             DataContext = this;
             _locationRepository = new LocationRepository();
             _accommodationRepository = new AccommodationRepository();
+            _guestReviewRepository= new GuestReviewRepository();
+            _reservationRepository= new ReservationRepository();
+            _userToReviewRepository = new UserToReviewRepository();
+            Reservations = new ObservableCollection<Reservation>(_reservationRepository.GetAll());
+            GuestReviews = new List<GuestReview>(_guestReviewRepository.getAll());
             Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
+            UsersToReview = new ObservableCollection<UserToReview>(_userToReviewRepository.GetAll());
+            InitalizeUsersToReview();
         }
 
         private void Guest1_ButtonClick(object sender, RoutedEventArgs e)
@@ -57,7 +71,7 @@ namespace InitialProject.View
 
         private void Owner_ButtonClick(object sender, RoutedEventArgs e)
         {
-            RegisterNewAccommodation newAccommodation = new RegisterNewAccommodation();
+            RegisterNewAccommodation newAccommodation = new RegisterNewAccommodation(UsersToReview);
             newAccommodation.Show();
         }
 
@@ -70,8 +84,27 @@ namespace InitialProject.View
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            GuestReviewForm guest = new GuestReviewForm();
-            guest.Show();
+           
+        }
+        private void InitalizeUsersToReview()
+        {
+            foreach(Reservation reservation in Reservations){
+                if (CheckIfLeftReservation(reservation))
+                {
+                    _reservationRepository.Delete(reservation);
+                    UserToReview userToReview = new UserToReview(0, reservation.UserId, reservation.ReservationDateRange.EndDate); //bez sign in forme defaultni ownerId je 0
+                    _userToReviewRepository.Save(userToReview);
+                    UsersToReview.Add(userToReview);
+                }
+            }
+        }
+        private bool CheckIfLeftReservation(Reservation reservation)
+        {
+            if(reservation.ReservationDateRange.EndDate <= DateTime.Now)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

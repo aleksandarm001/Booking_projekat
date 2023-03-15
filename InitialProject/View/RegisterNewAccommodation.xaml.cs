@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using InitialProject.CustomClasses;
 using InitialProject.Model;
 using InitialProject.Repository;
 using Microsoft.Win32;
@@ -29,28 +30,17 @@ namespace InitialProject.View
         private readonly AccommodationRepository _accommodationRepository;
 
         private readonly LocationRepository _locationRepository;
-
         public static ObservableCollection<string> Countries { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<Location> Locations { get; set; }
+        public static ObservableCollection<UserToReview> UsersToReview {get; set;}
 
         private string _accommodationName;
-        /*
-        private string _accommodationCity;
-
-        private string _accommodationCountry;
-
-        private string _accommodationType;
-        */
         private int _maxGuests;
 
         private int _minDays;
 
         private int _cancelationDays;
-
-
-
-
         public string AccommodationName
         {
             get => _accommodationName;
@@ -63,46 +53,7 @@ namespace InitialProject.View
                 }
             }
         }
-        /*
-        public string AccommodationCity
-        {
-            get => _accommodationCity;
-            set
-            {
-                if (value != _accommodationCity)
-                {
-                    _accommodationCity = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string AccommodationCountry
-        {
-            get => _accommodationCountry;
-            set
-            {
-                if (value != _accommodationCountry)
-                {
-                    _accommodationCountry = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string AccommodationType
-        {
-            get => _accommodationType;
-            set
-            {
-                if (value != _accommodationType)
-                {
-                    _accommodationType = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        */
+        
         public int AccommodationMaxGuests
         {
             get => _maxGuests;
@@ -163,7 +114,7 @@ namespace InitialProject.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public RegisterNewAccommodation()
+        public RegisterNewAccommodation(ObservableCollection<UserToReview> usersToReview)
         {
             InitializeComponent();
             DataContext = this;
@@ -174,11 +125,41 @@ namespace InitialProject.View
             Locations = new ObservableCollection<Location>(_locationRepository.getAll());
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
+            UsersToReview = new ObservableCollection<UserToReview>(usersToReview);
             AccomodationCancelationDays = 1;
+            RateNotification();
             ReadCitiesAndCountries();
-                
         }
+        private void RateNotification()
+        {
+            foreach(UserToReview userToReview in UsersToReview) 
+            { 
+                if(checkDateRange(userToReview.LeavingDay) && userToReview.OwnerId == 0) // 0 je defaultni owner id
+                {
+                    RateUser(userToReview.Guest1Id);
 
+                }
+            }
+        }
+        private void RateUser(int userID)
+        {
+            MessageBoxResult dialogResult = MessageBox.Show("Rate User", "You can still rate user", MessageBoxButton.YesNo);
+            if(dialogResult == MessageBoxResult.Yes)
+            {
+                GuestReviewForm reviewForm = new GuestReviewForm(userID);
+                reviewForm.ShowDialog();
+            }
+        }
+        private bool checkDateRange(DateTime date)
+        {
+            DateTime startDate = DateTime.Now;
+            DateTime endDate = DateTime.Now.AddDays(-5);
+            if(startDate >= date && endDate <= date)
+            {
+                return true;
+            }
+            return false;
+        }
         private void NewAccommodationRegistration(object sender, RoutedEventArgs e)
         {
 
