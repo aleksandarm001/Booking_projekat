@@ -23,7 +23,11 @@ namespace InitialProject.View
     public partial class StartWindow : Window
     {
         private readonly LocationRepository _locationRepository;
+
+        private readonly TourPointRepository _tourPointRepository;
+
         private readonly AccommodationRepository _accommodationRepository;
+
         public static ObservableCollection<Location> Locations { get; set; }
         public StartWindow()
         {
@@ -42,9 +46,14 @@ namespace InitialProject.View
 
         private void Guest2_ButtonClick(object sender, RoutedEventArgs e)
         {
-            TourView tourView = new TourView(1); 
+            TourView tourView = new TourView(1);
             tourView.Show();
         }
+        public int Sum(int[] borjevi)
+        {
+            return 1;
+        }
+
 
         private void Owner_ButtonClick(object sender, RoutedEventArgs e)
         {
@@ -53,11 +62,14 @@ namespace InitialProject.View
         }
 
         
+
         private void Guide_ButtonClick(object sender, RoutedEventArgs e)
         {
             TourForm tour = new TourForm();
             tour.Show();
         }
+    } 
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

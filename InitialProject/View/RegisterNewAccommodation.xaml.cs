@@ -32,7 +32,6 @@ namespace InitialProject.View
 
         public static ObservableCollection<string> Countries { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
-
         public static ObservableCollection<Location> Locations { get; set; }
 
         private string _accommodationName;

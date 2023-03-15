@@ -60,10 +60,12 @@
             Languages.Add("");
             foreach (Tour t in Tours)
             {
+
                 if (!Languages.Contains(t.Language.Name))
                 {
                     Languages.Add(t.Language.Name);
                 }
+
             }
         }
 
@@ -190,13 +192,14 @@
                 string _guestNumber = GuestNumberCmbx.Text;
                 string _durationFrom = Duration_Box_From.Text;
                 string _durationTo = Duration_Box_To.Text;
-                
+
                 var filteredCollection = tempTours.Where(a =>
                     (string.IsNullOrEmpty(_country) || a.Location.Country == _country) &&
                     (string.IsNullOrEmpty(_city) || a.Location.City == _city) &&
                     (string.IsNullOrEmpty(_durationFrom) || a.Duration >= Convert.ToInt32(_durationFrom)) &&
                     (string.IsNullOrEmpty(_durationTo) || a.Duration <= Convert.ToInt32(_durationTo)) &&
                     (string.IsNullOrEmpty(_guestNumber) || a.MaxGuestNumber >= Convert.ToInt32(_guestNumber)) &&
+
                     (string.IsNullOrEmpty(_language) || a.Language.ToString() == _language));
 
                 Tours = new ObservableCollection<Tour>(filteredCollection);

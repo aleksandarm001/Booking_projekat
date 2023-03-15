@@ -27,13 +27,22 @@
                 <Label Grid.Row="0" Grid.Column="0"  >Naziv:</Label>
                 <Label Grid.Row="1" Grid.Column="0"  >Opis:</Label>
 
-                <TextBox Grid.Row="0" Grid.Column="1" Height="30" Text="{Binding Path=Name, Mode=OneWayToSource }" Margin="0,10,0,89"></TextBox>
+                <TextBox Grid.Row="0" Grid.Column="1" Height="30" Text="{Binding Path=NameTourPoint, Mode=OneWayToSource }" Margin="0,10,0,89"></TextBox>
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Description, Mode=OneWayToSource }" Margin="0,10,0,35"/>
                 <Button Grid.Row="1" Grid.Column="1" Margin="47,95,52,5" Click="AddTourPoint_ButtonClick">Dodaj</Button>
 
             </Grid>
 
-            <DataGrid Grid.Row="0" Margin="234,0,0,6" Grid.ColumnSpan="2">
+            <Button Margin="124,0,57,223" Grid.Column="1" Click="Edit_ButtonClick">Izmeni</Button>
+            <Button Margin="182,0,0,223" Grid.Column="1" Click="Remove_ButtonClick">Obrisi</Button>
+
+
+            <DataGrid Grid.Row="0" Margin="234,31,0,25" Grid.ColumnSpan="2" 
+                  ItemsSource="{Binding Path = TourPoints, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path= SelectedTourPoint, UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="false"
+                  Visibility ="Visible">
+
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Naziv" Width="200" Binding="{Binding Name}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Red" Width="100" Binding="{Binding Order}"></DataGridTextColumn>
