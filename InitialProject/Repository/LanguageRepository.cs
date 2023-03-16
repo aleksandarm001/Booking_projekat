@@ -22,6 +22,7 @@ namespace InitialProject.Repository
             _comments = _serializer.FromCSV(FilePath);
         }
 
+
         public List<Language> GetAll()
         {
             return _serializer.FromCSV(FilePath);

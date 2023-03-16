@@ -68,7 +68,6 @@ namespace InitialProject.View
             TourForm tour = new TourForm();
             tour.Show();
         }
-    } 
 
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -1,11 +1,13 @@
 ﻿using InitialProject.Model;
 using InitialProject.Repository;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -35,6 +37,7 @@ namespace InitialProject.View
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<string> KeyPoints { get; set; }
         public static ObservableCollection<Location> Locations { get; set; }
+        public static ObservableCollection<DateTime> DateAndTime { get; set; }
 
 
         public TourForm()
@@ -51,6 +54,7 @@ namespace InitialProject.View
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             KeyPoints = new ObservableCollection<string>();
+            DateAndTime = new ObservableCollection<DateTime>();
             ReadCitiesAndCountries();
             _tourPointRepository.ClearTemp();
 
@@ -93,7 +97,7 @@ namespace InitialProject.View
 
         private void AddDatesAndTimes_ButtonClick(object sender, RoutedEventArgs e)
         {
-            DateTimePicker date = new DateTimePicker();
+            DateTimePicker date = new DateTimePicker(DateAndTime);
             date.Show();
         }
 
@@ -105,12 +109,57 @@ namespace InitialProject.View
         private void Cancel_ButtonClick(object sender, RoutedEventArgs e)
         {
 
+
         }
 
         private void Save_ButtonClick(object sender, RoutedEventArgs e)
         {
-            
+            // Get input values
+            string country = CountriesComboBox.Text;
+            string city = CityComboBox.Text;
+            Language language = new Language();
+            Language languageForTour = language.fromStringToLanguage(LanguageComboBox.Text);
+            List<DateTime> dates = DateAndTime.ToList();
+            int howManyObjectsToBuild = dates.Count();
+
+            // Create location object
+            Location location = new Location { Country = country, City = city };
+
+            // Create tour object
+            Tour tourToSave = new Tour
+            {
+                Name = NameTextBox.Text,
+                MaxGuestNumber = int.Parse(MaxGuests),
+                Duration = int.Parse(TourDuratation),
+                Location = location,
+                Description = "opis",
+                Language = languageForTour
+            };
+
+            // Save tours
+            for (int i = 0; i < howManyObjectsToBuild; i++)
+            {
+                tourToSave.StartingDateTime = dates[i];
+                _tourRepository.Save(tourToSave);
+            }
+
+            // Save tour points
+            List<TourPoint> pointsToSave = _tourPointRepository.getAllTemp();
+            int startTourId = tourId;
+            for (int i = 0; i < howManyObjectsToBuild; i++)
+            {
+                int currentTourId = startTourId + i;
+                foreach (var tourPoint in pointsToSave)
+                {
+                    tourPoint.TourId = currentTourId;
+                    _tourPointRepository.Save(tourPoint);
+                }
+            }
+
+            // Close dialog
+            Close();
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -118,6 +167,8 @@ namespace InitialProject.View
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
 
         private string _language;
         public string Language
