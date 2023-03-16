@@ -30,7 +30,7 @@ namespace InitialProject.Repository
         }
         public Accommodation Save(Accommodation accommodation)
         {
-            accommodation.AccommodationID = NextId();
+             accommodation.AccommodationID = NextId();
             _accommodations.Add(accommodation);
             _serializer.ToCSV(FilePath, _accommodations);
             return accommodation;
@@ -53,6 +53,17 @@ namespace InitialProject.Repository
                 return 1;
             }
             return _accommodations.Max(acm => acm.AccommodationID) + 1;
+        }
+
+        public int GetLastAccommodationId()
+        {
+            _accommodations = _serializer.FromCSV(FilePath);
+            if (_accommodations.Count < 1)
+            {
+                return 1;
+            }
+            return _accommodations.Max(acm => acm.AccommodationID);
+
         }
         public void Delete(Accommodation accommodation)
         {

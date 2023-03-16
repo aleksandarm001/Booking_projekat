@@ -27,20 +27,28 @@ namespace InitialProject.View
     public partial class RegisterNewAccommodation : Window
     {
 
-        private readonly AccommodationRepository _accommodationRepository;
+        public UrlTable urlTable;
 
+        private readonly AccommodationRepository _accommodationRepository;
+        private readonly AccommodationImageRepository _accommodationImageRepository;
         private readonly LocationRepository _locationRepository;
         public static ObservableCollection<string> Countries { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<Location> Locations { get; set; }
-        public static ObservableCollection<UserToReview> UsersToReview {get; set;}
+        public static ObservableCollection<UserToReview> UsersToReview { get; set; }
+
+        public static ObservableCollection<AccommodationImages>Images { get; set; }
 
         private string _accommodationName;
+
         private int _maxGuests;
 
         private int _minDays;
 
         private int _cancelationDays;
+
+        private string _imageUrl;
+
         public string AccommodationName
         {
             get => _accommodationName;
@@ -93,6 +101,19 @@ namespace InitialProject.View
                 }
             }
         }
+
+        public string AccomodationImageUrl
+        {
+            get => _imageUrl;
+            set
+            {
+                if(value != _imageUrl)
+                {
+                    _imageUrl = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 /*
         public BitmapImage AccommodationImage
         {
@@ -118,9 +139,13 @@ namespace InitialProject.View
         {
             InitializeComponent();
             DataContext = this;
+            Images = new ObservableCollection<AccommodationImages>();
+
+            urlTable = new UrlTable(Images);
 
             _accommodationRepository = new AccommodationRepository();
             _locationRepository = new LocationRepository();
+            _accommodationImageRepository= new AccommodationImageRepository();
 
             Locations = new ObservableCollection<Location>(_locationRepository.getAll());
             Cities = new ObservableCollection<string>();
@@ -186,6 +211,14 @@ namespace InitialProject.View
             }
             
                  _accommodationRepository.Save(newAccommodation);
+                 
+                 foreach(var image  in Images)
+                 {
+                _accommodationImageRepository.Save(image, _accommodationRepository.GetLastAccommodationId());
+
+                 }
+                
+            
             Close();
         }
 
@@ -249,10 +282,24 @@ namespace InitialProject.View
             Close();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+       /* private void Button_Click(object sender, RoutedEventArgs e)
         {
             UrlTable urlTable = new UrlTable();
             urlTable.Show();
+        }
+       */
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            urlTable.Show();
+           
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AccommodationImages newImage = new AccommodationImages(0, UrlTextBox.Text,-1) ;
+            //AccommodationImages savedImage = _accommodationImageRepository.Save(newImage);
+            Images.Add(newImage);
+           
         }
     }
 }

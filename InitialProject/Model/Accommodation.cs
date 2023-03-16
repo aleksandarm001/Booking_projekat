@@ -20,14 +20,14 @@ namespace InitialProject.Model
         public int MaxGuestNumber { get; set; }
         public int MinReservationDays { get; set; }
         public int DaysBeforeCancelling { get; set; }
-        public List<string> Images { get; set; }
+        public List<AccommodationImages> Images { get; set; }
         public List<Reservation> Reservations { get; set; }
         public int AccommodationID { get; set; }
                 
 
 
         public Accommodation(int userId,string name, Location location, AccommodationType type, int maxGuestNumber,
-            int minReservationDays, int daysBeforeCancelling, List<String> images,
+            int minReservationDays, int daysBeforeCancelling, List<AccommodationImages> images,
             List<Reservation> reservations)
         {
             UserId= userId;
@@ -56,7 +56,7 @@ namespace InitialProject.Model
             MaxGuestNumber = 0;
             MinReservationDays = 0;
             DaysBeforeCancelling = 0;
-            Images = new List<String>();
+            Images = new List<AccommodationImages>();
             Reservations = new List<Reservation>();
         }
 

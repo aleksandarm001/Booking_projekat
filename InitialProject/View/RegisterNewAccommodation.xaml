@@ -37,7 +37,7 @@
             <Label Grid.Row="7" Grid.Column="0" Margin="0,20,0,0" Grid.RowSpan="2">Url slike:</Label>
 
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=AccommodationName, Mode=OneWayToSource }" Margin="0,18,0,19"/>
-            <TextBox Grid.Row="7"  Margin="76,18,71,18" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="UrlTextBox" Grid.Row="7"  Margin="76,18,71,18" Text="{Binding Path=AccomodationImageUrl, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
 
             <ComboBox  Name ="CountriesComboBox" Grid.Row="1" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
                       ItemsSource="{Binding Countries}" HorizontalAlignment="Center" Width ="180" SelectedIndex="0" SelectionChanged="FilterCities" Margin="0,16,0,15" />
@@ -57,8 +57,9 @@
 
             <Button Content="Save" Click="NewAccommodationRegistration" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Top" Width="60" Height="29" Margin="0,27,0,0"/>
             <Button Grid.Column="1" Content="Cancel" Click="CancelButton" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Top" Width="60" Height="29" Margin="0,27,0,0" />
-            <Button Grid.Column="1" Content="+" HorizontalAlignment="Left" FontSize="20
-                    " Margin="157,0,0,0" Grid.Row="7" VerticalAlignment="Center" RenderTransformOrigin="0.292,0.398" Height="32" Width="34" Click="Button_Click"/>
+            <Button  Name ="AddButton" Click="AddButton_Click" Grid.Column="1" Content="O" HorizontalAlignment="Left" FontSize="20
+                    " Margin="157,0,0,0" Grid.Row="7" VerticalAlignment="Center" RenderTransformOrigin="0.292,0.398" Height="32" Width="34" />
+            <Button Grid.Column="1" Content="+" HorizontalAlignment="Left" Click="Button_Click" Margin="157,61,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.RowSpan="2" Width="34"/>
 
 
         </Grid>

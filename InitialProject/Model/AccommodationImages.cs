@@ -7,29 +7,30 @@ using System.Threading.Tasks;
 
 namespace InitialProject.Model
 {
-    public class Images : ISerializable
+    public class AccommodationImages : ISerializable
     {
-        public string Url { get; set; }
+        
         public int ImageId { get; set; }
+        public string Url { get; set; }
         public int ResourceId { get; set; }
 
 
 
-        public Images(){ }
+        public AccommodationImages(){ }
 
-        public Images(string url,int imageId, int resourceId)
+        public AccommodationImages(int id,string url,int resourceId)
         {
-            Url = url;
-            ImageId = imageId;
-            ResourceId = resourceId;
+            ImageId= id;
+            Url= url;
+            ResourceId= resourceId;
 
             
         }
 
         public void FromCSV(string[] values)
         {
-            ImageId = int.Parse(values[0]);
-            ResourceId = int.Parse(values[1]);
+            ImageId = Convert.ToInt32(values[0]);
+            ResourceId = Convert.ToInt32(values[1]);
             Url = values[2];
         }
 

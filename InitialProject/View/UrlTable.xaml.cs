@@ -1,4 +1,6 @@
-﻿using System;
+﻿using InitialProject.Model;
+using InitialProject.Repository;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -20,12 +22,18 @@ namespace InitialProject.View
     /// </summary>
     public partial class UrlTable : Window
     {
-        public ObservableCollection<string> Url { get; set; }
+        public static ObservableCollection<AccommodationImages> Images { get; set; }
 
+        
        
-        public UrlTable()
+        public UrlTable(ObservableCollection<AccommodationImages> ImageList)
         {
             InitializeComponent();
+            DataContext= this;
+
+            // Images = new ObservableCollection<AccommodationImages>();
+            Images = ImageList;
+          
         }
     }
 }
