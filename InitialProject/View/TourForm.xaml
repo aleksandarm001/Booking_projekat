@@ -37,7 +37,7 @@
             <Label Grid.Row="7" Grid.Column="0" Margin="0,10,0,10">Trajanje ture:</Label>
             <Label Grid.Row="8" Grid.Column="0" Margin="0,10,0,10">Slike:</Label>
 
-            <TextBox Grid.Row="0" Grid.Column="1" Height="30" Text="{Binding Path=Name, Mode=OneWayToSource }"></TextBox>
+            <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Height="30" Text="{Binding Path=Name, Mode=OneWayToSource }"></TextBox>
 
             <ComboBox  Name ="CountriesComboBox" Grid.Row="1" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
                       ItemsSource="{Binding Countries}" HorizontalAlignment="Center" Width ="229" Height="30" SelectedIndex="0"  Margin="0,7,0,9" ></ComboBox>

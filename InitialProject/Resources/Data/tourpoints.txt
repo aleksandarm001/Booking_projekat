@@ -1,0 +1,16 @@
+1|sad|15|NotActive|asd|0
+2|sadasd|15|NotActive|asdasd|0
+3|sad|16|NotActive|asd|0
+4|sadasd|16|NotActive|asdasd|0
+5|dsadas|17|NotActive|adsad|0
+6|asdasd|17|NotActive|d|0
+7|dsadas|18|NotActive|adsad|0
+8|asdasd|18|NotActive|d|0
+9|orva|19|NotActive|da|0
+10|druga|19|NotActive|da|0
+11|orva|20|NotActive|da|0
+12|druga|20|NotActive|da|0
+13|dsad|21|NotActive|asdas|0
+14|asdasd|21|NotActive|asdasasdasd|0
+15|dsad|22|NotActive|asdas|0
+16|asdasd|22|NotActive|asdasasdasd|0
