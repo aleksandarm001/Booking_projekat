@@ -35,7 +35,7 @@ namespace InitialProject.View
             DataContext = this;
             _locationRepository = new LocationRepository();
             _accommodationRepository = new AccommodationRepository();
-            Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
+            //Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
         }
 
         private void Guest1_ButtonClick(object sender, RoutedEventArgs e)
@@ -68,7 +68,7 @@ namespace InitialProject.View
             TourForm tour = new TourForm();
             tour.Show();
         }
-    } 
+     
 
 
         private void Button_Click(object sender, RoutedEventArgs e)

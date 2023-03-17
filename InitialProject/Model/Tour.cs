@@ -14,8 +14,6 @@ namespace InitialProject.Model
         public string Description { get; set; }
         public Language Language { get; set; }
         public int MaxGuestNumber { get; set; }
-
-        public List<TourPoint> KeyPoints { get; set; }
         public DateTime StartingDateTime { get; set; }
         public int Duration { get; set; }
 
@@ -28,20 +26,18 @@ namespace InitialProject.Model
             Description = "";
             Language = new Language();
             MaxGuestNumber = 1;
-            KeyPoints = new List<TourPoint>();
             StartingDateTime = DateTime.Now;
             Duration = 1;
             //Images = new List<String>();
         }
 
-        public Tour(string name, Location location, string description, Language language, int maxGuestNumber, List<TourPoint> keyPoints, DateTime startingDateTimes, int duration)
+        public Tour(string name, Location location, string description, Language language, int maxGuestNumber, DateTime startingDateTimes, int duration)
         {
             Name = name;
             Location = location;
             Description = description;
             Language = language;
             MaxGuestNumber = maxGuestNumber;
-            KeyPoints = keyPoints;
             StartingDateTime = startingDateTimes;
             Duration = duration;
             //Images = images;
@@ -59,7 +55,7 @@ namespace InitialProject.Model
             Duration = Convert.ToInt32(values[7]);
             //Images = values[9].Split(";").ToList<string>();
 
-        }//1|Test|zrenjanin;serbia|TestDesc|srpski|5|3/11/2023 10:34:37 PM;3/11/2023 10:34:37 PM;|5
+        }
 
 
         public string DateTimeToCSV(List<DateTime> startingDateTimes) 
