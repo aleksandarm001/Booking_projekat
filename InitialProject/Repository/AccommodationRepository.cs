@@ -24,7 +24,7 @@ namespace InitialProject.Repository
             _serializer = new Serializer<Accommodation>();
             _accommodations = new List<Accommodation>();
         }
-        public List<Accommodation> getAll()
+        public List<Accommodation> GetAll()
         {
             return _serializer.FromCSV(FilePath);
         }

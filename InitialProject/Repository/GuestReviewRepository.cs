@@ -23,7 +23,7 @@ namespace InitialProject.Repository
             _guestReviews= _serializer.FromCSV(FilePath);
         }
 
-        public List<GuestReview> getAll()
+        public List<GuestReview> GetAll()
         {
             return _serializer.FromCSV(FilePath);
         }

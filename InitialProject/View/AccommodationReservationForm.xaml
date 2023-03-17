@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="AccommodationReservationForm" Height="350" Width="400">
+        Title="AccommodationReservationForm" Height="350" Width="400"
+        WindowStartupLocation="CenterOwner">
 
     <Grid>
         <DatePicker Name ="StartDatePicker" HorizontalAlignment="Left" Margin="17,69,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=StartDay, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}">
@@ -32,7 +33,7 @@
                 <DataGridTextColumn Header="End Date" Binding="{Binding SEndDate}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Apply" Click="Button_Click" HorizontalAlignment="Left" Height="23" Margin="39,205,0,0" VerticalAlignment="Top" Width="58"/>
+        <Button Content="Apply" Click="ApplyFiltersButton" HorizontalAlignment="Left" Height="23" Margin="39,205,0,0" VerticalAlignment="Top" Width="58"/>
         <Label Content="Reservation for: " HorizontalAlignment="Center" Margin="0,13,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Path = AccommodationName}" FontStyle="Oblique" HorizontalAlignment="Left" Margin="255,13,0,0" VerticalAlignment="Top" Height="26" Width="135"/>
         <TextBlock Name ="NoFreeReservation" Visibility="Hidden" HorizontalAlignment="Center" Height="49" Margin="0,274,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="342">

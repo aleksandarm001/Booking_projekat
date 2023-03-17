@@ -63,9 +63,6 @@ namespace InitialProject
                     CommentsOverview commentsOverview = new CommentsOverview(user);
                     commentsOverview.Show();
                     */
-                    Guest1View guest1View = new Guest1View(Locations);
-                    guest1View.Show();
-                    Close();
                 } 
                 else
                 {

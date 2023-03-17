@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="StartWindow" Height="511" Width="450">
+        Title="StartWindow" Height="511" Width="450"
+        WindowStartupLocation ="CenterScreen">
     <Grid>
         <Button Content="Owner" HorizontalAlignment="Left" Height="47" Margin="124,63,0,0" VerticalAlignment="Top" Width="199" Click="Owner_ButtonClick"/>
         <Button Content="Guest1" HorizontalAlignment="Left" Height="47" Margin="124,143,0,0" VerticalAlignment="Top" Width="199" Click="Guest1_ButtonClick"/>

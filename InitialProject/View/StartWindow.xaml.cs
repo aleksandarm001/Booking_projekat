@@ -24,18 +24,18 @@ namespace InitialProject.View
     public partial class StartWindow : Window
     {
         private readonly LocationRepository _locationRepository;
-
         private readonly TourPointRepository _tourPointRepository;
-
         private readonly AccommodationRepository _accommodationRepository;
-
         private readonly GuestReviewRepository _guestReviewRepository;
         private readonly UserToReviewRepository _userToReviewRepository;
         private readonly ReservationRepository _reservationRepository;
+        private readonly AccommodationReservationRepository _accommodationReservationRepository;
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<Reservation> Reservations { get; set; }
         public static List<GuestReview> GuestReviews {get; set;}
         public static ObservableCollection<UserToReview> UsersToReview { get; set;}
+        public static ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
+        public static ObservableCollection<Accommodation> Accommodations { get; set; }
         public StartWindow()
         {
             InitializeComponent();
@@ -45,16 +45,20 @@ namespace InitialProject.View
             _guestReviewRepository= new GuestReviewRepository();
             _reservationRepository= new ReservationRepository();
             _userToReviewRepository = new UserToReviewRepository();
+            _accommodationReservationRepository = new AccommodationReservationRepository();
             Reservations = new ObservableCollection<Reservation>(_reservationRepository.GetAll());
-            GuestReviews = new List<GuestReview>(_guestReviewRepository.getAll());
+            GuestReviews = new List<GuestReview>(_guestReviewRepository.GetAll());
             Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
             UsersToReview = new ObservableCollection<UserToReview>(_userToReviewRepository.GetAll());
+            Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
+            AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
+            InitializeReservationsByAccommodations();
             InitalizeUsersToReview();
         }
 
         private void Guest1_ButtonClick(object sender, RoutedEventArgs e)
         {
-            Guest1View guest1View = new Guest1View(Locations);
+            Guest1View guest1View = new Guest1View(Locations, Accommodations);
             guest1View.Show();
         }
 
@@ -105,6 +109,14 @@ namespace InitialProject.View
                 return true;
             }
             return false;
+        }
+        private void InitializeReservationsByAccommodations()
+        {
+            foreach(AccommodationReservation accommodationReservation in AccommodationReservations)
+            {
+                Accommodation accommodation = Accommodations.ToList().Find(a => a.AccommodationID == accommodationReservation.AccommodationId);
+                accommodation.Reservations.Add(Reservations.ToList().Find(r => r.ReservationId == accommodationReservation.ReservationId));
+            }
         }
     }
 }

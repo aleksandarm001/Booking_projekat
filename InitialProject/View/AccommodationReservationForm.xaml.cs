@@ -26,13 +26,13 @@ namespace InitialProject.View
     public partial class AccommodationReservationForm : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private DateTime _startDay;
-        private DateTime _endDay;
-        private int _reservationDays;
-        private int _numberOfGuests;
-        private readonly ReservationRepository _reservationRepository;
         private ObservableCollection<DateRange> _dateRanges;
+        private readonly ReservationRepository _reservationRepository;
+        private readonly AccommodationReservationRepository _accommodationReservationRepository;
+        public DateRange SelectedDateRange { get; set; }
+        public Accommodation SelectedAccommodation { get; set; }
+        public string AccommodationName { get; set; }
+        public List<Reservation> Reservations { get; set; }
         public ObservableCollection<DateRange> DateRanges
         {
             get { return _dateRanges; }
@@ -42,10 +42,7 @@ namespace InitialProject.View
                 OnPropertyChanged(nameof(DateRanges));
             }
         }
-        public DateRange SelectedDateRange { get; set; }
-        public Accommodation SelectedAccommodation { get; set; }
-        public string AccommodationName { get; set; }
-        public List<Reservation> Reservations { get; set; }
+        private DateTime _startDay;
         public DateTime StartDay
         {
             get
@@ -62,6 +59,7 @@ namespace InitialProject.View
                 }
             }
         }
+        private DateTime _endDay;
         public DateTime EndDay
         {
             get
@@ -77,6 +75,7 @@ namespace InitialProject.View
                 }
             }
         }
+        private int _reservationDays;
         public int ReservationDays
         {
             get
@@ -92,25 +91,15 @@ namespace InitialProject.View
                 }
             }
         }
+        private int _numberOfGuests;
         public int NumberOfGuests
         {
             get { return _numberOfGuests; }
             set
             {
                 _numberOfGuests = value;
+                OnPropertyChanged("NumberOfGuests");
             }
-        }
-        public AccommodationReservationForm(Accommodation accommodation)
-        {
-            InitializeComponent();
-            this.DataContext = this;
-            SelectedAccommodation = accommodation;
-            AccommodationName = accommodation.Name;
-            _reservationRepository = new ReservationRepository();
-            Reservations = new List<Reservation>(_reservationRepository.GetReservationsByAccommodationId(SelectedAccommodation.AccommodationID));
-            StartDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
-            EndDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
-            DateRanges = new ObservableCollection<DateRange>();
         }
         protected virtual void OnPropertyChanged(string name)
         {
@@ -119,82 +108,109 @@ namespace InitialProject.View
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-        private List<DateRange> extractFreeDates(List<Reservation> reservations, DateTime StartDay, DateTime EndDay)
+        public AccommodationReservationForm(Accommodation accommodation)
+        {
+            InitializeComponent();
+            this.DataContext = this;
+            SelectedAccommodation = accommodation;
+            AccommodationName = accommodation.Name;
+            Reservations = accommodation.Reservations;
+            _reservationRepository = new ReservationRepository();
+            _accommodationReservationRepository = new AccommodationReservationRepository();
+            StartDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
+            EndDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
+            DateRanges = new ObservableCollection<DateRange>();
+        }
+        
+        private List<DateRange> ExtractFreeDates(DateTime StartDay, DateTime EndDay)
+        {
+            List<DateRange> allDates = GetAllPossibleDates(StartDay, EndDay);
+            List<DateRange> datesToRemove = new List<DateRange>();
+            foreach (Reservation reservation in Reservations)
+            {
+                foreach (DateRange range in allDates)
+                {
+                    if (reservation.ReservationDateRange.WithinRange(range) && !datesToRemove.Contains(range))
+                    {
+                        datesToRemove.Add(range);
+                    }
+                }
+            }
+            RemoveUnavailableDates(allDates, datesToRemove);
+            return allDates;
+        }
+
+        private void RemoveUnavailableDates(List<DateRange> allDates, List<DateRange> datesToRemove)
+        {
+            foreach (DateRange range in datesToRemove)
+            {
+                DateRange dr = allDates.Find(r => r.StartDate == range.StartDate && r.EndDate == range.EndDate);
+                allDates.Remove(dr);
+            }
+        }
+        private List<DateRange> GetAllPossibleDates(DateTime StartDay, DateTime EndDay)
         {
             List<DateRange> result = new List<DateRange>();
             for (var day = StartDay; day.Date <= EndDay; day = day.AddDays(1))
-                {
-                    if (day.AddDays(ReservationDays).Date > EndDay)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        DateRange range = new DateRange(day.Date, day.AddDays(ReservationDays).Date);
-                        result.Add(range);
-                    }
-                }
-            List<DateRange> tempResult = new List<DateRange>();
-            foreach (Reservation reservation in reservations)
             {
-                foreach (DateRange range in result)
+                if(day.AddDays(ReservationDays).Date <= EndDay)
                 {
-                    if (reservation.ReservationDateRange.WithinRange(range))
-                    {
-                        tempResult.Add(range);
-                    }
-                }
-                foreach (DateRange range in tempResult)
-                {
-                    DateRange dr = result.Find(r => r.StartDate == range.StartDate && r.EndDate == range.EndDate);
-                    result.Remove(dr);
+                    DateRange range = new DateRange(day.Date, day.AddDays(ReservationDays).Date);
+                    result.Add(range);
                 }
             }
             return result;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ApplyFiltersButton(object sender, RoutedEventArgs e)
         {
             NoFreeReservation.Visibility = Visibility.Hidden;
-            DateRanges.Clear();
             if (ReservationDays < SelectedAccommodation.MinReservationDays)
             {
                 MessageBox.Show("Minimum number of days to reserve " + AccommodationName + " is " + SelectedAccommodation.MinReservationDays);
             }
             else
             {
-                List<DateRange> freeDates = extractFreeDates(Reservations, StartDay, EndDay);
-                if (freeDates.Count == 0)
-                {
-                    NoFreeReservation.Visibility = Visibility.Visible;
-                    DateRanges = new ObservableCollection<DateRange>(extractFreeDates(Reservations, DateTime.Now, DateTime.Now.AddDays(90)));
-                }
-                else
-                {
-                    DateRanges = new ObservableCollection<DateRange>(freeDates);
-                }
+                DateRanges.Clear();
+                ShowFreeDatesForReservation();
             }
         }
-
+        private void ShowFreeDatesForReservation()
+        {
+            List<DateRange> freeDates = ExtractFreeDates(StartDay, EndDay);
+            if (freeDates.Count == 0)
+            {
+                NoFreeReservation.Visibility = Visibility.Visible;
+                DateRanges = new ObservableCollection<DateRange>(ExtractFreeDates(DateTime.Now, DateTime.Now.AddDays(90)));
+            }
+            else
+            {
+                DateRanges = new ObservableCollection<DateRange>(freeDates);
+            }
+        }
         private void DataGritMenuItemClick(object sender, RoutedEventArgs e)
         {
             EnterGuestNumberDialog dlg = new EnterGuestNumberDialog(SelectedAccommodation.MaxGuestNumber);
+            dlg.Owner = this;
             dlg.ShowDialog();
             if(dlg.NumberOfGuests != 0)
             {
                 NumberOfGuests = dlg.NumberOfGuests;
-                int userID = 1; //defaultni userid za inicijalnu fazu projekta
-                Reservation reservation = new Reservation(SelectedAccommodation.AccommodationID, userID, SelectedDateRange, NumberOfGuests);
-                SelectedAccommodation.Reservations.Add(reservation);
-                _reservationRepository.Save(reservation);
+                int userID = 1; 
+                ReserveAccommodation(SelectedAccommodation.AccommodationID, userID, SelectedDateRange, NumberOfGuests);
                 MessageBox.Show("You successfuly reserved " + ReservationDays.ToString() + " day(s) at " + AccommodationName);
-                this.Close();
+                dlg.Close();
             }
+        }
+        private void ReserveAccommodation(int accommodationID, int userID, DateRange dateRange, int numberOfGuests)
+        {
+            Reservation reservation = new Reservation(dateRange, numberOfGuests);
+            AccommodationReservation accommodationReservation = new AccommodationReservation(accommodationID, _reservationRepository.NextId());
+            SelectedAccommodation.Reservations.Add(reservation);
+            Reservations.Add(reservation);
+            DateRanges.Clear();
+            ShowFreeDatesForReservation();
+            _reservationRepository.Save(reservation);
+            _accommodationReservationRepository.Save(accommodationReservation);
         }
     }
 }
-/*
-    TO DO:
-        U prethodnom prozoru, ucitaj sve rezervacije u svaki Accommodation (U listu accommodation) 
-        onda iteriraj u ovom prozoru kroz tu listu a ne koristiti svaki put citanje iz fajla.
-*/
