@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="EnterGuestNumberDialog" Height="153" Width="353">
+        Title="Enter Guest Number" Height="153" Width="353"
+        WindowStartupLocation="CenterOwner">
     <Grid Margin="0,0,0,6">
         <Label Content="Please enter the number of guests" HorizontalAlignment="Left" Margin="25,35,0,0" VerticalAlignment="Top"/>
         <TextBox Name ="Input1" HorizontalAlignment="Left" Height="26" Margin="221,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95"/>

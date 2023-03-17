@@ -25,14 +25,7 @@ namespace InitialProject.Repository
         public Reservation GetByReservationId(int reservationId)
         {
             _reservations = _serializer.FromCSV(FilePath);
-            return _reservations.FirstOrDefault(t => t.Id == reservationId);
-        }
-
-        public List<Reservation> GetReservationsByAccommodationId(int accommodationID)
-        {
-            List<Reservation> reservations = new List<Reservation>();
-            reservations = _reservations.Where(r => r.AccomodationId == accommodationID).ToList();
-            return reservations;
+            return _reservations.FirstOrDefault(t => t.ReservationId == reservationId);
         }
 
         public List<Reservation> GetAll()
@@ -42,7 +35,7 @@ namespace InitialProject.Repository
 
         public Reservation Save(Reservation reservation)
         {
-            reservation.Id = NextId();
+            reservation.ReservationId = NextId();
             _reservations.Add(reservation);
             _serializer.ToCSV(FilePath, _reservations);
             return reservation;
@@ -54,19 +47,14 @@ namespace InitialProject.Repository
             {
                 return 1;
             }
-            return _reservations.Max(t => t.Id) + 1;
+            return _reservations.Max(t => t.ReservationId) + 1;
         }
         public void Delete(Reservation reservation)
         {
             _reservations = _serializer.FromCSV(FilePath);
-            Reservation foundedAccommodation = _reservations.Find(r => r.Id == reservation.Id);
+            Reservation foundedAccommodation = _reservations.Find(r => r.ReservationId == reservation.ReservationId);
             _reservations.Remove(foundedAccommodation);
             _serializer.ToCSV(FilePath, _reservations);
         }
-
-
-
-
-
     }
 }
