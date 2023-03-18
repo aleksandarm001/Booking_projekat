@@ -53,7 +53,7 @@ namespace InitialProject.View
             Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
             InitializeReservationsByAccommodations();
-            InitalizeUsersToReview();
+            InitializeUsersToReview();
         }
 
         private void Guest1_ButtonClick(object sender, RoutedEventArgs e)
@@ -61,7 +61,6 @@ namespace InitialProject.View
             Guest1View guest1View = new Guest1View(Locations, Accommodations);
             guest1View.Show();
         }
-
         private void Guest2_ButtonClick(object sender, RoutedEventArgs e)
         {
             TourView tourView = new TourView(1);
@@ -71,16 +70,11 @@ namespace InitialProject.View
         {
             return 1;
         }
-
-
         private void Owner_ButtonClick(object sender, RoutedEventArgs e)
         {
             RegisterNewAccommodation newAccommodation = new RegisterNewAccommodation(UsersToReview);
             newAccommodation.Show();
         }
-
-
-
         private void Guide_ButtonClick(object sender, RoutedEventArgs e)
         {
             TourForm tour = new TourForm();
@@ -90,7 +84,7 @@ namespace InitialProject.View
         {
            
         }
-        private void InitalizeUsersToReview()
+        private void InitializeUsersToReview()
         {
             foreach(Reservation reservation in Reservations){
                 if (CheckIfLeftReservation(reservation))

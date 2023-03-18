@@ -17,3 +17,4 @@
 17|Sisa|Berlin;Germany|Shack|0|2|5|
 18|asdaasd|Tokyo;Japan|House|2|3|1|
 19|asdas|São Paulo;Brazil|House|3|1|1|
+20|Pizza|Rome;Italy|Appartment|1|5|1|

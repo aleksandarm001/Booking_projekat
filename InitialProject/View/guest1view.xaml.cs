@@ -166,6 +166,46 @@ namespace InitialProject.View
             Countries = new ObservableCollection<string>();
             ReadCitiesAndCountries();
         }
+        private void InitializeNumberOfGuests(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cmbx = (ComboBox)sender;
+            if (!string.IsNullOrEmpty(cmbx.SelectedItem.ToString()))
+            {
+                NumberOfGuests = Convert.ToInt32(cmbx.SelectedItem);
+            }
+        }
+        private void InitializeReservationsDays(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cmbx = (ComboBox)sender;
+            if (!string.IsNullOrEmpty(cmbx.SelectedItem.ToString()))
+            {
+                ReservationDays = Convert.ToInt32(cmbx.SelectedItem);
+            }
+        }
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        bool AccommodationNameFilter(Accommodation accommodation)
+        {
+            return string.IsNullOrEmpty(AccommodationName) || accommodation.Name.ToLower().Contains(AccommodationName.ToLower());
+        }
+        bool CountryFilter(Accommodation accommodation)
+        {
+            return string.IsNullOrEmpty(SelectedCountry) || accommodation.Location.Country == SelectedCountry;
+        }
+        bool CityFilter(Accommodation accommodation)
+        {
+            return string.IsNullOrEmpty(SelectedCity) || accommodation.Location.City == SelectedCity;
+        }
+        bool GuestNumberFilter(Accommodation accommodation)
+        {
+            return string.IsNullOrEmpty(StrNumberOfGuests) || accommodation.MaxGuestNumber >= NumberOfGuests;
+        }
+        bool DaysReservationFilter(Accommodation accommodation)
+        {
+            return string.IsNullOrEmpty(StrReservationDays) || accommodation.MinReservationDays <= ReservationDays;
+        }
         private bool AccommodationTypeFilter(Accommodation accommodation)
         {
             if (IsAppartmentSelected && IsHouseSelected && IsShackSelected)
@@ -221,27 +261,6 @@ namespace InitialProject.View
                     AccommodationTypeFilter(accommodation));
             };
         }
-        bool AccommodationNameFilter(Accommodation accommodation)
-        {
-            return string.IsNullOrEmpty(AccommodationName) || accommodation.Name.ToLower().Contains(AccommodationName.ToLower());
-        }
-        bool CountryFilter(Accommodation accommodation)
-        {
-            return string.IsNullOrEmpty(SelectedCountry) || accommodation.Location.Country == SelectedCountry;
-        }
-        bool CityFilter(Accommodation accommodation)
-        {
-            return string.IsNullOrEmpty(SelectedCity) || accommodation.Location.City == SelectedCity;
-        }
-        bool GuestNumberFilter(Accommodation accommodation)
-        {
-            return string.IsNullOrEmpty(StrNumberOfGuests) || accommodation.MaxGuestNumber >= NumberOfGuests;
-        }
-        bool DaysReservationFilter(Accommodation accommodation)
-        {
-            return string.IsNullOrEmpty(StrReservationDays) || accommodation.MinReservationDays <= ReservationDays;
-        }
-        
         private void ReadCitiesAndCountries()
         {
             Cities.Clear();
@@ -278,27 +297,6 @@ namespace InitialProject.View
                 SelectedCity = Cities[1];
             }
         }
-        private void InitializeNumberOfGuests(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox cmbx = (ComboBox)sender;
-            if (!string.IsNullOrEmpty(cmbx.SelectedItem.ToString()))
-            {
-                NumberOfGuests = Convert.ToInt32(cmbx.SelectedItem);
-            }
-        }
-        private void InitializeReservationsDays(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox cmbx = (ComboBox)sender;
-            if (!string.IsNullOrEmpty(cmbx.SelectedItem.ToString()))
-            {
-                ReservationDays = Convert.ToInt32(cmbx.SelectedItem);
-            }
-        }
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         private void BookClick(object sender, RoutedEventArgs e)
         {
             if(SelectedAccommodation == null)
