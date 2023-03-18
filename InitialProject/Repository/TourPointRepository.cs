@@ -69,6 +69,16 @@ namespace InitialProject.Repository
             return tourPoint;
         }
 
+        public List<TourPoint> GetTourPointsByTourId(int tourId)
+        {
+            List<TourPoint> allTourPoint = _serializer.FromCSV(FilePath);
+            List<TourPoint> tourPointsWithTourId = new List<TourPoint>();
+            foreach(var tourPoint in allTourPoint)
+                if(tourPoint.TourId == tourId)
+                    tourPointsWithTourId.Add(tourPoint);
+            return tourPointsWithTourId;
+        }
+
         public List<TourPoint> getAllTemp()
         {
             return _serializer.FromCSV(TempFilePath);

@@ -11,11 +11,11 @@ namespace InitialProject.Model
     public class TourPoint : ISerializable
     {
 
-        public enum Status { Active = 0, NotActive = 1 }
+        
         public int Id { get; set; }
         public string Name { get; set; }
         public int TourId { get; set; }
-        public Status CurrentActive { get; set; } = Status.NotActive;
+        public string CurrentActive { get; set; } = "Not Active";
         public string Description { get; set; }
         public int Order { get; set; } = 0;
         
@@ -26,7 +26,7 @@ namespace InitialProject.Model
 
         }
 
-        public TourPoint(string tourPointName, Status currentActive, string description)
+        public TourPoint(string tourPointName, string currentActive, string description)
         {
             Name = tourPointName;
             CurrentActive = currentActive;
@@ -52,7 +52,7 @@ namespace InitialProject.Model
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
             TourId= Convert.ToInt32(values[2]);
-            CurrentActive = (Status)Enum.Parse(typeof(Status), values[3]);
+            CurrentActive = values[3];
             Description = values[4];
             Order = Convert.ToInt32(values[5]);
         }

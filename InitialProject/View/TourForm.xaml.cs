@@ -112,6 +112,13 @@ namespace InitialProject.View
 
         }
 
+        private void Track_ButtonClick(object sender, RoutedEventArgs e)
+        {
+
+            TourTracking tt = new TourTracking();
+            tt.Show();
+        }
+
         private void Save_ButtonClick(object sender, RoutedEventArgs e)
         {
             // Get input values

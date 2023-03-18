@@ -17,6 +17,8 @@ namespace InitialProject.Model
         public DateTime StartingDateTime { get; set; }
         public int Duration { get; set; }
 
+        public bool TourStarted { get; set; }
+
         //public List<String> Images { get; set; }
 
         public Tour()

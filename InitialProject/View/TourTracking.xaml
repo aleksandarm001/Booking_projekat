@@ -7,6 +7,53 @@
         mc:Ignorable="d"
         Title="TourTracking" Height="450" Width="800">
     <Grid>
-        
+        <DataGrid Name ="TourGrid" Grid.Row="0" Margin="10,28,298,176" 
+                  ItemsSource="{Binding Path = Tours, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path= SelectedTour, UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="false"
+                  Visibility ="Visible">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Width="200" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Lokacija" Width="100" Binding="{Binding Location}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Jezik" Width="100" Binding="{Binding Language}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum i vreme" Width="100" Binding="{Binding StartingDateTime}"></DataGridTextColumn>
+            </DataGrid.Columns>
+            
+        </DataGrid>
+
+        <DataGrid Name="TourPointGrid" Grid.Row="0" Margin="517,28,10,176" 
+          ItemsSource="{Binding Path = TourPoints, UpdateSourceTrigger=PropertyChanged}"
+          SelectedItem="{Binding Path= SelectedTourPoint, UpdateSourceTrigger=PropertyChanged}"
+          IsReadOnly="False" SelectionMode="Single" AutoGenerateColumns="false"
+          Visibility="Visible" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Width="180" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Red" Width="30" Binding="{Binding Order}"></DataGridTextColumn>
+                
+                <DataGridTemplateColumn Header="Status" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding CurrentActive}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox SelectedValue="{Binding CurrentActive, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedValuePath="Content">
+                                <ComboBoxItem Content="Active" />
+                                <ComboBoxItem Content="Not Active" />
+                                <ComboBoxItem Content="Finished" />
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="Zapocni turu" Click="ZapocniTuru_Button" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top" Width="70" Height="30"/>
+
+
     </Grid>
 </Window>
