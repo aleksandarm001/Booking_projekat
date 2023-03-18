@@ -3,11 +3,13 @@ using InitialProject.Observer;
 using InitialProject.Repository;
 using Microsoft.VisualStudio.Services.Common;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace InitialProject.View
@@ -45,6 +47,7 @@ namespace InitialProject.View
             {
                 _tourPoints = value;
                 OnPropertyChanged(nameof(TourPoints));
+                SaveButtonEnabled();
             }
         }
 
@@ -56,6 +59,7 @@ namespace InitialProject.View
             {
                 _selectedTourPoint = value;
                 OnPropertyChanged(nameof(SelectedTourPoint));
+                
             }
         }
 
@@ -102,6 +106,7 @@ namespace InitialProject.View
             _keyPoints = KeyPoints;
 
             TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.getAllTemp());
+
             availableOrders = availableOrder();
 
 
@@ -148,15 +153,60 @@ namespace InitialProject.View
             {
                 availableOrder();
                 EditTourPointForm editTour = new EditTourPointForm(SelectedTourPoint, availableOrders, orders, usedOrders, TourPoints);
-                editTour.Show();
+                editTour.ShowDialog();
+                SaveButtonEnabled();
             }
 
             CollectionViewSource.GetDefaultView(_tourPoints).Refresh();
+
 
         }
 
         private void Remove_ButtonClick(object sender, RoutedEventArgs e)
         {
+
+        }
+
+
+        private void Save_ButtonClick(object sender, RoutedEventArgs e)
+        {
+           
+        }
+        
+        public void SaveButtonEnabled()
+        {
+            try
+            {
+                if (TourPoints.Count >= 2 && CheckForToursOrder() == true)
+                {
+                    SaveButton.IsEnabled = true;
+                }
+                else
+                {
+                    SaveButton.IsEnabled = false;
+                }
+
+            }catch(Exception e)
+            {
+
+            }
+        }
+
+        public bool CheckForToursOrder()
+        {
+            foreach(var keyPoint in TourPoints)
+            {
+                if(keyPoint.Order == 0)
+                    return false;
+            }
+            return true;
+        }
+
+
+        private void Close_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            _tourPointRepository.ClearTemp();
+            Close();
 
         }
 
@@ -193,7 +243,7 @@ namespace InitialProject.View
             {
                 _keyPoints.Add(TourPoint.Name);
             }
-            RefreshTourPoints();
+            TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.getAllTemp());
 
 
         }

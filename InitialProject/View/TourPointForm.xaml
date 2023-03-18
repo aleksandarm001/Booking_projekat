@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="Tour Point" Height="300" Width="500">
-    <Grid>
+        Title="Tour Point" Height="312" Width="500">
+    <Grid Margin="0,0,0,7">
         <Grid Grid.Row="0" Grid.Column="0" Margin="10,25,21,10" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition ></ColumnDefinition>
@@ -36,6 +36,8 @@
             <Button Margin="124,0,57,223" Grid.Column="1" Click="Edit_ButtonClick">Izmeni</Button>
             <Button Margin="182,0,0,223" Grid.Column="1" Click="Remove_ButtonClick">Obrisi</Button>
 
+            <Button Name = "SaveButton" Margin="124,229,58,-6" Grid.Column="1" Click="Save_ButtonClick" IsEnabled="False">Sacuvaj</Button>
+            <Button Margin="182,229,0,-6" Grid.Column="1" Click="Close_ButtonClick">Ugasi</Button>
 
             <DataGrid Grid.Row="0" Margin="234,31,0,25" Grid.ColumnSpan="2" 
                   ItemsSource="{Binding Path = TourPoints, UpdateSourceTrigger=PropertyChanged}"
