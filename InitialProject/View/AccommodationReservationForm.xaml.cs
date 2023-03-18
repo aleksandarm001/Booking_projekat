@@ -139,13 +139,12 @@ namespace InitialProject.View
             RemoveUnavailableDates(allDates, datesToRemove);
             return allDates;
         }
-
         private void RemoveUnavailableDates(List<DateRange> allDates, List<DateRange> datesToRemove)
         {
             foreach (DateRange range in datesToRemove)
             {
-                DateRange dr = allDates.Find(r => r.StartDate == range.StartDate && r.EndDate == range.EndDate);
-                allDates.Remove(dr);
+                DateRange dateRange = allDates.Find(r => r.StartDate == range.StartDate && r.EndDate == range.EndDate);
+                allDates.Remove(dateRange);
             }
         }
         private List<DateRange> GetAllPossibleDates(DateTime StartDay, DateTime EndDay)
@@ -189,16 +188,16 @@ namespace InitialProject.View
         }
         private void DataGritMenuItemClick(object sender, RoutedEventArgs e)
         {
-            EnterGuestNumberDialog dlg = new EnterGuestNumberDialog(SelectedAccommodation.MaxGuestNumber);
-            dlg.Owner = this;
-            dlg.ShowDialog();
-            if(dlg.NumberOfGuests != 0)
+            EnterGuestNumberDialog guestNumberInputDialog = new EnterGuestNumberDialog(SelectedAccommodation.MaxGuestNumber);
+            guestNumberInputDialog.Owner = this;
+            guestNumberInputDialog.ShowDialog();
+            if(guestNumberInputDialog.NumberOfGuests != 0)
             {
-                NumberOfGuests = dlg.NumberOfGuests;
-                int userID = 1; 
+                NumberOfGuests = guestNumberInputDialog.NumberOfGuests;
+                int userID = 1; //defaultni userID za inicijalnu fazu projekta bez signin forme
                 ReserveAccommodation(SelectedAccommodation.AccommodationID, userID, SelectedDateRange, NumberOfGuests);
                 MessageBox.Show("You successfuly reserved " + ReservationDays.ToString() + " day(s) at " + AccommodationName);
-                dlg.Close();
+                guestNumberInputDialog.Close();
             }
         }
         private void ReserveAccommodation(int accommodationID, int userID, DateRange dateRange, int numberOfGuests)
