@@ -30,29 +30,13 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Width="180" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Red" Width="30" Binding="{Binding Order}"></DataGridTextColumn>
-                
-                <DataGridTemplateColumn Header="Status" Width="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding CurrentActive}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <ComboBox SelectedValue="{Binding CurrentActive, UpdateSourceTrigger=PropertyChanged}"
-                            SelectedValuePath="Content">
-                                <ComboBoxItem Content="Active" />
-                                <ComboBoxItem Content="Not Active" />
-                                <ComboBoxItem Content="Finished" />
-                            </ComboBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Status" Width="30" Binding="{Binding CurrentStatus}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="Zapocni turu" Click="ZapocniTuru_Button" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top" Width="70" Height="30"/>
+        <Button Content="Zapocni turu" Click="ZapocniTuru_Button" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top" Width="79" Height="30"/>
+        <Button Name ="ChangeStatusButton" Content="Promeni Status" Click="ChageStatus_Button" HorizontalAlignment="Left" Margin="517,273,0,0" VerticalAlignment="Top" Width="94" Height="30"/>
+
 
 
     </Grid>

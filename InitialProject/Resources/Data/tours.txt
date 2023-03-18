@@ -22,4 +22,4 @@
 22|asd|Tokyo;India|opis|Afrikaans|123|12/15/2022 4:18:10 AM|12
 23|Tura neka|Novi Sad;Serbia|opis|Serbian|15|3/15/2023 4:20:51 PM|2
 24|asd|Shanghai;Japan|opis|Armenian|14|3/24/2023 4:04:29 AM|12
-25|turica|Tokyo;Japan|opis|Afrikaans|123|3/17/2023 3:19:35 PM|12
+25|turica|Tokyo;Japan|opis|Afrikaans|121|3/17/2023 3:19:35 PM|12

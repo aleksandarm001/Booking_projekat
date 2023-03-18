@@ -24,7 +24,6 @@ namespace InitialProject.View
     /// </summary>
     public partial class TourTracking : Window, INotifyPropertyChanged
     {
-
         private readonly TourRepository _tourRepository;
         private readonly TourPointRepository _tourPointRepository;
         
@@ -37,6 +36,7 @@ namespace InitialProject.View
             Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
             TourPoints = new ObservableCollection<TourPoint>();
             TourPointGrid.Visibility = Visibility.Hidden;
+            ChangeStatusButton.Visibility = Visibility.Hidden;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -53,19 +53,7 @@ namespace InitialProject.View
             }
         }
 
-        private string _currentActive;
-        public string CurrentActive
-        {
-            get { return _currentActive; }
-            set
-            {
-                if (_currentActive != value)
-                {
-                    _currentActive = value;
-                    OnPropertyChanged("CurrentActive");
-                }
-            }
-        }
+        
 
         private Tour _selectedTour;
         public Tour SelectedTour
@@ -76,6 +64,7 @@ namespace InitialProject.View
                 _selectedTour = value;
                 OnPropertyChanged(nameof(SelectedTour));
                 TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.GetTourPointsByTourId(SelectedTour.TourId));
+                TourPoints[0].CurrentStatus = Status.Active;
                 TourPointGrid.Visibility = Visibility.Hidden;
             }
         }
@@ -113,8 +102,18 @@ namespace InitialProject.View
         private void ZapocniTuru_Button(object sender, RoutedEventArgs e)
         {
             TourPointGrid.Visibility = Visibility.Visible;
+            ChangeStatusButton.Visibility = Visibility.Visible;
             TourGrid.IsEnabled = false;
 
+
+        }
+
+
+        
+        private void ChageStatus_Button(object sender, RoutedEventArgs e)
+        {
+           TourPointStatus tourPointStatus = new TourPointStatus(TourPoints, SelectedTourPoint);
+           tourPointStatus.Show();
 
         }
     }
