@@ -104,11 +104,10 @@ namespace InitialProject.Repository
             _tourPoints.Remove(current);
             _tourPoints.Insert(index, tourPoint);
             _serializer.ToCSV(TempFilePath, _tourPoints);
-            CollectionViewSource.GetDefaultView(_tourPoints).Refresh();
             return tourPoint;
         }
 
-        public TourPoint UpdateTempOrder(TourPoint tourPoint, int order, ObservableCollection<TourPoint> tourPoints) 
+        public TourPoint UpdateTempOrder(TourPoint tourPoint, int order) 
         {
             _tourPoints = _serializer.FromCSV(TempFilePath);
             foreach(var tour in _tourPoints)
@@ -117,13 +116,11 @@ namespace InitialProject.Repository
                 {
                     tour.Order = 0;
                     UpdateTemp(tour);
-                    CollectionViewSource.GetDefaultView(tourPoints).Refresh();
                 }
             }
 
             tourPoint.Order = order;
             UpdateTemp(tourPoint);
-            CollectionViewSource.GetDefaultView(tourPoints).Refresh();
             return tourPoint;
 
         }

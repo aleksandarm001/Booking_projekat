@@ -65,10 +65,8 @@ namespace InitialProject.View
         {
             int broj = int.Parse(OrderComboBox.Text);
             int index = TourPoints.IndexOf(_tourPoint);
-            _tourPointRepository.UpdateTempOrder(_tourPoint, broj, TourPoints);
-            TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.getAllTemp());
-            //CollectionViewSource.GetDefaultView(TourPoints).Refresh();
-
+            _tourPointRepository.UpdateTempOrder(_tourPoint, broj);
+            TourPoints[index].Order = broj;
 
             Close();
 
