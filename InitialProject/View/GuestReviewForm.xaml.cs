@@ -34,6 +34,7 @@ namespace InitialProject.View
 
         private string _ownerComment;
 
+        private bool _isReviewd;
 
         public string OwnerComment
         {
@@ -75,6 +76,8 @@ namespace InitialProject.View
 
         }
 
+        public bool IsReviewd { get => _isReviewd; set => _isReviewd = value; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -88,7 +91,7 @@ namespace InitialProject.View
             InitializeComponent();
             DataContext = this;
             _userToReviewRepository = new UserToReviewRepository();
-
+            IsReviewd = false;
             _guestReviewRepository = new GuestReviewRepository();
             GuestId = guestId;
         }
@@ -102,7 +105,7 @@ namespace InitialProject.View
             newGuestReview.Comment = OwnerComment;
 
             _guestReviewRepository.Save(newGuestReview);
-            _userToReviewRepository.DeleteById(GuestId);
+            IsReviewd = true;
             Close();
 
         }

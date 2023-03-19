@@ -24,10 +24,12 @@ namespace InitialProject.Repository
             UsersToReview = _serializer.FromCSV(FilePath);
         }
 
-        public UserToReview GetByOwnerId(int ownerId)
+        public List<UserToReview> GetByOwnerId(int ownerId)
         {
+            List<UserToReview> users = new List<UserToReview>();
             UsersToReview = _serializer.FromCSV(FilePath);
-            return UsersToReview.FirstOrDefault(u => u.OwnerId == ownerId);
+            users.AddRange(UsersToReview.Where(u => u.OwnerId == ownerId));
+            return users;
         }
 
         public List<UserToReview> GetAll()
@@ -41,10 +43,10 @@ namespace InitialProject.Repository
             _serializer.ToCSV(FilePath, UsersToReview);
             return user;
         }
-        public void DeleteById(int Guest1Id)
+        public void DeleteByIdAndDate(int Guest1Id, DateTime date)
         {
             UsersToReview = _serializer.FromCSV(FilePath);
-            UserToReview userToRemove = UsersToReview.Find(u => u.Guest1Id == Guest1Id);
+            UserToReview userToRemove = UsersToReview.Find(u => u.Guest1Id == Guest1Id && u.LeavingDay == date);
             UsersToReview.Remove(userToRemove);
             _serializer.ToCSV(FilePath, UsersToReview);
         }

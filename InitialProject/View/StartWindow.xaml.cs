@@ -49,7 +49,6 @@ namespace InitialProject.View
             Reservations = new ObservableCollection<Reservation>(_reservationRepository.GetAll());
             GuestReviews = new List<GuestReview>(_guestReviewRepository.GetAll());
             Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
-            UsersToReview = new ObservableCollection<UserToReview>(_userToReviewRepository.GetAll());
             Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
             InitializeReservationsByAccommodations();
@@ -72,17 +71,13 @@ namespace InitialProject.View
         }
         private void Owner_ButtonClick(object sender, RoutedEventArgs e)
         {
-            RegisterNewAccommodation newAccommodation = new RegisterNewAccommodation(UsersToReview);
+            RegisterNewAccommodation newAccommodation = new RegisterNewAccommodation();
             newAccommodation.Show();
         }
         private void Guide_ButtonClick(object sender, RoutedEventArgs e)
         {
             TourForm tour = new TourForm();
             tour.Show();
-        }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-           
         }
         private void InitializeUsersToReview()
         {
@@ -92,13 +87,12 @@ namespace InitialProject.View
                     _reservationRepository.Delete(reservation);
                     UserToReview userToReview = new UserToReview(0, reservation.UserId, reservation.ReservationDateRange.EndDate); //bez sign in forme defaultni ownerId je 0
                     _userToReviewRepository.Save(userToReview);
-                    UsersToReview.Add(userToReview);
                 }
             }
         }
         private bool CheckIfLeftReservation(Reservation reservation)
         {
-            if(reservation.ReservationDateRange.EndDate <= DateTime.Now)
+            if(reservation.ReservationDateRange.EndDate < DateTime.Now)
             {
                 return true;
             }

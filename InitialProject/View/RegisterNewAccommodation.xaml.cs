@@ -18,6 +18,8 @@ using InitialProject.CustomClasses;
 using InitialProject.Model;
 using InitialProject.Repository;
 using Microsoft.Win32;
+using System.Timers;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace InitialProject.View
 {
@@ -32,6 +34,7 @@ namespace InitialProject.View
         private readonly AccommodationRepository _accommodationRepository;
         private readonly AccommodationImageRepository _accommodationImageRepository;
         private readonly LocationRepository _locationRepository;
+        private readonly UserToReviewRepository _userToReviewRepository;
         public static ObservableCollection<string> Countries { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<Location> Locations { get; set; }
@@ -61,6 +64,8 @@ namespace InitialProject.View
                 }
             }
         }
+
+
         
         public int AccommodationMaxGuests
         {
@@ -135,7 +140,7 @@ namespace InitialProject.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public RegisterNewAccommodation(ObservableCollection<UserToReview> usersToReview)
+        public RegisterNewAccommodation()
         {
             InitializeComponent();
             DataContext = this;
@@ -146,36 +151,44 @@ namespace InitialProject.View
             _accommodationRepository = new AccommodationRepository();
             _locationRepository = new LocationRepository();
             _accommodationImageRepository= new AccommodationImageRepository();
-
+            _userToReviewRepository = new UserToReviewRepository();
             Locations = new ObservableCollection<Location>(_locationRepository.getAll());
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
-            UsersToReview = new ObservableCollection<UserToReview>(usersToReview);
+            UsersToReview = new ObservableCollection<UserToReview>(_userToReviewRepository.GetByOwnerId(0));
             AccomodationCancelationDays = 1;
             RateNotification();
             ReadCitiesAndCountries();
         }
+
         private void RateNotification()
         {
             foreach(UserToReview userToReview in UsersToReview) 
             { 
-                if(checkDateRange(userToReview.LeavingDay) && userToReview.OwnerId == 0) // 0 je defaultni owner id
+                if(CheckDateRange(userToReview.LeavingDay)) // 0 je defaultni owner id
                 {
-                    RateUser(userToReview.Guest1Id);
-
+                    RateUser(userToReview.Guest1Id, userToReview.LeavingDay);
+                }
+                else
+                {
+                    _userToReviewRepository.DeleteByIdAndDate(userToReview.Guest1Id, userToReview.LeavingDay);
                 }
             }
         }
-        private void RateUser(int userID)
+        private void RateUser(int userID, DateTime date)
         {
             MessageBoxResult dialogResult = MessageBox.Show("Rate User", "You can still rate user", MessageBoxButton.YesNo);
             if(dialogResult == MessageBoxResult.Yes)
             {
                 GuestReviewForm reviewForm = new GuestReviewForm(userID);
                 reviewForm.ShowDialog();
+                if (reviewForm.IsReviewd)
+                {
+                    _userToReviewRepository.DeleteByIdAndDate(userID, date);
+                }
             }
         }
-        private bool checkDateRange(DateTime date)
+        private bool CheckDateRange(DateTime date)
         {
             DateTime startDate = DateTime.Now;
             DateTime endDate = DateTime.Now.AddDays(-5);
@@ -210,15 +223,13 @@ namespace InitialProject.View
                     break;
             }
             
-                 _accommodationRepository.Save(newAccommodation);
+            _accommodationRepository.Save(newAccommodation);
                  
-                 foreach(var image  in Images)
-                 {
+            foreach(var image  in Images)
+            {
                 _accommodationImageRepository.Save(image, _accommodationRepository.GetLastAccommodationId());
 
-                 }
-                
-            
+            }
             Close();
         }
 
