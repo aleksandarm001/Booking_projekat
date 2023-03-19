@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 
 namespace InitialProject.Model
 {
-    public enum AccommodationType { Appartment = 0, House = 1, Shack = 2}
+    public enum AccommodationType { Apartment = 0, House = 1, Shack = 2}
     public class Accommodation : ISerializable
     {
         public int UserId { get; set; } //ID Vlasnika smestaja

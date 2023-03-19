@@ -210,18 +210,18 @@ namespace InitialProject.View
         {
             if (IsAppartmentSelected && IsHouseSelected && IsShackSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Appartment ||
+                return accommodation.accommodationType == AccommodationType.Apartment ||
                     accommodation.accommodationType == AccommodationType.House ||
                     accommodation.accommodationType == AccommodationType.Shack;
             }
             else if (IsAppartmentSelected && IsHouseSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Appartment ||
+                return accommodation.accommodationType == AccommodationType.Apartment ||
                     accommodation.accommodationType == AccommodationType.House;
             }
             else if (IsAppartmentSelected && IsShackSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Appartment ||
+                return accommodation.accommodationType == AccommodationType.Apartment ||
                     accommodation.accommodationType == AccommodationType.Shack;
             }
             else if (IsHouseSelected && IsShackSelected)
@@ -231,7 +231,7 @@ namespace InitialProject.View
             }
             else if (IsAppartmentSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Appartment;
+                return accommodation.accommodationType == AccommodationType.Apartment;
             }
             else if (IsHouseSelected)
             {
