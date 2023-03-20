@@ -199,8 +199,8 @@ namespace InitialProject.View
 
                 switch (TypeComboBox.Text)
                 {
-                    case "Appartment":
-                        newAccommodation.accommodationType = AccommodationType.Appartment;
+                    case "Apartment":
+                        newAccommodation.accommodationType = AccommodationType.Apartment;
                         break;
 
                     case "Shack":
