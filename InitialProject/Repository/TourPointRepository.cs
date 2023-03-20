@@ -58,7 +58,7 @@ namespace InitialProject.Repository
             _tourPoints.Remove(foundedTourPoint);
             _serializer.ToCSV(FilePath, _tourPoints);
         }
-        public TourPoint Update(TourPoint tourPoint, ObservableCollection<TourPoint> tourPoints)
+        public TourPoint Update(TourPoint tourPoint)
         {
             _tourPoints = _serializer.FromCSV(FilePath);
             TourPoint current = _tourPoints.Find(tour => tour.Id == tourPoint.Id);

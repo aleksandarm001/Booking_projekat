@@ -16,7 +16,6 @@ namespace InitialProject.Model
         public int MaxGuestNumber { get; set; }
         public DateTime StartingDateTime { get; set; }
         public int Duration { get; set; }
-
         public bool TourStarted { get; set; }
 
         //public List<String> Images { get; set; }

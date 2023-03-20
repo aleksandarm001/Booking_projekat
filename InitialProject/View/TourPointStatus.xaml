@@ -22,9 +22,7 @@
         <ComboBox Name="StatusComboBox" IsTextSearchEnabled="True" StaysOpenOnEdit="True"
                       IsEditable="True" Margin="303,28,69,131" >
             <ComboBoxItem Content="Active"></ComboBoxItem>
-            <ComboBoxItem Content="NotActive"></ComboBoxItem>
             <ComboBoxItem Content="Finished"></ComboBoxItem>
-            <ComboBoxItem Content="ForceFisnihed"></ComboBoxItem>
         </ComboBox>
         <Button Content="Save" HorizontalAlignment="Left" Height="30" Margin="316,201,0,0" VerticalAlignment="Top" Width="94" Click="SaveButtonClick"/>
 

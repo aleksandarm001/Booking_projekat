@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,6 +27,8 @@ namespace InitialProject.View
     /// </summary>
     public partial class TourPointStatus : Window, INotifyPropertyChanged
     {
+
+        private readonly TourPointRepository _tourPointRepository;
         public ObservableCollection<TourPoint> _tourPoints;
         private readonly TourPoint _selectedTourPoint;
         public static ObservableCollection<Reservation> Reservations;
@@ -36,6 +39,7 @@ namespace InitialProject.View
             InitializeComponent();
             TourPoints = tourPoints;
             _selectedTourPoint = selectedTourPoint;
+            _tourPointRepository = new TourPointRepository();
 
 
         }
@@ -70,32 +74,50 @@ namespace InitialProject.View
         }
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
-            TourPoints.Remove(_selectedTourPoint);
+            //TourPoints.Remove(_selectedTourPoint);
             Status status = (Status)Enum.Parse(typeof(Status), StatusComboBox.Text);
-            if(_selectedTourPoint.CurrentStatus == Status.Active)
+
+            if (_selectedTourPoint.CurrentStatus == Status.Active)
             {
-                if(status == Status.Finished) 
+                if (status == Status.Finished)
                 {
-                    _selectedTourPoint.CurrentStatus = Status.Finished;
+                    if (TourPoints.Last() != _selectedTourPoint)
+                    {
+                        _selectedTourPoint.CurrentStatus = Status.Finished;
+                        _tourPointRepository.Update(_selectedTourPoint);
+                        int index = 1;
+                        foreach (TourPoint point in _points)
+                        {
+                            if (point == _selectedTourPoint)
+                                break;
+                            else
+                                index++;
+                        }
+                        TourPoints[index].CurrentStatus = Status.Active;
+                        _tourPointRepository.Update(TourPoints[index]);
+                    }
+                    else
+                    {
+                        _selectedTourPoint.CurrentStatus = Status.Finished;
+                        _tourPointRepository.Update(_selectedTourPoint);
+                    }
                 }
             }
             else
             {
                 if (_selectedTourPoint.CurrentStatus == Status.NotActive)
                 {
-                    foreach(var tourPoint in TourPoints)
+                    foreach (var tourPoint in TourPoints)
                     {
-                        if(tourPoint.CurrentStatus == Status.Active)
+                        if (tourPoint.CurrentStatus == Status.Active)
                             tourPoint.CurrentStatus = Status.Finished;
                     }
 
                     _selectedTourPoint.CurrentStatus = Status.Active;
                 }
             }
-            TourPoints.Add(_selectedTourPoint);
+
+            Close();
         }
-
-        
-
     }
 }

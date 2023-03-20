@@ -66,6 +66,7 @@ namespace InitialProject.View
                 TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.GetTourPointsByTourId(SelectedTour.TourId));
                 TourPoints[0].CurrentStatus = Status.Active;
                 TourPointGrid.Visibility = Visibility.Hidden;
+                TourPointGrid.IsEnabled = true;
             }
         }
 
@@ -113,8 +114,32 @@ namespace InitialProject.View
         private void ChageStatus_Button(object sender, RoutedEventArgs e)
         {
            TourPointStatus tourPointStatus = new TourPointStatus(TourPoints, SelectedTourPoint);
-           tourPointStatus.Show();
-
+           tourPointStatus.ShowDialog();
+           TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.GetTourPointsByTourId(SelectedTour.TourId));
+            if (TourPoints.Last().CurrentStatus == Status.Finished)
+            {
+                TourGrid.IsEnabled = true;
+                TourPointGrid.IsEnabled = false;
+            }
         }
+
+
+        
+
+        private void StopTour_Button(object sender, RoutedEventArgs e)
+        {
+            foreach(var tourPoint in TourPoints)
+            {
+                if(tourPoint.CurrentStatus != Status.Finished)
+                {
+                    tourPoint.CurrentStatus = Status.ForceFisnihed;
+                    _tourPointRepository.Update(tourPoint);
+                }
+            }
+            TourGrid.IsEnabled = true;
+            TourPointGrid.IsEnabled = false;
+            TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.GetTourPointsByTourId(SelectedTour.TourId));
+        }
+
     }
 }
