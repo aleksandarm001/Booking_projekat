@@ -39,7 +39,7 @@ namespace InitialProject.View
         public StartWindow()
         {
             InitializeComponent();
-            Height = SystemParameters.PrimaryScreenHeight * 0.6;
+            Height = SystemParameters.PrimaryScreenHeight * 0.5;
             Width = SystemParameters.PrimaryScreenWidth * 0.25;
             DataContext = this;
             _locationRepository = new LocationRepository();
@@ -60,7 +60,7 @@ namespace InitialProject.View
 
         private void Guest1_ButtonClick(object sender, RoutedEventArgs e)
         {
-            Guest1View guest1View = new Guest1View(Locations, Accommodations);
+            AccommodationDisplay guest1View = new AccommodationDisplay(Locations, Accommodations);
             guest1View.Show();
         }
         private void Guest2_ButtonClick(object sender, RoutedEventArgs e)

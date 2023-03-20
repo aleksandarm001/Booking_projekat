@@ -30,7 +30,7 @@ namespace InitialProject.View
     /// <summary>
     /// Interaction logic for guest1view.xaml
     /// </summary>
-    public partial class Guest1View : Window, INotifyPropertyChanged
+    public partial class AccommodationDisplay : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public static ObservableCollection<Location> Locations { get; set; }
@@ -156,7 +156,7 @@ namespace InitialProject.View
                 }
             }
         }
-        public Guest1View(ObservableCollection<Location> locations, ObservableCollection<Accommodation> accommodations)
+        public AccommodationDisplay(ObservableCollection<Location> locations, ObservableCollection<Accommodation> accommodations)
         {
             InitializeComponent();
             DataContext = this;

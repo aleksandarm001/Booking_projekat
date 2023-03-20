@@ -75,19 +75,27 @@ namespace InitialProject.View
                 }
             }
         }
+
         private int _reservationDays;
-        public int ReservationDays
+        public int ReservationDays { get; set; }
+
+        private string _strReservationDays;
+        public string StrReservationDays
         {
-            get
-            {
-                return _reservationDays;
-            }
+            get => _strReservationDays;
             set
             {
-                if (value != _reservationDays)
+                if (value != _strReservationDays)
                 {
-                    _reservationDays = value;
-                    OnPropertyChanged("ReservationDays");
+                    try
+                    {
+                        int _reservationDays;
+                        int.TryParse(value, out _reservationDays);
+                        ReservationDays = _reservationDays;
+                    }
+                    catch (Exception) { }
+                    _strReservationDays = value;
+                    OnPropertyChanged(nameof(StrReservationDays));
                 }
             }
         }

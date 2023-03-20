@@ -17,7 +17,7 @@
         </DatePicker>
         <Label Content="Start Date" FontSize="10" HorizontalAlignment="Left" Margin="12,48,0,0" VerticalAlignment="Top"/>
         <Label Content="End Date" FontSize ="10" HorizontalAlignment="Left" Margin="12,98,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="20" Margin="17,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Text ="{Binding Path= ReservationDays, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}"/>
+        <TextBox HorizontalAlignment="Left" Height="20" Margin="17,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Text ="{Binding Path= StrReservationDays, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}"/>
         <Label Content="Days" FontSize ="10" HorizontalAlignment="Left" Margin="12,148,0,0" VerticalAlignment="Top"/>
         <DataGrid Name="rezervacije"  HorizontalAlignment="Left" Height="225" Margin="158,44,0,0" VerticalAlignment="Top" Width="201"
                    ItemsSource="{Binding Path = DateRanges, UpdateSourceTrigger=PropertyChanged}"

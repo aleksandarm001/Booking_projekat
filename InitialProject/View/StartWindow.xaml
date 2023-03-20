@@ -5,14 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="StartWindow" Height="550" Width="450" WindowStartupLocation ="CenterScreen">
+        Title="StartWindow" Height="500" Width="450" WindowStartupLocation ="CenterScreen">
     <Grid>
-        <Image Source="/Resources/Images/BookBuddy_logo1.png" VerticalAlignment="Top" Width="300" Height="70" Margin="74,9,76,465"></Image>
-        <Button Content="Owner" HorizontalAlignment="Center" Height="47" Margin="0,97,0,0" VerticalAlignment="Top" Width="200" Click="Owner_ButtonClick"/>
-        <Button Content="Guest1" HorizontalAlignment="Center" Height="46" Margin="0,177,0,0" VerticalAlignment="Top" Width="200" Click="Guest1_ButtonClick"/>
-        <Button Content="Guide" HorizontalAlignment="Center" Height="47" Margin="0,267,0,0" VerticalAlignment="Top" Width="200" Click="Guide_ButtonClick"/>
-        <Button Content="Guest2" HorizontalAlignment="Center" Height="48" Margin="0,357,0,0" VerticalAlignment="Top" Width="200" Click="Guest2_ButtonClick"/>
-        <Button Content="Button" HorizontalAlignment="Center" Margin="0,442,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.368,0.663" Width="198" Height="45" Click="Button_Click"/>
+        <Image Source="/Resources/Images/BookBuddy_logo1.png" Width="350" Height="70" Margin="50,20,50,394"></Image>
+        <Button Content="Owner" HorizontalAlignment="Center" Height="47" Margin="0,176,0,0" VerticalAlignment="Top" Width="200" Click="Owner_ButtonClick"/>
+        <Button Content="Guest1" HorizontalAlignment="Center" Height="46" Margin="0,257,0,0" VerticalAlignment="Top" Width="200" Click="Guest1_ButtonClick"/>
+        <Button Content="Guide" HorizontalAlignment="Center" Height="47" Margin="0,336,0,0" VerticalAlignment="Top" Width="200" Click="Guide_ButtonClick"/>
+        <Button Content="Guest2" HorizontalAlignment="Center" Height="48" Margin="0,413,0,0" VerticalAlignment="Top" Width="200" Click="Guest2_ButtonClick"/>
 
     </Grid>
 </Window>
