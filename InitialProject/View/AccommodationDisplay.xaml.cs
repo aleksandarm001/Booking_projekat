@@ -30,7 +30,7 @@ namespace InitialProject.View
     /// <summary>
     /// Interaction logic for guest1view.xaml
     /// </summary>
-    public partial class Guest1View : Window, INotifyPropertyChanged
+    public partial class AccommodationDisplay : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public static ObservableCollection<Location> Locations { get; set; }
@@ -156,7 +156,7 @@ namespace InitialProject.View
                 }
             }
         }
-        public Guest1View(ObservableCollection<Location> locations, ObservableCollection<Accommodation> accommodations)
+        public AccommodationDisplay(ObservableCollection<Location> locations, ObservableCollection<Accommodation> accommodations)
         {
             InitializeComponent();
             DataContext = this;
@@ -210,18 +210,18 @@ namespace InitialProject.View
         {
             if (IsAppartmentSelected && IsHouseSelected && IsShackSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Appartment ||
+                return accommodation.accommodationType == AccommodationType.Apartment ||
                     accommodation.accommodationType == AccommodationType.House ||
                     accommodation.accommodationType == AccommodationType.Shack;
             }
             else if (IsAppartmentSelected && IsHouseSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Appartment ||
+                return accommodation.accommodationType == AccommodationType.Apartment ||
                     accommodation.accommodationType == AccommodationType.House;
             }
             else if (IsAppartmentSelected && IsShackSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Appartment ||
+                return accommodation.accommodationType == AccommodationType.Apartment ||
                     accommodation.accommodationType == AccommodationType.Shack;
             }
             else if (IsHouseSelected && IsShackSelected)
@@ -231,7 +231,7 @@ namespace InitialProject.View
             }
             else if (IsAppartmentSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Appartment;
+                return accommodation.accommodationType == AccommodationType.Apartment;
             }
             else if (IsHouseSelected)
             {
