@@ -9,36 +9,43 @@ namespace InitialProject.Model
 {
     public class GuestReview: ISerializable
     {
-        public int Id { get; set; }
+        public int GuestId { get; set; }
+        public int AccommodationId { get; set; }
         public int Hygiene { get; set; }
         public int RuleFollowing { get; set; }
         public string Comment { get; set; }
 
         public GuestReview()
         {
-            Id = 0;
+            GuestId = 0;
+            AccommodationId = 0;
             Hygiene= 0;
             RuleFollowing= 0;
             Comment = "";
+            //LeavingDay = new DateTime();
 
         }
 
-        public GuestReview(int id, int hygieneGrade, int ruleFollowingGrade, string comment)
+        public GuestReview(int id, int accommodationId,int hygieneGrade, int ruleFollowingGrade, string comment)
         {
-            Id = id;
+            GuestId = id;
+            AccommodationId=accommodationId;
             Hygiene = hygieneGrade;
             RuleFollowing = ruleFollowingGrade;
             Comment = comment;
+            //LeavingDay = date;
         }
 
         public string[] ToCSV()
         {
             string[] csvValues =
             {
-                Id.ToString(),
+                GuestId.ToString(),
+                AccommodationId.ToString(),
                 Hygiene.ToString(),
                 RuleFollowing.ToString(),
-                Comment
+                Comment,
+                //LeavingDay.ToString()
             };
 
             return csvValues; 
@@ -46,10 +53,12 @@ namespace InitialProject.Model
 
         public void FromCSV(string[] values)
         {
-            Id = Convert.ToInt32(values[0]);
-            Hygiene= Convert.ToInt32(values[1]);
-            RuleFollowing= Convert.ToInt32(values[2]);
-            Comment = values[3];
+            GuestId = Convert.ToInt32(values[0]);
+            AccommodationId = Convert.ToInt32(values[1]);   
+            Hygiene= Convert.ToInt32(values[2]);
+            RuleFollowing= Convert.ToInt32(values[3]);
+            Comment = values[4];
+            //LeavingDay = Convert.ToDateTime(values[5]);
         }
     }
 }

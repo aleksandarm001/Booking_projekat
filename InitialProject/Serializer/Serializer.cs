@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using InitialProject.CustomClasses;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Data;
@@ -36,6 +38,11 @@ namespace InitialProject.Serializer
             }
 
             return objects;
+        }
+
+        public static implicit operator Serializer<T>(Serializer<AccommodationReservation> v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 
 namespace InitialProject.Model
 {
+    //public enum UserType { Owner = 0, Guest1 = 1, Guest2 = 2, Guide = 3 }
     public class User : ISerializable
     {
 

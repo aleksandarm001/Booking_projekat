@@ -1,0 +1,15 @@
+1|0|aadwawd
+2|0|xxxx
+3|0|yyyy
+4|0|adwdadawaw
+5|0|zzzzzzz
+6|0|uuuuuuuu
+7|0|dwdaaw
+8|1|adawdwd
+9|1|adaadw
+10|1|xxxx
+11|2|
+12|2|awdadwdad
+13|2|awdadwdad
+14|2|awdadwdad
+15|2|awdadwdad

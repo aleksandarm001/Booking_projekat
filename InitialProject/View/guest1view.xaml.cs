@@ -23,6 +23,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.Specialized;
 using Microsoft.VisualStudio.Services.Common;
+using Microsoft.VisualStudio.Services.Profile;
 
 namespace InitialProject.View
 {
@@ -35,11 +36,8 @@ namespace InitialProject.View
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<string> Countries { get; set; }
-        public static ObservableCollection<string> NumberOfGuestsList { get; set; }
-        public static ObservableCollection<string> ReservationDaysList { get; set; }
         public string AccommodationName { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
-        private readonly AccommodationRepository _repository;
         private ObservableCollection<Accommodation> _accommodations;
         public ObservableCollection<Accommodation> Accommodations
         {
@@ -50,30 +48,30 @@ namespace InitialProject.View
                 OnPropertyChanged(nameof(Accommodations));
             }
         }
-
-        private string _city;
-        public string City
+        private string _selectedCity;
+        public string SelectedCity
         {
-            get => _city;
+            get => _selectedCity;
             set
             {
-                if(value != _city)
+                if(value != _selectedCity)
                 {
-                    _city = value;
-                    OnPropertyChanged();
+                    _selectedCity = value;
+                    OnPropertyChanged("SelectedCity");
                 }
             }
         }
-        private string _country;
-        public string Country
+        private string _selectedCountry;
+        public string SelectedCountry
         {
-            get => _country;
+            get => _selectedCountry;
             set
             {
-                if (value != _country)
+                if (value != _selectedCountry)
                 {
-                    _country = value;
-                    OnPropertyChanged();
+                    _selectedCountry = value;
+                    FilterCities();
+                    OnPropertyChanged("SelectedCountry");
                 }
             }
         }
@@ -119,100 +117,135 @@ namespace InitialProject.View
                 }
             }
         }
-        public Guest1View(ObservableCollection<Location> locations)
+        private bool _isAppartmentSelected;
+        public bool IsAppartmentSelected
+        {
+            get => _isAppartmentSelected;
+            set
+            {
+                if (_isAppartmentSelected != value)
+                {
+                    _isAppartmentSelected = value;
+                    OnPropertyChanged(nameof(IsAppartmentSelected));
+                }
+            }
+        }
+        private bool _isHouseSelected;
+        public bool IsHouseSelected
+        {
+            get => _isHouseSelected;
+            set
+            {
+                if (_isHouseSelected != value)
+                {
+                    _isHouseSelected = value;
+                    OnPropertyChanged(nameof(IsHouseSelected));
+                }
+            }
+        }
+        private bool _isShackSelected;
+        public bool IsShackSelected
+        {
+            get => _isShackSelected;
+            set
+            {
+                if (_isShackSelected != value)
+                {
+                    _isShackSelected = value;
+                    OnPropertyChanged(nameof(IsShackSelected));
+                }
+            }
+        }
+        public Guest1View(ObservableCollection<Location> locations, ObservableCollection<Accommodation> accommodations)
         {
             InitializeComponent();
             DataContext = this;
-            _repository = new AccommodationRepository();
-            Accommodations = new ObservableCollection<Accommodation>(_repository.getAll());
-            NumberOfGuestsList = new ObservableCollection<string>();
-            ReservationDaysList = new ObservableCollection<string>();
+            Accommodations = accommodations;
             Locations = locations;
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             ReadCitiesAndCountries();
-            InitializeNumberOfGuestsList();
-            InitializeReservationDaysList();
         }
-
-        private void InitializeNumberOfGuestsList()
+        private bool AccommodationTypeFilter(Accommodation accommodation)
         {
-            foreach(Accommodation accommodation in _accommodations)
+            if (IsAppartmentSelected && IsHouseSelected && IsShackSelected)
             {
-                if (!NumberOfGuestsList.Contains(accommodation.MaxGuestNumber.ToString()))
-                {
-                    NumberOfGuestsList.Add(accommodation.MaxGuestNumber.ToString());
-                }
+                return accommodation.accommodationType == AccommodationType.Appartment ||
+                    accommodation.accommodationType == AccommodationType.House ||
+                    accommodation.accommodationType == AccommodationType.Shack;
             }
-
-            NumberOfGuestsList = new ObservableCollection<string>(NumberOfGuestsList.OrderBy(n => Convert.ToInt32(n)));
-            NumberOfGuestsList.Insert(0, "");
-        }
-        private void InitializeReservationDaysList()
-        {
-            int i = 1;
-            ReservationDaysList.Add("");
-            int maxNumber = Accommodations.OrderBy(a => a.MinReservationDays).Last().MinReservationDays;
-            while(i <= maxNumber)
+            else if (IsAppartmentSelected && IsHouseSelected)
             {
-                ReservationDaysList.Add(i.ToString());
-                i++;
+                return accommodation.accommodationType == AccommodationType.Appartment ||
+                    accommodation.accommodationType == AccommodationType.House;
+            }
+            else if (IsAppartmentSelected && IsShackSelected)
+            {
+                return accommodation.accommodationType == AccommodationType.Appartment ||
+                    accommodation.accommodationType == AccommodationType.Shack;
+            }
+            else if (IsHouseSelected && IsShackSelected)
+            {
+                return accommodation.accommodationType == AccommodationType.House ||
+                    accommodation.accommodationType == AccommodationType.Shack;
+            }
+            else if (IsAppartmentSelected)
+            {
+                return accommodation.accommodationType == AccommodationType.Appartment;
+            }
+            else if (IsHouseSelected)
+            {
+                return accommodation.accommodationType == AccommodationType.House;
+            }
+            else if (IsShackSelected)
+            {
+                return accommodation.accommodationType == AccommodationType.Shack;
+            }
+            else
+            {
+                return true;
             }
         }
         private void ApplyAdditionalSearch(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Accommodation> tempAccommodations = new ObservableCollection<Accommodation>(_repository.getAll());
-            string _country = CountryCmbx.Text;
-            string _city = CityCmbx.Text;
-
-            if(AppartmentCheckBox.IsChecked == true && HouseCheckBox.IsChecked == true && ShackCheckBox.IsChecked == false)
+            ICollectionView view = CollectionViewSource.GetDefaultView(Accommodations);
+            view.Filter = (obj) =>
             {
-                var filteredCollectionByTypes = tempAccommodations.Where(a =>
-                    (a.accommodationType == AccommodationType.Appartment || a.accommodationType == AccommodationType.House));
-                tempAccommodations = new ObservableCollection<Accommodation>(filteredCollectionByTypes);
-            }else if(AppartmentCheckBox.IsChecked == true && ShackCheckBox.IsChecked == true && HouseCheckBox.IsChecked == false)
-            {
-                var filteredCollectionByTypes = tempAccommodations.Where(a =>
-                    (a.accommodationType == AccommodationType.Appartment || a.accommodationType == AccommodationType.Shack));
-                tempAccommodations = new ObservableCollection<Accommodation>(filteredCollectionByTypes);
-            }
-            else if (HouseCheckBox.IsChecked == true && ShackCheckBox.IsChecked == true && AppartmentCheckBox.IsChecked == false)
-            {
-                var filteredCollectionByTypes = tempAccommodations.Where(a =>
-                    (a.accommodationType == AccommodationType.House || a.accommodationType == AccommodationType.Shack));
-                tempAccommodations = new ObservableCollection<Accommodation>(filteredCollectionByTypes);
-            }
-            else if (HouseCheckBox.IsChecked == true && ShackCheckBox.IsChecked == true && AppartmentCheckBox.IsChecked == true)
-            {
-                /* DO NOTHING */
-            }
-            else
-            {
-               var filteredCollectionByTypes = tempAccommodations.Where(a =>
-               (AppartmentCheckBox.IsChecked == false || a.accommodationType == AccommodationType.Appartment) &&
-               (HouseCheckBox.IsChecked == false || a.accommodationType == AccommodationType.House) &&
-               (ShackCheckBox.IsChecked == false || a.accommodationType == AccommodationType.Shack));
-               tempAccommodations = new ObservableCollection<Accommodation>(filteredCollectionByTypes);
-            }
-
-            var filteredCollection = tempAccommodations.Where(a =>
-                (string.IsNullOrEmpty(AccommodationName) || a.Name.ToLower().Contains(AccommodationName.ToLower())) &&
-                (string.IsNullOrEmpty(_country) || a.Location.Country == _country) &&
-                (string.IsNullOrEmpty(_city) || a.Location.City == _city) &&
-                (string.IsNullOrEmpty(GuestNumber.Text) || a.MaxGuestNumber >= Convert.ToInt32(GuestNumber.Text)) && 
-                (NumberOfGuests == 0 || a.MaxGuestNumber >= NumberOfGuests) && //zakomentarisati ukoliko ne moze combobox
-                (ReservationDays == 0 || a.MinReservationDays <= ReservationDays) && //zakomentarisati ukoliko ne moze combobox
-                (string.IsNullOrEmpty(DaysReservation.Text) || a.MinReservationDays <= Convert.ToInt32(DaysReservation.Text))); 
-
-            Accommodations = new ObservableCollection<Accommodation>(filteredCollection);
-           
+                Accommodation accommodation = obj as Accommodation;
+                if (accommodation == null) return false;
+                return (AccommodationNameFilter(accommodation) &&
+                    CountryFilter(accommodation) &&
+                    CityFilter(accommodation) &&
+                    GuestNumberFilter(accommodation) &&
+                    DaysReservationFilter(accommodation) &&
+                    AccommodationTypeFilter(accommodation));
+            };
         }
+        bool AccommodationNameFilter(Accommodation accommodation)
+        {
+            return string.IsNullOrEmpty(AccommodationName) || accommodation.Name.ToLower().Contains(AccommodationName.ToLower());
+        }
+        bool CountryFilter(Accommodation accommodation)
+        {
+            return string.IsNullOrEmpty(SelectedCountry) || accommodation.Location.Country == SelectedCountry;
+        }
+        bool CityFilter(Accommodation accommodation)
+        {
+            return string.IsNullOrEmpty(SelectedCity) || accommodation.Location.City == SelectedCity;
+        }
+        bool GuestNumberFilter(Accommodation accommodation)
+        {
+            return string.IsNullOrEmpty(StrNumberOfGuests) || accommodation.MaxGuestNumber >= NumberOfGuests;
+        }
+        bool DaysReservationFilter(Accommodation accommodation)
+        {
+            return string.IsNullOrEmpty(StrReservationDays) || accommodation.MinReservationDays <= ReservationDays;
+        }
+        
         private void ReadCitiesAndCountries()
         {
             Cities.Clear();
             Countries.Clear();
-            Countries.Add("");
-            Cities.Add("");
             foreach (Location l in Locations)
             {
                 Cities.Add(l.City);
@@ -221,41 +254,28 @@ namespace InitialProject.View
                     Countries.Add(l.Country);
                 }
             }
+            Countries.Insert(0, string.Empty);
+            Cities.Insert(0, string.Empty);
         }
-        private void FilterCities(object sender, SelectionChangedEventArgs e)
+        private void FilterCities()
         {
-            ComboBox cmbx = (ComboBox)sender;
-            string country = "";
-            try
-            {
-                if(cmbx.SelectedItem != null)
-                {
-                    country = cmbx.SelectedItem.ToString();
-                    if (country == "")
-                    {
-                        ReadCitiesAndCountries();
-                    }
-                    else
-                    {
-                        Cities.Clear();
-                        Cities.Add("");
-                        foreach (Location loc in Locations)
-                        {
-                            if (loc.Country == country)
-                            {
-                                Cities.Add(loc.City);
-                            }
-                        }
-                        CityCmbx.SelectedIndex = 1;
-                    }
-                }
-                else
-                {
-                    cmbx.SelectedItem = 0;
-                }
-            }catch(System.NullReferenceException)
+            if (string.IsNullOrEmpty(SelectedCountry))
             {
                 ReadCitiesAndCountries();
+                SelectedCity = Cities.FirstOrDefault();
+            }
+            else
+            {
+                Cities.Clear();
+                foreach (Location loc in Locations)
+                {
+                    if (loc.Country == SelectedCountry)
+                    {
+                        Cities.Add(loc.City);
+                    }
+                }
+                Cities.Insert(0, string.Empty);
+                SelectedCity = Cities[1];
             }
         }
         private void InitializeNumberOfGuests(object sender, SelectionChangedEventArgs e)
@@ -264,6 +284,14 @@ namespace InitialProject.View
             if (!string.IsNullOrEmpty(cmbx.SelectedItem.ToString()))
             {
                 NumberOfGuests = Convert.ToInt32(cmbx.SelectedItem);
+            }
+        }
+        private void InitializeReservationsDays(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cmbx = (ComboBox)sender;
+            if (!string.IsNullOrEmpty(cmbx.SelectedItem.ToString()))
+            {
+                ReservationDays = Convert.ToInt32(cmbx.SelectedItem);
             }
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -280,16 +308,8 @@ namespace InitialProject.View
             else
             {
                 AccommodationReservationForm accommodationReservationFormWindow = new AccommodationReservationForm(SelectedAccommodation);
+                accommodationReservationFormWindow.Owner = this;
                 accommodationReservationFormWindow.ShowDialog();
-            }
-        }
-
-        private void InitializeReservationsDays(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox cmbx = (ComboBox)sender;
-            if (!string.IsNullOrEmpty(cmbx.SelectedItem.ToString()))
-            {
-                ReservationDays = Convert.ToInt32(cmbx.SelectedItem);
             }
         }
     }

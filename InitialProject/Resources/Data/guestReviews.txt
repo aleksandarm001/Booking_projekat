@@ -1,2 +1,2 @@
-1|5|5|Pomolite se bogu
-2|4|1|Razbio mi je luster
+1|0|5|5|Glup ali uredan
+1|0|5|3|asdasda

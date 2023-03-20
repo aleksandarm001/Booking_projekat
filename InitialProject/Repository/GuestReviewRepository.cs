@@ -20,17 +20,16 @@ namespace InitialProject.Repository
         public GuestReviewRepository()
         {
             _serializer = new Serializer<GuestReview>();
-            _guestReviews= new List<GuestReview>();
+            _guestReviews= _serializer.FromCSV(FilePath);
         }
 
-        public List<GuestReview> getAll()
+        public List<GuestReview> GetAll()
         {
             return _serializer.FromCSV(FilePath);
         }
 
         public GuestReview Save(GuestReview guestReview)
         {
-            guestReview.Id = NextId();
             _guestReviews.Add(guestReview);
             _serializer.ToCSV(FilePath, _guestReviews);
             return guestReview;
@@ -43,7 +42,7 @@ namespace InitialProject.Repository
             {
                 return 1;
             }
-            return _guestReviews.Max(gr => gr.Id) + 1;
+            return _guestReviews.Max(gr => gr.GuestId) + 1;
         }
     }
 }

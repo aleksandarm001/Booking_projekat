@@ -13,25 +13,24 @@ namespace InitialProject.Model
     public enum AccommodationType { Appartment = 0, House = 1, Shack = 2}
     public class Accommodation : ISerializable
     {
+        public int UserId { get; set; } //ID Vlasnika smestaja
         public string Name { get; set; }
         public Location Location { get; set; }
         public AccommodationType accommodationType { get; set; }
         public int MaxGuestNumber { get; set; }
         public int MinReservationDays { get; set; }
         public int DaysBeforeCancelling { get; set; }
-        public List<string> Images { get; set; }
+        public List<AccommodationImages> Images { get; set; }
         public List<Reservation> Reservations { get; set; }
         public int AccommodationID { get; set; }
-
-        public BitmapImage Image { get; set; }
-        
+                
 
 
-        public Accommodation(string name, Location location, AccommodationType type, int maxGuestNumber,
-            int minReservationDays, int daysBeforeCancelling, List<String> images,
+        public Accommodation(int userId,string name, Location location, AccommodationType type, int maxGuestNumber,
+            int minReservationDays, int daysBeforeCancelling, List<AccommodationImages> images,
             List<Reservation> reservations)
         {
-            
+            UserId= userId;
             Name = name;
             Location = location;
             accommodationType = type;
@@ -49,6 +48,7 @@ namespace InitialProject.Model
         }
         public Accommodation()
         {
+            UserId = 0; //defaultna vrednost pre kreiranja sigin forme za vise korisnika
             AccommodationID = 0;
             Name = "";
             Location = new Location();
@@ -56,27 +56,13 @@ namespace InitialProject.Model
             MaxGuestNumber = 0;
             MinReservationDays = 0;
             DaysBeforeCancelling = 0;
-            Images = new List<String>();
+            Images = new List<AccommodationImages>();
             Reservations = new List<Reservation>();
         }
 
 
         public string[] ToCSV()
         {
-            string testImage = "";
-
-            if(Image != null)
-            {
-                byte[] bytes;
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    PngBitmapEncoder encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(Image));
-                    encoder.Save(stream);
-                    bytes = stream.ToArray();
-                    testImage = Convert.ToBase64String(bytes);
-                }
-            }
 
             string[] csvValues = {
                 AccommodationID.ToString(),
@@ -86,10 +72,8 @@ namespace InitialProject.Model
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
                 DaysBeforeCancelling.ToString(),
-                testImage
 
             };  
-            //string.Join(";", Images)
             return csvValues;
         }
         public void FromCSV(string[] values)

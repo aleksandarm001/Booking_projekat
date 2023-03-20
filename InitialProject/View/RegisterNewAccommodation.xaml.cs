@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using InitialProject.CustomClasses;
 using InitialProject.Model;
 using InitialProject.Repository;
 using Microsoft.Win32;
@@ -26,31 +27,27 @@ namespace InitialProject.View
     public partial class RegisterNewAccommodation : Window
     {
 
+        public UrlTable urlTable;
+
         private readonly AccommodationRepository _accommodationRepository;
-
+        private readonly AccommodationImageRepository _accommodationImageRepository;
         private readonly LocationRepository _locationRepository;
-
         public static ObservableCollection<string> Countries { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<Location> Locations { get; set; }
+        public static ObservableCollection<UserToReview> UsersToReview { get; set; }
+
+        public static ObservableCollection<AccommodationImages>Images { get; set; }
 
         private string _accommodationName;
-        /*
-        private string _accommodationCity;
 
-        private string _accommodationCountry;
-
-        private string _accommodationType;
-        */
         private int _maxGuests;
 
         private int _minDays;
 
         private int _cancelationDays;
 
-        private BitmapImage _image;
-
-
+        private string _imageUrl;
 
         public string AccommodationName
         {
@@ -64,46 +61,7 @@ namespace InitialProject.View
                 }
             }
         }
-        /*
-        public string AccommodationCity
-        {
-            get => _accommodationCity;
-            set
-            {
-                if (value != _accommodationCity)
-                {
-                    _accommodationCity = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string AccommodationCountry
-        {
-            get => _accommodationCountry;
-            set
-            {
-                if (value != _accommodationCountry)
-                {
-                    _accommodationCountry = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string AccommodationType
-        {
-            get => _accommodationType;
-            set
-            {
-                if (value != _accommodationType)
-                {
-                    _accommodationType = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        */
+        
         public int AccommodationMaxGuests
         {
             get => _maxGuests;
@@ -144,6 +102,19 @@ namespace InitialProject.View
             }
         }
 
+        public string AccomodationImageUrl
+        {
+            get => _imageUrl;
+            set
+            {
+                if(value != _imageUrl)
+                {
+                    _imageUrl = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+/*
         public BitmapImage AccommodationImage
         {
             get => _image;
@@ -156,7 +127,7 @@ namespace InitialProject.View
                 }
             }
         }
-
+*/
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -164,22 +135,56 @@ namespace InitialProject.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public RegisterNewAccommodation()
+        public RegisterNewAccommodation(ObservableCollection<UserToReview> usersToReview)
         {
             InitializeComponent();
             DataContext = this;
+            Images = new ObservableCollection<AccommodationImages>();
+
+            urlTable = new UrlTable(Images);
 
             _accommodationRepository = new AccommodationRepository();
             _locationRepository = new LocationRepository();
+            _accommodationImageRepository= new AccommodationImageRepository();
 
             Locations = new ObservableCollection<Location>(_locationRepository.getAll());
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
+            UsersToReview = new ObservableCollection<UserToReview>(usersToReview);
             AccomodationCancelationDays = 1;
+            RateNotification();
             ReadCitiesAndCountries();
-                
         }
+        private void RateNotification()
+        {
+            foreach(UserToReview userToReview in UsersToReview) 
+            { 
+                if(checkDateRange(userToReview.LeavingDay) && userToReview.OwnerId == 0) // 0 je defaultni owner id
+                {
+                    RateUser(userToReview.Guest1Id);
 
+                }
+            }
+        }
+        private void RateUser(int userID)
+        {
+            MessageBoxResult dialogResult = MessageBox.Show("Rate User", "You can still rate user", MessageBoxButton.YesNo);
+            if(dialogResult == MessageBoxResult.Yes)
+            {
+                GuestReviewForm reviewForm = new GuestReviewForm(userID);
+                reviewForm.ShowDialog();
+            }
+        }
+        private bool checkDateRange(DateTime date)
+        {
+            DateTime startDate = DateTime.Now;
+            DateTime endDate = DateTime.Now.AddDays(-5);
+            if(startDate >= date && endDate <= date)
+            {
+                return true;
+            }
+            return false;
+        }
         private void NewAccommodationRegistration(object sender, RoutedEventArgs e)
         {
 
@@ -189,7 +194,7 @@ namespace InitialProject.View
             newAccommodation.DaysBeforeCancelling = AccomodationCancelationDays;
             newAccommodation.MinReservationDays = AccomodationReservationMinDays;
             newAccommodation.Location = new Location(CityComboBox.Text,CountriesComboBox.Text);
-            newAccommodation.Image =  AccommodationImage;
+            
             switch (TypeComboBox.Text)
             {
                 case "Appartment":
@@ -206,6 +211,14 @@ namespace InitialProject.View
             }
             
                  _accommodationRepository.Save(newAccommodation);
+                 
+                 foreach(var image  in Images)
+                 {
+                _accommodationImageRepository.Save(image, _accommodationRepository.GetLastAccommodationId());
+
+                 }
+                
+            
             Close();
         }
 
@@ -269,28 +282,24 @@ namespace InitialProject.View
             Close();
         }
 
-        private void UploadImage(object sender, RoutedEventArgs e)
+       /* private void Button_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
-            if(openFileDialog.ShowDialog() == true)
-            {
-                  string imagePath = openFileDialog.FileName;
-                  
-                try
-                {
-                    AccommodationImage = new BitmapImage(new Uri(imagePath));
-                    AccomodationImg.Source = AccommodationImage;
-                }
-                catch(Exception ex)
-                {
-                   MessageBox.Show("Error loading image: " + ex.Message);
-                }
-                
+            UrlTable urlTable = new UrlTable();
+            urlTable.Show();
+        }
+       */
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            urlTable.Show();
+           
+        }
 
-                
-                
-            }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AccommodationImages newImage = new AccommodationImages(0, UrlTextBox.Text,-1) ;
+            //AccommodationImages savedImage = _accommodationImageRepository.Save(newImage);
+            Images.Add(newImage);
+           
         }
     }
 }

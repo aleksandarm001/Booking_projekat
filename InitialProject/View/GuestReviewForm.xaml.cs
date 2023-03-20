@@ -25,6 +25,8 @@ namespace InitialProject.View
     public partial class GuestReviewForm : Window
     {
         private readonly GuestReviewRepository _guestReviewRepository;
+        private readonly UserToReviewRepository _userToReviewRepository;
+        public int GuestId { get; set; }
 
         private int _hygieneGrade;
 
@@ -81,22 +83,26 @@ namespace InitialProject.View
         }
 
 
-        public GuestReviewForm()
+        public GuestReviewForm(int guestId)
         {
             InitializeComponent();
-            DataContext= this;
+            DataContext = this;
+            _userToReviewRepository = new UserToReviewRepository();
 
-            _guestReviewRepository= new GuestReviewRepository();
+            _guestReviewRepository = new GuestReviewRepository();
+            GuestId = guestId;
         }
 
         private void SubmitReview(object sender, RoutedEventArgs e)
         {
             GuestReview newGuestReview = new GuestReview();
+            newGuestReview.GuestId = GuestId;
             newGuestReview.Hygiene = HygieneGrade;
             newGuestReview.RuleFollowing= RuleFollowingGrade;
             newGuestReview.Comment = OwnerComment;
 
             _guestReviewRepository.Save(newGuestReview);
+            _userToReviewRepository.DeleteById(GuestId);
             Close();
 
         }

@@ -12,8 +12,8 @@
 12||Delhi;Brazil|||4|3/25/2023 5:04:58 AM|4
 13||Delhi;Brazil|||4|3/18/2023 2:22:05 AM|4
 14||Mumbai;Brazil|||4|3/18/2023 5:04:20 AM|44
-15||SÃ£o Paulo;Brazil|||4|3/10/2023 4:03:08 AM|5
-16||SÃ£o Paulo;Brazil|||4|3/11/2023 6:01:15 AM|5
+15||São Paulo;Brazil|||4|3/10/2023 4:03:08 AM|5
+16||São Paulo;Brazil|||4|3/11/2023 6:01:15 AM|5
 17||Tokyo;India|||12|3/25/2023 6:06:19 AM|1
 18||Tokyo;India|||12|3/24/2023 3:03:25 AM|1
 19||Tokyo;Japan||Japanese|55|3/17/2023 3:09:44 AM|2
