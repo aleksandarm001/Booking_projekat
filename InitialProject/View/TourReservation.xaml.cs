@@ -37,17 +37,17 @@ namespace InitialProject.View
                     }
                     catch (Exception) { }
                     _strNumberOfGuests = value;
-                    //OnPropertyChanged(nameof(StrNumberOfGuests));
                 }
             }
         }
 
-        public TourReservation(int userId, Tour t)
+        public TourReservation(int userId, Tour t, int NumberOfGuests)
         {
             InitializeComponent();
             DataContext = this;
             Tour = t;
             UserId = userId;
+            this.NumberOfGuests = NumberOfGuests;
             _reservationRepository = new ReservationRepository();
             _tourRepository = new TourRepository();
 
@@ -55,36 +55,40 @@ namespace InitialProject.View
 
         private void Potvrdi_Click(object sender, RoutedEventArgs e)
         {
-
             if (NumberOfGuests > Tour.MaxGuestNumber)
-            {
-                string messageBoxText = "Nema dovoljno mjesta. Broj preostalih mjesta je "+ Tour.MaxGuestNumber;
-                string caption = "Rezervacija ture";
-                MessageBoxButton button = MessageBoxButton.YesNo;
-                MessageBoxImage icon = MessageBoxImage.Warning;
-                MessageBoxResult result;
-
-                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
-                if (result == MessageBoxResult.Yes) 
-                { 
-                    
-                }
-                else 
-                {
-                    this.Close();
-                }
+            { 
+                ImpossibleMakeReservation();
             }
             else
             {
-
-                Reservation reservation = new Reservation(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests);
-                _reservationRepository.Save(reservation);
-                _tourRepository.ReduceMaxGuestNumber(Tour.TourId, NumberOfGuests);
-
-                MessageBox.Show("Rezervacija uspjesna");
-                this.Close();
+                MakeReservation();
             }
 
+        }
+
+        private void ImpossibleMakeReservation()
+        {
+            string messageBoxText = "Nema dovoljno mjesta. Broj preostalih mjesta je " + Tour.MaxGuestNumber;
+            string caption = "Rezervacija ture";
+            MessageBoxButton button = MessageBoxButton.YesNo;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            MessageBoxResult result;
+
+            result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+            if (result == MessageBoxResult.No)
+            {
+                this.Close();
+            }
+        }
+
+        private void MakeReservation()
+        {
+            Reservation reservation = new Reservation(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests);
+            _reservationRepository.Save(reservation);
+            _tourRepository.ReduceMaxGuestNumber(Tour.TourId, NumberOfGuests);
+
+            MessageBox.Show("Rezervacija uspjesna");
+            this.Close();
         }
 
         private void Odustani_Click(object sender, RoutedEventArgs e)

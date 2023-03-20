@@ -39,8 +39,8 @@ namespace InitialProject.View
         public StartWindow()
         {
             InitializeComponent();
-            Height = SystemParameters.PrimaryScreenHeight * 0.5;
-            Width = SystemParameters.PrimaryScreenWidth * 0.25;
+            Height = SystemParameters.PrimaryScreenHeight * 0.7;
+            Width = SystemParameters.PrimaryScreenWidth * 0.37;
             DataContext = this;
             _locationRepository = new LocationRepository();
             _accommodationRepository = new AccommodationRepository();

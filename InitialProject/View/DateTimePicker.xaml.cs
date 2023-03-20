@@ -64,8 +64,9 @@ namespace InitialProject.View
             Minutes.Clear();
 
             // add hours and minutes to respective lists
-            Hours.AddRange(hours);
+/*            Hours.AddRange(hours);
             Minutes.AddRange(minutes);
+        */
         }
 
         public List<string> HourCounter()

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="TourReservation" Height="250" Width="400">
+        Title="TourReservation" Height="250" Width="400" WindowStartupLocation="CenterScreen">
     <Grid>
         <TextBlock TextAlignment="Center" Text="Unesite broj ljudi za koji vrsite rezervaciju!" HorizontalAlignment="Left" Height="36" Margin="26,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="364"/>
         <TextBox Name="NumberOfGuestTextBox"  HorizontalAlignment="Center" Text="{Binding Path=StrNumberOfGuests, UpdateSourceTrigger=PropertyChanged}" Height="29" Margin="0,67,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="94"/>

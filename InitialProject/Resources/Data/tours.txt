@@ -1,11 +1,11 @@
-1|Test|Zrenjanin;Serbia|TestDesc|Srpski|0|12/3/2023 12:25:48 AM|5
-2|Sunset Heights|New York;United States|Brooklyn Bridge Walk|English|1|1/6/2023 9:45:00 AM|2
-3|Lavender Fields|Paris;France|Louvre Museum Tour|French|10|3/8/2023 2:10:00 PM|5
-4|Rainbow Hills|Barcelona;Spain|Park Guell Visit|Spanish|0|7/14/2023 11:30:00 AM|3
-5|Ocean Breeze|Sydney;Australia|Opera House Tour|English|20|2/11/2023 4:15:00 PM|1
-6|Cherry Blossom|Tokyo;Japan|Asakusa Temple Walk|Japanese|12|8/19/2023 10:00:00 AM|5
-7|Mountain Peak|Vancouver;Canada|Whistler Ski Trip|English|5|3/21/2023 8:20:00 AM|4
-8|Golden Sands|Dubai;United Arab Emirates|Desert Safari Experience|Arabic|18|12/19/2023 7:00:00 PM|2
-9|Purple Haze|Amsterdam;Netherlands|Rijksmuseum Tour|Dutch|9|2/16/2023 12:50:00 PM|3
-10|Red Canyon|Las Vegas;United States|Grand Canyon Helicopter Tour|English|16|6/12/2023 11:20:00 AM|1
-11|Test|Zrenjanin;Serbia|TestDesc|Srpski|3|12/3/2023 12:25:48 AM|5
+1|Test|Zrenjanin;Srbija|TestDesc|Srpski|7|12/3/2023 12:55:48 AM|5
+2|Sunset Heights|New York;SAD|Brooklyn Bridge Walk|Engleski|1|1/6/2023 9:45:00 AM|2
+3|Lavender Fields|Paris;Francuska|Louvre Museum Tour|Francuski|1|3/8/2023 2:10:00 PM|5
+4|Rainbow Hills|Barcelona;Spanija|Park Guell Visit|Spanski|3|7/14/2023 11:30:00 AM|3
+5|Ocean Breeze|Sidnej;Australija|Opera House Tour|Engleski|5|2/11/2023 4:15:00 PM|1
+6|Cherry Blossom|Tokio;Japan|Asakusa Temple Walk|Japanski|0|8/19/2023 10:00:00 AM|5
+7|Mountain Peak|Vankuver;Kanada|Whistler Ski Trip|Engleski|5|3/21/2023 8:20:00 AM|4
+8|Golden Sands|Dubai;UAE|Desert Safari Experience|Arapski|7|12/19/2023 7:00:00 PM|2
+9|Purple Haze|Amsterdam;Holandija|Rijksmuseum Tour|Njemacki|7|2/16/2023 12:50:00 PM|3
+10|Red Canyon|Las Vegas;SAD|Grand Canyon Helicopter Tour|Engleski|7|6/12/2023 11:20:00 AM|1
+11|Test|Zrenjanin;Srbija|TestDesc|Srpski|0|12/3/2023 12:25:48 AM|5

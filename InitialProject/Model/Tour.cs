@@ -1,19 +1,36 @@
 ﻿using InitialProject.Serializer;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace InitialProject.Model
 {
-    public class Tour : ISerializable
+    public class Tour : ISerializable, INotifyPropertyChanged
     {
         public int TourId { get; set; }
         public string Name { get; set; }
         public Location Location { get; set; }
         public string Description { get; set; }
         public Language Language { get; set; }
-        public int MaxGuestNumber { get; set; }
+        private int _maxGuestNumber;
+        public int MaxGuestNumber 
+        { get => _maxGuestNumber;
+            set 
+            {
+                if (value != _maxGuestNumber)
+                {
+                    _maxGuestNumber = value;
+                    OnPropertyChanged();
+                }
+            
+            }
+            
+        }
+
+        public List<TourPoint> KeyPoints { get; set; }
         public DateTime StartingDateTime { get; set; }
         public int Duration { get; set; }
 
@@ -42,6 +59,8 @@ namespace InitialProject.Model
             Duration = duration;
             //Images = images;
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public void FromCSV(string[] values)
         {
@@ -73,6 +92,17 @@ namespace InitialProject.Model
         {
             string[] csvValues = { TourId.ToString(), Name, Location.ToString(), Description, Language.ToString(), MaxGuestNumber.ToString(), StartingDateTime.ToString(), Duration.ToString() };
             return csvValues;
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void ReduceGuestNumber(int guestNumber)
+        {
+            if (MaxGuestNumber>=guestNumber)
+                MaxGuestNumber-=guestNumber;
         }
     }
 

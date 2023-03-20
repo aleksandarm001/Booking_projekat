@@ -1,6 +1,7 @@
 ﻿namespace InitialProject.View
 {
     using InitialProject.Model;
+    using InitialProject.Constants;
     using InitialProject.Repository;
     using System;
     using System.Collections.ObjectModel;
@@ -9,10 +10,8 @@
     using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Forms;
 
-    /// <summary>
-    /// Interaction logic for TourView.xaml
-    /// </summary>
     public partial class TourView : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -24,6 +23,13 @@
         public static ObservableCollection<string> Countries { get; set; }
         private int UserId { get; }
         public Tour SelectedTour { get; set; }
+        public int NumberOfGuests { get; set; }
+
+        public string SelectedLanguage { get; set; }
+        public string SelectedCity { get; set; }
+        public string SelectedGuestNumber { get; set; }
+        public string SelectedDurationFrom { get; set; }
+        public string SelectedDurationTo { get; set; }
 
         private readonly TourRepository _tourRepository;
 
@@ -52,6 +58,21 @@
             InitializeGuestNumber();
             InitializeDuration();
             ReadCitiesAndCountries();
+        }
+
+        private string _selectedCountry;
+        public string SelectedCountry
+        {
+            get => _selectedCountry;
+            set
+            {
+                if (value != _selectedCountry)
+                {
+                    _selectedCountry = value;
+                    FilterCities();
+                    OnPropertyChanged("SelectedCountry");
+                }
+            }
         }
 
         private void InitializeLanguages()
@@ -120,61 +141,19 @@
         {
             if (SelectedTour == null)
             {
-                string messageBoxText = "Morate prvo izabrati turu!";
-                string caption = "Rezervacija ture";
-                MessageBoxButton button = MessageBoxButton.OK;
-                MessageBoxImage icon = MessageBoxImage.Warning;
-                MessageBoxResult result;
-
-                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                MessageBox.Show(TourViewConstants.MustSelectTour, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Yes);
             }
             else
             {
                 if (SelectedTour.MaxGuestNumber == 0)
                 {
-
-                    string messageBoxText = "Izabrana tura je popunjena, da li želite da vidite slične ture na istoj lokaciji?";
-                    string caption = "Rezervacija ture";
-                    MessageBoxButton button = MessageBoxButton.YesNo;
-                    MessageBoxImage icon = MessageBoxImage.Warning;
-                    MessageBoxResult result;
-
-                    result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        string _country = SelectedTour.Location.Country;
-                        string _city = SelectedTour.Location.City;
-
-                        var filteredCollection = _tourRepository.GetAll().Where(a =>
-                        (a.Location.Country == _country) && (a.Location.City == _city) && (a.MaxGuestNumber!=0));
-
-                        Tours = new ObservableCollection<Tour>(filteredCollection);
-                        
-                        if(Tours.Count==0)
-                        {
-                            string messageBoxText1 = "Trenutno ne postoji tura na istoj lokaciji, pogledajte ostale ponudjene ture!";
-                            string caption1 = "Rezervacija ture";
-                            MessageBoxButton button1 = MessageBoxButton.OK;
-                            MessageBoxImage icon1 = MessageBoxImage.Exclamation;
-                            MessageBoxResult result1;
-
-                            result1 = MessageBox.Show(messageBoxText1, caption1, button1, icon1, MessageBoxResult.Yes);
-
-                            Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
-
-                        }
-
-                    }
-                    else
-                    {
-
-                    }
-
+                    HandleFullTourCapacity(); 
                 }
                 else
                 {
-                    TourReservation tourReservation = new TourReservation(UserId, SelectedTour);
-                    tourReservation.Show();
+                    TourReservation tourReservation = new TourReservation(UserId, SelectedTour, NumberOfGuests);
+                    tourReservation.ShowDialog();
+                    SelectedTour.ReduceGuestNumber(tourReservation.NumberOfGuests);
                 }
             }
         }
@@ -182,50 +161,30 @@
 
         private void ApplyFilters_Click(object sender, RoutedEventArgs e)
         {
-
-           
             {
                 ObservableCollection<Tour> tempTours = new ObservableCollection<Tour>(_tourRepository.GetAll());
-                string _country = CountryCmbx.Text;
-                string _city = CityCmbx.Text;
-                string _language = LanguageCmbx.Text;
-                string _guestNumber = GuestNumberCmbx.Text;
-                string _durationFrom = Duration_Box_From.Text;
-                string _durationTo = Duration_Box_To.Text;
-
-                var filteredCollection = tempTours.Where(a =>
-                    (string.IsNullOrEmpty(_country) || a.Location.Country == _country) &&
-                    (string.IsNullOrEmpty(_city) || a.Location.City == _city) &&
-                    (string.IsNullOrEmpty(_durationFrom) || a.Duration >= Convert.ToInt32(_durationFrom)) &&
-                    (string.IsNullOrEmpty(_durationTo) || a.Duration <= Convert.ToInt32(_durationTo)) &&
-                    (string.IsNullOrEmpty(_guestNumber) || a.MaxGuestNumber >= Convert.ToInt32(_guestNumber)) &&
-
-                    (string.IsNullOrEmpty(_language) || a.Language.ToString() == _language));
-
+                var filteredCollection = tempTours.Where(tour => CityFilter(tour) && CountryFilter(tour) && DurationFilter(tour) && LanguageFilter(tour) && GuestNumberFilter(tour));
                 Tours = new ObservableCollection<Tour>(filteredCollection);
-                
             }
-
         }
 
         private void ReadCitiesAndCountries()
         {
             Cities.Clear();
             Countries.Clear();
-            Cities.Add("");
-            Countries.Add("");
             foreach (Location l in Locations)
             {
-                if (!Cities.Contains(l.City)) 
+                if (!Cities.Contains(l.City))
                 {
                     Cities.Add(l.City);
                 }
-                
                 if (!Countries.Contains(l.Country))
                 {
                     Countries.Add(l.Country);
                 }
             }
+            Countries.Insert(0, string.Empty);
+            Cities.Insert(0, string.Empty);
         }
 
         private void Filter_Countries(object sender, SelectionChangedEventArgs e)
@@ -233,7 +192,29 @@
 
         }
 
-        private void FilterCities(object sender, SelectionChangedEventArgs e)
+        private void FilterCities()
+        {
+            if (string.IsNullOrEmpty(SelectedCountry))
+            {
+                ReadCitiesAndCountries();
+                SelectedCity = Cities.FirstOrDefault();
+            }
+            else
+            {
+                Cities.Clear();
+                foreach (Location loc in Locations)
+                {
+                    if (loc.Country == SelectedCountry && !Cities.Contains(loc.City))
+                    {
+                        Cities.Add(loc.City);
+                    }
+                }
+                Cities.Insert(0, string.Empty);
+                SelectedCity = Cities[1];
+            }
+        }
+
+        /*private void FilterCities(object sender, SelectionChangedEventArgs e)
         {
             ComboBox cmbx = (ComboBox)sender;
             string country = "";
@@ -270,11 +251,56 @@
                 ReadCitiesAndCountries();
             }
         }
+*/
+        private void HandleFullTourCapacity()
+        {
+            MessageBoxResult result;
+            result = MessageBox.Show(TourViewConstants.MaxGuestNumberIsZero, TourViewConstants.Caption, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes);
+            if (result == MessageBoxResult.Yes)
+            {
+                var filteredCollection = _tourRepository.GetAll().Where(a =>
+                (a.Location.Country == SelectedCountry) && (a.Location.City == SelectedCity) && (a.MaxGuestNumber != 0));
+                Tours = new ObservableCollection<Tour>(filteredCollection);
 
+                if (Tours.Count == 0)
+                {
+                    MessageBox.Show(TourViewConstants.ViewOtherTours, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
+                    Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
+                }
+
+            }
+        }
+
+        bool CountryFilter(Tour tour)
+        {
+            return (string.IsNullOrEmpty(SelectedCountry) || tour.Location.Country == SelectedCountry);
+        }
+
+        bool CityFilter(Tour tour) 
+        {
+            return (string.IsNullOrEmpty(SelectedCity) || tour.Location.City == SelectedCity);
+        }
+
+        bool GuestNumberFilter(Tour tour) 
+        {
+            return (string.IsNullOrEmpty(SelectedGuestNumber) || tour.MaxGuestNumber >= Convert.ToInt32(SelectedGuestNumber));
+        }
+
+        bool DurationFilter(Tour tour)
+        {
+            return (string.IsNullOrEmpty(SelectedDurationFrom) || tour.Duration >= Convert.ToInt32(SelectedDurationFrom)) &&
+                    (string.IsNullOrEmpty(SelectedDurationTo) || tour.Duration <= Convert.ToInt32(SelectedDurationTo));
+        }
+
+        bool LanguageFilter(Tour tour)
+        {
+            return (string.IsNullOrEmpty(SelectedLanguage) || tour.Language.ToString() == SelectedLanguage);        }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
 
     }
 }
