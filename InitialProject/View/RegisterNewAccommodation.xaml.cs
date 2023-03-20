@@ -20,13 +20,14 @@ using InitialProject.Repository;
 using Microsoft.Win32;
 using System.Timers;
 using static System.Net.Mime.MediaTypeNames;
+using System.Text.RegularExpressions;
 
 namespace InitialProject.View
 {
     /// <summary>
     /// Interaction logic for RegisterNewAccommodation.xaml
     /// </summary>
-    public partial class RegisterNewAccommodation : Window
+    public partial class RegisterNewAccommodation : Window,IDataErrorInfo
     {
 
         public UrlTable urlTable;
@@ -44,11 +45,11 @@ namespace InitialProject.View
 
         private string _accommodationName;
 
-        private int _maxGuests;
+        private string _maxGuests;
 
-        private int _minDays;
+        private string _minDays;
 
-        private int _cancelationDays;
+        private string _cancelationDays;
 
         private string _imageUrl;
 
@@ -67,7 +68,7 @@ namespace InitialProject.View
 
 
         
-        public int AccommodationMaxGuests
+        public string AccommodationMaxGuests
         {
             get => _maxGuests;
             set
@@ -80,7 +81,7 @@ namespace InitialProject.View
             }
         }
 
-        public int AccomodationReservationMinDays
+        public string AccomodationReservationMinDays
         {
             get => _minDays;
             set
@@ -94,7 +95,7 @@ namespace InitialProject.View
             }
         }
 
-        public int AccomodationCancelationDays
+        public string AccomodationCancelationDays
         {
             get => _cancelationDays;
             set
@@ -119,20 +120,7 @@ namespace InitialProject.View
                 }
             }
         }
-/*
-        public BitmapImage AccommodationImage
-        {
-            get => _image;
-            set
-            {
-                if (value != _image)
-                {
-                    _image = value;
-                    OnPropertyChanged(nameof(AccommodationImage));
-                }
-            }
-        }
-*/
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -156,7 +144,7 @@ namespace InitialProject.View
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             UsersToReview = new ObservableCollection<UserToReview>(_userToReviewRepository.GetByOwnerId(0));
-            AccomodationCancelationDays = 1;
+            AccomodationCancelationDays = "1";
             RateNotification();
             ReadCitiesAndCountries();
         }
@@ -200,38 +188,128 @@ namespace InitialProject.View
         }
         private void NewAccommodationRegistration(object sender, RoutedEventArgs e)
         {
-
-            Accommodation newAccommodation = new Accommodation();
-            newAccommodation.Name = AccommodationName;
-            newAccommodation.MaxGuestNumber = AccommodationMaxGuests;
-            newAccommodation.DaysBeforeCancelling = AccomodationCancelationDays;
-            newAccommodation.MinReservationDays = AccomodationReservationMinDays;
-            newAccommodation.Location = new Location(CityComboBox.Text,CountriesComboBox.Text);
-            
-            switch (TypeComboBox.Text)
+            if (IsValid == true)
             {
-                case "Appartment":
-                    newAccommodation.accommodationType = AccommodationType.Appartment;
-                    break;
+                Accommodation newAccommodation = new Accommodation();
+                newAccommodation.Name = AccommodationName;
+                newAccommodation.MaxGuestNumber = Convert.ToInt32(AccommodationMaxGuests);
+                newAccommodation.DaysBeforeCancelling = Convert.ToInt32(AccomodationCancelationDays);
+                newAccommodation.MinReservationDays = Convert.ToInt32(AccomodationReservationMinDays);
+                newAccommodation.Location = new Location(CityComboBox.Text, CountryComboBox.Text);
 
-                case "Shack":
-                    newAccommodation.accommodationType = AccommodationType.Shack;
-                    break;
+                switch (TypeComboBox.Text)
+                {
+                    case "Appartment":
+                        newAccommodation.accommodationType = AccommodationType.Appartment;
+                        break;
 
-                case "House":
-                    newAccommodation.accommodationType = AccommodationType.House;
-                    break;
+                    case "Shack":
+                        newAccommodation.accommodationType = AccommodationType.Shack;
+                        break;
+
+                    case "House":
+                        newAccommodation.accommodationType = AccommodationType.House;
+                        break;
+                }
+
+                _accommodationRepository.Save(newAccommodation);
+
+                foreach (var image in Images)
+                {
+                    _accommodationImageRepository.Save(image, _accommodationRepository.GetLastAccommodationId());
+
+                }
+                Close();
             }
-            
-            _accommodationRepository.Save(newAccommodation);
-                 
-            foreach(var image  in Images)
+            else
             {
-                _accommodationImageRepository.Save(image, _accommodationRepository.GetLastAccommodationId());
-
+                MessageBox.Show("Not all fields are filled correctly");
             }
-            Close();
         }
+
+        private Regex _numberBoxRegex = new Regex("[1-9][0-9]{0,2}");
+
+        public string Error => null;
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "AccommodationName")
+                {
+                    if (string.IsNullOrEmpty(AccommodationName))
+                        return "Field equired";
+
+                }
+                else if (columnName == "AccommodationMaxGuests")
+                {
+                    if (string.IsNullOrEmpty(AccommodationMaxGuests))
+                        return "Field required";
+
+                    Match match = _numberBoxRegex.Match(AccommodationMaxGuests);
+                    if (!match.Success)
+                        return "Incorect format";
+                }
+
+                else if (columnName == "AccomodationReservationMinDays")
+                {
+
+                    if (string.IsNullOrEmpty(AccomodationReservationMinDays))
+                        return "Field required";
+
+                    Match match = _numberBoxRegex.Match(AccomodationReservationMinDays);
+                    if (!match.Success)
+                        return "Incorect format";
+                }
+
+                else if (columnName == "AccomodationCancelationDays")
+                {
+
+                    if (string.IsNullOrEmpty(AccomodationCancelationDays))
+                        return "Field required";
+
+                    Match match = _numberBoxRegex.Match(AccomodationCancelationDays);
+                    if (!match.Success)
+                        return "Incorect format";
+                }
+
+                else if (columnName == "TypeComboBox")
+                {
+                    if (string.IsNullOrEmpty(TypeComboBox.Text))
+                        return "Field required";
+                }
+
+                else if (columnName == "CountryComboBox")
+                {
+                    if (string.IsNullOrEmpty(CountryComboBox.Text))
+                        return "Field required";
+                }
+
+                else if (columnName == "CityComboBox")
+                {
+                    if (string.IsNullOrEmpty(CityComboBox.Text))
+                        return "Field required";
+                }
+                return null;
+            }
+        }
+
+        private readonly string[] _validatedProperties = { "AccommodationName", "AccommodationMaxGuests", "AccomodationReservationMinDays", "AccomodationCancelationDays", "TypeComboBox", "CountryComboBox", "CityComboBox" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
+        }
+
+
 
         private void ReadCitiesAndCountries()
         {
@@ -287,6 +365,11 @@ namespace InitialProject.View
                 CityComboBox.SelectedIndex = 1;
             }
         }
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            urlTable.Show();
+           
+        }
 
         private void CancelButton(object sender, RoutedEventArgs e)
         {
@@ -299,11 +382,6 @@ namespace InitialProject.View
             urlTable.Show();
         }
        */
-        private void AddButton_Click(object sender, RoutedEventArgs e)
-        {
-            urlTable.Show();
-           
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

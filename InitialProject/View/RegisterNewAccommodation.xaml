@@ -5,9 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="Register New Accommodation" Height="696" Width="400">
+        Title="Register New Accommodation" Height="696" Width="441">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
+
     <Grid>
-        <Grid Grid.Row="0" Grid.Column="0" Margin="21,25,21,10" >
+        <Grid Grid.Row="0" Grid.Column="0" Margin="21,25,10,10" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="67*"></RowDefinition>
                 <RowDefinition Height="67*"></RowDefinition>
@@ -22,8 +32,8 @@
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="78*"></ColumnDefinition>
-                <ColumnDefinition Width="101*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
 
             </Grid.ColumnDefinitions>
 
@@ -36,30 +46,30 @@
             <Label Grid.Row="6" Grid.Column="0" Margin="0,10,0,10">Broj dana za otkazivanje:</Label>
             <Label Grid.Row="7" Grid.Column="0" Margin="0,20,0,0" Grid.RowSpan="2">Url slike:</Label>
 
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=AccommodationName, Mode=OneWayToSource }" Margin="0,18,0,19"/>
-            <TextBox x:Name="UrlTextBox" Grid.Row="7"  Margin="76,18,71,18" Text="{Binding Path=AccomodationImageUrl, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=AccommodationName, Mode=OneWayToSource,ValidatesOnDataErrors=True  }" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,18,10,19"/>
+            <TextBox x:Name="UrlTextBox" Grid.Row="7"  Margin="57,16,90,19" Text="{Binding Path=AccomodationImageUrl, UpdateSourceTrigger=PropertyChanged }" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Grid.ColumnSpan="2"/>
 
-            <ComboBox  Name ="CountriesComboBox" Grid.Row="1" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
-                      ItemsSource="{Binding Countries}" HorizontalAlignment="Center" Width ="180" SelectedIndex="0" SelectionChanged="FilterCities" Margin="0,16,0,15" />
+            <ComboBox  Name ="CountryComboBox" Grid.Row="1" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
+                      ItemsSource="{Binding Countries,ValidatesOnDataErrors=True }" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" HorizontalAlignment="Center" Width ="226" SelectedIndex="0" SelectionChanged="FilterCities" Margin="0,16,0,18" />
             <ComboBox Name ="CityComboBox"  Grid.Row="2" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
-                      ItemsSource="{Binding Cities}" HorizontalAlignment="Center" Width ="180" SelectedIndex="0" Margin="0,16,0,16"/>
+                      ItemsSource="{Binding Cities,ValidatesOnDataErrors=True }" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" HorizontalAlignment="Center" Width ="226" SelectedIndex="0" Margin="0,16,0,16"/>
             <ComboBox Grid.Row="3" Grid.Column="1" Name="TypeComboBox" IsTextSearchEnabled="True" StaysOpenOnEdit="True"
-                      IsEditable="True" Margin="11,16,11,16" >
+                      IsEditable="True" Margin="10,16,10,16" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" >
                 <ComboBoxItem Content="Appartment"></ComboBoxItem>
                 <ComboBoxItem Content="House"></ComboBoxItem>
                 <ComboBoxItem Content="Shack"></ComboBoxItem>
             </ComboBox>
 
-            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=AccommodationMaxGuests, Mode=OneWayToSource}" Margin="0,18,0,18"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=AccomodationReservationMinDays,Mode=OneWayToSource}" Margin="0,19,0,18"/>
-            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path=AccomodationCancelationDays, Mode=TwoWay}" Margin="0,18,0,19"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=AccommodationMaxGuests, Mode=OneWayToSource,ValidatesOnDataErrors=True }" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,18,10,18"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=AccomodationReservationMinDays,Mode=OneWayToSource,ValidatesOnDataErrors=True }" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,19,10,18"/>
+            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path=AccomodationCancelationDays, Mode=TwoWay,ValidatesOnDataErrors=True }" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="10,18,10,19"/>
 
 
             <Button Content="Save" Click="NewAccommodationRegistration" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Top" Width="60" Height="29" Margin="0,27,0,0"/>
             <Button Grid.Column="1" Content="Cancel" Click="CancelButton" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Top" Width="60" Height="29" Margin="0,27,0,0" />
             <Button  Name ="AddButton" Click="AddButton_Click" Grid.Column="1" Content="O" HorizontalAlignment="Left" FontSize="20
-                    " Margin="157,0,0,0" Grid.Row="7" VerticalAlignment="Center" RenderTransformOrigin="0.292,0.398" Height="32" Width="34" />
-            <Button Grid.Column="1" Content="+" HorizontalAlignment="Left" Click="Button_Click" Margin="157,61,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.RowSpan="2" Width="34"/>
+                    " Margin="161,18,0,0" Grid.Row="7" VerticalAlignment="Top" RenderTransformOrigin="0.292,0.398" Height="32" Width="36" />
+            <Button Grid.Column="1" Content="+" HorizontalAlignment="Left" Click="Button_Click" Margin="202,18,0,0" Grid.Row="7" VerticalAlignment="Top" Width="34" Height="32" RenderTransformOrigin="0.451,0.085"/>
 
 
         </Grid>
