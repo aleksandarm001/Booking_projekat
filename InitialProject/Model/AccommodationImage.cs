@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InitialProject.Model
 {
-    public class AccommodationImages : ISerializable
+    public class AccommodationImage : ISerializable
     {
         
         public int ImageId { get; set; }
@@ -16,9 +16,13 @@ namespace InitialProject.Model
 
 
 
-        public AccommodationImages(){ }
+        public AccommodationImage()
+        {
+            ImageId = 0;
+            ResourceId = 0;
+        }
 
-        public AccommodationImages(int id,string url,int resourceId)
+        public AccommodationImage(int id,string url,int resourceId)
         {
             ImageId= id;
             Url= url;

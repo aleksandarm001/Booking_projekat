@@ -20,3 +20,7 @@
 20|Pizza|Rome;Italy|Apartment|1|5|1
 21|Hajdeeeeee|Shanghai;China|Shack|2|3|1
 22|Aleksandar|Guadalajara;Mexico|Apartment|3|2|1
+23|Dodaj|Delhi;India|Apartment|2|3|5
+24|Ax|Delhi;India|House|2|3|2
+25|DOdavanje|Tokyo;Japan|House|2|3|1
+26|RadiLjubimTe|China;Shanghai|Apartment|2|3|4

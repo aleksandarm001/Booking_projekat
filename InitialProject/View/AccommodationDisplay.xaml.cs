@@ -210,36 +210,36 @@ namespace InitialProject.View
         {
             if (IsAppartmentSelected && IsHouseSelected && IsShackSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Apartment ||
-                    accommodation.accommodationType == AccommodationType.House ||
-                    accommodation.accommodationType == AccommodationType.Shack;
+                return accommodation.AccommodationType == AccommodationType.Apartment ||
+                    accommodation.AccommodationType == AccommodationType.House ||
+                    accommodation.AccommodationType == AccommodationType.Shack;
             }
             else if (IsAppartmentSelected && IsHouseSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Apartment ||
-                    accommodation.accommodationType == AccommodationType.House;
+                return accommodation.AccommodationType == AccommodationType.Apartment ||
+                    accommodation.AccommodationType == AccommodationType.House;
             }
             else if (IsAppartmentSelected && IsShackSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Apartment ||
-                    accommodation.accommodationType == AccommodationType.Shack;
+                return accommodation.AccommodationType == AccommodationType.Apartment ||
+                    accommodation.AccommodationType == AccommodationType.Shack;
             }
             else if (IsHouseSelected && IsShackSelected)
             {
-                return accommodation.accommodationType == AccommodationType.House ||
-                    accommodation.accommodationType == AccommodationType.Shack;
+                return accommodation.AccommodationType == AccommodationType.House ||
+                    accommodation.AccommodationType == AccommodationType.Shack;
             }
             else if (IsAppartmentSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Apartment;
+                return accommodation.AccommodationType == AccommodationType.Apartment;
             }
             else if (IsHouseSelected)
             {
-                return accommodation.accommodationType == AccommodationType.House;
+                return accommodation.AccommodationType == AccommodationType.House;
             }
             else if (IsShackSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Shack;
+                return accommodation.AccommodationType == AccommodationType.Shack;
             }
             else
             {

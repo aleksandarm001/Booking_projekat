@@ -10,7 +10,7 @@
     using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Forms;
+    //using System.Windows.Forms;
 
     public partial class TourView : Window, INotifyPropertyChanged
     {
