@@ -1,7 +1,7 @@
 ﻿namespace InitialProject.View
 {
-    using InitialProject.Model;
     using InitialProject.Constants;
+    using InitialProject.Model;
     using InitialProject.Repository;
     using System;
     using System.Collections.ObjectModel;
@@ -10,7 +10,6 @@
     using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Forms;
 
     public partial class TourView : Window, INotifyPropertyChanged
     {
@@ -102,7 +101,7 @@
             }
 
         }
-      
+
 
         private void InitializeGuestNumber()
         {
@@ -121,18 +120,18 @@
             }
         }
 
-        private void InitializeDuration ()
+        private void InitializeDuration()
         {
             Duration = new ObservableCollection<int>();
             int max = 1;
-            foreach(Tour t in Tours)
+            foreach (Tour t in Tours)
             {
                 if (max < t.Duration)
                 {
                     max = t.Duration;
                 }
             }
-            for(int i=1; i<=max; i++)
+            for (int i = 1; i <= max; i++)
             {
                 Duration.Add(i);
             }
@@ -147,7 +146,7 @@
             {
                 if (SelectedTour.MaxGuestNumber == 0)
                 {
-                    HandleFullTourCapacity(); 
+                    HandleFullTourCapacity();
                 }
                 else
                 {
@@ -214,44 +213,6 @@
             }
         }
 
-        /*private void FilterCities(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox cmbx = (ComboBox)sender;
-            string country = "";
-            try
-            {
-                if (cmbx.SelectedItem != null)
-                {
-                    country = cmbx.SelectedItem.ToString();
-                    if (country == "")
-                    {
-                        ReadCitiesAndCountries();
-                    }
-                    else
-                    {
-                        Cities.Clear();
-                        Cities.Add("");
-                        foreach (Location loc in Locations)
-                        {
-                            if (loc.Country == country && !Cities.Contains(loc.City))
-                            {
-                                Cities.Add(loc.City);
-                            }
-                        }
-                        CityCmbx.SelectedIndex = 1;
-                    }
-                }
-                else
-                {
-                    cmbx.SelectedItem = 0;
-                }
-            }
-            catch (System.NullReferenceException)
-            {
-                ReadCitiesAndCountries();
-            }
-        }
-*/
         private void HandleFullTourCapacity()
         {
             MessageBoxResult result;
@@ -276,12 +237,12 @@
             return (string.IsNullOrEmpty(SelectedCountry) || tour.Location.Country == SelectedCountry);
         }
 
-        bool CityFilter(Tour tour) 
+        bool CityFilter(Tour tour)
         {
             return (string.IsNullOrEmpty(SelectedCity) || tour.Location.City == SelectedCity);
         }
 
-        bool GuestNumberFilter(Tour tour) 
+        bool GuestNumberFilter(Tour tour)
         {
             return (string.IsNullOrEmpty(SelectedGuestNumber) || tour.MaxGuestNumber >= Convert.ToInt32(SelectedGuestNumber));
         }
@@ -294,7 +255,8 @@
 
         bool LanguageFilter(Tour tour)
         {
-            return (string.IsNullOrEmpty(SelectedLanguage) || tour.Language.ToString() == SelectedLanguage);        }
+            return (string.IsNullOrEmpty(SelectedLanguage) || tour.Language.ToString() == SelectedLanguage);
+        }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
