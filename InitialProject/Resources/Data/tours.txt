@@ -1,7 +1,7 @@
 1|Test|Zrenjanin;Srbija|TestDesc|Srpski|7|12/3/2023 12:55:48 AM|5
 2|Sunset Heights|New York;SAD|Brooklyn Bridge Walk|Engleski|1|1/6/2023 9:45:00 AM|2
 3|Lavender Fields|Paris;Francuska|Louvre Museum Tour|Francuski|1|3/8/2023 2:10:00 PM|5
-4|Rainbow Hills|Barcelona;Spanija|Park Guell Visit|Spanski|3|7/14/2023 11:30:00 AM|3
+4|Rainbow Hills|Barcelona;Spanija|Park Guell Visit|Spanski|1|7/14/2023 11:30:00 AM|3
 5|Ocean Breeze|Sidnej;Australija|Opera House Tour|Engleski|5|2/11/2023 4:15:00 PM|1
 6|Cherry Blossom|Tokio;Japan|Asakusa Temple Walk|Japanski|0|8/19/2023 10:00:00 AM|5
 7|Mountain Peak|Vankuver;Kanada|Whistler Ski Trip|Engleski|5|3/21/2023 8:20:00 AM|4
