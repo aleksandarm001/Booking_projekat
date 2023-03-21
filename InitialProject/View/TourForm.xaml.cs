@@ -30,6 +30,7 @@ namespace InitialProject.View
         private readonly LanguageRepository _languageRepository;
         private readonly TourPointRepository _tourPointRepository;
         private readonly LocationRepository _locationRepository;
+        private readonly TourImagesRepository _tourImagesRepository;
         private readonly TourRepository _tourRepository;
         private readonly int tourId;
         public static ObservableCollection<Language> Languages { get; set; }
@@ -39,7 +40,7 @@ namespace InitialProject.View
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<DateTime> DateAndTime { get; set; }
 
-
+        public static ObservableCollection<TourImages> Images = new ObservableCollection<TourImages>();
         public TourForm()
         {
             InitializeComponent();
@@ -48,6 +49,7 @@ namespace InitialProject.View
             _tourRepository = new TourRepository();
             _tourPointRepository = new TourPointRepository();
             _locationRepository= new LocationRepository();
+            _tourImagesRepository = new TourImagesRepository();
             tourId = _tourRepository.NextId();
             Languages = new ObservableCollection<Language>(_languageRepository.GetAll());
             Locations = new ObservableCollection<Location>(_locationRepository.getAll());
@@ -60,7 +62,46 @@ namespace InitialProject.View
 
         }
 
-        
+        private void FilterCities(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cmbx = (ComboBox)sender;
+            string country = "";
+            try
+            {
+                if (cmbx.SelectedItem != null)
+                {
+                    country = cmbx.SelectedItem.ToString();
+                }
+                else
+                {
+                    cmbx.SelectedItem = 0;
+                }
+            }
+            catch (System.NullReferenceException)
+            {
+                ReadCitiesAndCountries();
+            }
+            if (country == "")
+            {
+
+                ReadCitiesAndCountries();
+            }
+            else
+            {
+                Cities.Clear();
+                Cities.Add("");
+                foreach (Location loc in Locations)
+                {
+                    if (loc.Country == country)
+                    {
+                        Cities.Add(loc.City);
+                    }
+                }
+                CityComboBox.SelectedIndex = 1;
+            }
+        }
+
+
 
         private void ReadCitiesAndCountries()
         {
@@ -79,15 +120,9 @@ namespace InitialProject.View
         }
 
 
-        private void TextBox_TextChanged(object sender, RoutedEventArgs e)
-        {
+        
 
-        }
-
-        private void SaveTour(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         private void AddKeyPoint_ButtonClick(object sender, RoutedEventArgs e)
         {
@@ -103,13 +138,26 @@ namespace InitialProject.View
 
         private void AddPictures_ButtonClick(object sender, RoutedEventArgs e)
         {
-
+            TourImages newImage = new TourImages();
+            newImage.TourId = tourId;
+            newImage.Url= TourImageUrl;
+            Images.Add(newImage);
         }
+        
 
         private void Cancel_ButtonClick(object sender, RoutedEventArgs e)
         {
+            _tourPointRepository.ClearTemp();
+            Close();
 
+        }
 
+        private void Track_ButtonClick(object sender, RoutedEventArgs e)
+        {
+
+            TourTracking tt = new TourTracking();
+            tt.Show();
+            Close();
         }
 
         private void Save_ButtonClick(object sender, RoutedEventArgs e)
@@ -156,6 +204,11 @@ namespace InitialProject.View
                 }
             }
 
+            foreach(var image in Images)
+            {
+                _tourImagesRepository.Save(image);
+            }
+
             // Close dialog
             Close();
         }
@@ -192,7 +245,22 @@ namespace InitialProject.View
             }
         }
 
-        
+        private string _imageUrl;
+
+        public string TourImageUrl
+        {
+            get => _imageUrl;
+            set
+            {
+                if (value != _imageUrl)
+                {
+                    _imageUrl = value;
+                    OnPropertyChanged(nameof(_imageUrl));
+                }
+            }
+        }
+
+
 
         private string _MaxGuests;
         public string MaxGuests
