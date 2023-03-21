@@ -1,2 +1,0 @@
-1|asdasd|27|NotActive|asdd|1
-2|asdasdds|27|NotActive|asdddd|2

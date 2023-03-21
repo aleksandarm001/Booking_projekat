@@ -40,7 +40,7 @@
             <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Height="30" Text="{Binding Path=Name, Mode=OneWayToSource }"></TextBox>
 
             <ComboBox  Name ="CountriesComboBox" Grid.Row="1" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
-                      ItemsSource="{Binding Countries}" HorizontalAlignment="Center" Width ="229" Height="30" SelectedIndex="0"  Margin="0,7,0,9" ></ComboBox>
+                      ItemsSource="{Binding Countries}" HorizontalAlignment="Center" Width ="229" Height="30" SelectedIndex="0" SelectionChanged="FilterCities" Margin="0,7,0,9" ></ComboBox>
 
             <ComboBox Name ="CityComboBox"  Grid.Row="2" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
                       ItemsSource="{Binding Cities}" HorizontalAlignment="Center" Width ="229" Height="30" SelectedIndex="0" Margin="0,7,0,8"></ComboBox>

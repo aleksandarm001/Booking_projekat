@@ -62,7 +62,46 @@ namespace InitialProject.View
 
         }
 
-        
+        private void FilterCities(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cmbx = (ComboBox)sender;
+            string country = "";
+            try
+            {
+                if (cmbx.SelectedItem != null)
+                {
+                    country = cmbx.SelectedItem.ToString();
+                }
+                else
+                {
+                    cmbx.SelectedItem = 0;
+                }
+            }
+            catch (System.NullReferenceException)
+            {
+                ReadCitiesAndCountries();
+            }
+            if (country == "")
+            {
+
+                ReadCitiesAndCountries();
+            }
+            else
+            {
+                Cities.Clear();
+                Cities.Add("");
+                foreach (Location loc in Locations)
+                {
+                    if (loc.Country == country)
+                    {
+                        Cities.Add(loc.City);
+                    }
+                }
+                CityComboBox.SelectedIndex = 1;
+            }
+        }
+
+
 
         private void ReadCitiesAndCountries()
         {
