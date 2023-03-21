@@ -23,4 +23,9 @@
 23|Tura neka|Novi Sad;Serbia|opis|Serbian|15|3/15/2023 4:20:51 PM|2|False
 24|asd|Shanghai;Japan|opis|Armenian|14|3/24/2023 4:04:29 AM|12|False
 25|turica|Tokyo;Japan|opis|Afrikaans|121|3/17/2023 3:19:35 PM|12|True
-26|dsa|Delhi;India|opis|Amharic|12|3/21/2023 1:01:40 AM|5|False
+26|dsa|Delhi;India|opis|Amharic|12|3/21/2023 1:01:40 AM|5|True
+27|fsdf|Tokyo;Japan|opis|Afrikaans|15|3/21/2023 9:09:15 AM|15|True
+28|gdf|Tokyo;Japan|opis|Afrikaans|34|3/21/2023 3:01:55 AM|11|True
+29|asda|Delhi;India|opis|Afrikaans|123|3/21/2023 1:01:52 AM|12314|True
+30|sad|Delhi;India|opis|Afrikaans|222|3/21/2023 4:05:32 AM|111|True
+31|fffffffff|Tokyo;Japan|opis|Arabic|124|3/21/2023 2:03:42 AM|123|True

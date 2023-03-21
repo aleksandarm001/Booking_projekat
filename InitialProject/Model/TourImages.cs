@@ -12,18 +12,18 @@ namespace InitialProject.Model
         public int TourId { get; set; }
         public int ImageId { get; set; }
         public string Url { get; set; }
-        public int ResourceId { get; set; }
+
 
 
 
         public TourImages() { }
 
-        public TourImages(int tourId, int id, string url, int resourceId)
+        public TourImages(int tourId, int id, string url)
         {
             TourId = tourId;
             ImageId = id;
             Url = url;
-            ResourceId = resourceId;
+
 
 
         }
@@ -32,8 +32,7 @@ namespace InitialProject.Model
         {
             TourId= Convert.ToInt32(values[0]);
             ImageId = Convert.ToInt32(values[1]);
-            ResourceId = Convert.ToInt32(values[2]);
-            Url = values[3];
+            Url = values[2];
         }
 
         public string[] ToCSV()
@@ -42,8 +41,7 @@ namespace InitialProject.Model
             {
                 TourId.ToString(),
                 ImageId.ToString(),
-                ResourceId.ToString(),
-                Url
+                Url,
 
 
             };

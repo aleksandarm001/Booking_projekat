@@ -64,6 +64,11 @@ namespace InitialProject.View
             Minutes.Clear();
 
             // add hours and minutes to respective lists
+            foreach(var hour in hours)
+            {
+
+                Hours.Add(hour);
+            }
             Hours.AddRange(hours);
             Minutes.AddRange(minutes);
         }

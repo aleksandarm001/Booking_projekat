@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="Tour Point" Height="312" Width="500">
+        Title="Tour Point" Height="312" Width="500" WindowStyle="None">
     <Grid Margin="0,0,0,7">
         <Grid Grid.Row="0" Grid.Column="0" Margin="10,25,21,10" >
             <Grid.ColumnDefinitions>

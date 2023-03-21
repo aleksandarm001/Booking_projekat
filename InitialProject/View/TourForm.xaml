@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="Register New Tour" Height="550" Width="450" WindowStartupLocation="CenterScreen">
+        Title="Register New Tour" Height="550" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Grid Margin="0,0,0,1">
         <Grid Grid.Row="0" Grid.Column="0" Margin="21,25,21,10" >
             <Grid.RowDefinitions>

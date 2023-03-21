@@ -40,7 +40,7 @@ namespace InitialProject.View
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<DateTime> DateAndTime { get; set; }
 
-        public static ObservableCollection<TourImages> Images { get; set; }
+        public static ObservableCollection<TourImages> Images = new ObservableCollection<TourImages>();
         public TourForm()
         {
             InitializeComponent();
@@ -120,15 +120,9 @@ namespace InitialProject.View
         }
 
 
-        private void TextBox_TextChanged(object sender, RoutedEventArgs e)
-        {
+        
 
-        }
-
-        private void SaveTour(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         private void AddKeyPoint_ButtonClick(object sender, RoutedEventArgs e)
         {
@@ -144,14 +138,18 @@ namespace InitialProject.View
 
         private void AddPictures_ButtonClick(object sender, RoutedEventArgs e)
         {
-            TourImages newImage = new TourImages(tourId, 0, UrlTextBox.Text, -1);
+            TourImages newImage = new TourImages();
+            newImage.TourId = tourId;
+            newImage.Url= TourImageUrl;
             Images.Add(newImage);
         }
+        
 
         private void Cancel_ButtonClick(object sender, RoutedEventArgs e)
         {
+            _tourPointRepository.ClearTemp();
+            Close();
 
-            
         }
 
         private void Track_ButtonClick(object sender, RoutedEventArgs e)
@@ -205,9 +203,9 @@ namespace InitialProject.View
                 }
             }
 
-            foreach(var iimage in Images)
+            foreach(var image in Images)
             {
-                _tourImagesRepository.Save(iimage);
+                _tourImagesRepository.Save(image);
             }
 
             // Close dialog

@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="TourTracking" Height="450" Width="800">
     <Grid>
-        <DataGrid Name ="TourGrid" Grid.Row="0" Margin="10,28,298,176" 
-                  ItemsSource="{Binding Path = Tours, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path= SelectedTour, UpdateSourceTrigger=PropertyChanged}"
-                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="false"
-                  Visibility ="Visible">
+        <DataGrid Name="TourGrid" Grid.Row="0" Margin="10,28,298,176" 
+    ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
+    SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+    IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="false"
+    Visibility="Visible">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Width="200" Binding="{Binding Name}"></DataGridTextColumn>

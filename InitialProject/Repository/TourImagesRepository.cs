@@ -47,9 +47,6 @@ namespace InitialProject.Repository
             return _tourImages.Max(acm => acm.ImageId) + 1;
         }
 
-        internal void Save(object image)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
