@@ -29,4 +29,5 @@
 29|asda|Delhi;India|opis|Afrikaans|123|3/21/2023 1:01:52 AM|12314|True
 30|sad|Delhi;India|opis|Afrikaans|222|3/21/2023 4:05:32 AM|111|True
 31|fffffffff|Tokyo;Japan|opis|Arabic|124|3/21/2023 2:03:42 AM|123|True
-32|sddds|Tokyo;Japan|opis|Afrikaans|13|3/21/2023 2:02:14 AM|44|True
+32|sddds|Tokyo;Japan|opis|Afrikaans|13|3/22/2023 2:02:14 AM|44|True
+33|Lavender Fields|Paris;France|Louvre Museum Tour|French|0|3/21/2023 2:10:00 PM|5|False

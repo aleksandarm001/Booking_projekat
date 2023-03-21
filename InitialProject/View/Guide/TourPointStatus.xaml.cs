@@ -1,6 +1,7 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Model;
 using InitialProject.Repository;
+using InitialProject.View.Guide;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static InitialProject.CustomClasses.TourAttendance;
 using static InitialProject.Model.TourPoint;
 
 namespace InitialProject.View
@@ -32,6 +34,7 @@ namespace InitialProject.View
         public ObservableCollection<TourPoint> _tourPoints;
         private readonly TourPoint _selectedTourPoint;
         public static ObservableCollection<Reservation> Reservations;
+        public List<TourAttendance> TourAttendances;
 
         public TourPointStatus(ObservableCollection<TourPoint> tourPoints, TourPoint selectedTourPoint, List<TourAttendance> usersOnTour)
         {
@@ -40,10 +43,13 @@ namespace InitialProject.View
             TourPoints = tourPoints;
             _selectedTourPoint = selectedTourPoint;
             _tourPointRepository = new TourPointRepository();
-            Users = new ObservableCollection<TourAttendance>(usersOnTour);
+            TourAttendances = usersOnTour;
+            Users = new ObservableCollection<TourAttendance>(TourAttendances);
+            
 
 
         }
+
 
         private ObservableCollection<TourPoint> _points;
         public ObservableCollection<TourPoint> TourPoints
@@ -64,6 +70,18 @@ namespace InitialProject.View
             {
                 _users = value;
                 OnPropertyChanged(nameof(Users));
+            }
+        }
+
+        private TourAttendance _selectedTourAttendance;
+        public TourAttendance SelectedTourAttendance
+        {
+            get { return _selectedTourAttendance; }
+            set
+            {
+                _selectedTourAttendance = value;
+                OnPropertyChanged(nameof(SelectedTourAttendance));
+
             }
         }
 
@@ -119,6 +137,15 @@ namespace InitialProject.View
             }
 
             Close();
+        }
+
+        
+
+        private void ChangeStatusButtonClick(object sender, RoutedEventArgs e)
+        {
+            ChangeTourAttendanceStatus changeStatus = new ChangeTourAttendanceStatus(SelectedTourAttendance, Users);
+            changeStatus.ShowDialog();
+            Users = new ObservableCollection<TourAttendance>(TourAttendances);
         }
     }
 }

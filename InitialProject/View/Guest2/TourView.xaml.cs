@@ -220,7 +220,7 @@
             if (result == MessageBoxResult.Yes)
             {
                 var filteredCollection = _tourRepository.GetAll().Where(a =>
-                (a.Location.Country == SelectedCountry) && (a.Location.City == SelectedCity) && (a.MaxGuestNumber != 0));
+                (a.Location.Country == SelectedTour.Location.Country) && (a.Location.City == SelectedTour.Location.City) && (a.MaxGuestNumber != 0));
                 Tours = new ObservableCollection<Tour>(filteredCollection);
 
                 if (Tours.Count == 0)
