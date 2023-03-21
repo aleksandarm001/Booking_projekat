@@ -67,10 +67,6 @@ namespace InitialProject.View
             TourView tourView = new TourView(1);
             tourView.Show();
         }
-        public int Sum(int[] borjevi)
-        {
-            return 1;
-        }
         private void Owner_ButtonClick(object sender, RoutedEventArgs e)
         {
             RegisterNewAccommodation newAccommodation = new RegisterNewAccommodation();

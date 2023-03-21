@@ -23,9 +23,6 @@ namespace InitialProject.Model
         public List<AccommodationImage> Images { get; set; }
         public List<Reservation> Reservations { get; set; }
         public int AccommodationID { get; set; }
-                
-
-
         public Accommodation(int userId,string name, Location location, AccommodationType type, int maxGuestNumber,
             int minReservationDays, int daysBeforeCancelling, List<AccommodationImage> images,
             List<Reservation> reservations)
@@ -40,12 +37,6 @@ namespace InitialProject.Model
             Images = images;
             Reservations = reservations;
         }
-
-        
-        ~Accommodation()
-        {
-
-        }
         public Accommodation()
         {
             UserId = 0; //defaultna vrednost pre kreiranja sigin forme za vise korisnika
@@ -59,8 +50,6 @@ namespace InitialProject.Model
             Images = new List<AccommodationImage>();
             Reservations = new List<Reservation>();
         }
-
-
         public string[] ToCSV()
         {
 
@@ -87,7 +76,5 @@ namespace InitialProject.Model
             DaysBeforeCancelling = Convert.ToInt32(values[6]);
             //Images = values[7].Split(";").ToList<string>();
         }
-
-        
     }
 }
