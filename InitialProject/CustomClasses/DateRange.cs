@@ -69,14 +69,14 @@ namespace InitialProject.CustomClasses
         
         public bool WithinRange(DateRange range)
         {
-            if (WithinRange(range.StartDate) || WithinRange(range.EndDate))
+            for (DateTime date = range.StartDate; date <= range.EndDate; date = date.AddDays(1))
             {
-                return true;
+                if (WithinRange(date))
+                {
+                    return true;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
         public override string ToString()
         {

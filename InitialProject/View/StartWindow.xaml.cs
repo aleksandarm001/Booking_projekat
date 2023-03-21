@@ -29,7 +29,6 @@ namespace InitialProject.View
         private readonly GuestReviewRepository _guestReviewRepository;
         private readonly UserToReviewRepository _userToReviewRepository;
         private readonly ReservationRepository _reservationRepository;
-        private readonly AccommodationReservationRepository _accommodationReservationRepository;
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<Reservation> Reservations { get; set; }
         public static List<GuestReview> GuestReviews {get; set;}
@@ -39,21 +38,18 @@ namespace InitialProject.View
         public StartWindow()
         {
             InitializeComponent();
-            Height = SystemParameters.PrimaryScreenHeight * 0.7;
-            Width = SystemParameters.PrimaryScreenWidth * 0.37;
+            Height = SystemParameters.PrimaryScreenHeight * 0.5;
+            Width = SystemParameters.PrimaryScreenWidth * 0.25;
             DataContext = this;
             _locationRepository = new LocationRepository();
             _accommodationRepository = new AccommodationRepository();
             _guestReviewRepository= new GuestReviewRepository();
             _reservationRepository= new ReservationRepository();
             _userToReviewRepository = new UserToReviewRepository();
-            _accommodationReservationRepository = new AccommodationReservationRepository();
             Reservations = new ObservableCollection<Reservation>(_reservationRepository.GetAll());
             GuestReviews = new List<GuestReview>(_guestReviewRepository.GetAll());
             Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
             Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
-            AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
-            InitializeReservationsByAccommodations();
             InitializeUsersToReview();
         }
 
@@ -95,14 +91,6 @@ namespace InitialProject.View
                 return true;
             }
             return false;
-        }
-        private void InitializeReservationsByAccommodations()
-        {
-            foreach(AccommodationReservation accommodationReservation in AccommodationReservations)
-            {
-                Accommodation accommodation = Accommodations.ToList().Find(a => a.AccommodationID == accommodationReservation.AccommodationId);
-                accommodation.Reservations.Add(Reservations.ToList().Find(r => r.ReservationId == accommodationReservation.ReservationId));
-            }
         }
     }
 }

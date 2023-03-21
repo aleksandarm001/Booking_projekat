@@ -33,6 +33,10 @@ namespace InitialProject.View
     public partial class AccommodationDisplay : Window, INotifyPropertyChanged
     {
         private readonly AccommodationRepository _accommodationRepository;
+        private readonly AccommodationReservationRepository _accommodationReservationRepository;
+        private readonly ReservationRepository _reservationRepository;
+        public static ObservableCollection<Reservation> Reservations { get; set; }
+        public static ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public static ObservableCollection<Location> Locations { get; set; }
@@ -167,6 +171,13 @@ namespace InitialProject.View
             Countries = new ObservableCollection<string>();
             _accommodationRepository = new AccommodationRepository();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
+
+            _reservationRepository = new ReservationRepository();
+            _accommodationReservationRepository = new AccommodationReservationRepository();
+            Reservations = new ObservableCollection<Reservation>(_reservationRepository.GetAll());
+            AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
+            InitializeReservationsByAccommodations();
+
             ReadCitiesAndCountries();
         }
         private void InitializeNumberOfGuests(object sender, SelectionChangedEventArgs e)
@@ -311,6 +322,14 @@ namespace InitialProject.View
                 AccommodationReservationForm accommodationReservationFormWindow = new AccommodationReservationForm(SelectedAccommodation);
                 accommodationReservationFormWindow.Owner = this;
                 accommodationReservationFormWindow.ShowDialog();
+            }
+        }
+        private void InitializeReservationsByAccommodations()
+        {
+            foreach (AccommodationReservation accommodationReservation in AccommodationReservations)
+            {
+                Accommodation accommodation = Accommodations.ToList().Find(a => a.AccommodationID == accommodationReservation.AccommodationId);
+                accommodation.Reservations.Add(Reservations.ToList().Find(r => r.ReservationId == accommodationReservation.ReservationId));
             }
         }
     }
