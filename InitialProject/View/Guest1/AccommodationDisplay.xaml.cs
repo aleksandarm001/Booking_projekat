@@ -32,6 +32,8 @@ namespace InitialProject.View
     /// </summary>
     public partial class AccommodationDisplay : Window, INotifyPropertyChanged
     {
+        private readonly AccommodationRepository _accommodationRepository;
+
         public event PropertyChangedEventHandler PropertyChanged;
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
@@ -156,14 +158,15 @@ namespace InitialProject.View
                 }
             }
         }
-        public AccommodationDisplay(ObservableCollection<Location> locations, ObservableCollection<Accommodation> accommodations)
+        public AccommodationDisplay(ObservableCollection<Location> locations)
         {
             InitializeComponent();
             DataContext = this;
-            Accommodations = accommodations;
             Locations = locations;
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
+            _accommodationRepository = new AccommodationRepository();
+            Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
             ReadCitiesAndCountries();
         }
         private void InitializeNumberOfGuests(object sender, SelectionChangedEventArgs e)
@@ -210,36 +213,36 @@ namespace InitialProject.View
         {
             if (IsAppartmentSelected && IsHouseSelected && IsShackSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Apartment ||
-                    accommodation.accommodationType == AccommodationType.House ||
-                    accommodation.accommodationType == AccommodationType.Shack;
+                return accommodation.TypeOfAccommodation == AccommodationType.Apartment ||
+                    accommodation.TypeOfAccommodation == AccommodationType.House ||
+                    accommodation.TypeOfAccommodation == AccommodationType.Shack;
             }
             else if (IsAppartmentSelected && IsHouseSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Apartment ||
-                    accommodation.accommodationType == AccommodationType.House;
+                return accommodation.TypeOfAccommodation == AccommodationType.Apartment ||
+                    accommodation.TypeOfAccommodation == AccommodationType.House;
             }
             else if (IsAppartmentSelected && IsShackSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Apartment ||
-                    accommodation.accommodationType == AccommodationType.Shack;
+                return accommodation.TypeOfAccommodation == AccommodationType.Apartment ||
+                    accommodation.TypeOfAccommodation == AccommodationType.Shack;
             }
             else if (IsHouseSelected && IsShackSelected)
             {
-                return accommodation.accommodationType == AccommodationType.House ||
-                    accommodation.accommodationType == AccommodationType.Shack;
+                return accommodation.TypeOfAccommodation == AccommodationType.House ||
+                    accommodation.TypeOfAccommodation == AccommodationType.Shack;
             }
             else if (IsAppartmentSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Apartment;
+                return accommodation.TypeOfAccommodation == AccommodationType.Apartment;
             }
             else if (IsHouseSelected)
             {
-                return accommodation.accommodationType == AccommodationType.House;
+                return accommodation.TypeOfAccommodation == AccommodationType.House;
             }
             else if (IsShackSelected)
             {
-                return accommodation.accommodationType == AccommodationType.Shack;
+                return accommodation.TypeOfAccommodation == AccommodationType.Shack;
             }
             else
             {

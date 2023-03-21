@@ -98,16 +98,22 @@ namespace InitialProject.View
 
         private void SubmitReview(object sender, RoutedEventArgs e)
         {
-            GuestReview newGuestReview = new GuestReview();
-            newGuestReview.GuestId = GuestId;
-            newGuestReview.Hygiene = HygieneGrade;
-            newGuestReview.RuleFollowing= RuleFollowingGrade;
-            newGuestReview.Comment = OwnerComment;
-
+            GuestReview newGuestReview = CreateReview();
             _guestReviewRepository.Save(newGuestReview);
             IsReviewd = true;
             Close();
 
+        }
+
+        private GuestReview CreateReview()
+        {
+            return new GuestReview
+            {
+                GuestId= GuestId,
+                Hygiene= HygieneGrade,
+                RuleFollowing= RuleFollowingGrade,
+                Comment= OwnerComment
+            };
         }
 
         private void Close(object sender, RoutedEventArgs e)

@@ -22,11 +22,11 @@ namespace InitialProject.View
     /// </summary>
     public partial class UrlTable : Window
     {
-        public static ObservableCollection<AccommodationImages> Images { get; set; }
+        public static ObservableCollection<AccommodationImage> Images { get; set; }
 
         
        
-        public UrlTable(ObservableCollection<AccommodationImages> ImageList)
+        public UrlTable(ObservableCollection<AccommodationImage> ImageList)
         {
             InitializeComponent();
             DataContext= this;

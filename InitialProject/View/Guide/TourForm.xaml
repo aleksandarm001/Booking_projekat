@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="Register New Tour" Height="550" Width="450" WindowStartupLocation="CenterScreen">
+        Title="Register New Tour" Height="550" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Grid Margin="0,0,0,1">
         <Grid Grid.Row="0" Grid.Column="0" Margin="21,25,21,10" >
             <Grid.RowDefinitions>
@@ -40,7 +40,7 @@
             <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Height="30" Text="{Binding Path=Name, Mode=OneWayToSource }"></TextBox>
 
             <ComboBox  Name ="CountriesComboBox" Grid.Row="1" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
-                      ItemsSource="{Binding Countries}" HorizontalAlignment="Center" Width ="229" Height="30" SelectedIndex="0"  Margin="0,7,0,9" ></ComboBox>
+                      ItemsSource="{Binding Countries}" HorizontalAlignment="Center" Width ="229" Height="30" SelectedIndex="0" SelectionChanged="FilterCities" Margin="0,7,0,9" ></ComboBox>
 
             <ComboBox Name ="CityComboBox"  Grid.Row="2" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
                       ItemsSource="{Binding Cities}" HorizontalAlignment="Center" Width ="229" Height="30" SelectedIndex="0" Margin="0,7,0,8"></ComboBox>
@@ -55,8 +55,7 @@
             <ComboBox Name ="DateTimeComboBox"  Grid.Row="6" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
                       ItemsSource="{Binding DateAndTime}" HorizontalAlignment="Left" Width ="158" Height="30" SelectedIndex="0" Margin="0,6,0,5"></ComboBox>
             <TextBox Grid.Row="7" Grid.Column="1" Height="30" Text="{Binding Path=TourDuratation, Mode=TwoWay}"></TextBox>
-            <ComboBox Name ="ImagesComboBox"  Grid.Row="8" Grid.Column="1" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
-                      ItemsSource="{Binding Pictures}" HorizontalAlignment="Left" Width ="158" Height="30" SelectedIndex="0" Margin="0,6,0,5"></ComboBox>
+            <TextBox x:Name="UrlTextBox" Grid.Row="8" Grid.Column="1" Width ="158" Height="30"  Text="{Binding Path=TourImageUrl, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,72,7"/>
 
 
             <Button Grid.Column="1" Click="AddKeyPoint_ButtonClick" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="38" >Dodaj</Button>
@@ -64,7 +63,9 @@
             <Button Grid.Column="1" Click="AddPictures_ButtonClick" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="8" VerticalAlignment="Center" Width="38" >Dodaj</Button>
             <Button Grid.Column="1" Click="Cancel_ButtonClick" Content="Cancel" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
             <Button Grid.Column="0" Click="Save_ButtonClick" Content="Save" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
-            
+            <Button Grid.Column="0" Click="Track_ButtonClick" Content="Track" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
+
+
         </Grid>
 
     </Grid>

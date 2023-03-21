@@ -14,23 +14,23 @@ namespace InitialProject.Repository
     {
         private const string FilePath = "../../../Resources/Data/accommodationImages.txt";
 
-        private readonly Serializer<AccommodationImages> _serializer;
+        private readonly Serializer<AccommodationImage> _serializer;
 
-        private List<AccommodationImages> _accommodationImages;
+        private List<AccommodationImage> _accommodationImages;
 
 
         public AccommodationImageRepository()
         {
-            _serializer = new Serializer<AccommodationImages>();
-            _accommodationImages= new List<AccommodationImages>();
+            _serializer = new Serializer<AccommodationImage>();
+            _accommodationImages= new List<AccommodationImage>();
         }
 
-        public List<AccommodationImages> getAll()
+        public List<AccommodationImage> getAll()
         {
             return _serializer.FromCSV(FilePath);
         }
 
-        public AccommodationImages Save(AccommodationImages accommodationImages,int resourceId)
+        public AccommodationImage Save(AccommodationImage accommodationImages,int resourceId)
         {
             accommodationImages.ImageId = NextId();
             accommodationImages.ResourceId = resourceId;
