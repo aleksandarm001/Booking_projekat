@@ -10,8 +10,30 @@ namespace InitialProject.CustomClasses
     {
         private DateTime _startDate;
         private DateTime _endDate;
-        public DateTime StartDate { get { return _startDate; } set { _startDate = value; SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate); } }
-        public DateTime EndDate { get { return _endDate; } set { _endDate = value; SEndDate = string.Format("{0:dd.MM.yyyy.}", EndDate); } }
+        public DateTime StartDate 
+        { 
+            get 
+            { 
+                return _startDate; 
+            } 
+            set 
+            { 
+                _startDate = value; 
+                SStartDate = string.Format("{0:dd.MM.yyyy.}", StartDate); 
+            } 
+        }
+        public DateTime EndDate 
+        { 
+            get 
+            { 
+                return _endDate; 
+            } 
+            set 
+            { 
+                _endDate = value; 
+                SEndDate = string.Format("{0:dd.MM.yyyy.}", EndDate); 
+            } 
+        }
         public string SStartDate { get; set; }
         public string SEndDate { get; set; }
 
