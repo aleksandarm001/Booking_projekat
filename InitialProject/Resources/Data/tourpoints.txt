@@ -31,5 +31,5 @@
 33|cccc|29|NotActive|cc|2
 34|dd|30|NotActive|dd|1
 35|dddd|30|NotActive|dd|2
-36|dd|31|Finished|dd|1
-37|aa|31|Finished|dd|2
+36|dd|31|NotActive|dd|1
+37|aa|31|NotActive|dd|2

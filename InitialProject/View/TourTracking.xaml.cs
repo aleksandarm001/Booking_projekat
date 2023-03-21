@@ -176,7 +176,10 @@ namespace InitialProject.View
 
         public void CheckIfExistAndSave(TourAttendance tourAttendance)
         {
-            if(_tourAttendanceRepository.GetAll().Contains(tourAttendance) == true)
+            if (_tourAttendanceRepository.GetAll().Where(t => t.TourId == tourAttendance.TourId)
+                                                 .Where(tp => tp.TourPointId == tourAttendance.TourPointId)
+                                                 .Where(tu => tu.UserId == tourAttendance.UserId)
+                                                 .FirstOrDefault() == null)
             {
                 _tourAttendanceRepository.Save(tourAttendance);
             }
@@ -192,7 +195,7 @@ namespace InitialProject.View
                 tourAttendance.TourPointId = SelectedTourPoint.Id;
                 tourAttendance.UserId = users[i].Id;
                 tourAttendance.Username = users[i].Name;
-                tourAttendance.UserAttended = TourAttendance.AttendanceStatus.OnHold;
+                tourAttendance.UserAttended = TourAttendance.AttendanceStatus.NotPresent;
                 CheckIfExistAndSave(tourAttendance);
             }
 
@@ -219,7 +222,9 @@ namespace InitialProject.View
                 Tours = new ObservableCollection<Tour>(_tourRepository.GetAll().Where(s => s.TourStarted == false)
                                                                            .Where(d => DateOnly.FromDateTime(d.StartingDateTime) == DateOnly.FromDateTime(ParseDateInDDMMYYYY(DateTime.Today)))
                                                                            .ToList());
-
+                TourPointGrid.Visibility = Visibility.Hidden;
+                ChangeStatusButton.Visibility = Visibility.Hidden;
+                StopStatusButton.Visibility = Visibility.Hidden;
 
             }
         }

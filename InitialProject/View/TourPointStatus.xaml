@@ -5,18 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="TourPointStatus" Height="273" Width="502">
+        Title="TourPointStatus" Height="273" Width="502" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,10,-6">
         <DataGrid Name ="TourGrid" Grid.Row="0" Margin="10,28,247,69" 
                   ItemsSource="{Binding Path = Users, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path= SelectedUser, UpdateSourceTrigger=PropertyChanged}"
-                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="false"
+                  SelectedItem="{Binding Path= SelectedUser, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  IsReadOnly="False" SelectionMode="Single" AutoGenerateColumns="false"
                   Visibility ="Visible">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Width="200" Binding="{Binding UserId}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Username}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Status" Width="200" Binding="{Binding UserAttended}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Id" Width="30" Binding="{Binding UserId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Username}"></DataGridTextColumn>
+
+                <DataGridTemplateColumn Header="Status" Width="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding UserAttended}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox SelectedItem="{Binding UserAttended}" SelectedValuePath="Content">
+                                <ComboBoxItem Content="Present" />
+                                <ComboBoxItem Content="Not Present" />
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+
             </DataGrid.Columns>
 
         </DataGrid>

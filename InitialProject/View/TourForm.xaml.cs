@@ -157,6 +157,7 @@ namespace InitialProject.View
 
             TourTracking tt = new TourTracking();
             tt.Show();
+            Close();
         }
 
         private void Save_ButtonClick(object sender, RoutedEventArgs e)
