@@ -28,7 +28,7 @@
                 <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Country" Width="*" Binding="{Binding Location.Country}"></DataGridTextColumn>
                 <DataGridTextColumn Header="City" Width="*" Binding="{Binding Location.City}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Accommodation Type" Width="*" Binding="{Binding accommodationType}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Accommodation Type" Width="*" Binding="{Binding TypeOfAccommodation}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Max. Number of guests" Width="*" Binding="{Binding MaxGuestNumber}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Min. Days To Reserve" Width="*" Binding="{Binding MinReservationDays}"></DataGridTextColumn>
             </DataGrid.Columns>

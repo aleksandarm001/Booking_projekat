@@ -14,13 +14,5 @@
 14|Historic Townhouse|Boston;United States|Shack|9|4|1
 15|Cosy Chalet|Zermatt;Switzerland|Apartment|4|5|1
 16|HotelBG|Belgrade;Serbia|Apartment|3|6|1
-17|Sisa|Berlin;Germany|Shack|0|2|5
-18|asdaasd|Tokyo;Japan|House|2|3|1
-19|asdas|São Paulo;Brazil|House|3|1|1
-20|Pizza|Rome;Italy|Apartment|1|5|1
-21|Hajdeeeeee|Shanghai;China|Shack|2|3|1
-22|Aleksandar|Guadalajara;Mexico|Apartment|3|2|1
-23|Dodaj|Delhi;India|Apartment|2|3|5
-24|Ax|Delhi;India|House|2|3|2
-25|DOdavanje|Tokyo;Japan|House|2|3|1
-26|RadiLjubimTe|China;Shanghai|Apartment|2|3|4
+17|Zona Apaartmani|Serbia;Novi Sad|Apartment|2|1|5
+18|Zona Apartman 2|Serbia;Novi Sad|Apartment|2|1|1

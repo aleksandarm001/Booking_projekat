@@ -59,7 +59,7 @@ namespace InitialProject.View
 
         private void Guest1_ButtonClick(object sender, RoutedEventArgs e)
         {
-            AccommodationDisplay guest1View = new AccommodationDisplay(Locations, Accommodations);
+            AccommodationDisplay guest1View = new AccommodationDisplay(Locations);
             guest1View.Show();
         }
         private void Guest2_ButtonClick(object sender, RoutedEventArgs e)

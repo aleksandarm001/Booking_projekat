@@ -16,7 +16,7 @@ namespace InitialProject.Model
         public int UserId { get; set; } //ID Vlasnika smestaja
         public string Name { get; set; }
         public Location Location { get; set; }
-        public AccommodationType AccommodationType { get; set; }
+        public AccommodationType TypeOfAccommodation { get; set; }
         public int MaxGuestNumber { get; set; }
         public int MinReservationDays { get; set; }
         public int DaysBeforeCancelling { get; set; }
@@ -33,7 +33,7 @@ namespace InitialProject.Model
             UserId= userId;
             Name = name;
             Location = location;
-            AccommodationType = type;
+            TypeOfAccommodation = type;
             MaxGuestNumber = maxGuestNumber;
             MinReservationDays = minReservationDays;
             DaysBeforeCancelling = daysBeforeCancelling;
@@ -52,7 +52,7 @@ namespace InitialProject.Model
             AccommodationID = 0;
             Name = "";
             Location = new Location();
-            AccommodationType = 0;
+            TypeOfAccommodation = 0;
             MaxGuestNumber = 0;
             MinReservationDays = 0;
             DaysBeforeCancelling = 0;
@@ -68,7 +68,7 @@ namespace InitialProject.Model
                 AccommodationID.ToString(),
                 Name,
                 Location.ToString(),
-                AccommodationType.ToString(),
+                TypeOfAccommodation.ToString(),
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
                 DaysBeforeCancelling.ToString(),
@@ -81,7 +81,7 @@ namespace InitialProject.Model
             AccommodationID = Convert.ToInt32(values[0]);
             Name = values[1];
             Location = Location.fromStringToLocation(values[2]);
-            AccommodationType = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[3]);
+            TypeOfAccommodation = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[3]);
             MaxGuestNumber = Convert.ToInt32(values[4]);
             MinReservationDays = Convert.ToInt32(values[5]);
             DaysBeforeCancelling = Convert.ToInt32(values[6]);

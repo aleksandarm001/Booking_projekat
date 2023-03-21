@@ -268,7 +268,7 @@ namespace InitialProject.View
                 DaysBeforeCancelling = Convert.ToInt32(AccommodationCancelationDays),
                 MinReservationDays = Convert.ToInt32(AccommodationReservationMinDays),
                 Location = new Location(CountryComboBox.Text, CityComboBox.Text),
-                AccommodationType = GetAccommodationType()
+                TypeOfAccommodation = GetAccommodationType()
 
             };
         }
