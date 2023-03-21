@@ -1,20 +1,13 @@
-﻿using InitialProject.Model;
+﻿using InitialProject.CustomClasses;
+using InitialProject.Model;
 using InitialProject.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using static InitialProject.Model.TourPoint;
 
 namespace InitialProject.View
@@ -26,6 +19,9 @@ namespace InitialProject.View
     {
         private readonly TourRepository _tourRepository;
         private readonly TourPointRepository _tourPointRepository;
+        private readonly ReservationRepository _reservationRepository;
+        private readonly UserRepository _userRepository;
+        private readonly TourAttendanceRepository _tourAttendanceRepository;
         
         public TourTracking()
         {
@@ -33,10 +29,28 @@ namespace InitialProject.View
             InitializeComponent();
             _tourRepository = new TourRepository();
             _tourPointRepository = new TourPointRepository();
-            Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
+            _reservationRepository = new ReservationRepository();
+            _userRepository = new UserRepository();
+            _tourAttendanceRepository = new TourAttendanceRepository();
+
+            Tours = CreateTours();
+
             TourPoints = new ObservableCollection<TourPoint>();
             TourPointGrid.Visibility = Visibility.Hidden;
             ChangeStatusButton.Visibility = Visibility.Hidden;
+        }
+
+        public ObservableCollection<Tour> CreateTours()
+        {
+            return new ObservableCollection<Tour>(_tourRepository.GetAll().Where(s => s.TourStarted == false)
+                                                                           .Where(d => DateOnly.FromDateTime(d.StartingDateTime) == DateOnly.FromDateTime(ParseDateInDDMMYYYY(DateTime.Today)))
+                                                                           .ToList());
+        }
+
+        public static DateTime ParseDateInDDMMYYYY(DateTime dt)
+        {
+            string dateString = dt.ToString("dd/MM/yyyy");
+            return DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -64,7 +78,10 @@ namespace InitialProject.View
                 _selectedTour = value;
                 OnPropertyChanged(nameof(SelectedTour));
                 TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.GetTourPointsByTourId(SelectedTour.TourId));
-                TourPoints[0].CurrentStatus = Status.Active;
+                if (TourPoints[0].CurrentStatus != Status.Finished)
+                {
+                    TourPoints[0].CurrentStatus = Status.Active;
+                }
                 TourPointGrid.Visibility = Visibility.Hidden;
                 TourPointGrid.IsEnabled = true;
             }
@@ -109,17 +126,62 @@ namespace InitialProject.View
 
         }
 
+        public List<User> GetUsersOnTour(int tourId)
+        {
+            List<User> users = new(); 
+            foreach(var reservation in _reservationRepository.GetAll())
+            {
+                if(reservation.TourId == tourId)
+                {
+                    users.Add(_userRepository.GetById(reservation.UserId));
+                }
+            }
+
+            return users;
+        }
+
+        public void CheckIfExistAndSave(TourAttendance tourAttendance)
+        {
+            if(_tourAttendanceRepository.GetAll().Contains(tourAttendance) == true)
+            {
+                _tourAttendanceRepository.Save(tourAttendance);
+            }
+        }
+
+        public List<TourAttendance> GetUsersOnTourPoint()
+        {
+            List<User> users = GetUsersOnTour(SelectedTour.TourId);
+            for(int i=0; i<users.Count; i++)
+            {
+                TourAttendance tourAttendance = new();
+                tourAttendance.TourId = SelectedTour.TourId;
+                tourAttendance.TourPointId = SelectedTourPoint.Id;
+                tourAttendance.UserId = users[i].Id;
+                tourAttendance.Username = users[i].Name;
+                tourAttendance.UserAttended = TourAttendance.AttendanceStatus.OnHold;
+                CheckIfExistAndSave(tourAttendance);
+            }
+
+            return _tourAttendanceRepository.GetAll().Where(t=>t.TourId == SelectedTour.TourId)
+                                                     .Where(tp=>tp.TourPointId == SelectedTourPoint.Id)
+                                                     .ToList();
+        }
 
         
         private void ChageStatus_Button(object sender, RoutedEventArgs e)
         {
-           TourPointStatus tourPointStatus = new TourPointStatus(TourPoints, SelectedTourPoint);
+           List<TourAttendance> tourAttendances = GetUsersOnTourPoint();
+           TourPointStatus tourPointStatus = new TourPointStatus(TourPoints, SelectedTourPoint, tourAttendances);
            tourPointStatus.ShowDialog();
            TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.GetTourPointsByTourId(SelectedTour.TourId));
             if (TourPoints.Last().CurrentStatus == Status.Finished)
             {
                 TourGrid.IsEnabled = true;
                 TourPointGrid.IsEnabled = false;
+                SelectedTour.TourStarted = true;
+                _tourRepository.Update(SelectedTour);
+
+
             }
         }
 

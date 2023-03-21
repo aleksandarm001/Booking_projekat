@@ -21,3 +21,5 @@
 23|bbbbbbbbb|24|ForceFisnihed|bbbbbbbbb|2
 24|eeeeeee|25|Finished|eeeeee|1
 25|rrrrrr|25|Finished|rrrrrrrr|2
+26|asd|26|NotActive|asd|1
+27|asddd|26|NotActive|asddd|2

@@ -1,25 +1,26 @@
-1|Test|Zrenjanin;Serbia|TestDesc|Srpski|0|3/12/2023 12:25:48 AM|5
-2|Sunset Heights|New York;United States|Brooklyn Bridge Walk|English|4|6/18/2023 9:45:00 AM|2
-3|Lavender Fields|Paris;France|Louvre Museum Tour|French|10|8/30/2023 2:10:00 PM|5
-4|Rainbow Hills|Barcelona;Spain|Park Guell Visit|Spanish|3|4/17/2023 11:30:00 AM|3
-5|Ocean Breeze|Sydney;Australia|Opera House Tour|English|20|11/21/2023 4:15:00 PM|1
-6|Cherry Blossom|Tokyo;Japan|Asakusa Temple Walk|Japanese|12|9/8/2023 10:00:00 AM|5
-7|Mountain Peak|Vancouver;Canada|Whistler Ski Trip|English|5|1/3/2023 8:20:00 AM|4
-8|Golden Sands|Dubai;United Arab Emirates|Desert Safari Experience|Arabic|18|10/12/2023 7:00:00 PM|2
-9|Purple Haze|Amsterdam;Netherlands|Rijksmuseum Tour|Dutch|9|6/27/2023 12:50:00 PM|3
-10|Red Canyon|Las Vegas;United States|Grand Canyon Helicopter Tour|English|16|12/5/2023 11:20:00 AM|1
-11|Test|Zrenjanin;Serbia|TestDesc|Srpski|3|3/12/2023 12:25:48 AM|5
-12||Delhi;Brazil|||4|3/25/2023 5:04:58 AM|4
-13||Delhi;Brazil|||4|3/18/2023 2:22:05 AM|4
-14||Mumbai;Brazil|||4|3/18/2023 5:04:20 AM|44
-15||São Paulo;Brazil|||4|3/10/2023 4:03:08 AM|5
-16||São Paulo;Brazil|||4|3/11/2023 6:01:15 AM|5
-17||Tokyo;India|||12|3/25/2023 6:06:19 AM|1
-18||Tokyo;India|||12|3/24/2023 3:03:25 AM|1
-19||Tokyo;Japan||Japanese|55|3/17/2023 3:09:44 AM|2
-20||Tokyo;Japan||Japanese|55|3/11/2023 6:00:50 PM|2
-21|asd|Tokyo;India|opis|Afrikaans|123|4/1/2023 3:27:00 AM|12
-22|asd|Tokyo;India|opis|Afrikaans|123|12/15/2022 4:18:10 AM|12
-23|Tura neka|Novi Sad;Serbia|opis|Serbian|15|3/15/2023 4:20:51 PM|2
-24|asd|Shanghai;Japan|opis|Armenian|14|3/24/2023 4:04:29 AM|12
-25|turica|Tokyo;Japan|opis|Afrikaans|121|3/17/2023 3:19:35 PM|12
+1|Test|Zrenjanin;Serbia|TestDesc|Srpski|0|3/12/2023 12:25:48 AM|5|False
+2|Sunset Heights|New York;United States|Brooklyn Bridge Walk|English|4|6/18/2023 9:45:00 AM|2|False
+3|Lavender Fields|Paris;France|Louvre Museum Tour|French|10|8/30/2023 2:10:00 PM|5|False
+4|Rainbow Hills|Barcelona;Spain|Park Guell Visit|Spanish|3|4/17/2023 11:30:00 AM|3|False
+5|Ocean Breeze|Sydney;Australia|Opera House Tour|English|20|11/21/2023 4:15:00 PM|1|False
+6|Cherry Blossom|Tokyo;Japan|Asakusa Temple Walk|Japanese|12|9/8/2023 10:00:00 AM|5|False
+7|Mountain Peak|Vancouver;Canada|Whistler Ski Trip|English|5|1/3/2023 8:20:00 AM|4|False
+8|Golden Sands|Dubai;United Arab Emirates|Desert Safari Experience|Arabic|18|10/12/2023 7:00:00 PM|2|False
+9|Purple Haze|Amsterdam;Netherlands|Rijksmuseum Tour|Dutch|9|6/27/2023 12:50:00 PM|3|False
+10|Red Canyon|Las Vegas;United States|Grand Canyon Helicopter Tour|English|16|12/5/2023 11:20:00 AM|1|False
+11|Test|Zrenjanin;Serbia|TestDesc|Srpski|3|3/12/2023 12:25:48 AM|5|False
+12||Delhi;Brazil|||4|3/25/2023 5:04:58 AM|4|False
+13||Delhi;Brazil|||4|3/18/2023 2:22:05 AM|4|False
+14||Mumbai;Brazil|||4|3/18/2023 5:04:20 AM|44|False
+15||Sï¿½o Paulo;Brazil|||4|3/10/2023 4:03:08 AM|5|False
+16||Sï¿½o Paulo;Brazil|||4|3/11/2023 6:01:15 AM|5|False
+17||Tokyo;India|||12|3/25/2023 6:06:19 AM|1|False
+18||Tokyo;India|||12|3/24/2023 3:03:25 AM|1|False
+19||Tokyo;Japan||Japanese|55|3/17/2023 3:09:44 AM|2|False
+20||Tokyo;Japan||Japanese|55|3/11/2023 6:00:50 PM|2|False
+21|asd|Tokyo;India|opis|Afrikaans|123|4/1/2023 3:27:00 AM|12|False
+22|asd|Tokyo;India|opis|Afrikaans|123|12/15/2022 4:18:10 AM|12|False
+23|Tura neka|Novi Sad;Serbia|opis|Serbian|15|3/15/2023 4:20:51 PM|2|False
+24|asd|Shanghai;Japan|opis|Armenian|14|3/24/2023 4:04:29 AM|12|False
+25|turica|Tokyo;Japan|opis|Afrikaans|121|3/17/2023 3:19:35 PM|12|True
+26|dsa|Delhi;India|opis|Amharic|12|3/21/2023 1:01:40 AM|5|False

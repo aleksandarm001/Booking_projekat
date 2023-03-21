@@ -14,7 +14,9 @@
                   Visibility ="Visible">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Width="200" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Id" Width="200" Binding="{Binding UserId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Username}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Status" Width="200" Binding="{Binding UserAttended}"></DataGridTextColumn>
             </DataGrid.Columns>
 
         </DataGrid>

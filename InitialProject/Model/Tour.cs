@@ -29,10 +29,11 @@ namespace InitialProject.Model
             MaxGuestNumber = 1;
             StartingDateTime = DateTime.Now;
             Duration = 1;
+            TourStarted = false;
             //Images = new List<String>();
         }
 
-        public Tour(string name, Location location, string description, Language language, int maxGuestNumber, DateTime startingDateTimes, int duration)
+        public Tour(string name, Location location, string description, Language language, int maxGuestNumber, DateTime startingDateTimes, int duration, bool started)
         {
             Name = name;
             Location = location;
@@ -41,6 +42,7 @@ namespace InitialProject.Model
             MaxGuestNumber = maxGuestNumber;
             StartingDateTime = startingDateTimes;
             Duration = duration;
+            TourStarted = started;
             //Images = images;
         }
 
@@ -54,6 +56,7 @@ namespace InitialProject.Model
             MaxGuestNumber = Convert.ToInt32(values[5]);
             StartingDateTime = DateTime.Parse(values[6]); 
             Duration = Convert.ToInt32(values[7]);
+            TourStarted = bool.Parse(values[8]);
             //Images = values[9].Split(";").ToList<string>();
 
         }
@@ -72,7 +75,7 @@ namespace InitialProject.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { TourId.ToString(), Name, Location.ToString(), Description, Language.ToString(), MaxGuestNumber.ToString(), StartingDateTime.ToString(), Duration.ToString() };
+            string[] csvValues = { TourId.ToString(), Name, Location.ToString(), Description, Language.ToString(), MaxGuestNumber.ToString(), StartingDateTime.ToString(), Duration.ToString(), TourStarted.ToString() };
             return csvValues;
         }
     }

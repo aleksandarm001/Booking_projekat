@@ -33,13 +33,14 @@ namespace InitialProject.View
         private readonly TourPoint _selectedTourPoint;
         public static ObservableCollection<Reservation> Reservations;
 
-        public TourPointStatus(ObservableCollection<TourPoint> tourPoints, TourPoint selectedTourPoint)
+        public TourPointStatus(ObservableCollection<TourPoint> tourPoints, TourPoint selectedTourPoint, List<TourAttendance> usersOnTour)
         {
             DataContext = this;
             InitializeComponent();
             TourPoints = tourPoints;
             _selectedTourPoint = selectedTourPoint;
             _tourPointRepository = new TourPointRepository();
+            Users = new ObservableCollection<TourAttendance>(usersOnTour);
 
 
         }
@@ -55,8 +56,8 @@ namespace InitialProject.View
             }
         }
 
-        private ObservableCollection<User> _users;
-        public ObservableCollection<User> Users
+        private ObservableCollection<TourAttendance> _users;
+        public ObservableCollection<TourAttendance> Users
         {
             get { return _users; }
             set

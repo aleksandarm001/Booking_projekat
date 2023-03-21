@@ -52,7 +52,7 @@ namespace InitialProject.View
             UsersToReview = new ObservableCollection<UserToReview>(_userToReviewRepository.GetAll());
             Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
-            InitializeReservationsByAccommodations();
+            //InitializeReservationsByAccommodations();
             InitalizeUsersToReview();
         }
 
@@ -110,13 +110,13 @@ namespace InitialProject.View
             }
             return false;
         }
-        private void InitializeReservationsByAccommodations()
+        /*private void InitializeReservationsByAccommodations()
         {
             foreach(AccommodationReservation accommodationReservation in AccommodationReservations)
             {
                 Accommodation accommodation = Accommodations.ToList().Find(a => a.AccommodationID == accommodationReservation.AccommodationId);
                 accommodation.Reservations.Add(Reservations.ToList().Find(r => r.ReservationId == accommodationReservation.ReservationId));
             }
-        }
+        }*/
     }
 }
