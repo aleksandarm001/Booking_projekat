@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="Guest Review Form" Height="239" Width="322">
+        WindowStartupLocation="CenterScreen"
+        Title="Guest Review Form" Height="250" Width="322">
     <Grid>
         <Grid Grid.Row="0" Margin="0,10,0,38" HorizontalAlignment="Center" Width="232">
             <Grid.ColumnDefinitions>
@@ -41,8 +42,8 @@
             </ComboBox>
 
         </Grid>
-        <Button Content="Submit" Click="SubmitReview" HorizontalAlignment="Left" Margin="67,183,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.098,-0.979" Width="64"/>
-        <Button Content="Cancel" Click="Close"  HorizontalAlignment="Left" Margin="177,183,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.163,-0.295" Width="64"/>
+        <Button Content="Submit" Click="SubmitReview" HorizontalAlignment="Left" Margin="67,193,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.098,-0.979" Width="64"/>
+        <Button Content="Cancel" Click="Close"  HorizontalAlignment="Left" Margin="187,193,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.163,-0.295" Width="64"/>
 
     </Grid>
 </Window>

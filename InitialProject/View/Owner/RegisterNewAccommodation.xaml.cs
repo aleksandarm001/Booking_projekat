@@ -168,7 +168,7 @@ namespace InitialProject.View
         private void RateUser(int userID, DateTime date)
         {
             MessageBoxResult dialogResult = MessageBox.Show("Rate User", "You can still rate user", MessageBoxButton.YesNo);
-            if(dialogResult == MessageBoxResult.Yes)
+            if (dialogResult == MessageBoxResult.Yes)
             {
                 GuestReviewForm reviewForm = new GuestReviewForm(userID);
                 reviewForm.ShowDialog();

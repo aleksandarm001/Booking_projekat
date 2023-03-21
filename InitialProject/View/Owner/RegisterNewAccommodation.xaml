@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="Register New Accommodation" Height="696" Width="441">
+        Title="Register New Accommodation" Height="696" Width="441"
+        WindowStartupLocation ="CenterScreen">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
