@@ -2,4 +2,6 @@
 2|25|24|1|Antonije|Present
 3|31|36|1|Antonije|OnHold
 4|32|38|1|Antonije|OnHold
-5|32|39|1|Antonije|NotPresent
+5|32|39|1|Antonije|OnHold
+6|11|1|1|Antonije|OnHold
+7|11|2|1|Antonije|OnHold

@@ -8,26 +8,4 @@
 8|Golden Sands|Dubai;United Arab Emirates|Desert Safari Experience|Arabic|18|10/12/2023 7:00:00 PM|2|False
 9|Purple Haze|Amsterdam;Netherlands|Rijksmuseum Tour|Dutch|9|6/27/2023 12:50:00 PM|3|False
 10|Red Canyon|Las Vegas;United States|Grand Canyon Helicopter Tour|English|16|12/5/2023 11:20:00 AM|1|False
-11|Test|Zrenjanin;Serbia|TestDesc|Srpski|3|3/12/2023 12:25:48 AM|5|False
-12||Delhi;Brazil|||4|3/25/2023 5:04:58 AM|4|False
-13||Delhi;Brazil|||4|3/18/2023 2:22:05 AM|4|False
-14||Mumbai;Brazil|||4|3/18/2023 5:04:20 AM|44|False
-15||S�o Paulo;Brazil|||4|3/10/2023 4:03:08 AM|5|False
-16||S�o Paulo;Brazil|||4|3/11/2023 6:01:15 AM|5|False
-17||Tokyo;India|||12|3/25/2023 6:06:19 AM|1|False
-18||Tokyo;India|||12|3/24/2023 3:03:25 AM|1|False
-19||Tokyo;Japan||Japanese|55|3/17/2023 3:09:44 AM|2|False
-20||Tokyo;Japan||Japanese|55|3/11/2023 6:00:50 PM|2|False
-21|asd|Tokyo;India|opis|Afrikaans|123|4/1/2023 3:27:00 AM|12|False
-22|asd|Tokyo;India|opis|Afrikaans|123|12/15/2022 4:18:10 AM|12|False
-23|Tura neka|Novi Sad;Serbia|opis|Serbian|15|3/15/2023 4:20:51 PM|2|False
-24|asd|Shanghai;Japan|opis|Armenian|14|3/24/2023 4:04:29 AM|12|False
-25|turica|Tokyo;Japan|opis|Afrikaans|121|3/17/2023 3:19:35 PM|12|True
-26|dsa|Delhi;India|opis|Amharic|12|3/21/2023 1:01:40 AM|5|True
-27|fsdf|Tokyo;Japan|opis|Afrikaans|15|3/21/2023 9:09:15 AM|15|True
-28|gdf|Tokyo;Japan|opis|Afrikaans|34|3/21/2023 3:01:55 AM|11|True
-29|asda|Delhi;India|opis|Afrikaans|123|3/21/2023 1:01:52 AM|12314|True
-30|sad|Delhi;India|opis|Afrikaans|222|3/21/2023 4:05:32 AM|111|True
-31|fffffffff|Tokyo;Japan|opis|Arabic|124|3/21/2023 2:03:42 AM|123|True
-32|sddds|Tokyo;Japan|opis|Afrikaans|13|3/22/2023 2:02:14 AM|44|True
-33|Lavender Fields|Paris;France|Louvre Museum Tour|French|0|3/21/2023 2:10:00 PM|5|False
+11|TuraTest|Tokyo;Japan|opisture|Arabic|4|3/22/2023 4:05:10 AM|2|True

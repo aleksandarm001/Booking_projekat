@@ -93,53 +93,50 @@ namespace InitialProject.View
         }
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
-            //TourPoints.Remove(_selectedTourPoint);
             Status status = (Status)Enum.Parse(typeof(Status), StatusComboBox.Text);
 
             if (_selectedTourPoint.CurrentStatus == Status.Active)
             {
-                if (status == Status.Finished)
-                {
-                    if (TourPoints.Last() != _selectedTourPoint)
-                    {
-                        _selectedTourPoint.CurrentStatus = Status.Finished;
-                        _tourPointRepository.Update(_selectedTourPoint);
-                        int index = 1;
-                        foreach (TourPoint point in _points)
-                        {
-                            if (point == _selectedTourPoint)
-                                break;
-                            else
-                                index++;
-                        }
-                        TourPoints[index].CurrentStatus = Status.Active;
-                        _tourPointRepository.Update(TourPoints[index]);
-                    }
-                    else
-                    {
-                        _selectedTourPoint.CurrentStatus = Status.Finished;
-                        _tourPointRepository.Update(_selectedTourPoint);
-                    }
-                }
+                HandleActiveStatus(status);
             }
-            else
+            else if (_selectedTourPoint.CurrentStatus == Status.NotActive)
             {
-                if (_selectedTourPoint.CurrentStatus == Status.NotActive)
-                {
-                    foreach (var tourPoint in TourPoints)
-                    {
-                        if (tourPoint.CurrentStatus == Status.Active)
-                            tourPoint.CurrentStatus = Status.Finished;
-                    }
-
-                    _selectedTourPoint.CurrentStatus = Status.Active;
-                }
+                HandleNotActiveStatus();
             }
 
             Close();
         }
 
-        
+        private void HandleActiveStatus(Status status)
+        {
+            if (status == Status.Finished)
+            {
+                _selectedTourPoint.CurrentStatus = Status.Finished;
+                _tourPointRepository.Update(_selectedTourPoint);
+
+                if (TourPoints.Last() != _selectedTourPoint)
+                {
+                    int index = TourPoints.IndexOf(_selectedTourPoint) + 1;
+                    TourPoints[index].CurrentStatus = Status.Active;
+                    _tourPointRepository.Update(TourPoints[index]);
+                }
+            }
+        }
+
+        private void HandleNotActiveStatus()
+        {
+            foreach (var tourPoint in TourPoints)
+            {
+                if (tourPoint.CurrentStatus == Status.Active)
+                {
+                    tourPoint.CurrentStatus = Status.Finished;
+                }
+            }
+
+            _selectedTourPoint.CurrentStatus = Status.Active;
+        }
+
+
 
         private void ChangeStatusButtonClick(object sender, RoutedEventArgs e)
         {

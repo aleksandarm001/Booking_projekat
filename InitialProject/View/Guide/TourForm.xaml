@@ -36,6 +36,8 @@
             <Label Grid.Row="6" Grid.Column="0" Margin="0,10,0,10">Datum i vreme pocetka:</Label>
             <Label Grid.Row="7" Grid.Column="0" Margin="0,10,0,10">Trajanje ture:</Label>
             <Label Grid.Row="8" Grid.Column="0" Margin="0,10,0,10">Slike:</Label>
+            <Label Grid.Row="9" Grid.Column="0" Margin="0,10,0,10">Opis:</Label>
+
 
             <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Height="30" Text="{Binding Path=Name, Mode=OneWayToSource }"></TextBox>
 
@@ -56,6 +58,8 @@
                       ItemsSource="{Binding DateAndTime}" HorizontalAlignment="Left" Width ="158" Height="30" SelectedIndex="0" Margin="0,6,0,5"></ComboBox>
             <TextBox Grid.Row="7" Grid.Column="1" Height="30" Text="{Binding Path=TourDuratation, Mode=TwoWay}"></TextBox>
             <TextBox x:Name="UrlTextBox" Grid.Row="8" Grid.Column="1" Width ="158" Height="30"  Text="{Binding Path=TourImageUrl, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,72,7"/>
+            <TextBox Grid.Row="9" Grid.Column="1" Height="30" Text="{Binding Path=Description, Mode=TwoWay}"></TextBox>
+
 
 
             <Button Grid.Column="1" Click="AddKeyPoint_ButtonClick" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="38" >Dodaj</Button>

@@ -180,7 +180,7 @@ namespace InitialProject.View
                 MaxGuestNumber = int.Parse(MaxGuests),
                 Duration = int.Parse(TourDuratation),
                 Location = location,
-                Description = "opis",
+                Description = Description,
                 Language = languageForTour
             };
 
@@ -231,6 +231,19 @@ namespace InitialProject.View
             {
                 _language = value;
                 OnPropertyChanged(nameof(_language));
+            }
+        }
+
+        
+
+        private string _Description;
+        public string Description
+        {
+            get { return _Description; }
+            set
+            {
+                _Description = value;
+                OnPropertyChanged(nameof(_Description));
             }
         }
 
