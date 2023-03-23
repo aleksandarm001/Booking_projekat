@@ -62,157 +62,6 @@ namespace InitialProject.View
 
         }
 
-        private void FilterCities(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox cmbx = (ComboBox)sender;
-            string country = "";
-            try
-            {
-                if (cmbx.SelectedItem != null)
-                {
-                    country = cmbx.SelectedItem.ToString();
-                }
-                else
-                {
-                    cmbx.SelectedItem = 0;
-                }
-            }
-            catch (System.NullReferenceException)
-            {
-                ReadCitiesAndCountries();
-            }
-            if (country == "")
-            {
-
-                ReadCitiesAndCountries();
-            }
-            else
-            {
-                Cities.Clear();
-                Cities.Add("");
-                foreach (Location loc in Locations)
-                {
-                    if (loc.Country == country)
-                    {
-                        Cities.Add(loc.City);
-                    }
-                }
-                CityComboBox.SelectedIndex = 1;
-            }
-        }
-
-
-
-        private void ReadCitiesAndCountries()
-        {
-            Cities.Clear();
-            Countries.Clear();
-            Cities.Add("");
-            Countries.Add("");
-            foreach (Location l in Locations)
-            {
-                Cities.Add(l.City);
-                if (!Countries.Contains(l.Country))
-                {
-                    Countries.Add(l.Country);
-                }
-            }
-        }
-
-
-        
-
-        
-
-        private void AddKeyPoint_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            TourPointForm addTourPoint = new TourPointForm(tourId, KeyPoints);
-            addTourPoint.Show();
-        }
-
-        private void AddDatesAndTimes_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            DateTimePicker date = new DateTimePicker(DateAndTime);
-            date.Show();
-        }
-
-        private void AddPictures_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            TourImages newImage = new TourImages();
-            newImage.TourId = tourId;
-            newImage.Url= TourImageUrl;
-            Images.Add(newImage);
-        }
-        
-
-        private void Cancel_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            _tourPointRepository.ClearTemp();
-            Close();
-
-        }
-
-        private void Track_ButtonClick(object sender, RoutedEventArgs e)
-        {
-
-            TourTracking tt = new TourTracking();
-            tt.Show();
-            Close();
-        }
-
-        private void Save_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            // Get input values
-            string country = CountriesComboBox.Text;
-            string city = CityComboBox.Text;
-            Language language = new Language();
-            Language languageForTour = language.fromStringToLanguage(LanguageComboBox.Text);
-            List<DateTime> dates = DateAndTime.ToList();
-            int howManyObjectsToBuild = dates.Count();
-
-            // Create location object
-            Location location = new Location { Country = country, City = city };
-
-            // Create tour object
-            Tour tourToSave = new Tour
-            {
-                Name = NameTextBox.Text,
-                MaxGuestNumber = int.Parse(MaxGuests),
-                Duration = int.Parse(TourDuratation),
-                Location = location,
-                Description = Description,
-                Language = languageForTour
-            };
-
-            // Save tours
-            for (int i = 0; i < howManyObjectsToBuild; i++)
-            {
-                tourToSave.StartingDateTime = dates[i];
-                _tourRepository.Save(tourToSave);
-            }
-
-            // Save tour points
-            List<TourPoint> pointsToSave = _tourPointRepository.getAllTemp();
-            int startTourId = tourId;
-            for (int i = 0; i < howManyObjectsToBuild; i++)
-            {
-                int currentTourId = startTourId + i;
-                foreach (var tourPoint in pointsToSave)
-                {
-                    tourPoint.TourId = currentTourId;
-                    _tourPointRepository.Save(tourPoint);
-                }
-            }
-
-            foreach(var image in Images)
-            {
-                _tourImagesRepository.Save(image);
-            }
-
-            // Close dialog
-            Close();
-        }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -220,7 +69,6 @@ namespace InitialProject.View
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
 
 
         private string _language;
@@ -234,7 +82,7 @@ namespace InitialProject.View
             }
         }
 
-        
+
 
         private string _Description;
         public string Description
@@ -286,7 +134,7 @@ namespace InitialProject.View
             }
         }
 
-        
+
 
         private string _TourDuratation;
         public string TourDuratation
@@ -299,6 +147,171 @@ namespace InitialProject.View
             }
         }
 
+        private void FilterCities(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is not ComboBox cmbx) return;
+
+            
+            string country = cmbx.SelectedItem?.ToString() ?? string.Empty;
+
+            if (string.IsNullOrEmpty(country))
+            {
+                ReadCitiesAndCountries();
+            }
+            else
+            {
+                UpdateCitiesList(country);
+            }
+        }
+
+        private void UpdateCitiesList(string country)
+        {
+            Cities.Clear();
+            Cities.Add("");
+
+            
+            var filteredCities = Locations.Where(loc => loc.Country == country)
+                                          .Select(loc => loc.City);
+
+            foreach (string city in filteredCities)
+            {
+                Cities.Add(city);
+            }
+
+            CityComboBox.SelectedIndex = 1;
+        }
+
+        private void ReadCitiesAndCountries()
+        {
+            Cities.Clear();
+            Countries.Clear();
+            Cities.Add("");
+            Countries.Add("");
+
+            
+            foreach (Location location in Locations)
+            {
+                Cities.Add(location.City);
+                if (!Countries.Contains(location.Country))
+                {
+                    Countries.Add(location.Country);
+                }
+            }
+        }
+
+
+        public Tour GetInputValues()
+        {
+            Language language = new();
+            Language languageForTour = language.fromStringToLanguage(LanguageComboBox.Text);
+            Location location = new Location { Country = CountriesComboBox.Text, City = CityComboBox.Text };
+
+            Tour tourToSave = new Tour
+            {
+                Name = NameTextBox.Text,
+                MaxGuestNumber = int.Parse(MaxGuests),
+                Duration = int.Parse(TourDuratation),
+                Location = location,
+                Description = Description,
+                Language = languageForTour
+            };
+
+            return tourToSave;
+
+        }
+
+        public void SaveTours(int objectQunatity, Tour tour, List<DateTime> dates)
+        {
+            for (int i = 0; i < objectQunatity; i++)
+            {
+                tour.StartingDateTime = dates[i];
+                _tourRepository.Save(tour);
+            }
+        }
+
+        public void SaveTourPoints(int howManyObjectsToBuild)
+        {
+            List<TourPoint> pointsToSave = _tourPointRepository.getAllTemp();
+            int startTourId = tourId;
+            for (int i = 0; i < howManyObjectsToBuild; i++)
+            {
+                int currentTourId = startTourId + i;
+                foreach (var tourPoint in pointsToSave)
+                {
+                    tourPoint.TourId = currentTourId;
+                    _tourPointRepository.Save(tourPoint);
+                }
+            }
+        }
+
+        public void SaveImages(int howManyObjectsToBuild)
+        {
+            for (int i = 0; i < howManyObjectsToBuild; i++)
+            {
+                foreach (var image in Images)
+                {
+                    image.TourId = image.TourId + i;
+                    _tourImagesRepository.Save(image);
+                }
+            }
+
+        }
+
+
+
+
+        private void AddKeyPointButton(object sender, RoutedEventArgs e)
+        {
+            TourPointForm addTourPoint = new TourPointForm(tourId, KeyPoints);
+            addTourPoint.Show();
+        }
+
+        private void AddDatesAndTimesButton(object sender, RoutedEventArgs e)
+        {
+            DateTimePicker date = new DateTimePicker(DateAndTime);
+            date.Show();
+        }
+
+        private void AddPicturesButton(object sender, RoutedEventArgs e)
+        {
+            TourImages newImage = new TourImages();
+            newImage.TourId = tourId;
+            newImage.Url= TourImageUrl;
+            Images.Add(newImage);
+        }
+        
+
+        private void CancelButton(object sender, RoutedEventArgs e)
+        {
+            _tourPointRepository.ClearTemp();
+            Close();
+
+        }
+
+        private void TrackButton(object sender, RoutedEventArgs e)
+        {
+
+            TourTracking tt = new TourTracking();
+            tt.Show();
+            Close();
+        }
+
+        private void SaveTourButton(object sender, RoutedEventArgs e)
+        {
+            Tour uncompletedTour = GetInputValues();
+            List<DateTime> dates = DateAndTime.ToList();
+            int howManyObjectsToBuild = dates.Count();
+
+            SaveTours(howManyObjectsToBuild,uncompletedTour,dates);
+            SaveTourPoints(howManyObjectsToBuild);
+            SaveImages(howManyObjectsToBuild);
+            
+
+            Close();
+        }
+
+
+     
 
 
 

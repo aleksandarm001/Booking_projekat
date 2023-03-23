@@ -9,3 +9,8 @@
 9|Purple Haze|Amsterdam;Netherlands|Rijksmuseum Tour|Dutch|9|6/27/2023 12:50:00 PM|3|False
 10|Red Canyon|Las Vegas;United States|Grand Canyon Helicopter Tour|English|16|12/5/2023 11:20:00 AM|1|False
 11|TuraTest|Tokyo;Japan|opisture|Arabic|4|3/22/2023 4:05:10 AM|2|True
+12|TuraTest2|Tokyo;Japan|opis|Chinese|4|3/22/2023 10:10:38 AM|5|True
+13|turaturatest2|Mexico City;Mexico|opisture|Bosnian|4|3/23/2023 10:10:34 AM|6|False
+14|turaturatest2|Mexico City;Mexico|opisture|Bosnian|4|3/23/2023 11:10:42 AM|6|False
+15|turaaaaa|Manila;Philippines|tttttttt|Filipino|7|3/23/2023 5:15:34 AM|2|False
+16|turaaaaa|Manila;Philippines|tttttttt|Filipino|7|3/23/2023 4:27:42 PM|2|False

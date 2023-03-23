@@ -1,2 +1,12 @@
-1|tacka1|11|Finished|opis1|1
-2|tacka2|11|Finished|opis2|2
+1|tacka1|11|ForceFisnihed|opis1|1
+2|tacka2|11|ForceFisnihed|opis2|2
+3|1kljucnatacka|12|Finished|opis1|1
+4|2kljucnatacka|12|Finished|opis1|2
+5|kt1|13|NotActive|opis1|1
+6|kt2|13|NotActive|opis2|2
+7|kt1|14|NotActive|opis1|1
+8|kt2|14|NotActive|opis2|2
+9|ddd|15|NotActive|ddd|1
+10|aaa|15|NotActive|aaa|2
+11|ddd|16|NotActive|ddd|1
+12|aaa|16|NotActive|aaa|2

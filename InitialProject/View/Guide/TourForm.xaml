@@ -62,12 +62,12 @@
 
 
 
-            <Button Grid.Column="1" Click="AddKeyPoint_ButtonClick" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="38" >Dodaj</Button>
-            <Button Grid.Column="1" Click="AddDatesAndTimes_ButtonClick" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="38" >Dodaj</Button>
-            <Button Grid.Column="1" Click="AddPictures_ButtonClick" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="8" VerticalAlignment="Center" Width="38" >Dodaj</Button>
-            <Button Grid.Column="1" Click="Cancel_ButtonClick" Content="Cancel" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
-            <Button Grid.Column="0" Click="Save_ButtonClick" Content="Save" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
-            <Button Grid.Column="0" Click="Track_ButtonClick" Content="Track" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
+            <Button Grid.Column="1" Click="AddKeyPointButton" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="38" >Dodaj</Button>
+            <Button Grid.Column="1" Click="AddDatesAndTimesButton" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="38" >Dodaj</Button>
+            <Button Grid.Column="1" Click="AddPicturesButton" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="8" VerticalAlignment="Center" Width="38" >Dodaj</Button>
+            <Button Grid.Column="1" Click="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
+            <Button Grid.Column="0" Click="SaveTourButton" Content="Save" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
+            <Button Grid.Column="0" Click="TrackButton" Content="Track" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
 
 
         </Grid>
