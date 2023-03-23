@@ -91,21 +91,6 @@ namespace InitialProject.View
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        private void SaveButtonClick(object sender, RoutedEventArgs e)
-        {
-            Status status = (Status)Enum.Parse(typeof(Status), StatusComboBox.Text);
-
-            if (_selectedTourPoint.CurrentStatus == Status.Active)
-            {
-                HandleActiveStatus(status);
-            }
-            else if (_selectedTourPoint.CurrentStatus == Status.NotActive)
-            {
-                HandleNotActiveStatus();
-            }
-
-            Close();
-        }
 
         private void HandleActiveStatus(Status status)
         {
@@ -138,11 +123,33 @@ namespace InitialProject.View
 
 
 
-        private void ChangeStatusButtonClick(object sender, RoutedEventArgs e)
+        private void ChangeStatusButton(object sender, RoutedEventArgs e)
         {
             ChangeTourAttendanceStatus changeStatus = new ChangeTourAttendanceStatus(SelectedTourAttendance, Users);
             changeStatus.ShowDialog();
             Users = new ObservableCollection<TourAttendance>(TourAttendances);
         }
+
+
+
+        private void SaveButton(object sender, RoutedEventArgs e)
+        {
+            Status status = (Status)Enum.Parse(typeof(Status), StatusComboBox.Text);
+
+            if (_selectedTourPoint.CurrentStatus == Status.Active)
+            {
+                HandleActiveStatus(status);
+            }
+            else if (_selectedTourPoint.CurrentStatus == Status.NotActive)
+            {
+                HandleNotActiveStatus();
+            }
+
+            Close();
+        }
+
+
+
+        
     }
 }

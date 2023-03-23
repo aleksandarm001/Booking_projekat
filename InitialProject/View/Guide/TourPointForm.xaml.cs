@@ -34,9 +34,25 @@ namespace InitialProject.View
 
         public readonly List<TourPoint> tempTourPoints;
 
-        
 
 
+        public TourPointForm(int tourID, ObservableCollection<string> KeyPoints)
+        {
+
+            DataContext = this;
+            InitializeComponent();
+            tourId = tourID;
+
+            _tourPointRepository = new TourPointRepository();
+            _keyPoints = KeyPoints;
+
+            TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.getAllTemp());
+            tempTourPoints = new List<TourPoint>(_tourPointRepository.getAllTemp());
+
+            availableOrders = availableOrder();
+
+
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -89,31 +105,11 @@ namespace InitialProject.View
         }
 
 
-
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
-
-        public TourPointForm(int tourID, ObservableCollection<string> KeyPoints)
-        {
-
-            DataContext = this;
-            InitializeComponent();
-            tourId = tourID;
-
-            _tourPointRepository = new TourPointRepository();
-            _keyPoints = KeyPoints;
-
-            TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.getAllTemp());
-            tempTourPoints = new List<TourPoint>(_tourPointRepository.getAllTemp());
-
-            availableOrders = availableOrder();
-
-
-        }
 
         public List<int> OredersCounter(List<TourPoint> tourPoints)
         {
@@ -147,31 +143,6 @@ namespace InitialProject.View
             return availableOrders;
         }
 
-        private void Edit_ButtonClick(object sender, RoutedEventArgs e)
-        {
-
-            if (SelectedTourPoint == null) 
-                return; //napraviti window da nije selektovano
-            else
-            {
-                availableOrder();
-                EditTourPointForm editTour = new EditTourPointForm(SelectedTourPoint, availableOrders, orders, usedOrders, TourPoints);
-                editTour.ShowDialog();
-                SaveButtonEnabled();
-                TourPoints = new  ObservableCollection<TourPoint>(_tourPointRepository.getAllTemp());
-            }
-
-            CollectionViewSource.GetDefaultView(_tourPoints).Refresh();
-
-
-        }
-
-        private void Remove_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            _tourPointRepository.DeleteTemp(SelectedTourPoint);
-            TourPoints.Remove(SelectedTourPoint);
-            SetOrederToZero();
-        }
 
         public void SetOrederToZero()
         {
@@ -184,10 +155,6 @@ namespace InitialProject.View
         }
 
 
-        private void Save_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
         
         public void SaveButtonEnabled()
         {
@@ -228,26 +195,7 @@ namespace InitialProject.View
             }
             return false;
         }
-        private void Close_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            if(CheckIfListAreSame() == true)
-                Close();
-            else
-            {
-                _tourPointRepository.ClearTemp();
-                _keyPoints.Clear();
-                foreach (var tourPoint in tempTourPoints)
-                {
-                    _tourPointRepository.SaveTemp(tourPoint);
-                    _keyPoints.Add(tourPoint.Name);
-                }
-                TourPoints = new ObservableCollection<TourPoint>(tempTourPoints);
-                Close();
-            }
-            
-            
-
-        }
+        
 
         public TourPoint CreateTourPoint()
         {
@@ -285,6 +233,56 @@ namespace InitialProject.View
             TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.getAllTemp());
 
 
+        }
+
+        private void EditButton(object sender, RoutedEventArgs e)
+        {
+
+            if (SelectedTourPoint == null)
+                return; //napraviti window da nije selektovano
+            else
+            {
+                availableOrder();
+                EditTourPointForm editTour = new EditTourPointForm(SelectedTourPoint, availableOrders, orders, usedOrders, TourPoints);
+                editTour.ShowDialog();
+                SaveButtonEnabled();
+                TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.getAllTemp());
+            }
+
+            CollectionViewSource.GetDefaultView(_tourPoints).Refresh();
+
+
+        }
+
+        private void CloseButton(object sender, RoutedEventArgs e)
+        {
+            if (CheckIfListAreSame() == true)
+                Close();
+            else
+            {
+                _tourPointRepository.ClearTemp();
+                _keyPoints.Clear();
+                foreach (var tourPoint in tempTourPoints)
+                {
+                    _tourPointRepository.SaveTemp(tourPoint);
+                    _keyPoints.Add(tourPoint.Name);
+                }
+                TourPoints = new ObservableCollection<TourPoint>(tempTourPoints);
+                Close();
+            }
+
+        }
+
+        private void SaveButton(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void RemoveButton(object sender, RoutedEventArgs e)
+        {
+            _tourPointRepository.DeleteTemp(SelectedTourPoint);
+            TourPoints.Remove(SelectedTourPoint);
+            SetOrederToZero();
         }
 
     }
