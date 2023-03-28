@@ -86,11 +86,7 @@ namespace InitialProject.View
         }
         private bool CheckIfLeftReservation(Reservation reservation)
         {
-            if(reservation.ReservationDateRange.EndDate < DateTime.Now)
-            {
-                return true;
-            }
-            return false;
+            return reservation.ReservationDateRange.EndDate < DateTime.Now;
         }
     }
 }
