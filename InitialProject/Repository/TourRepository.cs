@@ -27,7 +27,7 @@ namespace InitialProject.Repository
         }
         public Tour GetByTourId(int tourId)
         {
-            return _tours.FirstOrDefault(t => t.TourId == tourId);
+            return _tours.Find(t => t.TourId == tourId);
         }
 
         public List<Tour> GetAll() 

@@ -56,5 +56,15 @@ namespace InitialProject.Repository
             _serializer.ToCSV(FilePath, _tourAttendances);
             return tourAttendance;
         }
+
+        public List<TourAttendance> GetAllToCheckByUser(int userId) 
+        {
+            return _tourAttendances.Where(tour => tour.UserId == userId && tour.UserAttended==TourAttendance.AttendanceStatus.OnHold).ToList();
+        }
+
+        public TourAttendance GetById(int id)
+        {
+            return _tourAttendances.Where(tour => tour.TourAttendanceId == id).FirstOrDefault();
+        }
     }
 }

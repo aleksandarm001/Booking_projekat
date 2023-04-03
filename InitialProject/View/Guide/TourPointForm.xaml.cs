@@ -162,11 +162,11 @@ namespace InitialProject.View
             {
                 if (TourPoints.Count >= 2 && CheckForToursOrder() == true)
                 {
-                    SaveButton.IsEnabled = true;
+                    SaveButtoon.IsEnabled = true;
                 }
                 else
                 {
-                    SaveButton.IsEnabled = false;
+                    SaveButtoon.IsEnabled = false;
                 }
 
             }catch(Exception e)

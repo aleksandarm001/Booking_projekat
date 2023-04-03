@@ -10,3 +10,11 @@
 10|aaa|15|NotActive|aaa|2
 11|ddd|16|NotActive|ddd|1
 12|aaa|16|NotActive|aaa|2
+13|Kt1|17|NotActive|dasd|1
+14|Kt2|17|NotActive|dasdfasd|2
+15|kt1|18|NotActive|fasd|1
+16|kt2|18|NotActive|fasdasd|2
+17|kt1|19|NotActive|sad|1
+18|kt2|19|NotActive|sadaa|2
+19|kt1|20|NotActive|kt1|1
+20|kt2|20|NotActive|kt2|2

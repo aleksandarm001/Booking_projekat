@@ -14,3 +14,7 @@
 14|turaturatest2|Mexico City;Mexico|opisture|Bosnian|4|3/23/2023 11:10:42 AM|6|False
 15|turaaaaa|Manila;Philippines|tttttttt|Filipino|7|3/23/2023 5:15:34 AM|2|False
 16|turaaaaa|Manila;Philippines|tttttttt|Filipino|7|3/23/2023 4:27:42 PM|2|False
+17|Tura1|Tokyo;Japan|sadfasd|Armenian|10|3/30/2023 8:06:57 AM|2|False
+18|sad|Shanghai;China|asd|Frisian|5|3/29/2023 7:52:17 AM|2|True
+19|test test|Novi Sad;Serbia|pokusaj|Serbian|11|4/3/2023 7:50:57 PM|5|True
+20|tura tura|Novi Sad;Serbia|asdfasdf|Serbian|1|4/3/2023 7:09:50 AM|15|True

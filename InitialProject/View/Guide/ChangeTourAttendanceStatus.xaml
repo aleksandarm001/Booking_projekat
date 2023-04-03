@@ -9,6 +9,7 @@
     <Grid>
         <ComboBox Name="StatusComboBox" IsTextSearchEnabled="True" StaysOpenOnEdit="True"
                       IsEditable="True" Margin="57,63,181,68" >
+            
             <ComboBoxItem Content="OnHold"></ComboBoxItem>
             <ComboBoxItem Content="NotPresent"></ComboBoxItem>
         </ComboBox>
