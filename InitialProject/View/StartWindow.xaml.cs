@@ -29,6 +29,7 @@ namespace InitialProject.View
         private readonly GuestReviewRepository _guestReviewRepository;
         private readonly UserToReviewRepository _userToReviewRepository;
         private readonly ReservationRepository _reservationRepository;
+        private int _userId;
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<Reservation> Reservations { get; set; }
         public static List<GuestReview> GuestReviews {get; set;}
@@ -40,6 +41,7 @@ namespace InitialProject.View
             InitializeComponent();
             Height = SystemParameters.PrimaryScreenHeight * 0.66;
             Width = SystemParameters.PrimaryScreenWidth * 0.37;
+            _userId = 1; //
             DataContext = this;
             _locationRepository = new LocationRepository();
             _accommodationRepository = new AccommodationRepository();
@@ -55,7 +57,7 @@ namespace InitialProject.View
 
         private void Guest1_ButtonClick(object sender, RoutedEventArgs e)
         {
-            AccommodationDisplay guest1View = new AccommodationDisplay(Locations);
+            AccommodationDisplay guest1View = new AccommodationDisplay(Locations, _userId);
             guest1View.Show();
         }
         private void Guest2_ButtonClick(object sender, RoutedEventArgs e)
