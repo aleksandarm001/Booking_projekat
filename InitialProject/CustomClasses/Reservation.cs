@@ -35,9 +35,10 @@ namespace InitialProject.CustomClasses
             AvgRating = 0;
         }
 
-        public Reservation(DateRange dateRange, int guestNumber)
+        public Reservation(DateRange dateRange, int guestNumber, int userId)
         {
             TourId = -1;
+            UserId = userId;
             ReservationDateRange = dateRange;
             NumberOfGuests = guestNumber;
         }

@@ -85,6 +85,7 @@
         <CheckBox Content="Appartment" Name="AppartmentCheckBox"  HorizontalAlignment="Left" Margin="33,200,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="{Binding IsAppartmentSelected}"/>
         <CheckBox Content="House" Name ="HouseCheckBox" HorizontalAlignment="Left" Margin="33,220,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="{Binding IsHouseSelected}"/>
         <CheckBox Content="Shack" Name ="ShackCheckBox" HorizontalAlignment="Left" Margin="33,240,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="{Binding IsShackSelected}"/>
+        <Button Content="Button" HorizontalAlignment="Center" Margin="0,507,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" Width="83" Click="Button_Click"/>
 
     </Grid>
 

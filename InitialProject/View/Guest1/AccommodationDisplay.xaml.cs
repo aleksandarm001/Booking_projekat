@@ -24,6 +24,7 @@ using System.Runtime.CompilerServices;
 using System.Collections.Specialized;
 using Microsoft.VisualStudio.Services.Common;
 using Microsoft.VisualStudio.Services.Profile;
+using InitialProject.View.Guest1;
 
 namespace InitialProject.View
 {
@@ -54,6 +55,7 @@ namespace InitialProject.View
                 OnPropertyChanged(nameof(Accommodations));
             }
         }
+        private int _userId;
         private string _selectedCity;
         public string SelectedCity
         {
@@ -162,7 +164,7 @@ namespace InitialProject.View
                 }
             }
         }
-        public AccommodationDisplay(ObservableCollection<Location> locations)
+        public AccommodationDisplay(ObservableCollection<Location> locations, int userId)
         {
             InitializeComponent();
             DataContext = this;
@@ -179,6 +181,7 @@ namespace InitialProject.View
             InitializeReservationsByAccommodations();
 
             ReadCitiesAndCountries();
+            _userId = userId;
         }
         private void InitializeNumberOfGuests(object sender, SelectionChangedEventArgs e)
         {
@@ -319,7 +322,7 @@ namespace InitialProject.View
             }
             else
             {
-                AccommodationReservationForm accommodationReservationFormWindow = new AccommodationReservationForm(SelectedAccommodation);
+                AccommodationReservationForm accommodationReservationFormWindow = new AccommodationReservationForm(SelectedAccommodation, _userId);
                 accommodationReservationFormWindow.Owner = this;
                 accommodationReservationFormWindow.ShowDialog();
             }
@@ -331,6 +334,12 @@ namespace InitialProject.View
                 Accommodation accommodation = Accommodations.ToList().Find(a => a.AccommodationID == accommodationReservation.AccommodationId);
                 accommodation.Reservations.Add(Reservations.ToList().Find(r => r.ReservationId == accommodationReservation.ReservationId));
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OwnerRating or = new OwnerRating(_userId);
+            or.ShowDialog();
         }
     }
 }
