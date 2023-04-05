@@ -29,6 +29,7 @@ namespace InitialProject.View
         private ObservableCollection<DateRange> _dateRanges;
         private readonly ReservationRepository _reservationRepository;
         private readonly AccommodationReservationRepository _accommodationReservationRepository;
+        private int _userId;
         public DateRange SelectedDateRange { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public string AccommodationName { get; set; }
@@ -116,9 +117,10 @@ namespace InitialProject.View
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-        public AccommodationReservationForm(Accommodation accommodation)
+        public AccommodationReservationForm(Accommodation accommodation, int userId)
         {
             InitializeComponent();
+            _userId = userId;
             this.DataContext = this;
             SelectedAccommodation = accommodation;
             AccommodationName = accommodation.Name;
@@ -202,15 +204,14 @@ namespace InitialProject.View
             if(guestNumberInputDialog.NumberOfGuests != 0)
             {
                 NumberOfGuests = guestNumberInputDialog.NumberOfGuests;
-                int userID = 1; //defaultni userID za inicijalnu fazu projekta bez signin forme
-                ReserveAccommodation(SelectedAccommodation.AccommodationID, userID, SelectedDateRange, NumberOfGuests);
+                ReserveAccommodation(SelectedAccommodation.AccommodationID, _userId, SelectedDateRange, NumberOfGuests);
                 MessageBox.Show("You successfuly reserved " + ReservationDays.ToString() + " day(s) at " + AccommodationName);
                 guestNumberInputDialog.Close();
             }
         }
         private void ReserveAccommodation(int accommodationID, int userID, DateRange dateRange, int numberOfGuests)
         {
-            Reservation reservation = new Reservation(dateRange, numberOfGuests);
+            Reservation reservation = new Reservation(dateRange, numberOfGuests, userID);
             AccommodationReservation accommodationReservation = new AccommodationReservation(accommodationID, _reservationRepository.NextId());
             SelectedAccommodation.Reservations.Add(reservation);
             Reservations.Add(reservation);

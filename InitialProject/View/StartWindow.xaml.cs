@@ -29,6 +29,7 @@ namespace InitialProject.View
         private readonly GuestReviewRepository _guestReviewRepository;
         private readonly UserToReviewRepository _userToReviewRepository;
         private readonly ReservationRepository _reservationRepository;
+        private readonly int _userId;
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<Reservation> Reservations { get; set; }
         public static List<GuestReview> GuestReviews {get; set;}
@@ -38,8 +39,8 @@ namespace InitialProject.View
         public StartWindow()
         {
             InitializeComponent();
-            Height = SystemParameters.PrimaryScreenHeight * 0.5;
-            Width = SystemParameters.PrimaryScreenWidth * 0.25;
+            Height = SystemParameters.PrimaryScreenHeight * 0.8;
+            Width = SystemParameters.PrimaryScreenWidth * 0.3;
             DataContext = this;
             _locationRepository = new LocationRepository();
             _accommodationRepository = new AccommodationRepository();
@@ -50,12 +51,13 @@ namespace InitialProject.View
             GuestReviews = new List<GuestReview>(_guestReviewRepository.GetAll());
             Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
             Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
+            _userId = 1; //za sad
             InitializeUsersToReview();
         }
 
         private void Guest1_ButtonClick(object sender, RoutedEventArgs e)
         {
-            AccommodationDisplay guest1View = new AccommodationDisplay(Locations);
+            AccommodationDisplay guest1View = new AccommodationDisplay(Locations, _userId);
             guest1View.Show();
         }
         private void Guest2_ButtonClick(object sender, RoutedEventArgs e)
@@ -72,6 +74,11 @@ namespace InitialProject.View
         {
             TourForm tour = new TourForm();
             tour.Show();
+        }
+        private void OpenRegistrationForm(object sender, RoutedEventArgs e)
+        {
+            UserRegistration registrationForm = new UserRegistration();
+            registrationForm.Show();
         }
         private void InitializeUsersToReview()
         {

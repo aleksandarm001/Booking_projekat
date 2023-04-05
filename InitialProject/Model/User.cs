@@ -3,7 +3,6 @@ using System;
 
 namespace InitialProject.Model
 {
-    //public enum UserType { Owner = 0, Guest1 = 1, Guest2 = 2, Guide = 3 }
     public class User : ISerializable
     {
 
@@ -12,13 +11,33 @@ namespace InitialProject.Model
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-
-        public int role { get; set; }
-        public User() { }
-
+        public UserType TypeOfUser { get; set; }
+        public User(string name, string username, string email, string password, UserType typeOfUser)
+        {
+            Name = name;
+            Username = username;
+            Email = email;
+            Password = password;
+            TypeOfUser = typeOfUser;
+        }
+        public User() 
+        {
+            Id = -1;
+            Name = "";
+            Username = "";
+            Email = "";
+            Password = "";
+        }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, Username, Email, Password, role.ToString() };
+            string[] csvValues = {
+                Id.ToString(),
+                Name,
+                Username,
+                Email,
+                Password,
+                TypeOfUser.ToString(),    
+            };
             return csvValues;
         }
 
@@ -29,7 +48,7 @@ namespace InitialProject.Model
             Username = values[2];
             Email = values[3];
             Password = values[4];
-            role = Convert.ToInt32(values[5]);
+            TypeOfUser = (UserType)Enum.Parse(typeof(UserType), values[5]);
         }
     }
 }
