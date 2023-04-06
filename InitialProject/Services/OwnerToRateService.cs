@@ -68,13 +68,16 @@ namespace InitialProject.Services
         {
             return (_accommodationRepository.GetAll().Find(a => a.AccommodationID == accommodationId)).UserId;
         }
-        public Dictionary<int, string> getAccommodationsName()
+        public Dictionary<int, string> GetAccommodationNamesByUser(int userId)
         {
             Dictionary<int, string> accommodationNames = new Dictionary<int, string>();
-            foreach(OwnerToRate o in (_ownersToRate))
+            foreach (OwnerToRate o in (_ownersToRate))
             {
-                Accommodation accommodation = _accommodationRepository.GetAll().Find(a => a.AccommodationID == o.AccommodationId);
-                accommodationNames.Add(accommodation.AccommodationID, accommodation.Name);
+                if (o.UserId == userId)
+                {
+                    Accommodation accommodation = _accommodationRepository.GetAll().Find(a => a.AccommodationID == o.AccommodationId);
+                    accommodationNames.Add(accommodation.AccommodationID, accommodation.Name);
+                }
             }
             return accommodationNames;
         }
