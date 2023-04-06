@@ -31,7 +31,7 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Label Grid.Row="0">Select new check-in date</Label>
-            <DatePicker SelectedDate="{Binding Path=NewStartDate, Mode=OneWayToSource}" Height="30" Width="195" HorizontalAlignment="Left" Margin="0,0,0,20" Grid.Row="1"/>
+            <DatePicker SelectedDate="{Binding Path=NewCheckInDate, Mode=OneWayToSource}" Height="30" Width="195" HorizontalAlignment="Left" Margin="0,0,0,20" Grid.Row="1"/>
         </Grid>
         <Grid Grid.Row="2" Margin="67,79,68,14" Grid.RowSpan="2">
             <Grid.RowDefinitions>
@@ -39,7 +39,7 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Label Grid.Row="0">Select new check-out date</Label>
-            <DatePicker SelectedDate="{Binding Path=NewEndDate, Mode=OneWayToSource}" Height="30" Width="195" HorizontalAlignment="Left" Margin="0,0,0,20" Grid.Row="1"/>
+            <DatePicker SelectedDate="{Binding Path=NewCheckOutDate, Mode=OneWayToSource}" Height="30" Width="195" HorizontalAlignment="Left" Margin="0,0,0,20" Grid.Row="1"/>
         </Grid>
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>

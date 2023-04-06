@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -33,14 +34,19 @@ namespace InitialProject.View.Guest1
         public int SelectedReservationId { get; set; }
         public DateTime NewCheckInDate { get; set; }
         public DateTime NewCheckOutDate { get; set; }
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public ReservationChange(int userId)
         {
-            DataContext = this;
             InitializeComponent();
-            InitializeReservationsForChange();
+            DataContext = this;
             reservationService = new ReservationService();
             accommodationService = new AccommodationService();
+            requestService = new ChangeReservationRequestService();
             _userId = userId;
+            InitializeReservationsForChange();
         }
         private void InitializeReservationsForChange()
         {

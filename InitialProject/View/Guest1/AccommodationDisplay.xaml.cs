@@ -341,5 +341,11 @@ namespace InitialProject.View
             OwnerRating or = new OwnerRating(_userId);
             or.ShowDialog();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            ReservationChange rc = new ReservationChange(_userId);
+            rc.ShowDialog();
+        }
     }
 }

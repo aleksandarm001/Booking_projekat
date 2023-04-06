@@ -27,13 +27,18 @@ namespace InitialProject.Services
         {
             Dictionary<int, string> result = new Dictionary<int, string>();
             List<Reservation> usersReservations = GetReservationsByUserId(userId);
-            foreach(Reservation reservation in usersReservations)
+            if(usersReservations.Count > 0)
             {
-                int accommodationId = _accommodationService.GetAccommodationIdByReservationId(reservation.ReservationId);
-                string accommodationName = _accommodationService.getNameById(accommodationId);
-                result.Add(reservation.ReservationId, accommodationName);
+                foreach (Reservation reservation in usersReservations)
+                {
+                    int accommodationId = _accommodationService.GetAccommodationIdByReservationId(reservation.ReservationId);
+                    string accommodationName = _accommodationService.getNameById(accommodationId);
+                    result.Add(reservation.ReservationId, accommodationName);
+                }
+                return result;
             }
-            return result;
+            return null;
+           
         }
     }
 }

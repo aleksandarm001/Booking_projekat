@@ -37,6 +37,7 @@ namespace InitialProject.Services
         }
         public int GetAccommodationIdByReservationId(int reservationId)
         {
+            if(_accommodationReservations.Find(a => a.ReservationId == reservationId) == null) return 0;
             return _accommodationReservations.Find(a => a.ReservationId == reservationId).AccommodationId;
         }
     }
