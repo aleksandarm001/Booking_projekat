@@ -1,6 +1,7 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Model;
 using InitialProject.Repository;
+using InitialProject.View.Owner;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -89,6 +90,12 @@ namespace InitialProject.View
         private bool CheckIfLeftReservation(Reservation reservation)
         {
             return reservation.ReservationDateRange.EndDate < DateTime.Now;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OwnerReviews ownerReview = new OwnerReviews();
+            ownerReview.Show();
         }
     }
 }
