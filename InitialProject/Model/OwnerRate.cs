@@ -11,15 +11,17 @@ namespace InitialProject.Model
     public class OwnerRate: ISerializable
     {
         public int OwnerRateId { get; set; }
-        public int OwnerId { get; set; }
+        public int ownerId { get; set; }
         public int AccommodationId { get; set; }
+        public int userId { get; set; }
         public int CleanlinessRate { get; set; }
         public int CorrectnessRate { get; set; }
         public string? Comment { get; set; }
         public List<string>? Images { get; set; }
-        public OwnerRate(int ownerId, int accommodationId, int cleanlinessRate, int correctnessRate, string? comment, List<string>? images)
+        public OwnerRate(int userId, int ownerId, int accommodationId, int cleanlinessRate, int correctnessRate, string? comment, List<string>? images)
         {
-            OwnerId = ownerId;
+            this.userId = userId;
+            this.ownerId = ownerId;
             AccommodationId = accommodationId;
             CleanlinessRate = cleanlinessRate;
             CorrectnessRate = correctnessRate;
@@ -28,7 +30,8 @@ namespace InitialProject.Model
         }
         public OwnerRate()
         {
-            OwnerId = -1;
+            userId = -1;
+            ownerId = -1;
             AccommodationId = -1;
             CleanlinessRate = 1;
             CorrectnessRate = 1;
@@ -40,7 +43,8 @@ namespace InitialProject.Model
 
             string[] csvValues = {
                 OwnerRateId.ToString(),
-                OwnerId.ToString(),
+                ownerId.ToString(),
+                userId.ToString(),
                 AccommodationId.ToString(),
                 CleanlinessRate.ToString(),
                 CorrectnessRate.ToString(),
@@ -52,12 +56,13 @@ namespace InitialProject.Model
         public void FromCSV(string[] values)
         {
             OwnerRateId = Convert.ToInt32(values[0]);
-            OwnerId = Convert.ToInt32(values[1]);
-            AccommodationId = Convert.ToInt32(values[2]);
-            CleanlinessRate = Convert.ToInt32(values[3]);
-            CorrectnessRate = Convert.ToInt32(values[4]);
-            Comment = values[5];
-            Images = StringToImagesList(values[6]);
+            ownerId = Convert.ToInt32(values[1]);
+            userId = Convert.ToInt32(values[2]);
+            AccommodationId = Convert.ToInt32(values[3]);
+            CleanlinessRate = Convert.ToInt32(values[4]);
+            CorrectnessRate = Convert.ToInt32(values[5]);
+            Comment = values[6];
+            Images = StringToImagesList(values[7]);
         }
         private string ImagesListToString()
         {

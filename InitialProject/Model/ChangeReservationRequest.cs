@@ -16,13 +16,17 @@ namespace InitialProject.Model
         private DateTime newStartDate;
         private DateTime newEndDate;
         private StatusType requestStatus;
+        private int userId;
+        private int ownerId;
 
-        public ChangeReservationRequest(int reservationId, DateTime newStartDate, DateTime newEndDate, StatusType requestStatus)
+        public ChangeReservationRequest(int reservationId, DateTime newStartDate, DateTime newEndDate, StatusType requestStatus, int userId, int ownerId)
         {
             this.ReservationId = reservationId;
             this.NewStartDate = newStartDate;
             this.NewEndDate = newEndDate;
             this.RequestStatus = requestStatus;
+            this.userId = userId;
+            this.ownerId = ownerId; 
         }
         public ChangeReservationRequest()
         {
@@ -33,6 +37,8 @@ namespace InitialProject.Model
         public DateTime NewEndDate { get => newEndDate; set => newEndDate = value; }
         public StatusType RequestStatus { get => requestStatus; set => requestStatus = value; }
         public int RequestId { get => requestId; set => requestId = value; }
+        public int UserId { get => userId; set => userId = value; }
+        public int OwnerId { get => ownerId; set => ownerId = value; }
 
         public string[] ToCSV()
         {
@@ -41,7 +47,9 @@ namespace InitialProject.Model
                 reservationId.ToString(),
                 newStartDate.ToString(),
                 newEndDate.ToString(),
-                requestStatus.ToString()
+                requestStatus.ToString(),
+                userId.ToString(),
+                ownerId.ToString()
             };
             return csvValues;
         }
@@ -52,6 +60,8 @@ namespace InitialProject.Model
             newStartDate = Convert.ToDateTime(values[2]);
             newEndDate = Convert.ToDateTime(values[3]);
             requestStatus = (StatusType)Enum.Parse(typeof(StatusType), values[4]);
+            userId = Convert.ToInt32(values[5]);
+            ownerId = Convert.ToInt32(values[6]);
         }
     }
 }

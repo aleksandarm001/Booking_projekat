@@ -101,7 +101,7 @@ namespace InitialProject.View.Guest1
             ownerToRateService = new OwnerToRateService();
             ownerRateService = new OwnerRateService();
             Images = new List<string>();
-            AccommodationsName = new ObservableCollection<KeyValuePair<int, string>>(ownerToRateService.getAccommodationsName());
+            AccommodationsName = new ObservableCollection<KeyValuePair<int, string>>(ownerToRateService.GetAccommodationNamesByUser(userId));
         }
 
         private void AddImage_Click(object sender, RoutedEventArgs e)
@@ -116,7 +116,7 @@ namespace InitialProject.View.Guest1
         {
             ownerToRateService.DeleteOwnerToRate(SelectedAccommodationId);
             int ownerId = ownerToRateService.GetOwnerIdByAccommodationId(SelectedAccommodationId);
-            OwnerRate ownerRate = new OwnerRate(ownerId, SelectedAccommodationId, Cleanliness, Correctness, AdditionalComment, Images);
+            OwnerRate ownerRate = new OwnerRate(_userId, ownerId,SelectedAccommodationId, Cleanliness, Correctness, AdditionalComment, Images);
             ownerRateService.SaveRate(ownerRate);
         }
         private void InitializeGrades()
