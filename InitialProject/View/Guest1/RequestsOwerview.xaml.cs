@@ -19,9 +19,17 @@ namespace InitialProject.View.Guest1
     /// </summary>
     public partial class RequestsOwerview : Window
     {
-        public RequestsOwerview()
+        private int userId;
+        public RequestsOwerview(int userId)
         {
             InitializeComponent();
+            this.userId = userId;   
+        }
+
+        private void CancelReservation_Click(object sender, RoutedEventArgs e)
+        {
+            CancelReservation cancelReservationWindow = new CancelReservation(userId);
+            cancelReservationWindow.ShowDialog();
         }
     }
 }
