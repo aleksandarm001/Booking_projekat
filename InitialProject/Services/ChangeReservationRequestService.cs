@@ -12,6 +12,7 @@ namespace InitialProject.Services
     {
         private readonly ChangeReservationRequestRepository _requestRepository;
         private readonly ReservationService _reservationService;
+        private List<ChangeReservationRequest> _changes;
         public ChangeReservationRequestService()
         {
             _requestRepository = new ChangeReservationRequestRepository();
@@ -25,7 +26,14 @@ namespace InitialProject.Services
 
         public void SaveRequest(ChangeReservationRequest request)
         {
-            _requestRepository.Save(request);
+            if(_requestRepository.GetAll().Find(r => r.ReservationId == request.ReservationId && r.UserId == request.UserId) != null)
+            {
+                _requestRepository.Update(request);
+            }
+            else
+            {
+                _requestRepository.Save(request);
+            }
         }
     }
 }

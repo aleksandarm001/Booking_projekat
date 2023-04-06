@@ -48,5 +48,15 @@ namespace InitialProject.Repository
             _requests.Remove(foundedRequest);
             _serializer.ToCSV(FilePath, _requests);
         }
+        public ChangeReservationRequest Update(ChangeReservationRequest request)
+        {
+            _requests = _serializer.FromCSV(FilePath);
+            ChangeReservationRequest founded = _requests.Find(r => r.ReservationId == request.ReservationId && r.UserId == request.UserId);
+            int index = _requests.IndexOf(founded);
+            _requests.Remove(founded);
+            _requests.Insert(index, request);
+            _serializer.ToCSV(FilePath, _requests);
+            return request;
+        }
     }
 }

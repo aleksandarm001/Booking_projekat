@@ -12,28 +12,32 @@ namespace InitialProject.Services
     public class ReservationService
     {
         private readonly ReservationRepository _repository;
-        private readonly AccommodationService _accommodationService;
         public ReservationService()
         {
             _repository = new ReservationRepository();
-            _accommodationService = new AccommodationService();
         }
-
-        private List<Reservation> GetReservationsByUserId(int userId)
+        public List<Reservation> GetReservationsByUserId(int userId)
         {
             return _repository.GetAll().Where(r => r.UserId == userId).ToList();
         }
-        public Dictionary<int, string> ReservationsForChange(int userId)
+        public DateTime GetCheckInDate(int userId, int reservationId)
         {
-            Dictionary<int, string> result = new Dictionary<int, string>();
-            List<Reservation> usersReservations = GetReservationsByUserId(userId);
-            foreach(Reservation reservation in usersReservations)
-            {
-                int accommodationId = _accommodationService.GetAccommodationIdByReservationId(reservation.ReservationId);
-                string accommodationName = _accommodationService.getNameById(accommodationId);
-                result.Add(reservation.ReservationId, accommodationName);
-            }
-            return result;
+            List<Reservation> reservations = GetReservationsByUserId(userId);
+            return reservations.Find(r => r.ReservationId == reservationId).ReservationDateRange.StartDate;
+        }
+        public DateTime GetCheckOutDate(int userId, int reservationId)
+        {
+            List<Reservation> reservations = GetReservationsByUserId(userId);
+            return reservations.Find(r => r.ReservationId == reservationId).ReservationDateRange.EndDate;
+        }
+        public Reservation GetReservationById(int reservationId)
+        {
+            return _repository.GetAll().Find(r => r.ReservationId == reservationId);
+        }
+        public void Delete(int reservationId)
+        {
+            Reservation reservation = GetReservationById(reservationId);
+            _repository.Delete(reservation);
         }
     }
 }

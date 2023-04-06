@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,24 +28,31 @@ namespace InitialProject.View.Guest1
         private ChangeReservationRequestService requestService;
         private ReservationService reservationService;
         private readonly AccommodationService accommodationService;
+        private readonly AccommodationReservationService accommodationReservationService;
         private int _userId;
         private int _ownerId;
         public ObservableCollection<KeyValuePair<int, string>> ReservationsForChange { get; set; }
         public int SelectedReservationId { get; set; }
         public DateTime NewCheckInDate { get; set; }
         public DateTime NewCheckOutDate { get; set; }
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public ReservationChange(int userId)
         {
-            DataContext = this;
             InitializeComponent();
-            InitializeReservationsForChange();
+            DataContext = this;
             reservationService = new ReservationService();
             accommodationService = new AccommodationService();
+            requestService = new ChangeReservationRequestService();
+            accommodationReservationService = new AccommodationReservationService();
             _userId = userId;
+            InitializeReservationsForChange();
         }
         private void InitializeReservationsForChange()
         {
-            ReservationsForChange = new ObservableCollection<KeyValuePair<int, string>>(reservationService.ReservationsForChange(_userId));
+            ReservationsForChange = new ObservableCollection<KeyValuePair<int, string>>(accommodationReservationService.GetReservationsByUserId(_userId));
         }
 
         private void SendRequest_Button(object sender, RoutedEventArgs e)
@@ -52,6 +60,15 @@ namespace InitialProject.View.Guest1
             _ownerId = accommodationService.getOwnerIdByReservationId(SelectedReservationId);
             ChangeReservationRequest request = new ChangeReservationRequest(SelectedReservationId, NewCheckInDate, NewCheckOutDate, StatusType.Pending, _userId, _ownerId);
             requestService.SaveRequest(request);
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(SelectedReservationId != 0)
+            {
+                CheckInPicker.SelectedDate = reservationService.GetCheckInDate(_userId, SelectedReservationId);
+                CheckOutPicker.SelectedDate = reservationService.GetCheckOutDate(_userId, SelectedReservationId);
+            }
         }
     }
 }
