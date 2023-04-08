@@ -1,10 +1,4 @@
 ﻿using InitialProject.Serializer;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InitialProject.Model
 {
@@ -25,7 +19,7 @@ namespace InitialProject.Model
         {
             return Name;
         }
-        
+
         public string[] ToCSV()
         {
             string[] csvValues = {
