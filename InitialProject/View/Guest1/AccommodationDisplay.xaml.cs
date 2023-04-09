@@ -344,8 +344,8 @@ namespace InitialProject.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            ReservationChange rc = new ReservationChange(_userId);
-            rc.ShowDialog();
+            RequestsOwerview ro = new RequestsOwerview(_userId);
+            ro.ShowDialog();
         }
     }
 }

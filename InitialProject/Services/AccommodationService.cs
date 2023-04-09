@@ -40,5 +40,18 @@ namespace InitialProject.Services
             if(_accommodationReservations.Find(a => a.ReservationId == reservationId) == null) return 0;
             return _accommodationReservations.Find(a => a.ReservationId == reservationId).AccommodationId;
         }
+        public Accommodation GetAccommodationByReservationId(int reservationId)
+        {
+            int accommodationId = GetAccommodationIdByReservationId(reservationId);
+            return _accommodations.Find(accommodation => accommodation.AccommodationID == accommodationId);
+        }
+        public int GetReservationIdByAccommodationId(int accommodationId)
+        {
+            return _accommodationReservations.Find(accommodation => accommodation.AccommodationId == accommodationId).ReservationId;
+        }
+        public void DeleteReservation(int reservationId)
+        {
+            _accommodationReservationRepository.DeleteReservation(reservationId);
+        }
     }
 }
