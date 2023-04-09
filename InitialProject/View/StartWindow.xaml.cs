@@ -1,6 +1,7 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Model;
 using InitialProject.Repository;
+using InitialProject.View.Guest1;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -57,7 +58,7 @@ namespace InitialProject.View
 
         private void Guest1_ButtonClick(object sender, RoutedEventArgs e)
         {
-            AccommodationDisplay guest1View = new AccommodationDisplay(Locations, _userId);
+            Guest1Window guest1View = new Guest1Window(_userId, Locations);
             guest1View.Show();
         }
         private void Guest2_ButtonClick(object sender, RoutedEventArgs e)
