@@ -62,6 +62,8 @@ namespace InitialProject.View.Guest1
             accommodationReservationService = new AccommodationReservationService();
             _userId = userId;
             this.Requests = Requests;
+            Send_Button.IsEnabled = false;
+
             InitializeReservationsForChange();
         }
         private void InitializeReservationsForChange()
@@ -81,11 +83,17 @@ namespace InitialProject.View.Guest1
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(SelectedReservationId != 0)
+            Send_Button.IsEnabled = true;
+            if (SelectedReservationId != 0)
             {
                 CheckInPicker.SelectedDate = reservationService.GetCheckInDate(_userId, SelectedReservationId);
                 CheckOutPicker.SelectedDate = reservationService.GetCheckOutDate(_userId, SelectedReservationId);
             }
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -24,7 +24,7 @@
             <Label Grid.Row="0">Select reservation you want to change</Label>
             <ComboBox ItemsSource="{Binding ReservationsForChange}" 
                       DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding Path=SelectedReservationId, UpdateSourceTrigger=PropertyChanged}"
-                      Height="30" Width="302" HorizontalAlignment="Left" Margin="5,1,0,19" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="1"/>
+                      Height="30" Width="291" HorizontalAlignment="Left" Margin="5,1,0,19" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="1"/>
         </Grid>
         <Grid Grid.Row="1" Margin="67,79,68,14" Grid.RowSpan="2">
             <Grid.RowDefinitions>
@@ -47,7 +47,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Send Request" Height="40" Margin="80,30,51,10" RenderTransformOrigin="0.99,0.501" Click="SendRequest_Button"/>
+            <Button x:Name="Send_Button" Grid.Column="0" Content="Send Request" Height="40" Margin="80,30,51,10" RenderTransformOrigin="0.99,0.501" Click="SendRequest_Button"/>
             <Button Grid.Column="1" Content="Cancel" Height="40" Margin="45,30,86,10" Click="Cancel_Click"/>
         </Grid>
     </Grid>

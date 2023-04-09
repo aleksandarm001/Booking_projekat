@@ -33,12 +33,14 @@ namespace InitialProject.View.Guest1
         private void ChangeReservation_Click(object sender, RoutedEventArgs e)
         {
             ReservationChange reservationChange = new ReservationChange(_userId, viewModel.Requests);
+            reservationChange.Owner = this;
             reservationChange.ShowDialog();
         }
 
         private void CancelReservation_Click(object sender, RoutedEventArgs e)
         {
             CancelReservation cancelReservation = new CancelReservation(_userId);
+            cancelReservation.Owner = this;
             cancelReservation.ShowDialog();
         }
     }
