@@ -38,7 +38,7 @@
         private void InitializeRating()
         {
             Rating = new ObservableCollection<string>();
-            Rating.Add("");
+            //Rating.Add("");
             for (int i = 1; i <= 5; i++)
             {
                 Rating.Add(i.ToString());

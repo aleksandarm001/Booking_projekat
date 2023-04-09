@@ -49,7 +49,7 @@
 
         public List<Tour> GetAllFinished(int userId)
         {
-            List <TourAttendance> _tourAttendance = _tourAttendanceRepository.GetAllFinished(userId);
+            List <TourAttendance> _tourAttendance = _tourAttendanceRepository.GetAllPresented(userId);
             List<Tour> tours = new List<Tour>();
             foreach (TourAttendance t in _tourAttendance)
             {

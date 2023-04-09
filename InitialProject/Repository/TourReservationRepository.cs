@@ -22,12 +22,6 @@ namespace InitialProject.Repository
             _reservations = _serializer.FromCSV(FilePath);
         }
 
-        public Reservation GetByReservationId(int reservationId)
-        {
-            _reservations = _serializer.FromCSV(FilePath);
-            return _reservations.FirstOrDefault(t => t.ReservationId == reservationId);
-        }
-
         public List<Reservation> GetAll()
         {
             return _serializer.FromCSV(FilePath);

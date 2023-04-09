@@ -31,7 +31,7 @@ namespace InitialProject.Repository
 
         
 
-        public List<TourPoint> getAll()
+        public List<TourPoint> GetAll()
         {
             return _serializer.FromCSV(FilePath);
         }
@@ -138,6 +138,11 @@ namespace InitialProject.Repository
         public void ClearTemp()
         {
             File.WriteAllText(TempFilePath, string.Empty);
+        }
+
+        public TourPoint GetActiveTourPointOnTour(int tourId)
+        {
+            return GetAll().FirstOrDefault(t => t.TourId == tourId && t.CurrentStatus == TourPoint.Status.Active);
         }
 
 

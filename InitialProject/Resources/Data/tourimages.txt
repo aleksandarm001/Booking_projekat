@@ -24,3 +24,5 @@
 19|24|sss
 19|25|asdfa
 20|26|fasd
+21|27|slika1
+21|28|slika2
