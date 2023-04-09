@@ -17,17 +17,10 @@ namespace InitialProject.Repository
 
         private List<Tour> _tours;
 
-        private LocationRepository _locationRepository;
-
         public TourRepository()
         {
             _serializer = new Serializer<Tour>();
-            _locationRepository = new LocationRepository();
             _tours = _serializer.FromCSV(FilePath);
-        }
-        public Tour GetByTourId(int tourId)
-        {
-            return _tours.Find(t => t.TourId == tourId);
         }
 
         public List<Tour> GetAll() 
@@ -44,14 +37,6 @@ namespace InitialProject.Repository
             return tour;
         }
 
-        public void Delete(Tour tour)
-        {
-            _tours = _serializer.FromCSV(FilePath);
-            Tour founded = _tours.Find(t => t.TourId == tour.TourId);
-            _tours.Remove(founded);
-            _serializer.ToCSV(FilePath, _tours);
-        }
-
         public int NextId()
         {
             _tours = _serializer.FromCSV(FilePath);
@@ -61,21 +46,6 @@ namespace InitialProject.Repository
             }
             return _tours.Max(t => t.TourId) + 1;
         }
-
-        public void ReduceMaxGuestNumber(int tourId, int number)
-        {
-            Tour current = _tours.Find(t=>t.TourId == tourId);
-            int ind = _tours.IndexOf(current);
-            Tour updated = current;
-            updated.MaxGuestNumber -= number;
-            _tours.Remove(current);
-            _tours.Insert(ind,updated);
-            _serializer.ToCSV(FilePath, _tours);
-
-        }
-
-
-
         public Tour Update(Tour tour)
         {
             _tours = _serializer.FromCSV(FilePath);

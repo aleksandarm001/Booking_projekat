@@ -62,10 +62,6 @@ namespace InitialProject.Repository
             return _tourAttendances.Where(tour => tour.UserId == userId && tour.UserAttended==TourAttendance.AttendanceStatus.OnHold).ToList();
         }
 
-        public TourAttendance GetById(int id)
-        {
-            return _tourAttendances.Where(tour => tour.TourAttendanceId == id).FirstOrDefault();
-        }
 
         public List<TourAttendance> GetAllFinished(int userId)
         {

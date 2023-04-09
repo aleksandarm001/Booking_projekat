@@ -24,11 +24,6 @@
             CheckValidity();
         }
 
-        public List<Voucher> GetByUserId(int userId)
-        {
-            return _vouchers.FindAll(t => t.UserId == userId);
-        }
-
         public List<Voucher> GetAll()
         {
             return _vouchers;
@@ -59,17 +54,6 @@
                 return 1;
             }
             return _vouchers.Max(t => t.Id) + 1;
-        }
-
-        public Voucher Update(Voucher Voucher)
-        {
-            _vouchers = _serializer.FromCSV(FilePath);
-            Voucher current = _vouchers.Find(t => t.Id == Voucher.Id);
-            int index = _vouchers.IndexOf(current);
-            _vouchers.Remove(current);
-            _vouchers.Insert(index, Voucher);       // keep ascending order of ids in file 
-            _serializer.ToCSV(FilePath, _vouchers);
-            return Voucher;
         }
 
         public void CheckValidity()

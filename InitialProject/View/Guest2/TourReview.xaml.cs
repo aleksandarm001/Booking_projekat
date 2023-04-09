@@ -1,28 +1,21 @@
 ﻿namespace InitialProject.View.Guest2
 {
     using InitialProject.Model;
-    using InitialProject.Repository;
-    using System;
+    using InitialProject.Services;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
     using System.Windows;
-    using System.Windows.Controls;
-    using static System.Net.Mime.MediaTypeNames;
 
-    /// <summary>
-    /// Interaction logic for TourReview.xaml
-    /// </summary>
     public partial class TourReview : Window
     {
         public static ObservableCollection<string> Rating { get; set; }
         public TourRate TourRate { get; set; }
-        private TourRateRepository _tourRateRepository { get; set; }
+        private TourRateService _tourRateService;
 
         public TourReview(int tourId, int userId)
         {
             TourRate = new TourRate();
-            _tourRateRepository = new TourRateRepository();
+            _tourRateService = new TourRateService();
             TourRate.TourId = tourId;
             TourRate.GuestId = userId;
             InitializeComponent();
@@ -54,7 +47,7 @@
 
         private void Potvrdi_Click(object sender, RoutedEventArgs e)
         {
-            _tourRateRepository.Save(TourRate);
+            _tourRateService.MakeTourRate(TourRate);
             this.Close();
         }
 

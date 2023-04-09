@@ -2,7 +2,7 @@
 2|Sunset Heights|New York;United States|Brooklyn Bridge Walk|English|4|6/18/2023 9:45:00 AM|2|False
 3|Lavender Fields|Paris;France|Louvre Museum Tour|French|3|8/30/2023 2:10:00 PM|5|False
 4|Rainbow Hills|Barcelona;Spain|Park Guell Visit|Spanish|3|4/17/2023 11:30:00 AM|3|False
-5|Ocean Breeze|Sydney;Australia|Opera House Tour|English|20|11/21/2023 4:15:00 PM|1|False
+5|Ocean Breeze|Sydney;Australia|Opera House Tour|English|16|11/21/2023 4:15:00 PM|1|False
 6|Cherry Blossom|Tokyo;Japan|Asakusa Temple Walk|Japanese|12|9/8/2023 10:00:00 AM|5|False
 7|Mountain Peak|Vancouver;Canada|Whistler Ski Trip|English|5|1/3/2023 8:20:00 AM|4|False
 8|Golden Sands|Dubai;United Arab Emirates|Desert Safari Experience|Arabic|18|10/12/2023 7:00:00 PM|2|False

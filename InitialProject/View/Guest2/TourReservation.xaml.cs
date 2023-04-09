@@ -1,14 +1,11 @@
-﻿using InitialProject.CustomClasses;
-using InitialProject.Model;
-using InitialProject.Repository;
+﻿using InitialProject.Model;
+using InitialProject.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace InitialProject.View
 {
@@ -17,9 +14,9 @@ namespace InitialProject.View
         public event PropertyChangedEventHandler PropertyChanged;
         public Tour Tour { get; set; }
         public int UserId { get; set; }
-        private ReservationRepository _reservationRepository;
-        private TourRepository _tourRepository;
-        private VoucherRepository _voucherRepository;
+        private TourService _tourService;
+        private ReservationService _reservationService;
+        private VoucherService _voucherService;
         public ObservableCollection<Voucher> Vouchers { get; set; }
         public ObservableCollection<string> VouchersString { get; set; }
         public string SelectedVoucher { get; set; }
@@ -27,7 +24,7 @@ namespace InitialProject.View
         public int NumberOfGuests { get; set; }
         private string _strNumberOfGuests;
 
-    
+
 
         public string StrNumberOfGuests
         {
@@ -55,22 +52,19 @@ namespace InitialProject.View
             Tour = t;
             UserId = userId;
             this.NumberOfGuests = NumberOfGuests;
-            _reservationRepository = new ReservationRepository();
-            _tourRepository = new TourRepository();
-            _voucherRepository = new VoucherRepository();
+            _tourService = new TourService();
+            _reservationService = new ReservationService();
+            _voucherService = new VoucherService();
             VouchersString = new ObservableCollection<string>();
-            Vouchers = new ObservableCollection<Voucher>(_voucherRepository.GetByUserId(UserId));
-            foreach(Voucher v in Vouchers)
-            {
-                VouchersString.Add(v.Name + " vrijedi do " + v.ValidUntil.ToShortDateString());
-            }
+            Vouchers = new ObservableCollection<Voucher>(_voucherService.GetAllForUser(userId));
+            InitializeVouchers();
 
         }
 
         private void Potvrdi_Click(object sender, RoutedEventArgs e)
         {
             if (NumberOfGuests > Tour.MaxGuestNumber)
-            { 
+            {
                 ImpossibleMakeReservation();
             }
             else
@@ -97,19 +91,25 @@ namespace InitialProject.View
 
         private void MakeReservation()
         {
-            Reservation reservation = new Reservation(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests);
-            _reservationRepository.Save(reservation);
-            _tourRepository.ReduceMaxGuestNumber(Tour.TourId, NumberOfGuests);
-            if(Vaucer.SelectedIndex!=-1)
-            
+            _reservationService.MakeReservation(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests);
+            _tourService.ReduceMaxGuestNumber(Tour.TourId, NumberOfGuests);
+            if (Vaucer.SelectedIndex != -1)
             {
                 Voucher voucher = Vouchers.ElementAt(Vaucer.SelectedIndex);
-                _voucherRepository.Delete(voucher);
+                _voucherService.Delete(voucher);
             }
-            
+
 
             MessageBox.Show("Rezervacija uspjesna");
             this.Close();
+        }
+
+        private void InitializeVouchers()
+        {
+            foreach (Voucher v in Vouchers)
+            {
+                VouchersString.Add(v.Name + " vrijedi do " + v.ValidUntil.ToShortDateString());
+            }
         }
 
         private void Odustani_Click(object sender, RoutedEventArgs e)

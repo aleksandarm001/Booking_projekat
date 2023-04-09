@@ -1,30 +1,15 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Model;
 using InitialProject.Repository;
+using InitialProject.View.Guest1;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows;
-using System.Collections.ObjectModel;
-using InitialProject.Model;
-using System.Diagnostics.Metrics;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Collections.Specialized;
-using Microsoft.VisualStudio.Services.Common;
-using Microsoft.VisualStudio.Services.Profile;
-using InitialProject.View.Guest1;
 
 namespace InitialProject.View
 {
@@ -62,7 +47,7 @@ namespace InitialProject.View
             get => _selectedCity;
             set
             {
-                if(value != _selectedCity)
+                if (value != _selectedCity)
                 {
                     _selectedCity = value;
                     OnPropertyChanged("SelectedCity");
@@ -316,7 +301,7 @@ namespace InitialProject.View
         }
         private void BookClick(object sender, RoutedEventArgs e)
         {
-            if(SelectedAccommodation == null)
+            if (SelectedAccommodation == null)
             {
                 MessageBox.Show("Please select accommodation.");
             }

@@ -6,16 +6,13 @@ namespace InitialProject.CustomClasses
     public class TourAttendance : ISerializable
     {
         public enum AttendanceStatus { Present = 1, OnHold = 2, NotPresent = 3 }
-
         public int TourAttendanceId { get; set; }
         public int TourId { get; set; } 
         public int TourPointId { get; set; }
         public int UserId { get; set; }
         public string Username { get; set; }
         public AttendanceStatus UserAttended { get; set; }
-
         public bool CanGiveReview { get; set; }
-
 
         public TourAttendance(int tourAttendanceId, int tourId, int tourPointId, int userId, string username, AttendanceStatus status)
         {

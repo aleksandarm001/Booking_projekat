@@ -3,6 +3,7 @@
     using InitialProject.CustomClasses;
     using InitialProject.Model;
     using InitialProject.Repository;
+    using InitialProject.Services;
     using System.Windows;
 
     /// <summary>
@@ -11,17 +12,16 @@
     public partial class CheckingTour : Window
     {
         public Tour Tour { get; }
-        private readonly TourRepository _tourRepository;
-        private readonly TourAttendanceRepository _tourAttendanceRepository;
+        private readonly TourService _tourService;
+        private readonly TourAttendanceService _tourAttendanceService;
         private TourAttendance _tourAttendance;
 
         public CheckingTour(TourAttendance tourAttendance)
         {
-
-            _tourRepository = new TourRepository();
-            _tourAttendanceRepository = new TourAttendanceRepository();
-            Tour = _tourRepository.GetByTourId(tourAttendance.TourId);
-            _tourAttendance = _tourAttendanceRepository.GetById(tourAttendance.TourAttendanceId);
+            _tourService = new TourService();
+            _tourAttendanceService = new TourAttendanceService();
+            Tour = _tourService.GetTourById(tourAttendance.TourId);
+            _tourAttendance = tourAttendance;
             InitializeComponent();
             DataContext = this;
         }
@@ -30,16 +30,13 @@
 
         private void Odbij_Click(object sender, RoutedEventArgs e)
         {
-            _tourAttendance.UserAttended = TourAttendance.AttendanceStatus.NotPresent;
-            _tourAttendanceRepository.Update(_tourAttendance);
+            _tourAttendanceService.RejectTourAttendance(_tourAttendance);
             this.Close();
         }
 
         private void Potvrdi_Click(object sender, RoutedEventArgs e)
         {
-            _tourAttendance.UserAttended = TourAttendance.AttendanceStatus.Present;
-            _tourAttendance.CanGiveReview = true;
-            _tourAttendanceRepository.Update(_tourAttendance);
+            _tourAttendanceService.ConfirmTourAttendance(_tourAttendance);
             this.Close();
 
         }

@@ -8,6 +8,6 @@
         public static readonly string MustSelectTour = "Morate prvo izabrati turu";
         public static readonly string MaxGuestNumberIsZero = "Izabrana tura je popunjena, da li želite da vidite slične ture na istoj lokaciji?";
         public static readonly string ViewOtherTours = "Trenutno ne postoji tura na istoj lokaciji, pogledajte ostale ponudjene ture!";
-
+        public static readonly string TourReviewed = "Vec ste ocijenili izabranu turu!";
     }
 }

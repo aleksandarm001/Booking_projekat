@@ -1,10 +1,13 @@
 ﻿namespace InitialProject.View.Guest2
 {
+    using InitialProject.Constants;
     using InitialProject.CustomClasses;
     using InitialProject.Model;
     using InitialProject.Repository;
+    using InitialProject.Services;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Documents;
 
@@ -15,9 +18,8 @@
     {
         public ObservableCollection<Tour> Tours { get; set; }
         public Tour SelectedTour { get; set; }
-        private readonly TourRepository _tourRepository;
-        private readonly TourAttendanceRepository _tourAttendanceRepository;
-        private List<TourAttendance> _tourAttendance;
+        private readonly TourService _tourService;
+        private readonly TourAttendanceService _tourAttendanceService;
         public int UserId { get; set; }
 
 
@@ -25,31 +27,29 @@
         {
             InitializeComponent();
             DataContext = this;
-            _tourRepository = new TourRepository();
-            _tourAttendanceRepository = new TourAttendanceRepository();
-            Tours = GetAllFinished(UserId);
             UserId = userId;
+            _tourService = new TourService();
+            _tourAttendanceService = new TourAttendanceService();
+            Tours = new ObservableCollection<Tour>(_tourService.GetAllFinished(UserId));
         }
 
         private void Ocijeni_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedTour!=null)
             {
-                TourReview tourReview = new TourReview(SelectedTour.TourId, UserId);
-                tourReview.Show();
+                if (_tourAttendanceService.CheckPossibleComment(UserId, SelectedTour.TourId))
+                {
+                    TourReview tourReview = new TourReview(SelectedTour.TourId, UserId);
+                    tourReview.Show();
+                } 
+                else
+                {
+                    MessageBox.Show(TourViewConstants.TourReviewed, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
+                }
+                
             }
             
         }
 
-        private ObservableCollection<Tour> GetAllFinished(int userId)
-        {
-            _tourAttendance = _tourAttendanceRepository.GetAllFinished(userId);
-            Tours = new ObservableCollection<Tour>();
-            foreach (TourAttendance t in _tourAttendance)
-            {
-                Tours.Add(_tourRepository.GetByTourId(t.TourId));
-            }
-            return Tours;
-        }
     }
 }

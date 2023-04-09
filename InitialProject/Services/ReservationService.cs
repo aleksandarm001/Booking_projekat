@@ -1,4 +1,5 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Model;
 using InitialProject.Repository;
 using InitialProject.View.Guest1;
 using System;
@@ -38,6 +39,12 @@ namespace InitialProject.Services
         {
             Reservation reservation = GetReservationById(reservationId);
             _repository.Delete(reservation);
+        }
+
+        public void MakeReservation(int userId, int tourId, DateTime startingDateTime, int numberOfGuests)
+        {
+            Reservation reservation = new Reservation(userId, tourId, startingDateTime, numberOfGuests);
+            _repository.Save(reservation);
         }
     }
 }
