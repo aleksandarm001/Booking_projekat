@@ -21,22 +21,25 @@ namespace InitialProject.View.Guest1
     public partial class RequestsOwerview : Window
     {
         private int _userId;
+        private RequestsOverviewViewModel viewModel;
         public RequestsOwerview(int userId)
         {
             InitializeComponent();
             _userId = userId;
-            RequestsOverviewViewModel viewModel = new RequestsOverviewViewModel(userId);
+            viewModel = new RequestsOverviewViewModel(userId);
             this.DataContext = viewModel;
         }
 
         private void ChangeReservation_Click(object sender, RoutedEventArgs e)
         {
-            ReservationChange reservationChange = new ReservationChange(_userId);
+            ReservationChange reservationChange = new ReservationChange(_userId, viewModel.Requests);
             reservationChange.ShowDialog();
         }
 
         private void CancelReservation_Click(object sender, RoutedEventArgs e)
         {
+            CancelReservation cancelReservation = new CancelReservation(_userId);
+            cancelReservation.ShowDialog();
         }
     }
 }

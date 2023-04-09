@@ -14,7 +14,20 @@ namespace InitialProject.ViewModel
 {
     public class RequestsOverviewViewModel: INotifyPropertyChanged
     {
-        public ObservableCollection<ChangeReservationRequest> Requests { get; set; }
+        private ObservableCollection<ChangeReservationRequest> _requests;
+        private readonly AccommodationService _accommodationService;
+        public ObservableCollection<ChangeReservationRequest> Requests
+        {
+            get
+            {
+                return _requests;
+            }
+            set
+            {
+                _requests = value;
+                OnPropertyChanged(nameof(Requests));
+            }
+        }
         private readonly ChangeReservationRequestService requestsService;
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -22,6 +35,7 @@ namespace InitialProject.ViewModel
         public RequestsOverviewViewModel(int userId)
         {
             requestsService = new ChangeReservationRequestService();
+            _accommodationService = new AccommodationService();
             Requests = new ObservableCollection<ChangeReservationRequest>(requestsService.GetRequests(userId));
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

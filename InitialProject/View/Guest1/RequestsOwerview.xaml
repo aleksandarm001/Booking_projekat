@@ -13,11 +13,13 @@
         </Grid.ColumnDefinitions>
         <Separator Background="Black" Grid.Column="1" HorizontalAlignment="Left" Margin="0,301,0,0" VerticalAlignment="Top"/>
         <Rectangle HorizontalAlignment="Center" Height="130" Stroke="Black" VerticalAlignment="Top" Width="210" Margin="0,168,0,0"/>
-        <DataGrid ItemsSource="{Binding Requests, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="10,119,10,118">
+        <DataGrid ItemsSource="{Binding Requests, UpdateSourceTrigger=PropertyChanged}"
+                  Grid.Column="1" Margin="10,119,10,118"
+                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Request for" Width ="100"></DataGridTextColumn>
-                <DataGridTextColumn Header="Status" Width ="80"></DataGridTextColumn>
-                <DataGridTextColumn Header="Owner's Comment" Width ="*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AccommodationName}" Header="Request for" Width ="100"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding RequestStatus}" Header="Status" Width ="80"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding OwnerComment}" Header="Owner's Comment" Width ="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button FontSize="12" Content="Change reservation" HorizontalAlignment="Center" Margin="0,191,0,0" VerticalAlignment="Top" Height="35" Width="132" Click="ChangeReservation_Click"/>
