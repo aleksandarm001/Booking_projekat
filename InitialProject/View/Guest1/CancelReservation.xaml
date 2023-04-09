@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View.Guest1"
         mc:Ignorable="d"
-        Title="CancelReservation" Height="270" Width="460">
+        Title="CancelReservation" Height="270" Width="460"
+        WindowStartupLocation="CenterOwner">
     <Grid Margin="10,6,-10,-6">
         <Grid.RowDefinitions>
             <RowDefinition Height="53*"/>
@@ -13,7 +14,7 @@
             <RowDefinition Height="97*"/>
         </Grid.RowDefinitions>
         <Label Grid.Row ="0" Content="Cancel Reservation" FontSize="15" FontWeight="DemiBold" FontFamily="Montserrat" HorizontalAlignment="Center" Margin="0,14,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="Cmbx" ItemsSource="{Binding Reservations}"  DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding Path=SelectedReservationId, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="300" Margin="66,51,0,0"/>
+        <ComboBox x:Name="Cmbx" ItemsSource="{Binding Reservations}"  DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding Path=SelectedReservationId, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="300" Margin="66,51,0,0" SelectionChanged="EnableButton"/>
 
         <Label Content="Select reservation you want to cancel" HorizontalAlignment="Left" Margin="80,17,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="10" Height="23"/>
         <Button x:Name ="CancelButton" Content="Cancel reservation" HorizontalAlignment="Left" Margin="89,20,0,0" Grid.Row="2" VerticalAlignment="Top" Height="30" Width="110" Click="CancelReservation_Click"/>

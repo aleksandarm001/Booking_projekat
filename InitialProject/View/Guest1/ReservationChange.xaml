@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View.Guest1"
         mc:Ignorable="d"
-        Title="ReservationChange" Height="420" Width="450">
+        Title="ReservationChange" Height="420" Width="450"
+        WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -15,7 +16,7 @@
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" HorizontalAlignment="Center" FontSize="23" Margin="0,10,0,10">Change Reservation</Label>
-        <Grid Grid.Row="1" Margin="67,0,68,13">
+        <Grid Grid.Row="1" Margin="60,0,68,13">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="50"/>
@@ -23,7 +24,7 @@
             <Label Grid.Row="0">Select reservation you want to change</Label>
             <ComboBox ItemsSource="{Binding ReservationsForChange}" 
                       DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding Path=SelectedReservationId, UpdateSourceTrigger=PropertyChanged}"
-                      Height="30" Width="315" HorizontalAlignment="Center" Margin="0,0,0,20" Grid.Row="1" SelectionChanged="ComboBox_SelectionChanged"/>
+                      Height="30" Width="291" HorizontalAlignment="Left" Margin="5,1,0,19" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="1"/>
         </Grid>
         <Grid Grid.Row="1" Margin="67,79,68,14" Grid.RowSpan="2">
             <Grid.RowDefinitions>
@@ -46,8 +47,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Send Request" Width="100" Height="40" Margin="85,30,40,10" RenderTransformOrigin="0.99,0.501" Click="SendRequest_Button"></Button>
-            <Button Grid.Column="1" Content="Cancel" Width="100" Height="40" Margin="40,30,85,10"></Button>
-        </Grid> 
+            <Button x:Name="Send_Button" Grid.Column="0" Content="Send Request" Height="40" Margin="80,30,51,10" RenderTransformOrigin="0.99,0.501" Click="SendRequest_Button"/>
+            <Button Grid.Column="1" Content="Cancel" Height="40" Margin="45,30,86,10" Click="Cancel_Click"/>
+        </Grid>
     </Grid>
 </Window>
