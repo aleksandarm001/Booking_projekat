@@ -35,11 +35,24 @@ namespace InitialProject.View.Guest1
         public int SelectedReservationId { get; set; }
         public DateTime NewCheckInDate { get; set; }
         public DateTime NewCheckOutDate { get; set; }
+        private ObservableCollection<ChangeReservationRequest> _requests;
+        public ObservableCollection<ChangeReservationRequest> Requests
+        {
+            get
+            {
+                return _requests;
+            }
+            set
+            {
+                _requests = value;
+                OnPropertyChanged(nameof(Requests));
+            }
+        }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public ReservationChange(int userId)
+        public ReservationChange(int userId, ObservableCollection<ChangeReservationRequest> Requests)
         {
             InitializeComponent();
             DataContext = this;
@@ -48,6 +61,7 @@ namespace InitialProject.View.Guest1
             requestService = new ChangeReservationRequestService();
             accommodationReservationService = new AccommodationReservationService();
             _userId = userId;
+            this.Requests = Requests;
             InitializeReservationsForChange();
         }
         private void InitializeReservationsForChange()
@@ -58,8 +72,11 @@ namespace InitialProject.View.Guest1
         private void SendRequest_Button(object sender, RoutedEventArgs e)
         {
             _ownerId = accommodationService.getOwnerIdByReservationId(SelectedReservationId);
-            ChangeReservationRequest request = new ChangeReservationRequest(SelectedReservationId, NewCheckInDate, NewCheckOutDate, StatusType.Pending, _userId, _ownerId);
+            string accommodationName = accommodationService.getNameById(SelectedReservationId);
+            ChangeReservationRequest request = new ChangeReservationRequest(SelectedReservationId, accommodationName, NewCheckInDate, NewCheckOutDate, StatusType.Pending, _userId, _ownerId);
             requestService.SaveRequest(request);
+            Requests.Add(request);
+            this.Close();
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InitialProject.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,17 +20,26 @@ namespace InitialProject.View.Guest1
     /// </summary>
     public partial class RequestsOwerview : Window
     {
-        private int userId;
+        private int _userId;
+        private RequestsOverviewViewModel viewModel;
         public RequestsOwerview(int userId)
         {
             InitializeComponent();
-            this.userId = userId;   
+            _userId = userId;
+            viewModel = new RequestsOverviewViewModel(userId);
+            this.DataContext = viewModel;
+        }
+
+        private void ChangeReservation_Click(object sender, RoutedEventArgs e)
+        {
+            ReservationChange reservationChange = new ReservationChange(_userId, viewModel.Requests);
+            reservationChange.ShowDialog();
         }
 
         private void CancelReservation_Click(object sender, RoutedEventArgs e)
         {
-            CancelReservation cancelReservationWindow = new CancelReservation(userId);
-            cancelReservationWindow.ShowDialog();
+            CancelReservation cancelReservation = new CancelReservation(_userId);
+            cancelReservation.ShowDialog();
         }
     }
 }

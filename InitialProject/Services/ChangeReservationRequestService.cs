@@ -19,9 +19,9 @@ namespace InitialProject.Services
             _reservationService = new ReservationService();
         }
 
-        public List<ChangeReservationRequest> getRequests()
+        public List<ChangeReservationRequest> GetRequests(int userId)
         {
-            return _requestRepository.GetAll();
+            return _requestRepository.GetAll().Where(r => r.UserId == userId).ToList();
         }
 
         public void SaveRequest(ChangeReservationRequest request)

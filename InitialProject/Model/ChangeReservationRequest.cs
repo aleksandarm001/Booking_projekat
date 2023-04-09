@@ -11,57 +11,66 @@ namespace InitialProject.Model
     public enum StatusType { Pending, Canceled, Approved}
     public class ChangeReservationRequest: ISerializable
     {
-        private int requestId;
-        private int reservationId;
-        private DateTime newStartDate;
-        private DateTime newEndDate;
-        private StatusType requestStatus;
-        private int userId;
-        private int ownerId;
+        private int _requestId;
+        private int _reservationId;
+        private string _accommodationName;
+        private DateTime _newStartDate;
+        private DateTime _newEndDate;
+        private StatusType _requestStatus;
+        private int _userId;
+        private int _ownerId;
+        private string _ownerComment;
 
-        public ChangeReservationRequest(int reservationId, DateTime newStartDate, DateTime newEndDate, StatusType requestStatus, int userId, int ownerId)
+        public ChangeReservationRequest(int reservationId, string accommodationName, DateTime newStartDate, DateTime newEndDate, StatusType requestStatus, int userId, int ownerId)
         {
             this.ReservationId = reservationId;
+            this.AccommodationName = accommodationName;
             this.NewStartDate = newStartDate;
             this.NewEndDate = newEndDate;
             this.RequestStatus = requestStatus;
-            this.userId = userId;
-            this.ownerId = ownerId; 
+            this.UserId = userId;
+            this.OwnerId = ownerId;
+            this.OwnerComment = "-";
         }
         public ChangeReservationRequest()
         {
         }
-
-        public int ReservationId { get => reservationId; set => reservationId = value; }
-        public DateTime NewStartDate { get => newStartDate; set => newStartDate = value; }
-        public DateTime NewEndDate { get => newEndDate; set => newEndDate = value; }
-        public StatusType RequestStatus { get => requestStatus; set => requestStatus = value; }
-        public int RequestId { get => requestId; set => requestId = value; }
-        public int UserId { get => userId; set => userId = value; }
-        public int OwnerId { get => ownerId; set => ownerId = value; }
+        public int ReservationId { get => _reservationId; set => _reservationId = value; }
+        public DateTime NewStartDate { get => _newStartDate; set => _newStartDate = value; }
+        public DateTime NewEndDate { get => _newEndDate; set => _newEndDate = value; }
+        public StatusType RequestStatus { get => _requestStatus; set => _requestStatus = value; }
+        public int RequestId { get => _requestId; set => _requestId = value; }
+        public int UserId { get => _userId; set => _userId = value; }
+        public int OwnerId { get => _ownerId; set => _ownerId = value; }
+        public string OwnerComment { get => _ownerComment; set => _ownerComment = value; }
+        public string AccommodationName { get => _accommodationName; set => _accommodationName = value; }
 
         public string[] ToCSV()
         {
             string[] csvValues = {
-                requestId.ToString(),   
-                reservationId.ToString(),
-                newStartDate.ToString(),
-                newEndDate.ToString(),
-                requestStatus.ToString(),
-                userId.ToString(),
-                ownerId.ToString()
+                _requestId.ToString(),   
+                _reservationId.ToString(),
+                _accommodationName.ToString(),
+                _newStartDate.ToString(),
+                _newEndDate.ToString(),
+                _requestStatus.ToString(),
+                _userId.ToString(),
+                _ownerId.ToString(),
+                _ownerComment
             };
             return csvValues;
         }
         public void FromCSV(string[] values)
         {
-            requestId = Convert.ToInt32(values[0]);
-            reservationId = Convert.ToInt32(values[1]);
-            newStartDate = Convert.ToDateTime(values[2]);
-            newEndDate = Convert.ToDateTime(values[3]);
-            requestStatus = (StatusType)Enum.Parse(typeof(StatusType), values[4]);
-            userId = Convert.ToInt32(values[5]);
-            ownerId = Convert.ToInt32(values[6]);
+            _requestId = Convert.ToInt32(values[0]);
+            _reservationId = Convert.ToInt32(values[1]);
+            _accommodationName = Convert.ToString(values[2]);
+            _newStartDate = Convert.ToDateTime(values[3]);
+            _newEndDate = Convert.ToDateTime(values[4]);
+            _requestStatus = (StatusType)Enum.Parse(typeof(StatusType), values[5]);
+            _userId = Convert.ToInt32(values[6]);
+            _ownerId = Convert.ToInt32(values[7]);
+            _ownerComment = Convert.ToString(values[8]);
         }
     }
 }
