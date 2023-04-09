@@ -194,6 +194,7 @@ namespace InitialProject.View
                 tourAttendance.UserId = users[i].Id;
                 tourAttendance.Username = users[i].Name;
                 tourAttendance.UserAttended = TourAttendance.AttendanceStatus.NotPresent;
+                tourAttendance.CanGiveReview = false; 
                 CheckIfExistAndSave(tourAttendance);
             }
 

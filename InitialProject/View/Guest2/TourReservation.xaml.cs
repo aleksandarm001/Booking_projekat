@@ -2,7 +2,10 @@
 using InitialProject.Model;
 using InitialProject.Repository;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,6 +19,10 @@ namespace InitialProject.View
         public int UserId { get; set; }
         private ReservationRepository _reservationRepository;
         private TourRepository _tourRepository;
+        private VoucherRepository _voucherRepository;
+        public ObservableCollection<Voucher> Vouchers { get; set; }
+        public ObservableCollection<string> VouchersString { get; set; }
+        public string SelectedVoucher { get; set; }
 
         public int NumberOfGuests { get; set; }
         private string _strNumberOfGuests;
@@ -50,6 +57,13 @@ namespace InitialProject.View
             this.NumberOfGuests = NumberOfGuests;
             _reservationRepository = new ReservationRepository();
             _tourRepository = new TourRepository();
+            _voucherRepository = new VoucherRepository();
+            VouchersString = new ObservableCollection<string>();
+            Vouchers = new ObservableCollection<Voucher>(_voucherRepository.GetByUserId(UserId));
+            foreach(Voucher v in Vouchers)
+            {
+                VouchersString.Add(v.Name + " vrijedi do " + v.ValidUntil.ToShortDateString());
+            }
 
         }
 
@@ -86,6 +100,13 @@ namespace InitialProject.View
             Reservation reservation = new Reservation(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests);
             _reservationRepository.Save(reservation);
             _tourRepository.ReduceMaxGuestNumber(Tour.TourId, NumberOfGuests);
+            if(Vaucer.SelectedIndex!=-1)
+            
+            {
+                Voucher voucher = Vouchers.ElementAt(Vaucer.SelectedIndex);
+                _voucherRepository.Delete(voucher);
+            }
+            
 
             MessageBox.Show("Rezervacija uspjesna");
             this.Close();

@@ -286,6 +286,10 @@
         }
 
 
-
+        private void ZavrseneTure_Click(object sender, RoutedEventArgs e)
+        {
+            FinishedTours finishedTours = new FinishedTours(UserId);
+            finishedTours.ShowDialog();
+        }
     }
 }

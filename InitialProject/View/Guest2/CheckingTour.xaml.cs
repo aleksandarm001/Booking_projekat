@@ -38,6 +38,7 @@
         private void Potvrdi_Click(object sender, RoutedEventArgs e)
         {
             _tourAttendance.UserAttended = TourAttendance.AttendanceStatus.Present;
+            _tourAttendance.CanGiveReview = true;
             _tourAttendanceRepository.Update(_tourAttendance);
             this.Close();
 
