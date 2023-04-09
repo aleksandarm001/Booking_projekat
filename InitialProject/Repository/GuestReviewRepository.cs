@@ -35,6 +35,13 @@ namespace InitialProject.Repository
             return guestReview;
         }
 
+        /*
+        public List<GuestReview> GetAllRatesByOwner(int ownerId)
+        {
+            _guestReviews = GetAll();
+            return _guestReviews.Where(r => r.ownerId == ownerId).ToList();
+        }
+        */
         public int NextId()
         {
             _guestReviews = _serializer.FromCSV(FilePath);

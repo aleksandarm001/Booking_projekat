@@ -51,5 +51,6 @@ namespace InitialProject.Repository
             _ownerRates.Remove(foundedRate);
             _serializer.ToCSV(FileParh, _ownerRates);
         }
+
     }
 }

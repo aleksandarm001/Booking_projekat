@@ -9,17 +9,19 @@
       Title="OwnerReviews">
 
     <Grid>
-        <Label>Owner reviews:</Label>
+
+        <Image x:Name="star" Source="/Resources/Images/Partizan.png" Margin="691,0,55,419" RenderTransformOrigin="6.287,-3.441" Panel.ZIndex="1" Visibility="Collapsed"  />
+        <Label Margin="0,0,705,405">Owner reviews:</Label>
 
         <DataGrid Grid.Column="1" Grid.Row="1" Margin="10,29,20,45"
-                  
+                   ItemsSource="{Binding  OwnerRates }"
                   IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="AcommodationId" Width="*" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Cleanliness" Width="*" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Correctness Rate" Width="*" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Additional comment" Width="*" ></DataGridTextColumn>
-                
+                <DataGridTextColumn Header="User Id" Width="*" Binding ="{Binding  userId}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Cleanliness" Width="*" Binding="{Binding CleanlinessRate}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Correctness Rate" Width="*" Binding="{Binding CorrectnessRate}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Additional comment" Width="*" Binding="{Binding Comment}" ></DataGridTextColumn>
+
             </DataGrid.Columns>
         </DataGrid>
 
