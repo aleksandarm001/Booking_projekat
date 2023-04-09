@@ -9,41 +9,25 @@
     <Grid Margin="0,0,10,-6">
         <DataGrid Name ="TourGrid" Grid.Row="0" Margin="10,28,247,69" 
                   ItemsSource="{Binding Path = Users, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path= SelectedUser, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                  IsReadOnly="False" SelectionMode="Single" AutoGenerateColumns="false"
+                  SelectedItem="{Binding Path= SelectedTourAttendance, UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="false"
                   Visibility ="Visible">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Width="30" Binding="{Binding UserId}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Username}"></DataGridTextColumn>
-
-                <DataGridTemplateColumn Header="Status" Width="200">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding UserAttended}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <ComboBox SelectedItem="{Binding UserAttended}" SelectedValuePath="Content">
-                                <ComboBoxItem Content="Present" />
-                                <ComboBoxItem Content="Not Present" />
-                            </ComboBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-
+                <DataGridTextColumn Header="Name" Width="150" Binding="{Binding UserAttended}"></DataGridTextColumn>
             </DataGrid.Columns>
 
         </DataGrid>
 
         <ComboBox Name="StatusComboBox" IsTextSearchEnabled="True" StaysOpenOnEdit="True"
                       IsEditable="True" Margin="303,28,69,131" >
-            <ComboBoxItem Content="Active"></ComboBoxItem>
             <ComboBoxItem Content="Finished"></ComboBoxItem>
         </ComboBox>
-        <Button Content="Save" HorizontalAlignment="Left" Height="30" Margin="316,201,0,0" VerticalAlignment="Top" Width="94" Click="SaveButtonClick"/>
+        <Button Content="Save" HorizontalAlignment="Left" Height="30" Margin="316,201,0,0" VerticalAlignment="Top" Width="94" Click="SaveButton"/>
+        <Button Content="Promeni status" HorizontalAlignment="Left" Height="30" Margin="80,201,0,0" VerticalAlignment="Top" Width="94" Click="ChangeStatusButton"/>
+
 
 
     </Grid>

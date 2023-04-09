@@ -1,8 +1,11 @@
 ﻿namespace InitialProject.View
 {
     using InitialProject.Constants;
+    using InitialProject.CustomClasses;
     using InitialProject.Model;
     using InitialProject.Repository;
+    using InitialProject.View.Guest2;
+    using Microsoft.TeamFoundation.Common;
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
@@ -20,6 +23,8 @@
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<string> Countries { get; set; }
+        
+        public static ObservableCollection<TourAttendance> TourAttendances { get; set; }
         private int UserId { get; }
         public Tour SelectedTour { get; set; }
         public int NumberOfGuests { get; set; }
@@ -31,6 +36,8 @@
         public string SelectedDurationTo { get; set; }
 
         private readonly TourRepository _tourRepository;
+
+        private readonly TourAttendanceRepository _attendanceRepository;
 
         private ObservableCollection<Tour> _tours { get; set; }
         public ObservableCollection<Tour> Tours
@@ -49,14 +56,17 @@
             DataContext = this;
             UserId = userId;
             _tourRepository = new TourRepository();
+            _attendanceRepository = new TourAttendanceRepository();
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
+            
             InitializeLanguages();
             InitializeLocations();
             InitializeGuestNumber();
             InitializeDuration();
             ReadCitiesAndCountries();
+            CheckTourAttendance();
         }
 
         private string _selectedCountry;
@@ -220,7 +230,7 @@
             if (result == MessageBoxResult.Yes)
             {
                 var filteredCollection = _tourRepository.GetAll().Where(a =>
-                (a.Location.Country == SelectedCountry) && (a.Location.City == SelectedCity) && (a.MaxGuestNumber != 0));
+                (a.Location.Country == SelectedTour.Location.Country) && (a.Location.City == SelectedTour.Location.City) && (a.MaxGuestNumber != 0));
                 Tours = new ObservableCollection<Tour>(filteredCollection);
 
                 if (Tours.Count == 0)
@@ -229,6 +239,19 @@
                     Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
                 }
 
+            }
+        }
+
+        private void CheckTourAttendance()
+        {
+            TourAttendances = new ObservableCollection<TourAttendance>(_attendanceRepository.GetAllToCheckByUser(UserId));
+            if (!TourAttendances.IsNullOrEmpty())
+            {
+                foreach (var t in TourAttendances)
+                {
+                    CheckingTour checkingTour =  new CheckingTour(t);
+                    checkingTour.ShowDialog();
+                }
             }
         }
 
@@ -263,6 +286,10 @@
         }
 
 
-
+        private void ZavrseneTure_Click(object sender, RoutedEventArgs e)
+        {
+            FinishedTours finishedTours = new FinishedTours(UserId);
+            finishedTours.ShowDialog();
+        }
     }
 }

@@ -1,5 +1,8 @@
-1|25|24|0|Savo|Present
-2|25|24|1|Antonije|Present
-3|31|36|1|Antonije|OnHold
-4|32|38|1|Antonije|NotPresent
-5|32|39|1|Antonije|NotPresent
+1|5|24|0|Savo|Present|True
+1|3|24|0|Savo|OnHold|False
+1|1|24|0|Savo|Present|True
+1|2|24|0|Savo|Present|True
+2|11|24|1|Antonije|Present|True
+3|13|1|1|Antonije|Present|True
+4|10|4|1|Antonije|NotPresent|False
+5|20|19|1|Antonije|Present|True

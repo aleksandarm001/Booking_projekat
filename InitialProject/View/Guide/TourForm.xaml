@@ -36,6 +36,8 @@
             <Label Grid.Row="6" Grid.Column="0" Margin="0,10,0,10">Datum i vreme pocetka:</Label>
             <Label Grid.Row="7" Grid.Column="0" Margin="0,10,0,10">Trajanje ture:</Label>
             <Label Grid.Row="8" Grid.Column="0" Margin="0,10,0,10">Slike:</Label>
+            <Label Grid.Row="9" Grid.Column="0" Margin="0,10,0,10">Opis:</Label>
+
 
             <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Height="30" Text="{Binding Path=Name, Mode=OneWayToSource }"></TextBox>
 
@@ -56,14 +58,16 @@
                       ItemsSource="{Binding DateAndTime}" HorizontalAlignment="Left" Width ="158" Height="30" SelectedIndex="0" Margin="0,6,0,5"></ComboBox>
             <TextBox Grid.Row="7" Grid.Column="1" Height="30" Text="{Binding Path=TourDuratation, Mode=TwoWay}"></TextBox>
             <TextBox x:Name="UrlTextBox" Grid.Row="8" Grid.Column="1" Width ="158" Height="30"  Text="{Binding Path=TourImageUrl, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,72,7"/>
+            <TextBox Grid.Row="9" Grid.Column="1" Height="30" Text="{Binding Path=Description, Mode=TwoWay}"></TextBox>
 
 
-            <Button Grid.Column="1" Click="AddKeyPoint_ButtonClick" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="38" >Dodaj</Button>
-            <Button Grid.Column="1" Click="AddDatesAndTimes_ButtonClick" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="38" >Dodaj</Button>
-            <Button Grid.Column="1" Click="AddPictures_ButtonClick" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="8" VerticalAlignment="Center" Width="38" >Dodaj</Button>
-            <Button Grid.Column="1" Click="Cancel_ButtonClick" Content="Cancel" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
-            <Button Grid.Column="0" Click="Save_ButtonClick" Content="Save" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
-            <Button Grid.Column="0" Click="Track_ButtonClick" Content="Track" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
+
+            <Button Grid.Column="1" Click="AddKeyPointButton" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="38" >Dodaj</Button>
+            <Button Grid.Column="1" Click="AddDatesAndTimesButton" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="38" >Dodaj</Button>
+            <Button Grid.Column="1" Click="AddPicturesButton" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="8" VerticalAlignment="Center" Width="38" >Dodaj</Button>
+            <Button Grid.Column="1" Click="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
+            <Button Grid.Column="0" Click="SaveTourButton" Content="Save" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
+            <Button Grid.Column="0" Click="TrackButton" Content="Track" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
 
 
         </Grid>

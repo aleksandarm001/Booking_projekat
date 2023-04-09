@@ -116,7 +116,7 @@ namespace InitialProject.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void ZapocniTuru_Button(object sender, RoutedEventArgs e)
+        private void ZapocniTuruButton(object sender, RoutedEventArgs e)
         {
             if (SelectedTour == null)
             {
@@ -139,8 +139,6 @@ namespace InitialProject.View
             tour.TourStarted = true;
             ChangeStatusButton.IsEnabled = true;
             StopStatusButton.IsEnabled = true;
-
-            //UpdateToursCollection(tour); // Use the new method
 
             _tourRepository.Update(tour);
         }
@@ -196,6 +194,7 @@ namespace InitialProject.View
                 tourAttendance.UserId = users[i].Id;
                 tourAttendance.Username = users[i].Name;
                 tourAttendance.UserAttended = TourAttendance.AttendanceStatus.NotPresent;
+                tourAttendance.CanGiveReview = false; 
                 CheckIfExistAndSave(tourAttendance);
             }
 
@@ -205,7 +204,7 @@ namespace InitialProject.View
         }
 
         
-        private void ChageStatus_Button(object sender, RoutedEventArgs e)
+        private void ChangeTourPointStatusButtonClick(object sender, RoutedEventArgs e)
         {
            List<TourAttendance> tourAttendances = GetUsersOnTourPoint();
            TourPointStatus tourPointStatus = new TourPointStatus(TourPoints, SelectedTourPoint, tourAttendances);
@@ -232,7 +231,7 @@ namespace InitialProject.View
 
         
 
-        private void StopTour_Button(object sender, RoutedEventArgs e)
+        private void StopTourButton(object sender, RoutedEventArgs e)
         {
             foreach(var tourPoint in TourPoints)
             {
@@ -247,6 +246,8 @@ namespace InitialProject.View
             TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.GetTourPointsByTourId(SelectedTour.TourId));
             
         }
+
+        
 
     }
 }

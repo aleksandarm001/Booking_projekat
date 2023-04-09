@@ -14,6 +14,8 @@ namespace InitialProject.CustomClasses
         public string Username { get; set; }
         public AttendanceStatus UserAttended { get; set; }
 
+        public bool CanGiveReview { get; set; }
+
 
         public TourAttendance(int tourAttendanceId, int tourId, int tourPointId, int userId, string username, AttendanceStatus status)
         {
@@ -23,6 +25,7 @@ namespace InitialProject.CustomClasses
             UserId = userId;
             Username = username;
             UserAttended = status;
+            CanGiveReview = false;
         }
 
 
@@ -41,7 +44,8 @@ namespace InitialProject.CustomClasses
                 TourPointId.ToString(),
                 UserId.ToString(),
                 Username,
-                UserAttended.ToString()
+                UserAttended.ToString(),
+                CanGiveReview.ToString()
 
             };
             return csvValues;
@@ -54,6 +58,7 @@ namespace InitialProject.CustomClasses
             UserId = Convert.ToInt32(values[3]);
             Username = values[4];
             UserAttended = (AttendanceStatus)Enum.Parse(typeof(AttendanceStatus), values[5]);
+            CanGiveReview = Convert.ToBoolean(values[6]);
         }
     }
 }

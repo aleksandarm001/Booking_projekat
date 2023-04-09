@@ -34,9 +34,9 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="Zapocni turu" Click="ZapocniTuru_Button" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top" Width="79" Height="30"/>
-        <Button Name ="ChangeStatusButton" Content="Promeni Status" Click="ChageStatus_Button" HorizontalAlignment="Left" Margin="517,273,0,0" VerticalAlignment="Top" Width="94" Height="30"/>
-        <Button Name ="StopStatusButton" Content="Zaustavi turu" Click="StopTour_Button" HorizontalAlignment="Left" Margin="629,273,0,0" VerticalAlignment="Top" Width="94" Height="30"/>
+        <Button Content="Zapocni turu" Click="ZapocniTuruButton" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top" Width="79" Height="30"/>
+        <Button Name ="ChangeStatusButton" Content="Promeni Status" Click="ChangeTourPointStatusButtonClick" HorizontalAlignment="Left" Margin="517,273,0,0" VerticalAlignment="Top" Width="94" Height="30"/>
+        <Button Name ="StopStatusButton" Content="Zaustavi turu" Click="StopTourButton" HorizontalAlignment="Left" Margin="629,273,0,0" VerticalAlignment="Top" Width="94" Height="30"/>
 
 
 

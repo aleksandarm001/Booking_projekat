@@ -45,5 +45,33 @@ namespace InitialProject.Repository
             }
             return _tourAttendances.Max(t => t.TourAttendanceId) + 1;
         }
+
+        public TourAttendance Update(TourAttendance tourAttendance)
+        {
+            _tourAttendances = _serializer.FromCSV(FilePath);
+            TourAttendance current = _tourAttendances.Find(tour => tour.TourAttendanceId == tourAttendance.TourAttendanceId);
+            int index = _tourAttendances.IndexOf(current);
+            _tourAttendances.Remove(current);
+            _tourAttendances.Insert(index, tourAttendance);
+            _serializer.ToCSV(FilePath, _tourAttendances);
+            return tourAttendance;
+        }
+
+        public List<TourAttendance> GetAllToCheckByUser(int userId) 
+        {
+            return _tourAttendances.Where(tour => tour.UserId == userId && tour.UserAttended==TourAttendance.AttendanceStatus.OnHold).ToList();
+        }
+
+        public TourAttendance GetById(int id)
+        {
+            return _tourAttendances.Where(tour => tour.TourAttendanceId == id).FirstOrDefault();
+        }
+
+        public List<TourAttendance> GetAllFinished(int userId)
+        {
+            return _tourAttendances.Where(tour => tour.UserId == userId && tour.UserAttended == TourAttendance.AttendanceStatus.Present).ToList();
+        }
+
+
     }
 }

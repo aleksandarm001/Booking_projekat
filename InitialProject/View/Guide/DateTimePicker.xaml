@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="DateTimePicker" Height="200" Width="200">
+        Title="DateTimePicker" Height="226" Width="217">
 
     <Grid>
         <DatePicker Name ="SDatePicker" HorizontalAlignment="Center" Margin="0,39,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=Date, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}" Width="110">
@@ -18,7 +18,7 @@
         <ComboBox Name ="HoursComboBox" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True"
                       ItemsSource="{Binding Hours}" HorizontalAlignment="Left" Width ="33" SelectedIndex="0" Margin="45,86,0,62"/>
 
-        <Button Content="Save" HorizontalAlignment="Center" Height="30" Margin="0,144,0,0" VerticalAlignment="Top" Width="56" Click="SaveButtonClick"/>
+        <Button Content="Save" HorizontalAlignment="Center" Height="30" Margin="0,170,0,0" VerticalAlignment="Top" Width="55" Click="SaveButtonClick"/>
 
     </Grid>
 </Window>
