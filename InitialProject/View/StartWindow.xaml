@@ -12,7 +12,11 @@
         <Button Content="Guest1" HorizontalAlignment="Center" Height="46" Margin="0,257,0,0" VerticalAlignment="Top" Width="200" Click="Guest1_ButtonClick"/>
         <Button Content="Guide" HorizontalAlignment="Center" Height="47" Margin="0,336,0,0" VerticalAlignment="Top" Width="200" Click="Guide_ButtonClick"/>
         <Button Content="Guest2" HorizontalAlignment="Center" Height="48" Margin="0,413,0,0" VerticalAlignment="Top" Width="200" Click="Guest2_ButtonClick"/>
+<<<<<<< Updated upstream
         <Button Content="Registration Form" HorizontalAlignment="Center" Height="48" Margin="0,490,0,0" VerticalAlignment="Top" Width="200" Click="OpenRegistrationForm"/>
+=======
+        <Button Content="Registration Form" HorizontalAlignment="Center" Height="48" Margin="0,490,0,0" VerticalAlignment="Top" Width="200"/>
+>>>>>>> Stashed changes
 
     </Grid>
 </Window>

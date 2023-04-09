@@ -23,13 +23,32 @@ namespace InitialProject.View.Guest1
         public RequestsOwerview(int userId)
         {
             InitializeComponent();
+<<<<<<< Updated upstream
             this.userId = userId;   
+=======
+            _userId = userId;
+            viewModel = new RequestsOverviewViewModel(userId);
+            this.DataContext = viewModel;
+        }
+
+        private void ChangeReservation_Click(object sender, RoutedEventArgs e)
+        {
+            ReservationChange reservationChange = new ReservationChange(_userId, viewModel.Requests);
+            reservationChange.Owner = this;
+            reservationChange.ShowDialog();
+>>>>>>> Stashed changes
         }
 
         private void CancelReservation_Click(object sender, RoutedEventArgs e)
         {
+<<<<<<< Updated upstream
             CancelReservation cancelReservationWindow = new CancelReservation(userId);
             cancelReservationWindow.ShowDialog();
+=======
+            CancelReservation cancelReservation = new CancelReservation(_userId);
+            cancelReservation.Owner = this;
+            cancelReservation.ShowDialog();
+>>>>>>> Stashed changes
         }
     }
 }

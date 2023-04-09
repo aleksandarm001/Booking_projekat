@@ -60,6 +60,12 @@ namespace InitialProject.View.Guest1
             _ownerId = accommodationService.getOwnerIdByReservationId(SelectedReservationId);
             ChangeReservationRequest request = new ChangeReservationRequest(SelectedReservationId, NewCheckInDate, NewCheckOutDate, StatusType.Pending, _userId, _ownerId);
             requestService.SaveRequest(request);
+<<<<<<< Updated upstream
+=======
+            Requests.Add(request);
+            MessageBox.Show("You successfuly sent request for changing reservation!");
+            this.Close();
+>>>>>>> Stashed changes
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -69,6 +75,11 @@ namespace InitialProject.View.Guest1
                 CheckInPicker.SelectedDate = reservationService.GetCheckInDate(_userId, SelectedReservationId);
                 CheckOutPicker.SelectedDate = reservationService.GetCheckOutDate(_userId, SelectedReservationId);
             }
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

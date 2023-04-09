@@ -65,9 +65,7 @@
                 <Button Click="BookClick" VerticalAlignment="Center" Height="36" Width="37" HorizontalAlignment="Center">
                     <Image Source="/Resources/Images/calendar.png" Width="30" Height="30" />
                 </Button>
-                <Button Background="LightGray" Content="OwnerRateTestButton" HorizontalAlignment="Left" Margin="64,0,0,0" VerticalAlignment="Center" Height="28" Width="130" Click="Button_Click" Grid.Column="1"/>
-                <Button Background="LightGray" Content="ChangeReservationTest" HorizontalAlignment="Left" Margin="218,0,0,0" VerticalAlignment="Center" Height="28" Width="130" Click="Button_Click_1" Grid.Column="1"/>
-                
+
             </ToolBar>
         </Grid>
         <Image Source="/Resources/Images/BookBuddy_logo1.png" Margin="-2,4,5,4"></Image>
