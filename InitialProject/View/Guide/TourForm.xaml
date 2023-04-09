@@ -68,6 +68,7 @@
             <Button Grid.Column="1" Click="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
             <Button Grid.Column="0" Click="SaveTourButton" Content="Save" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
             <Button Grid.Column="0" Click="TrackButton" Content="Track" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
+            <Button Grid.Column="0" Click="CancelTourButton" Content="Cancel Tours" HorizontalAlignment="Left" Margin="161,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="77" Grid.ColumnSpan="2" />
 
 
         </Grid>

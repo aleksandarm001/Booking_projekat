@@ -11,7 +11,7 @@ using System.Windows.Data;
 
 namespace InitialProject.Repository
 {
-    public class TourPointRepository
+    public class TourPointRepository 
     {
         private const string FilePath = "../../../Resources/Data/tourpoints.txt";
         private const string TempFilePath = "../../../Resources/TempData/tourpoints.txt";
@@ -29,7 +29,7 @@ namespace InitialProject.Repository
             _tourPoints = new List<TourPoint>();
         }
 
-        
+
 
         public List<TourPoint> getAll()
         {
@@ -73,8 +73,8 @@ namespace InitialProject.Repository
         {
             List<TourPoint> allTourPoint = _serializer.FromCSV(FilePath);
             List<TourPoint> tourPointsWithTourId = new List<TourPoint>();
-            foreach(var tourPoint in allTourPoint)
-                if(tourPoint.TourId == tourId)
+            foreach (var tourPoint in allTourPoint)
+                if (tourPoint.TourId == tourId)
                     tourPointsWithTourId.Add(tourPoint);
             return tourPointsWithTourId;
         }
@@ -117,12 +117,12 @@ namespace InitialProject.Repository
             return tourPoint;
         }
 
-        public TourPoint UpdateTempOrder(TourPoint tourPoint, int order) 
+        public TourPoint UpdateTempOrder(TourPoint tourPoint, int order)
         {
             _tourPoints = _serializer.FromCSV(TempFilePath);
-            foreach(var tour in _tourPoints)
+            foreach (var tour in _tourPoints)
             {
-                if(tour.Order == order)
+                if (tour.Order == order)
                 {
                     tour.Order = 0;
                     UpdateTemp(tour);

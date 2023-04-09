@@ -1,5 +1,6 @@
 ﻿namespace InitialProject.Repository
 {
+    using InitialProject.IRepository;
     using InitialProject.Model;
     using InitialProject.Serializer;
     using System;
@@ -8,7 +9,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class VoucherRepository
+    public class VoucherRepository : IVoucherRepository
     {
         private const string FilePath = "../../../Resources/Data/vouchers.txt";
 
@@ -20,7 +21,7 @@
         public VoucherRepository()
         {
             _serializer = new Serializer<Voucher>();
-            _vouchers= _serializer.FromCSV(FilePath);
+            _vouchers = _serializer.FromCSV(FilePath);
             CheckValidity();
         }
 
@@ -58,14 +59,14 @@
 
         public void CheckValidity()
         {
-            List <Voucher> vouchers = _serializer.FromCSV(FilePath);
+            List<Voucher> vouchers = _serializer.FromCSV(FilePath);
             foreach (Voucher voucher in vouchers)
             {
-                if (DateTime.Compare(voucher.ValidUntil,DateTime.Now)<0)
+                if (DateTime.Compare(voucher.ValidUntil, DateTime.Now) < 0)
                 {
                     Delete(voucher);
                 }
-                
+
             }
             //_serializer.ToCSV(FilePath, _vouchers);
         }
