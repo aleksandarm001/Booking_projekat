@@ -211,7 +211,7 @@ namespace InitialProject.View
         }
         private void ReserveAccommodation(int accommodationID, int userID, DateRange dateRange, int numberOfGuests)
         {
-            Reservation reservation = new Reservation(dateRange, numberOfGuests, userID);
+            Reservation reservation = new Reservation(dateRange, numberOfGuests, userID,accommodationID);
             AccommodationReservation accommodationReservation = new AccommodationReservation(accommodationID, _reservationRepository.NextId());
             SelectedAccommodation.Reservations.Add(reservation);
             Reservations.Add(reservation);

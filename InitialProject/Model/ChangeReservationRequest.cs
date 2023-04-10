@@ -9,6 +9,7 @@ using System.Windows.Media.Animation;
 namespace InitialProject.Model
 {
     public enum StatusType { Pending, Canceled, Approved}
+    
     public class ChangeReservationRequest: ISerializable
     {
         private int _requestId;
@@ -20,8 +21,9 @@ namespace InitialProject.Model
         private int _userId;
         private int _ownerId;
         private string _ownerComment;
+        private Boolean _isAvailable;
 
-        public ChangeReservationRequest(int reservationId, string accommodationName, DateTime newStartDate, DateTime newEndDate, StatusType requestStatus, int userId, int ownerId)
+        public ChangeReservationRequest(int reservationId, string accommodationName, DateTime newStartDate, DateTime newEndDate, StatusType requestStatus, int userId, int ownerId,bool isAvailable)
         {
             this.ReservationId = reservationId;
             this.AccommodationName = accommodationName;
@@ -31,6 +33,7 @@ namespace InitialProject.Model
             this.UserId = userId;
             this.OwnerId = ownerId;
             this.OwnerComment = "-";
+            _isAvailable = isAvailable;
         }
         public ChangeReservationRequest()
         {
@@ -45,6 +48,8 @@ namespace InitialProject.Model
         public string OwnerComment { get => _ownerComment; set => _ownerComment = value; }
         public string AccommodationName { get => _accommodationName; set => _accommodationName = value; }
 
+        public Boolean IsAvailable { get => _isAvailable; set => _isAvailable = value; }
+
         public string[] ToCSV()
         {
             string[] csvValues = {
@@ -56,7 +61,8 @@ namespace InitialProject.Model
                 _requestStatus.ToString(),
                 _userId.ToString(),
                 _ownerId.ToString(),
-                _ownerComment
+                _ownerComment,
+                _isAvailable.ToString()
             };
             return csvValues;
         }
@@ -71,6 +77,7 @@ namespace InitialProject.Model
             _userId = Convert.ToInt32(values[6]);
             _ownerId = Convert.ToInt32(values[7]);
             _ownerComment = Convert.ToString(values[8]);
+            _isAvailable= Convert.ToBoolean(values[9]);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace InitialProject.Services
             {
                 foreach(GuestReview guestReview in _guestReviewRepository.GetAll())
                 {
-                    if(ownerRate.userId == guestReview.GuestId )
+                    if(ownerRate.userId == guestReview.GuestId && ownerRate.AccommodationId == guestReview.AccommodationId )
                     {
                         RatingsFromRatedGuests.Add(ownerRate);
                     }

@@ -13,11 +13,15 @@ namespace InitialProject.CustomClasses
     {
         public int OwnerId { get; set; }
         public int Guest1Id { get; set; }
+
+        public int AccommodationId { get; set; }
         public DateTime LeavingDay { get; set; }
 
-        public UserToReview(int ownerId, int guest1Id, DateTime date)
+        public UserToReview(int ownerId, int guest1Id, int accommodationId, DateTime date)
         {
+
             OwnerId = ownerId;
+            AccommodationId= accommodationId;
             Guest1Id = guest1Id;
             LeavingDay = date;
         }
@@ -29,7 +33,9 @@ namespace InitialProject.CustomClasses
             string[] csvValues = {
                 OwnerId.ToString(),
                 Guest1Id.ToString(),
+                AccommodationId.ToString(),
                 LeavingDay.ToString(),
+                
 
             };
             return csvValues;
@@ -38,7 +44,8 @@ namespace InitialProject.CustomClasses
         {
             OwnerId = Convert.ToInt32(values[0]);
             Guest1Id = Convert.ToInt32(values[1]);
-            LeavingDay = Convert.ToDateTime(values[2]);
+            AccommodationId = Convert.ToInt32(values[2]);   
+            LeavingDay = Convert.ToDateTime(values[3]);
         }
 
     }

@@ -9,6 +9,7 @@ namespace InitialProject.Model
 {
     public class GuestReview: ISerializable
     {
+       
         public int GuestId { get; set; }
         public int AccommodationId { get; set; }
         public int Hygiene { get; set; }
@@ -17,6 +18,7 @@ namespace InitialProject.Model
 
         public GuestReview()
         {
+           
             GuestId = 0;
             AccommodationId = 0;
             Hygiene= 0;
@@ -26,8 +28,9 @@ namespace InitialProject.Model
 
         }
 
-        public GuestReview(int id, int accommodationId,int hygieneGrade, int ruleFollowingGrade, string comment)
+        public GuestReview(int userId,int id, int accommodationId,int hygieneGrade, int ruleFollowingGrade, string comment)
         {
+           
             GuestId = id;
             AccommodationId=accommodationId;
             Hygiene = hygieneGrade;
@@ -40,6 +43,7 @@ namespace InitialProject.Model
         {
             string[] csvValues =
             {
+                
                 GuestId.ToString(),
                 AccommodationId.ToString(),
                 Hygiene.ToString(),
@@ -53,6 +57,7 @@ namespace InitialProject.Model
 
         public void FromCSV(string[] values)
         {
+            
             GuestId = Convert.ToInt32(values[0]);
             AccommodationId = Convert.ToInt32(values[1]);   
             Hygiene= Convert.ToInt32(values[2]);

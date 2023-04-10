@@ -157,7 +157,7 @@ namespace InitialProject.View
             { 
                 if(CheckDateRange(userToReview.LeavingDay)) // 0 je defaultni owner id
                 {
-                    RateUser(userToReview.Guest1Id, userToReview.LeavingDay);
+                    RateUser(userToReview.Guest1Id,userToReview.AccommodationId, userToReview.LeavingDay);
                 }
                 else
                 {
@@ -165,12 +165,12 @@ namespace InitialProject.View
                 }
             }
         }
-        private void RateUser(int userID, DateTime date)
+        private void RateUser(int userID,int accommodationId, DateTime date)
         {
             MessageBoxResult dialogResult = MessageBox.Show("Rate User", "You can still rate user", MessageBoxButton.YesNo);
             if (dialogResult == MessageBoxResult.Yes)
             {
-                GuestReviewForm reviewForm = new GuestReviewForm(userID);
+                GuestReviewForm reviewForm = new GuestReviewForm(userID,accommodationId);
                 reviewForm.ShowDialog();
                 if (reviewForm.IsReviewd)
                 {

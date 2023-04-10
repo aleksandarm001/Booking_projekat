@@ -1,5 +1,6 @@
 ﻿using InitialProject.Model;
 using InitialProject.Services;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -73,7 +74,7 @@ namespace InitialProject.View.Guest1
         {
             _ownerId = accommodationService.getOwnerIdByReservationId(SelectedReservationId);
             string accommodationName = accommodationService.getNameById(SelectedReservationId);
-            ChangeReservationRequest request = new ChangeReservationRequest(SelectedReservationId, accommodationName, NewCheckInDate, NewCheckOutDate, StatusType.Pending, _userId, _ownerId);
+            ChangeReservationRequest request = new ChangeReservationRequest(SelectedReservationId, accommodationName, NewCheckInDate, NewCheckOutDate, StatusType.Pending, _userId, _ownerId,requestService.isDateRangeAvailable(NewCheckInDate,NewCheckOutDate,accommodationName));
             requestService.SaveRequest(request);
             Requests.Add(request);
             this.Close();

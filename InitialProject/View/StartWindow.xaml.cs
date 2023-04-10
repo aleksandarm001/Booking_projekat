@@ -2,6 +2,7 @@
 using InitialProject.Model;
 using InitialProject.Repository;
 using InitialProject.View.Guest1;
+using InitialProject.View.Owner;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -87,7 +88,7 @@ namespace InitialProject.View
                 if (CheckIfLeftReservation(reservation))
                 {
                     _reservationRepository.Delete(reservation);
-                    UserToReview userToReview = new UserToReview(0, reservation.UserId, reservation.ReservationDateRange.EndDate); //bez sign in forme defaultni ownerId je 0
+                    UserToReview userToReview = new UserToReview(0, reservation.UserId,reservation.AccommodationId, reservation.ReservationDateRange.EndDate); //bez sign in forme defaultni ownerId je 0
                     _userToReviewRepository.Save(userToReview);
                 }
             }
@@ -99,6 +100,12 @@ namespace InitialProject.View
                 return true;
             }
             return false;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OwnerReviews ownerReviews = new OwnerReviews();
+            ownerReviews.Show();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using InitialProject.Model;
+﻿using InitialProject.CustomClasses;
+using InitialProject.Model;
 using InitialProject.Repository;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace InitialProject.Services
         private readonly ChangeReservationRequestRepository _requestRepository;
         private readonly ReservationService _reservationService;
         private List<ChangeReservationRequest> _changes;
+        private readonly AccommodationReservationRepository reservationsRepository;
         public ChangeReservationRequestService()
         {
             _requestRepository = new ChangeReservationRequestRepository();
             _reservationService = new ReservationService();
+
         }
 
         public List<ChangeReservationRequest> GetRequests(int userId)
@@ -34,6 +37,15 @@ namespace InitialProject.Services
             {
                 _requestRepository.Save(request);
             }
+        }
+
+        public Boolean isDateRangeAvailable(DateTime startDate,DateTime endDate,string accommodationName)
+        {
+            List<AccommodationReservation> reservations = new List<AccommodationReservation>(reservationsRepository.GetAll());
+
+
+            return true;
+
         }
     }
 }

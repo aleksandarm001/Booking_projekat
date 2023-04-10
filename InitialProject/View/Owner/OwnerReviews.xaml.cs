@@ -68,7 +68,11 @@ namespace InitialProject.View.Owner
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ReservationRescheduleRequests reservationRescheduleRequests= new ReservationRescheduleRequests();
+            reservationRescheduleRequests.Show();
+        }
     }
 }
