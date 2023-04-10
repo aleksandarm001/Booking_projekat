@@ -84,7 +84,7 @@ namespace InitialProject.View
             foreach(Reservation reservation in Reservations){
                 if (CheckIfLeftReservation(reservation))
                 {
-                    _reservationRepository.Delete(reservation);
+                    //_reservationRepository.Delete(reservation);
                     UserToReview userToReview = new UserToReview(0, reservation.UserId, reservation.ReservationDateRange.EndDate); //bez sign in forme defaultni ownerId je 0
                     _userToReviewRepository.Save(userToReview);
                 }

@@ -34,7 +34,7 @@ namespace InitialProject.Repository
         public void Delete(OwnerToRate ownerToRate)
         {
             _ownersToRate = GetAll();
-            OwnerToRate foundedRate = _ownersToRate.Find(or => or.OwnerId == ownerToRate.OwnerId);
+            OwnerToRate foundedRate = _ownersToRate.Find(or => or.AccommodationId == ownerToRate.AccommodationId && or.UserId == ownerToRate.UserId);
             _ownersToRate.Remove(foundedRate);
             _serializer.ToCSV(FileParh, _ownersToRate);
         }
