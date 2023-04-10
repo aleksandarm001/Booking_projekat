@@ -58,7 +58,7 @@
             _attendanceRepository = new TourAttendanceRepository();
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
-            Tours = new ObservableCollection<Tour>(_tourService.GetAll());
+            Tours = new ObservableCollection<Tour>(_tourService.GetAllNotStartedTours());
 
             InitializeLanguages();
             InitializeLocations();

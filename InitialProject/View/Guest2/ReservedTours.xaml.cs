@@ -6,6 +6,7 @@
     using InitialProject.Repository;
     using InitialProject.Services;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Windows;
 
     /// <summary>
@@ -41,7 +42,8 @@
         {
             foreach (Reservation r in _reservationService.GetTourReservationByUserId(UserId))
             {
-                Tours.Add(_tourService.GetTourById(r.TourId));
+                if (_tourPointRepository.GetTourPointsByTourId(r.TourId).Where(t => t.CurrentStatus==TourPoint.Status.Active || t.CurrentStatus==TourPoint.Status.NotActive).Count()!=0)
+                    Tours.Add(_tourService.GetTourById(r.TourId));
             }
         }
 

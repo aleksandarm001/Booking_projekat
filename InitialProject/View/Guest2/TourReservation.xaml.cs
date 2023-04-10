@@ -91,14 +91,19 @@ namespace InitialProject.View
 
         private void MakeReservation()
         {
-            _reservationService.MakeReservation(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests);
-            _tourService.ReduceMaxGuestNumber(Tour.TourId, NumberOfGuests);
+
             if (Vaucer.SelectedIndex != -1)
             {
                 Voucher voucher = Vouchers.ElementAt(Vaucer.SelectedIndex);
+                _reservationService.MakeReservation(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests, voucher.Id);
+                _tourService.ReduceMaxGuestNumber(Tour.TourId, NumberOfGuests);
                 _voucherService.Delete(voucher);
             }
-
+            else
+            {
+                _reservationService.MakeReservation(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests, 0);
+                _tourService.ReduceMaxGuestNumber(Tour.TourId, NumberOfGuests);
+            }
 
             MessageBox.Show("Rezervacija uspjesna");
             this.Close();

@@ -11,6 +11,7 @@
         public static readonly string TourReviewed = "Vec ste ocijenili izabranu turu!";
         public static readonly string TourNotStarted = "Izabrana tura jos uvijek nije pocela!";
         public static readonly string ActiveTourPointNotFound = "Doslo je do greske prilikom pracenja aktivne tacke na turi";
+        public static readonly string CommentNoted = "Hvala Vam sto ste ostavili utisak o turi";
 
     }
 }

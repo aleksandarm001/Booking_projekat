@@ -1,5 +1,6 @@
 ﻿namespace InitialProject.View.Guest2
 {
+    using InitialProject.Constants;
     using InitialProject.Model;
     using InitialProject.Services;
     using System.Collections.Generic;
@@ -38,7 +39,6 @@
         private void InitializeRating()
         {
             Rating = new ObservableCollection<string>();
-            //Rating.Add("");
             for (int i = 1; i <= 5; i++)
             {
                 Rating.Add(i.ToString());
@@ -48,6 +48,7 @@
         private void Potvrdi_Click(object sender, RoutedEventArgs e)
         {
             _tourRateService.MakeTourRate(TourRate);
+            MessageBox.Show(TourViewConstants.CommentNoted, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
             this.Close();
         }
 

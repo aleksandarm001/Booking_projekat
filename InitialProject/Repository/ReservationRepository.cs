@@ -51,5 +51,10 @@ namespace InitialProject.Repository
             _reservations.Remove(foundedAccommodation);
             _serializer.ToCSV(FilePath, _reservations);
         }
+
+        public Reservation GetByReservationId(int reservationId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

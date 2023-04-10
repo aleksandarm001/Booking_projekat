@@ -37,9 +37,9 @@ namespace InitialProject.Services
             _repository.Delete(reservation);
         }
 
-        public void MakeReservation(int userId, int tourId, DateTime startingDateTime, int numberOfGuests)
+        public void MakeReservation(int userId, int tourId, DateTime startingDateTime, int numberOfGuests, int voucherId)
         {
-            Reservation reservation = new Reservation(userId, tourId, startingDateTime, numberOfGuests);
+            Reservation reservation = new Reservation(userId, tourId, startingDateTime, numberOfGuests, voucherId);
             _repository.Save(reservation);
         }
 
