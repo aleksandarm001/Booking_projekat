@@ -1,4 +1,5 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.RepositoryInterfaces;
 using InitialProject.Model;
 using InitialProject.Repository;
 using System;
@@ -9,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace InitialProject.Services
 {
-    public class OwnerToRateService : IOwnerToRateService
+    public class OwnerToRateService
     {
-        private readonly OwnerToRateRepository _ownerToRateRepository;
-        private readonly ReservationRepository _reservationRepository;
-        private readonly AccommodationReservationRepository _accommodationReservationRepository;
-        private readonly AccommodationRepository _accommodationRepository;
+        private readonly IOwnerToRateRepository _ownerToRateRepository;
+        private readonly IReservationRepository _reservationRepository;
+        private readonly IAccommodationReservationRepository _accommodationReservationRepository;
+        private readonly IAccommodationRepository _accommodationRepository;
         private List<OwnerToRate> _ownersToRate;
 
         public OwnerToRateService()

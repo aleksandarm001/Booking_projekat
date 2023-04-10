@@ -27,7 +27,7 @@ namespace InitialProject.View.Guest1
         public event PropertyChangedEventHandler? PropertyChanged;
         private ChangeReservationRequestService requestService;
         private ReservationService reservationService;
-        private readonly IAccommodationService accommodationService;
+        private readonly AccommodationService accommodationService;
         private readonly AccommodationReservationService accommodationReservationService;
         private int _userId;
         private int _ownerId;
@@ -70,7 +70,6 @@ namespace InitialProject.View.Guest1
         {
             ReservationsForChange = new ObservableCollection<KeyValuePair<int, string>>(accommodationReservationService.GetReservationsByUserId(_userId));
         }
-
         private void SendRequest_Button(object sender, RoutedEventArgs e)
         {
             _ownerId = accommodationService.GetOwnerIdByReservationId(SelectedReservationId);
@@ -80,7 +79,6 @@ namespace InitialProject.View.Guest1
             Requests.Add(request);
             this.Close();
         }
-
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Send_Button.IsEnabled = true;
@@ -90,7 +88,6 @@ namespace InitialProject.View.Guest1
                 CheckOutPicker.SelectedDate = reservationService.GetCheckOutDate(_userId, SelectedReservationId);
             }
         }
-
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

@@ -60,40 +60,12 @@ namespace InitialProject
             _userRepository = new UserRepository();
 
         }
-        private void InitializeAccountType()
-        {
-            if (OwnerRadio.IsChecked == true)
-            {
-                StrTypeOfUser = "Owner";
-                TypeOfUser = UserType.Owner;
-            }
-            else if(Guest1Radio.IsChecked == true)
-            {
-                StrTypeOfUser = "Guest1";
-                TypeOfUser = UserType.Guest1;
-            }
-            else if(Guest2Radio.IsChecked == true)
-            {
-                StrTypeOfUser = "Guest2";
-                TypeOfUser = UserType.Guest2;
-            }
-            else if(GuideRadio.IsChecked == true)
-            {
-                StrTypeOfUser = "Guide";
-                TypeOfUser = UserType.Guide;
-            }
-            else
-            {
-                StrTypeOfUser = "";
-            }
-        }
         private void OpenLogInForm(object sender, RoutedEventArgs e)
         {
 
         }
         private void BtnSignUp_Click(object sender, RoutedEventArgs e)
         {
-            InitializeAccountType();
             User user = new User(NameOfUser, Username, Email, Password, TypeOfUser);
             _userRepository.Save(user);
 

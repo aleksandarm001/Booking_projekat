@@ -1,4 +1,5 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.RepositoryInterfaces;
 using InitialProject.Model;
 using InitialProject.Serializer;
 using System;
@@ -11,7 +12,7 @@ using System.Xml.Linq;
 
 namespace InitialProject.Repository
 {
-    public class AccommodationRepository
+    public class AccommodationRepository : IAccommodationRepository
     {
         private const string FilePath = "../../../Resources/Data/accommodations.txt";
 

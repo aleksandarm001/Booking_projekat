@@ -1,4 +1,5 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.RepositoryInterfaces;
 using InitialProject.Model;
 using InitialProject.Serializer;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace InitialProject.Repository
 {
-    public class NotificationRespository
+    public class NotificationRespository : INotificationRepository
     {
         private const string FilePath = "../../../Resources/Data/notifications.txt";
 

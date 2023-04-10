@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject"
         mc:Ignorable="d"
-        Title="UserRegistration" Height="650" Width="500"
+        Title="UserRegistration" Height="682" Width="500"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -14,7 +14,7 @@
 
     <Border CornerRadius="12"
             BorderThickness="5"
-            Background="White">
+            Background="White" Margin="0,0,0,-31">
 
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -24,7 +24,7 @@
         </Border.BorderBrush>
 
 
-        <Grid>
+        <Grid Margin="0,0,0,72" RenderTransformOrigin="0.488,0.759">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
@@ -110,7 +110,7 @@
             <StackPanel Width="230"
                         Grid.Row="1"
                         Orientation="Vertical"
-                        Margin="0,20,0,0">
+                        Margin="130,20,130,290">
                 <Image Source="/Resources/Images/BookBuddy_logo1.png" Width="auto" Height="50"></Image>
                 <TextBlock Text="Join the millions of satisfied travelers."
                            FontSize="12"
@@ -123,45 +123,7 @@
                 <StackPanel Width="230"
                             Grid.Row ="1"
                             Orientation="Vertical"
-                            Background="Transparent" Height="487">
-
-
-                    <TextBlock Text="Name"
-                               Foreground="DarkGray"
-                               FontSize="12"
-                               FontWeight="Medium"
-                               FontFamily="Montserrat"                             
-                               Margin="0,35,0,0" Width="220"/>
-                    <TextBox FontSize="13"
-                        FontWeight="Medium"
-                        FontFamily="Montserrat"                            
-                        Foreground="#2d2d2d"
-                        CaretBrush="LightGray"
-                        BorderBrush="DarkGray"
-                        BorderThickness="0,0,0,2"
-                        Height="28"
-                        VerticalContentAlignment="Center"
-                        Padding="5,0,0,0"
-                        Width="220"
-                        Text="{Binding Path=NameOfUser, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}"/>
-
-                    <TextBlock Text="Username"
-                               Foreground="DarkGray"
-                               FontSize="12"
-                               FontWeight="Medium"
-                               FontFamily="Montserrat"                             
-                               Margin="0,20,0,0" Width="220"/>
-                    <TextBox FontSize="13"
-                        FontWeight="Medium"
-                        FontFamily="Montserrat"                            
-                        Foreground="#2d2d2d"
-                        CaretBrush="LightGray"
-                        BorderBrush="DarkGray"
-                        BorderThickness="0,0,0,2"
-                        Height="28"
-                        VerticalContentAlignment="Center"
-                        Padding="5,0,0,0" Width="220"
-                        Text="{Binding Path=Username, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}"/>
+                            Background="Transparent" Height="230">
 
                     <TextBlock Text="Email"
                                Foreground="DarkGray"
@@ -198,50 +160,7 @@
                         VerticalContentAlignment="Center"
                         Padding="5,0,0,0" Width="220"
                         Text="{Binding Path=Password, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}"/>
-                    <TextBlock Text="Account Type"
-                               Foreground="DarkGray"
-                               FontSize="12"
-                               FontWeight="Medium"
-                               FontFamily="Montserrat"  
-                               Margin="0,20,0,10" Width="220"/>
-
-                    <RadioButton x:Name="OwnerRadio"
-                            Content="Owner"
-                             FontSize="12"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"
-                             Width="200" 
-                             Height="20"
-                             GroupName="AccountType"
-                             IsChecked="{Binding StrTypeOfUser, Mode=OneWayToSource}"/>
-                    <RadioButton Name="Guest1Radio"
-                        Content="Guest1"
-                             FontSize="12"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat" 
-                             Width="200" 
-                             Height="20"
-                             GroupName="AccountType"
-                             IsChecked="{Binding StrTypeOfUser, Mode=OneWayToSource}"/>
-                    <RadioButton Name="GuideRadio"
-                        Content="Guide"
-                             FontSize="12"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"
-                             Width="200" 
-                             Height="20"
-                             GroupName="AccountType"
-                             IsChecked="{Binding StrTypeOfUser, Mode=OneWayToSource}"/>
-                    <RadioButton Name="Guest2Radio"
-                        Content="Guest2"
-                             FontSize="12"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"
-                             Width="200" 
-                             Height="20"
-                             GroupName="AccountType"
-                             IsChecked="{Binding StrTypeOfUser, Mode=OneWayToSource}"/>
-
+                   
 
                     <Button     BorderThickness="0"
                             Content="SIGN UP"
