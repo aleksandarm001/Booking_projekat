@@ -1,5 +1,6 @@
 ﻿using InitialProject.Model;
 using InitialProject.Repository;
+using InitialProject.View.Guide;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -264,6 +265,22 @@ namespace InitialProject.View
         {
             TourPointForm addTourPoint = new TourPointForm(tourId, KeyPoints);
             addTourPoint.Show();
+        }
+
+        private void CancelTourButton(object sender, RoutedEventArgs e)
+        {
+            CancelTour cancelTour = new CancelTour();
+            cancelTour.Show();
+            //Close();
+        }
+
+        
+
+        private void StatisticButton(object sender, RoutedEventArgs e)
+        {
+            TourStatistic tourStatistic = new TourStatistic();
+            tourStatistic.Show();
+            //Close();
         }
 
         private void AddDatesAndTimesButton(object sender, RoutedEventArgs e)

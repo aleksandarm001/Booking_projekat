@@ -1,4 +1,5 @@
-﻿using InitialProject.Model;
+﻿using InitialProject.Domen.RepositoryInterfaces;
+using InitialProject.Model;
 using InitialProject.Serializer;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Xml.Linq;
 namespace InitialProject.Repository
 {
 
-    public class TourRepository
+    public class TourRepository : ITourRepository
 
     {
 
@@ -23,7 +24,7 @@ namespace InitialProject.Repository
             _tours = _serializer.FromCSV(FilePath);
         }
 
-        public List<Tour> GetAll() 
+        public List<Tour> GetAll()
         {
             return _tours;
         }
@@ -35,6 +36,21 @@ namespace InitialProject.Repository
             _tours.Add(tour);
             _serializer.ToCSV(FilePath, _tours);
             return tour;
+        }
+
+        public void Delete(Tour tour)
+        {
+            _tours = _serializer.FromCSV(FilePath);
+            Tour foundedTour = _tours.Find(t => t.TourId == tour.TourId);
+            _tours.Remove(foundedTour);
+            _serializer.ToCSV(FilePath, _tours);
+        }
+
+        public Tour GetById(int id)
+        {
+            _tours = _serializer.FromCSV(FilePath);
+            Tour foundedTour = _tours.Find(t => t.TourId == id);
+            return foundedTour;
         }
 
         public int NextId()
