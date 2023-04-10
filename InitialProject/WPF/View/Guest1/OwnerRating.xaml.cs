@@ -98,7 +98,7 @@ namespace InitialProject.View.Guest1
             InitializeGrades();
             _userId = userId;
             DataContext = this;
-            ownerToRateService = new OwnerToRateService();
+            ownerToRateService = new OwnerToRateService(userId);
             ownerRateService = new OwnerRateService();
             Images = new List<string>();
             AccommodationsName = new ObservableCollection<KeyValuePair<int, string>>(ownerToRateService.GetAccommodationNamesByUser(userId));

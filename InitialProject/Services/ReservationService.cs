@@ -36,16 +36,19 @@ namespace InitialProject.Services
             Reservation reservation = GetReservationById(reservationId);
             _repository.Delete(reservation);
         }
-
         public void MakeReservation(int userId, int tourId, DateTime startingDateTime, int numberOfGuests, int voucherId)
         {
             Reservation reservation = new Reservation(userId, tourId, startingDateTime, numberOfGuests, voucherId);
             _repository.Save(reservation);
         }
-
         public List<Reservation> GetTourReservationByUserId(int userId)
         {
             return _repository.GetAll().Where(r => r.UserId == userId && r.TourId != -1).ToList();
         }
+        public void Delete(Reservation reservation)
+        {
+            _repository.Delete(reservation);
+        }
+
     }
 }
