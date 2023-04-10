@@ -1,12 +1,9 @@
 ﻿namespace InitialProject.View.Guest2
 {
     using InitialProject.Constants;
-    using InitialProject.CustomClasses;
     using InitialProject.Model;
-    using InitialProject.Repository;
     using InitialProject.Services;
     using System.Collections.ObjectModel;
-    using System.Linq;
     using System.Windows;
 
     /// <summary>
@@ -16,17 +13,17 @@
     {
         public ObservableCollection<Tour> Tours { get; set; }
         public Tour SelectedTour { get; set; }
-        private TourService _tourService;
         private TourPointService _tourPointService;
+        private TourReservationService _tourReservationService;
 
 
         public ReservedTours(int userId)
         {
             InitializeComponent();
             DataContext = this;
-            Tours = new ObservableCollection<Tour>(_tourService.GetAllReservedAndNotFinishedTour(userId));
-            _tourService = new TourService();
             _tourPointService = new TourPointService();
+            _tourReservationService = new TourReservationService();
+            Tours = new ObservableCollection<Tour>(_tourReservationService.GetAllReservedAndNotFinishedTour(userId));
         }
 
         private void Detalji_Click(object sender, RoutedEventArgs e)
@@ -34,7 +31,7 @@
             HandleMessage();
         }
 
-       
+
 
         private void HandleMessage()
         {
@@ -42,7 +39,7 @@
             {
                 if (SelectedTour.TourStarted)
                 {
-                    if (_tourPointService.GetActiveTourPointOnTour(SelectedTour.TourId)== null)
+                    if (_tourPointService.GetActiveTourPointOnTour(SelectedTour.TourId) == null)
                     {
                         MessageBox.Show(TourViewConstants.ActiveTourPointNotFound, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
                     }

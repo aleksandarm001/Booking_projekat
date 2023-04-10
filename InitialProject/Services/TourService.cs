@@ -39,7 +39,7 @@
 
         public List<Tour> GetSimilarAsTourHasFullCapacity(string country, string city)
         {
-            return (List<Tour>)_tours.Where(a => (a.Location.Country == country) && (a.Location.City == city) && (a.MaxGuestNumber != 0));
+            return _tours.Where(a => (a.Location.Country == country) && (a.Location.City == city) && (a.MaxGuestNumber != 0)).ToList();
         }
 
         public void ReduceMaxGuestNumber(int tourId, int guestNumber)
@@ -62,11 +62,11 @@
             return tours;
         }
 
-        public List<Tour> GetAllReservedAndNotFinishedTour(int userId)
+        public List<Tour> GetAllNotFinishedTour()
         {
             List<Tour> tours = new List<Tour>();
-            tours = _tours.Where(t => t.TourId == userId && t.TourStarted == false).ToList();
-            foreach (Tour tour in _tours.Where(t => t.TourId == userId && t.TourStarted == true).ToList())
+            tours = _tours.Where(t => t.TourStarted == false).ToList();
+            foreach (Tour tour in _tours.Where(t => t.TourStarted == true).ToList())
                 if (!_tourPointService.TourStartedAndFinished(tour.TourId))
                 {
                     tours.Add(tour);

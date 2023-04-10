@@ -15,7 +15,7 @@ namespace InitialProject.View
         public Tour Tour { get; set; }
         public int UserId { get; set; }
         private TourService _tourService;
-        private ReservationService _reservationService;
+        private TourReservationService _tourReservationService;
         private VoucherService _voucherService;
         public ObservableCollection<Voucher> Vouchers { get; set; }
         public ObservableCollection<string> VouchersString { get; set; }
@@ -51,7 +51,7 @@ namespace InitialProject.View
             UserId = userId;
             this.NumberOfGuests = NumberOfGuests;
             _tourService = new TourService();
-            _reservationService = new ReservationService();
+            _tourReservationService = new TourReservationService();
             _voucherService = new VoucherService();
             VouchersString = new ObservableCollection<string>();
             Vouchers = new ObservableCollection<Voucher>(_voucherService.GetAllForUser(userId));
@@ -91,11 +91,11 @@ namespace InitialProject.View
         {
             if (Vaucer.SelectedIndex != -1)
             {
-                _reservationService.MakeReservationWithVoucher(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests, Vouchers[Vaucer.SelectedIndex]);
+                _tourReservationService.MakeReservationWithVoucher(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests, Vouchers[Vaucer.SelectedIndex]);
             }
             else
             {
-                _reservationService.MakeReservationWithoutVoucher(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests);
+                _tourReservationService.MakeReservationWithoutVoucher(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests);
             }
             MessageBox.Show("Rezervacija uspjesna");
             this.Close();
