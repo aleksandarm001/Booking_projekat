@@ -29,7 +29,7 @@ namespace InitialProject.Services
                     int accommodationId = accommodationService.GetAccommodationIdByReservationId(reservation.ReservationId);
                     Reservation founded = reservationService.GetReservationById(reservation.ReservationId);
                     string value = "";
-                    string accommodationName = accommodationService.getNameById(accommodationId);
+                    string accommodationName = accommodationService.GetNameById(accommodationId);
                     value = value + " " + accommodationName + "; " + founded.ReservationDateRange.SStartDate + "-" + founded.ReservationDateRange.SEndDate;
                     result.Add(reservation.ReservationId, value);
                 }
