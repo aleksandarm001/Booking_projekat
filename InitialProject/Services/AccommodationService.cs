@@ -1,4 +1,5 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.RepositoryInterfaces;
 using InitialProject.Model;
 using InitialProject.Repository;
 using System;
@@ -11,8 +12,8 @@ namespace InitialProject.Services
 {
     public class AccommodationService
     {
-        private readonly AccommodationRepository _repository;
-        private readonly AccommodationReservationRepository _accommodationReservationRepository;
+        private readonly IAccommodationRepository _repository;
+        private readonly IAccommodationReservationRepository _accommodationReservationRepository;
         private List<Accommodation> _accommodations;
         private List<AccommodationReservation> _accommodationReservations;
         public AccommodationService()
@@ -22,18 +23,23 @@ namespace InitialProject.Services
             _accommodations = _repository.GetAll();
             _accommodationReservations = _accommodationReservationRepository.GetAll();
         }
-        public string getNameById(int accommodationId)
+        public string GetNameById(int accommodationId)
         {
             return _accommodations.Find(a => a.AccommodationID == accommodationId).Name;
         }
-        public int getOwnerIdByAccommodationId(int accommodationId)
+        public string GetNameByReservationId(int reservationId)
+        {
+            int accommodationId = GetAccommodationIdByReservationId(reservationId);
+            return _accommodations.Find(a => a.AccommodationID == accommodationId).Name;
+        }
+        public int GetOwnerIdByAccommodationId(int accommodationId)
         {
             return _accommodations.Find(a => a.AccommodationID == accommodationId).UserId;
         }
-        public int getOwnerIdByReservationId(int reservationId)
+        public int GetOwnerIdByReservationId(int reservationId)
         {
             int accommodationId = GetAccommodationIdByReservationId(reservationId);
-            return getOwnerIdByAccommodationId(accommodationId);
+            return GetOwnerIdByAccommodationId(accommodationId);
         }
         public int GetAccommodationIdByReservationId(int reservationId)
         {

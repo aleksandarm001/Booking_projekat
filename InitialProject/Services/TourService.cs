@@ -29,6 +29,11 @@
             return _tours;
         }
 
+        public List<Tour> GetAllNotStartedTours()
+        {
+            return _tours.Where(t => t.TourStarted == false).ToList();
+        }
+
         public Tour GetTourById(int id)     
         { 
             return _tours.Where(t => t.TourId == id).FirstOrDefault();
@@ -49,11 +54,12 @@
 
         public List<Tour> GetAllFinished(int userId)
         {
-            List <TourAttendance> _tourAttendance = _tourAttendanceRepository.GetAllFinished(userId);
+            List <TourAttendance> _tourAttendance = _tourAttendanceRepository.GetAllPresented(userId);
             List<Tour> tours = new List<Tour>();
             foreach (TourAttendance t in _tourAttendance)
             {
-                tours.Add(_tours.Find(tour=>tour.TourId==t.TourId));
+                if (!tours.Contains(_tours.Find(tour => tour.TourId == t.TourId)))
+                    tours.Add(_tours.Find(tour=>tour.TourId==t.TourId));
             }
             return tours;
         }

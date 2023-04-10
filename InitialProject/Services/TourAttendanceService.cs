@@ -42,9 +42,10 @@
 
         public void AddedComment(int userId, int tourId)
         {
-            TourAttendance tourAttendance = _tourAttendances.Find(t => t.UserId == userId && t.TourId == tourId && t.CanGiveReview == true);
-            tourAttendance.CanGiveReview = false;
-            _tourAttendanceRepository.Update(tourAttendance);
+            foreach (TourAttendance tourAttendance in _tourAttendances.FindAll(t => t.UserId == userId && t.TourId == tourId && t.CanGiveReview == true)) {
+                tourAttendance.CanGiveReview = false;
+                _tourAttendanceRepository.Update(tourAttendance);
+            }
 
         }
     }

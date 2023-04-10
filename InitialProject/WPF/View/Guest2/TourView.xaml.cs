@@ -17,7 +17,7 @@
     public partial class TourView : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public static ObservableCollection<int> Duration { get; set; }
+        public static ObservableCollection<string> Duration { get; set; }
         public static ObservableCollection<int> GuestNumber { get; set; }
         public static ObservableCollection<string> Languages { get; set; }
         public static ObservableCollection<Location> Locations { get; set; }
@@ -58,7 +58,7 @@
             _attendanceRepository = new TourAttendanceRepository();
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
-            Tours = new ObservableCollection<Tour>(_tourService.GetAll());
+            Tours = new ObservableCollection<Tour>(_tourService.GetAllNotStartedTours());
 
             InitializeLanguages();
             InitializeLocations();
@@ -131,7 +131,7 @@
 
         private void InitializeDuration()
         {
-            Duration = new ObservableCollection<int>();
+            Duration = new ObservableCollection<string>();
             int max = 1;
             foreach (Tour t in Tours)
             {
@@ -142,8 +142,9 @@
             }
             for (int i = 1; i <= max; i++)
             {
-                Duration.Add(i);
+                Duration.Add(i.ToString());
             }
+            Duration.Insert(0,string.Empty);
         }
         private void Rezervisi_Click(object sender, RoutedEventArgs e)
         {
@@ -257,6 +258,12 @@
         {
             FinishedTours finishedTours = new FinishedTours(UserId);
             finishedTours.ShowDialog();
+        }
+
+        private void RezervisaneTure_Click(object sender, RoutedEventArgs e)
+        {
+            ReservedTours reservedTours = new ReservedTours(UserId);
+            reservedTours.ShowDialog();
         }
     }
 }

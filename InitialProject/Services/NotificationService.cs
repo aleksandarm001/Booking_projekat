@@ -1,4 +1,5 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.RepositoryInterfaces;
 using InitialProject.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace InitialProject.Services
 {
     public class NotificationService
     {
-        private readonly NotificationRespository _notificationRespository;
+        private readonly INotificationRepository _notificationRespository;
 
         public NotificationService()
         {

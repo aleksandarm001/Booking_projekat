@@ -55,7 +55,7 @@
                   Grid.Row="1" VerticalAlignment="Top" Width="130" SelectionChanged="Filter_Countries" />
 
         <Label Content="Trajanje ture(h)" HorizontalAlignment="Left" Margin="15,320,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <ComboBox x:Name ="Duration_Box_From"  SelectedItem="{Binding SelectedDurationFrom}"  IsEditable="True" IsReadOnly="True" Text="Od" ItemsSource="{Binding Path=Duration}" HorizontalAlignment="Left" Margin="20,350,0,0" Grid.Row="1" VerticalAlignment="Top" Width="60"/>
+        <ComboBox x:Name ="Duration_Box_From"  SelectedItem="{Binding SelectedDurationFrom}"  IsEditable="True" IsReadOnly="False" Text="Od" ItemsSource="{Binding Path=Duration}" HorizontalAlignment="Left" Margin="20,350,0,0" Grid.Row="1" VerticalAlignment="Top" Width="60"/>
         <ComboBox x:Name ="Duration_Box_To"  SelectedItem="{Binding SelectedDurationTo}" IsEditable="True" IsReadOnly="True" Text="Do"  ItemsSource="{Binding Path=Duration}" HorizontalAlignment="Left" Margin="90,350,0,0" Grid.Row="1" VerticalAlignment="Top" Width="60"/>
 
         <Button Content="Primijeni" Click="ApplyFilters_Click" HorizontalAlignment="Left" Margin="53,406,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="30"/>
@@ -76,7 +76,8 @@
                 </TransformGroup>
             </GridSplitter.RenderTransform>
         </GridSplitter>
-        <Button Content="Zavrsene ture"  Name="ZavrseneTure"  Click="ZavrseneTure_Click"  HorizontalAlignment="Left" Margin="544,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="30" Grid.Column="1"/>
+        <Button Content="Zavrsene ture"  Name="ZavrseneTure"  Click="ZavrseneTure_Click"  HorizontalAlignment="Left" Margin="544,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="81" Height="30" Grid.Column="1"/>
+        <Button Content="Rezervisane ture"  x:Name="RezervisaneTure"  Click="RezervisaneTure_Click"  HorizontalAlignment="Left" Margin="424,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="30" Grid.Column="1"/>
 
 
     </Grid>

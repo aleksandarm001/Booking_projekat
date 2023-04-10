@@ -22,6 +22,7 @@ namespace InitialProject.Services
         {
             Dictionary<int, string> result = new Dictionary<int, string>();
             List<Reservation> usersReservations = reservationService.GetReservationsByUserId(userId);
+            FilterReservations(usersReservations);
             if (usersReservations.Count > 0)
             {
                 foreach (Reservation reservation in usersReservations)
@@ -29,7 +30,7 @@ namespace InitialProject.Services
                     int accommodationId = accommodationService.GetAccommodationIdByReservationId(reservation.ReservationId);
                     Reservation founded = reservationService.GetReservationById(reservation.ReservationId);
                     string value = "";
-                    string accommodationName = accommodationService.getNameById(accommodationId);
+                    string accommodationName = accommodationService.GetNameById(accommodationId);
                     value = value + " " + accommodationName + "; " + founded.ReservationDateRange.SStartDate + "-" + founded.ReservationDateRange.SEndDate;
                     result.Add(reservation.ReservationId, value);
                 }
@@ -45,6 +46,10 @@ namespace InitialProject.Services
             int daysBeforeCancel = founded.DaysBeforeCancelling;
             DateTime allowedCancellingDate = reservation.ReservationDateRange.EndDate.AddDays(daysBeforeCancel);
             return allowedCancellingDate > currentDate;
+        }
+        private void FilterReservations(List<Reservation> reservations)
+        {
+            reservations.RemoveAll(r => r.ReservationDateRange.StartDate <= DateTime.Now);
         }
     }
 }

@@ -63,7 +63,7 @@ namespace InitialProject.Repository
         }
 
 
-        public List<TourAttendance> GetAllFinished(int userId)
+        public List<TourAttendance> GetAllPresented(int userId)
         {
             return _tourAttendances.Where(tour => tour.UserId == userId && tour.UserAttended == TourAttendance.AttendanceStatus.Present).ToList();
         }

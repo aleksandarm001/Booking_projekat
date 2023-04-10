@@ -1,5 +1,6 @@
 ﻿using InitialProject.CustomClasses;
-using InitialProject.IRepository;
+using InitialProject.Domen.RepositoryInterfaces;
+using InitialProject.Model;
 using InitialProject.Serializer;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +19,6 @@ namespace InitialProject.Repository
         {
             _serializer = new Serializer<Reservation>();
             _reservations = _serializer.FromCSV(FilePath);
-        }
-
-        public Reservation GetByReservationId(int reservationId)
-        {
-            _reservations = _serializer.FromCSV(FilePath);
-            return _reservations.FirstOrDefault(t => t.ReservationId == reservationId);
         }
 
         public List<Reservation> GetAll()
@@ -53,6 +48,11 @@ namespace InitialProject.Repository
             Reservation foundedAccommodation = _reservations.Find(r => r.ReservationId == reservation.ReservationId);
             _reservations.Remove(foundedAccommodation);
             _serializer.ToCSV(FilePath, _reservations);
+        }
+
+        public Reservation GetByReservationId(int reservationId)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

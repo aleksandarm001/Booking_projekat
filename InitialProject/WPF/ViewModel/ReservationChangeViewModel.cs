@@ -8,21 +8,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows;
 
-namespace InitialProject.View.Guest1
+namespace InitialProject.ViewModel
 {
-    /// <summary>
-    /// Interaction logic for ReservationChange.xaml
-    /// </summary>
-    public partial class ReservationChange : Window, INotifyPropertyChanged
+    public class ReservationChangeViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         private ChangeReservationRequestService requestService;
@@ -52,17 +43,14 @@ namespace InitialProject.View.Guest1
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public ReservationChange(int userId, ObservableCollection<ChangeReservationRequest> Requests)
+        public ReservationChangeViewModel(int userId, ObservableCollection<ChangeReservationRequest> Requests)
         {
-            InitializeComponent();
-            DataContext = this;
             reservationService = new ReservationService();
             accommodationService = new AccommodationService();
             requestService = new ChangeReservationRequestService();
             accommodationReservationService = new AccommodationReservationService();
             _userId = userId;
             this.Requests = Requests;
-            Send_Button.IsEnabled = false;
 
             InitializeReservationsForChange();
         }
@@ -70,30 +58,29 @@ namespace InitialProject.View.Guest1
         {
             ReservationsForChange = new ObservableCollection<KeyValuePair<int, string>>(accommodationReservationService.GetReservationsByUserId(_userId));
         }
-
-        private void SendRequest_Button(object sender, RoutedEventArgs e)
+        public void SendRequest_Button()
         {
-            _ownerId = accommodationService.getOwnerIdByReservationId(SelectedReservationId);
-            string accommodationName = accommodationService.getNameById(SelectedReservationId);
+            _ownerId = accommodationService.GetOwnerIdByReservationId(SelectedReservationId);
+            string accommodationName = accommodationService.GetNameByReservationId(SelectedReservationId);
             ChangeReservationRequest request = new ChangeReservationRequest(SelectedReservationId, accommodationName, NewCheckInDate, NewCheckOutDate, StatusType.Pending, _userId, _ownerId);
             requestService.SaveRequest(request);
-            Requests.Add(request);
-            this.Close();
+            UpdateRequests(request);
         }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void ComboBox_SelectionChanged(DatePicker CheckInPicker, DatePicker CheckOutPicker)
         {
-            Send_Button.IsEnabled = true;
             if (SelectedReservationId != 0)
             {
                 CheckInPicker.SelectedDate = reservationService.GetCheckInDate(_userId, SelectedReservationId);
                 CheckOutPicker.SelectedDate = reservationService.GetCheckOutDate(_userId, SelectedReservationId);
             }
         }
-
-        private void Cancel_Click(object sender, RoutedEventArgs e)
+        private void UpdateRequests(ChangeReservationRequest request)
         {
-            this.Close();
+            bool requestExists = Requests.Any(r => r.ReservationId == request.ReservationId);
+            if (!requestExists)
+            {
+                Requests.Add(request);
+            }
         }
     }
 }
