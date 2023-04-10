@@ -1,4 +1,5 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.RepositoryInterfaces;
 using InitialProject.Model;
 using InitialProject.Serializer;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Xml.Linq;
 
 namespace InitialProject.Repository
 {
-    public class ReservationRepository
+    public class ReservationRepository : IReservationRepository
     {
         private const string FilePath = "../../../Resources/Data/reservations.txt";
 

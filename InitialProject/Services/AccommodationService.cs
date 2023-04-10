@@ -1,4 +1,5 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.RepositoryInterfaces;
 using InitialProject.Model;
 using InitialProject.Repository;
 using System;
@@ -9,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace InitialProject.Services
 {
-    public class AccommodationService : IAccommodationService
+    public class AccommodationService
     {
-        private readonly AccommodationRepository _repository;
-        private readonly AccommodationReservationRepository _accommodationReservationRepository;
+        private readonly IAccommodationRepository _repository;
+        private readonly IAccommodationReservationRepository _accommodationReservationRepository;
         private List<Accommodation> _accommodations;
         private List<AccommodationReservation> _accommodationReservations;
         public AccommodationService()
