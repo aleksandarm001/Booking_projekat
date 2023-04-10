@@ -27,6 +27,11 @@ namespace InitialProject.Services
         {
             return _accommodations.Find(a => a.AccommodationID == accommodationId).Name;
         }
+        public string GetNameByReservationId(int reservationId)
+        {
+            int accommodationId = GetAccommodationIdByReservationId(reservationId);
+            return _accommodations.Find(a => a.AccommodationID == accommodationId).Name;
+        }
         public int GetOwnerIdByAccommodationId(int accommodationId)
         {
             return _accommodations.Find(a => a.AccommodationID == accommodationId).UserId;

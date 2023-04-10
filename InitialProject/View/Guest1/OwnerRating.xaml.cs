@@ -117,6 +117,7 @@ namespace InitialProject.View.Guest1
             ownerToRateService.DeleteOwnerToRate(SelectedAccommodationId);
             int ownerId = ownerToRateService.GetOwnerIdByAccommodationId(SelectedAccommodationId);
             OwnerRate ownerRate = new OwnerRate(_userId, ownerId,SelectedAccommodationId, Cleanliness, Correctness, AdditionalComment, Images);
+            this.Close();
             ownerRateService.SaveRate(ownerRate);
         }
         private void InitializeGrades()

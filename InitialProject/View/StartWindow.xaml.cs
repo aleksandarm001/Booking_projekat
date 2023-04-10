@@ -37,7 +37,7 @@ namespace InitialProject.View
         public static ObservableCollection<UserToReview> UsersToReview { get; set;}
         public static ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
         public static ObservableCollection<Accommodation> Accommodations { get; set; }
-        public StartWindow()
+        public StartWindow(int userId)
         {
             InitializeComponent();
             Height = SystemParameters.PrimaryScreenHeight * 0.8;
@@ -52,7 +52,7 @@ namespace InitialProject.View
             GuestReviews = new List<GuestReview>(_guestReviewRepository.GetAll());
             Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
             Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
-            _userId = 1; //za sad
+            _userId = userId; //za sad
             InitializeUsersToReview();
         }
 
@@ -78,7 +78,7 @@ namespace InitialProject.View
         }
         private void OpenRegistrationForm(object sender, RoutedEventArgs e)
         {
-            UserRegistration registrationForm = new UserRegistration();
+            UserLogIn registrationForm = new UserLogIn();
             registrationForm.Show();
         }
         private void InitializeUsersToReview()
