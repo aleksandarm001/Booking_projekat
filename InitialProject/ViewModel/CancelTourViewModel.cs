@@ -36,7 +36,7 @@ namespace InitialProject.ViewModel
 
         private void LoadTours()
         {
-            Tours = new ObservableCollection<string>(_cancelTourService.GetAll().Select(c => c.TourId + " " + c.Name));
+            Tours = new ObservableCollection<string>(_cancelTourService.GetAllTwoDaysFromNow().Select(c => c.TourId + " " + c.Name + " " + c.StartingDateTime));
         }
 
         public void CancelTour()

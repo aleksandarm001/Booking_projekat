@@ -31,5 +31,10 @@ namespace InitialProject.Factory
         {
             return new VoucherRepository();
         }
+
+        public static ITourStatisticsService tourStatisticsService()
+        {
+            return new TourStatisticsService();
+        }
     }
 }

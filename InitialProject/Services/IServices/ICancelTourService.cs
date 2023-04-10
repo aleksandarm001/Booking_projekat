@@ -6,7 +6,7 @@ namespace InitialProject.Services.IServices
     public interface ICancelTourService
     {
         List<Tour> GetAll();
-
+        List<Tour> GetAllTwoDaysFromNow();
         void CancelTour(string tourToCancel);
     }
 }

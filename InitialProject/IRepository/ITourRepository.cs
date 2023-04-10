@@ -9,5 +9,7 @@ namespace InitialProject.IRepository
         int NextId();
         Tour Save(Tour tour);
         Tour Update(Tour tour);
+        Tour GetById(int id);
+        void Delete(Tour tour);
     }
 }

@@ -38,6 +38,21 @@ namespace InitialProject.Repository
             return tour;
         }
 
+        public void Delete(Tour tour)
+        {
+            _tours = _serializer.FromCSV(FilePath);
+            Tour foundedTour = _tours.Find(t => t.TourId == tour.TourId);
+            _tours.Remove(foundedTour);
+            _serializer.ToCSV(FilePath, _tours);
+        }
+
+        public Tour GetById(int id)
+        {
+            _tours = _serializer.FromCSV(FilePath);
+            Tour foundedTour = _tours.Find(t => t.TourId == id);
+            return foundedTour;
+        }
+
         public int NextId()
         {
             _tours = _serializer.FromCSV(FilePath);

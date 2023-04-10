@@ -272,7 +272,16 @@ namespace InitialProject.View
             CancelTour cancelTour = new CancelTour();
             cancelTour.Show();
             //Close();
-        }   
+        }
+
+        
+
+        private void StatisticButton(object sender, RoutedEventArgs e)
+        {
+            TourStatistic tourStatistic = new TourStatistic();
+            tourStatistic.Show();
+            //Close();
+        }
 
         private void AddDatesAndTimesButton(object sender, RoutedEventArgs e)
         {

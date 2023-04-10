@@ -18,3 +18,7 @@
 18|kt2|19|NotActive|sadaa|2
 19|kt1|20|NotActive|kt1|1
 20|kt2|20|NotActive|kt2|2
+21|dsa|20|NotActive|asd|1
+22|dsasda|20|NotActive|asd|2
+23|dsa|21|NotActive|asd|1
+24|dsasda|21|NotActive|asd|2

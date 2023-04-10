@@ -3,18 +3,19 @@
 3|Lavender Fields|Paris;France|Louvre Museum Tour|French|3|8/30/2023 2:10:00 PM|5|False
 4|Rainbow Hills|Barcelona;Spain|Park Guell Visit|Spanish|3|4/17/2023 11:30:00 AM|3|False
 5|Ocean Breeze|Sydney;Australia|Opera House Tour|English|16|11/21/2023 4:15:00 PM|1|False
-6|Cherry Blossom|Tokyo;Japan|Asakusa Temple Walk|Japanese|12|9/8/2023 10:00:00 AM|5|False
+6|Cherry Blossom|Tokyo;Japan|Asakusa Temple Walk|Japanese|11|9/8/2023 10:00:00 AM|5|False
 7|Mountain Peak|Vancouver;Canada|Whistler Ski Trip|English|5|1/3/2023 8:20:00 AM|4|False
 8|Golden Sands|Dubai;United Arab Emirates|Desert Safari Experience|Arabic|18|10/12/2023 7:00:00 PM|2|False
 9|Purple Haze|Amsterdam;Netherlands|Rijksmuseum Tour|Dutch|9|6/27/2023 12:50:00 PM|3|False
-10|Red Canyon|Las Vegas;United States|Grand Canyon Helicopter Tour|English|16|12/5/2023 11:20:00 AM|1|False
+10|Red Canyon|Las Vegas;United States|Grand Canyon Helicopter Tour|English|5|12/5/2023 11:20:00 AM|1|False
 11|TuraTest|Tokyo;Japan|opisture|Arabic|4|3/22/2023 4:05:10 AM|2|True
 12|TuraTest2|Tokyo;Japan|opis|Chinese|4|3/22/2023 10:10:38 AM|5|True
 13|turaturatest2|Mexico City;Mexico|opisture|Bosnian|4|3/23/2023 10:10:34 AM|6|False
 14|turaturatest2|Mexico City;Mexico|opisture|Bosnian|4|3/23/2023 11:10:42 AM|6|False
 15|turaaaaa|Manila;Philippines|tttttttt|Filipino|7|3/23/2023 5:15:34 AM|2|False
 16|turaaaaa|Manila;Philippines|tttttttt|Filipino|7|3/23/2023 4:27:42 PM|2|False
-17|Tura1|Tokyo;Japan|sadfasd|Armenian|10|3/30/2023 8:06:57 AM|2|False
+17|Tura1|Tokyo;Japan|sadfasd|Armenian|6|3/30/2023 8:06:57 AM|2|False
 18|sad|Shanghai;China|asd|Frisian|5|3/29/2023 7:52:17 AM|2|True
 19|test test|Novi Sad;Serbia|pokusaj|Serbian|11|4/3/2023 7:50:57 PM|5|True
-20|tura tura|Novi Sad;Serbia|asdfasdf|Serbian|1|4/3/2023 7:09:50 AM|15|True
+20|turaturatura|Tokyo;Japan|asd|Afrikaans|23|4/10/2023 1:02:40 PM|4|False
+21|turaturatura|Tokyo;Japan|asd|Afrikaans|123|4/10/2023 4:00:55 AM|4|False
