@@ -27,7 +27,7 @@ namespace InitialProject.View.Guest1
         public event PropertyChangedEventHandler? PropertyChanged;
         private ChangeReservationRequestService requestService;
         private ReservationService reservationService;
-        private readonly AccommodationService accommodationService;
+        private readonly IAccommodationService accommodationService;
         private readonly AccommodationReservationService accommodationReservationService;
         private int _userId;
         private int _ownerId;
@@ -73,8 +73,8 @@ namespace InitialProject.View.Guest1
 
         private void SendRequest_Button(object sender, RoutedEventArgs e)
         {
-            _ownerId = accommodationService.getOwnerIdByReservationId(SelectedReservationId);
-            string accommodationName = accommodationService.getNameById(SelectedReservationId);
+            _ownerId = accommodationService.GetOwnerIdByReservationId(SelectedReservationId);
+            string accommodationName = accommodationService.GetNameById(SelectedReservationId);
             ChangeReservationRequest request = new ChangeReservationRequest(SelectedReservationId, accommodationName, NewCheckInDate, NewCheckOutDate, StatusType.Pending, _userId, _ownerId);
             requestService.SaveRequest(request);
             Requests.Add(request);
