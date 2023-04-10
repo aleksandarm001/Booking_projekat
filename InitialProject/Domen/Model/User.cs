@@ -12,13 +12,15 @@ namespace InitialProject.Model
         public string Email { get; set; }
         public string Password { get; set; }
         public UserType TypeOfUser { get; set; }
-        public User(string name, string username, string email, string password, UserType typeOfUser)
+        public int Age { get; set; }
+        public User(string name, string username, string email, string password, UserType typeOfUser, int age)
         {
             Name = name;
             Username = username;
             Email = email;
             Password = password;
             TypeOfUser = typeOfUser;
+            Age = age;
         }
         public User() 
         {
@@ -36,7 +38,8 @@ namespace InitialProject.Model
                 Username,
                 Email,
                 Password,
-                TypeOfUser.ToString(),    
+                TypeOfUser.ToString(),
+                Age.ToString()
             };
             return csvValues;
         }
@@ -49,6 +52,7 @@ namespace InitialProject.Model
             Email = values[3];
             Password = values[4];
             TypeOfUser = (UserType)Enum.Parse(typeof(UserType), values[5]);
+            Age= Convert.ToInt32(values[6]);
         }
     }
 }

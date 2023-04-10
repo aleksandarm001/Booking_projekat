@@ -31,5 +31,26 @@ namespace InitialProject.Factory
         {
             return new TourStatisticsService();
         }
+
+        public static ITourService tourService()
+        {
+            return new TourService();
+        }
+
+        public static IUserRepository userRepository()
+        {
+            return new UserRepository();
+        }
+
+        public static IReservationService reservationService()
+        {
+            return new ReservationService();
+        }
+
+
+        public static IUserService userService()
+        {
+            return new UserService();
+        }
     }
 }

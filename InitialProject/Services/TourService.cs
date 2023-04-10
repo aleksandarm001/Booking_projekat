@@ -3,11 +3,12 @@
     using InitialProject.CustomClasses;
     using InitialProject.Model;
     using InitialProject.Repository;
+    using InitialProject.Services.IServices;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class TourService
+    public class TourService : ITourService
     {
         private readonly TourRepository _tourRepository;
         private readonly TourAttendanceRepository _tourAttendanceRepository;
@@ -72,6 +73,11 @@
                     tours.Add(tour);
                 }
             return tours;
+        }
+
+        public List<Tour> GetAllFinishedTours()
+        {
+            return _tourRepository.GetAll().Where(t => t.TourStarted == true).ToList();
         }
 
         public List<Tour> GetAllFiltered(string city, string country, string durationFrom, string durationTo, string language, string guestNumber)

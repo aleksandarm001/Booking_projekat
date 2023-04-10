@@ -1,13 +1,14 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Model;
 using InitialProject.Repository;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace InitialProject.Services
 {
-    public class ReservationService
+    public class ReservationService : IReservationService
     {
         private readonly ReservationRepository _repository;
         public ReservationService()

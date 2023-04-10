@@ -34,5 +34,12 @@ namespace InitialProject.View.Guide
             MostVisitedTour.Content = _viewModel.GetMostVisitedTour(_viewModel.Year).Name;
         }
 
+
+        private void ShowStatisticButton(object sender, RoutedEventArgs e)
+        {
+            TourGrid.Visibility= Visibility.Visible;
+            _viewModel.GenerateStatistic();
+        }
+
     }
 }

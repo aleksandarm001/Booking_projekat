@@ -1,4 +1,5 @@
-﻿using InitialProject.Model;
+﻿using InitialProject.Domen.Model;
+using InitialProject.Model;
 using System.Collections.Generic;
 
 namespace InitialProject.Services.IServices
@@ -7,6 +8,7 @@ namespace InitialProject.Services.IServices
     {
         List<string> GetAllYears();
 
+        Statistic GetSpecificStatistic(string tour);
         Tour GetMostVisitedTour(string year);
     }
 }
