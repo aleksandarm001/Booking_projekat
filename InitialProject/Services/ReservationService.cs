@@ -1,12 +1,13 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Repository;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace InitialProject.Services
 {
-    public class ReservationService
+    public class ReservationService : IReservationService
     {
         private readonly ReservationRepository _repository;
         public ReservationService()
@@ -46,6 +47,11 @@ namespace InitialProject.Services
         public List<Reservation> GetTourReservationByUserId(int userId)
         {
             return _repository.GetAll().Where(r => r.UserId == userId && r.TourId != -1).ToList();
+        }
+
+        public List<Reservation> GetAllTourReservations()
+        {
+            return _repository.GetAll().Where(r => r.TourId > 0).ToList();
         }
     }
 }
