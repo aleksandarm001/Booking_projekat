@@ -22,6 +22,7 @@ namespace InitialProject.Services
         {
             Dictionary<int, string> result = new Dictionary<int, string>();
             List<Reservation> usersReservations = reservationService.GetReservationsByUserId(userId);
+            FilterReservations(usersReservations);
             if (usersReservations.Count > 0)
             {
                 foreach (Reservation reservation in usersReservations)
@@ -45,6 +46,10 @@ namespace InitialProject.Services
             int daysBeforeCancel = founded.DaysBeforeCancelling;
             DateTime allowedCancellingDate = reservation.ReservationDateRange.EndDate.AddDays(daysBeforeCancel);
             return allowedCancellingDate > currentDate;
+        }
+        private void FilterReservations(List<Reservation> reservations)
+        {
+            reservations.RemoveAll(r => r.ReservationDateRange.StartDate <= DateTime.Now);
         }
     }
 }
