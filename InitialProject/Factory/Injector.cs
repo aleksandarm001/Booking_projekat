@@ -1,12 +1,7 @@
-﻿using InitialProject.IRepository;
+﻿using InitialProject.Domen.RepositoryInterfaces;
 using InitialProject.Repository;
 using InitialProject.Services;
 using InitialProject.Services.IServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InitialProject.Factory
 {

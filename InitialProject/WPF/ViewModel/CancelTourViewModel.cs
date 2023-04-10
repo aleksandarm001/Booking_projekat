@@ -1,9 +1,5 @@
 ﻿using InitialProject.Factory;
-using InitialProject.IRepository;
-using InitialProject.Model;
-using InitialProject.Services;
 using InitialProject.Services.IServices;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;

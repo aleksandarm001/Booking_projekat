@@ -1,6 +1,6 @@
 ﻿namespace InitialProject.Repository
 {
-    using InitialProject.IRepository;
+    using InitialProject.Domen.RepositoryInterfaces;
     using InitialProject.Model;
     using InitialProject.Serializer;
     using System;

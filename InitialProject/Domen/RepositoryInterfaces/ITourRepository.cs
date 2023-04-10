@@ -1,7 +1,7 @@
 ﻿using InitialProject.Model;
 using System.Collections.Generic;
 
-namespace InitialProject.IRepository
+namespace InitialProject.Domen.RepositoryInterfaces
 {
     public interface ITourRepository
     {
