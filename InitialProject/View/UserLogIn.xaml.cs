@@ -59,7 +59,6 @@ namespace InitialProject
                     StartWindow startWindow = new StartWindow(user.Id);
                     this.Close();
                     ChooseWindow(user);
-                    //startWindow.Show();
                     break;
                 }
             }
@@ -85,6 +84,12 @@ namespace InitialProject
                 case (UserType.Guest1):
                     Guest1Window window = new Guest1Window(user.Id, Locations);
                     window.Show();
+                    this.Close();
+                    break;
+                default:
+                    StartWindow startWindow = new StartWindow(user.Id);
+                    startWindow.Show();
+                    this.Close();
                     break;
                 
             }

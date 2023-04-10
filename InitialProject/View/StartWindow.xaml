@@ -5,14 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
-        Title="StartWindow" Height="600" Width="450" WindowStartupLocation ="CenterScreen">
+        Title="StartWindow" Height="500" Width="450" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Image Source="/Resources/Images/BookBuddy_logo1.png" Width="350" Height="70" Margin="50,20,50,394"></Image>
-        <Button Content="Owner" HorizontalAlignment="Center" Height="47" Margin="0,176,0,0" VerticalAlignment="Top" Width="200" Click="Owner_ButtonClick"/>
-        <Button Content="Guest1" HorizontalAlignment="Center" Height="46" Margin="0,257,0,0" VerticalAlignment="Top" Width="200" Click="Guest1_ButtonClick"/>
-        <Button Content="Guide" HorizontalAlignment="Center" Height="47" Margin="0,336,0,0" VerticalAlignment="Top" Width="200" Click="Guide_ButtonClick"/>
-        <Button Content="Guest2" HorizontalAlignment="Center" Height="48" Margin="0,413,0,0" VerticalAlignment="Top" Width="200" Click="Guest2_ButtonClick"/>
-        <Button Content="Registration Form" HorizontalAlignment="Center" Height="48" Margin="0,490,0,0" VerticalAlignment="Top" Width="200"/>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Image Source="/Resources/Images/BookBuddy_logo1.png" Height="50" Margin="59,0,58,0" VerticalAlignment="Center"/>
+        <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" Height="316">
+            <Button Content="Owner" HorizontalAlignment="Center" Height="47" Width="200" Margin="0,10,0,0" Click="Owner_ButtonClick"/>
+            <Button Content="Guest1" HorizontalAlignment="Center" Height="46" Width="200" Margin="0,10,0,0" Click="Guest1_ButtonClick"/>
+            <Button Content="Guide" HorizontalAlignment="Center" Height="47" Width="200" Margin="0,10,0,0" Click="Guide_ButtonClick"/>
+            <Button Content="Guest2" HorizontalAlignment="Center" Height="48" Width="200" Margin="0,10,0,0" Click="Guest2_ButtonClick"/>
+        </StackPanel>
     </Grid>
 </Window>

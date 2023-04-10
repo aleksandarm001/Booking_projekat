@@ -40,8 +40,6 @@ namespace InitialProject.View
         public StartWindow(int userId)
         {
             InitializeComponent();
-            Height = SystemParameters.PrimaryScreenHeight * 0.8;
-            Width = SystemParameters.PrimaryScreenWidth * 0.3;
             DataContext = this;
             _locationRepository = new LocationRepository();
             _accommodationRepository = new AccommodationRepository();
@@ -52,7 +50,7 @@ namespace InitialProject.View
             GuestReviews = new List<GuestReview>(_guestReviewRepository.GetAll());
             Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
             Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
-            _userId = userId; //za sad
+            _userId = userId;
             InitializeUsersToReview();
         }
 
