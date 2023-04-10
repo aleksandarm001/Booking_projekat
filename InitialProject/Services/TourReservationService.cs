@@ -4,13 +4,14 @@
     using InitialProject.Domen.Model;
     using InitialProject.Model;
     using InitialProject.Repository;
+    using InitialProject.Services.IServices;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
-    public class TourReservationService
+    public class TourReservationService : ITourReservationService
     {
         private readonly TourReservationRepository _repository;
         private readonly TourService _tourService;
@@ -54,6 +55,11 @@
                 }
             }
             return tours;
+        }
+
+        public List<TourReservation> GetAllReservations()
+        {
+            return _repository.GetAll().Where(r => r.TourId > 0).ToList();
         }
     }
 }

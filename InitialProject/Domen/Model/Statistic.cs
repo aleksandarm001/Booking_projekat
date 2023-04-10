@@ -14,14 +14,14 @@ namespace InitialProject.Domen.Model
         public int LessThen { get; set; }
         public int Between { get; set; }
         public int GreaterThan { get; set; }
-        public int WithVoucher { get; set; }
-        public int WithoutVoucher { get; set; }
+        public double WithVoucher { get; set; }
+        public double WithoutVoucher { get; set; }
 
         public Statistic()
         {
         }
 
-        public Statistic(int lessThan, int between, int greaterThan, int withVoucher, int withoutVoucher)
+        public Statistic(int lessThan, int between, int greaterThan, double withVoucher, double withoutVoucher)
         {
             LessThen = lessThan;
             Between = between;

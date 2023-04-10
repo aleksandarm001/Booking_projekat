@@ -14,13 +14,13 @@ namespace InitialProject.Services
         private readonly ITourRepository _tourRepository;
         private readonly IReservationRepository _reservationRepository;
         private readonly IUserService userService;
-        private readonly IReservationService reservationService;
+        private readonly ITourReservationService tourReservationService;
         public TourStatisticsService()
         {
             _tourRepository = Injector.tourRepository();
             _reservationRepository = Injector.reservationRepository();
             userService = Injector.userService();
-            reservationService = Injector.reservationService();
+            tourReservationService = Injector.tourReservationService();
         }
 
         public List<string> GetAllYears()
@@ -73,8 +73,7 @@ namespace InitialProject.Services
 
         public Statistic GetSpecificStatistic(string tour) 
         {
-            List<Reservation> reservations = reservationService.GetAllTourReservations();
-            //i need to get all reservations and to count how many people have age <18 ,18-50, >50 and to count how many people arived at tour and how many people used voucer to attend tour
+            List<TourReservation> reservations = tourReservationService.GetAllReservations();
             int tourId = int.Parse(tour.Split(' ')[0]);
             int numberOfPeople = 0;
             int numberOfPeopleWithVoucher = 0;
@@ -82,7 +81,7 @@ namespace InitialProject.Services
             int numberOfPeopleWithAgeBetween18And50 = 0;
             int numberOfPeopleWithAgeOver50 = 0;
 
-            foreach (Reservation reservation in reservations)
+            foreach (TourReservation reservation in reservations)
             {
                 if (reservation.TourId == tourId)
                 {
@@ -108,8 +107,20 @@ namespace InitialProject.Services
                         }
                 }
             }
-            //Statistic statistic = new Statistic(numberOfPeople, numberOfPeopleWithVoucher, numberOfPeopleWithAgeUnder18, numberOfPeopleWithAgeBetween18And50, numberOfPeopleWithAgeOver50);
-            Statistic statistic = new Statistic(numberOfPeopleWithAgeUnder18, numberOfPeopleWithAgeBetween18And50, numberOfPeopleWithAgeOver50, numberOfPeopleWithVoucher, numberOfPeople);
+
+
+            double percentageWithVoucher = 0;
+            double percentageWithoutVouchers = 0;
+            if (numberOfPeople > 0)
+            {
+                double percentage = numberOfPeople / 100;
+                percentageWithVoucher = percentage * numberOfPeopleWithVoucher;
+                percentageWithoutVouchers = 100 - percentageWithVoucher;
+            }
+
+                
+
+            Statistic statistic = new Statistic(numberOfPeopleWithAgeUnder18, numberOfPeopleWithAgeBetween18And50, numberOfPeopleWithAgeOver50, percentageWithVoucher, percentageWithoutVouchers);
             return statistic;
         }
 
@@ -120,12 +131,3 @@ namespace InitialProject.Services
     }
 }
 
-/*
-        public int ReservationId { get; set; }
-        public int TourId { get; set; }
-        public int UserId { get; set; }
-        public float AvgRating { get; set; }
-        public DateRange ReservationDateRange { get; set; }
-        public int NumberOfGuests { get; set; }
- 
- */

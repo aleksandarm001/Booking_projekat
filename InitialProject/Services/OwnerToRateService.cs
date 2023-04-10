@@ -42,7 +42,7 @@ namespace InitialProject.Services
                     int accommodationId = GetAccommodationIdByReservationId(r.ReservationId);
                     OwnerToRate ownerToRate = new OwnerToRate(GetOwnerIdByAccommodationId(accommodationId), accommodationId, r.UserId, r.ReservationDateRange.EndDate);
                     _ownerToRateRepository.Save(ownerToRate);
-                    _reservationService.Delete(r);
+                    //_reservationService.Delete(r);
                     _accommodationReservationRepository.DeleteReservation(r.ReservationId);
                 }
             }
