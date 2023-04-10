@@ -108,6 +108,11 @@ namespace InitialProject.Model
             if (MaxGuestNumber>=guestNumber)
                 MaxGuestNumber-=guestNumber;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
 

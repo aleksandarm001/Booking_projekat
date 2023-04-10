@@ -65,9 +65,11 @@
             <Button Grid.Column="1" Click="AddKeyPointButton" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="38" >Dodaj</Button>
             <Button Grid.Column="1" Click="AddDatesAndTimesButton" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="38" >Dodaj</Button>
             <Button Grid.Column="1" Click="AddPicturesButton" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.Row="8" VerticalAlignment="Center" Width="38" >Dodaj</Button>
-            <Button Grid.Column="1" Click="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
-            <Button Grid.Column="0" Click="SaveTourButton" Content="Save" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
-            <Button Grid.Column="0" Click="TrackButton" Content="Track" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
+            <Button Grid.Column="1" Click="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="186,24,0,0" Grid.Row="10" VerticalAlignment="Top" Width="43" />
+            <Button Grid.Column="1" Click="SaveTourButton" Content="Save" HorizontalAlignment="Left" Margin="129,24,0,0" Grid.Row="10" VerticalAlignment="Top" Width="43" />
+            <Button Grid.Column="0" Click="TrackButton" Content="Track" HorizontalAlignment="Left" Margin="0,19,0,0" Grid.Row="10" VerticalAlignment="Top" Width="43" />
+            <Button Click="CancelTourButton" Content="Cancel Tours" HorizontalAlignment="Center" Margin="0,19,0,0" Grid.Row="10" VerticalAlignment="Top" Width="77" />
+            <Button Grid.Column="0" Click="StatisticButton" Content="Statistic" HorizontalAlignment="Left" Margin="131,19,0,0" Grid.Row="10" VerticalAlignment="Top" Width="48" Grid.ColumnSpan="2" />
 
 
         </Grid>

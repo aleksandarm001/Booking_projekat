@@ -41,10 +41,7 @@
                 {
                     MessageBox.Show(TourViewConstants.TourReviewed, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
                 }
-
             }
-
         }
-
     }
 }

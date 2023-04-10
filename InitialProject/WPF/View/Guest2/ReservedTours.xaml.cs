@@ -16,21 +16,17 @@
     {
         public ObservableCollection<Tour> Tours { get; set; }
         public Tour SelectedTour { get; set; }
-        private ReservationService _reservationService;
         private TourService _tourService;
-        private TourPointRepository _tourPointRepository;
-        private int UserId { get; set; }
+        private TourPointService _tourPointService;
+
 
         public ReservedTours(int userId)
         {
             InitializeComponent();
             DataContext = this;
-            Tours = new ObservableCollection<Tour>();
-            _reservationService = new ReservationService();
+            Tours = new ObservableCollection<Tour>(_tourService.GetAllReservedAndNotFinishedTour(userId));
             _tourService = new TourService();
-            _tourPointRepository = new TourPointRepository();
-            UserId = userId;
-            InitalizeReservedTours();
+            _tourPointService = new TourPointService();
         }
 
         private void Detalji_Click(object sender, RoutedEventArgs e)
@@ -38,14 +34,7 @@
             HandleMessage();
         }
 
-        private void InitalizeReservedTours()
-        {
-            foreach (Reservation r in _reservationService.GetTourReservationByUserId(UserId))
-            {
-                if (_tourPointRepository.GetTourPointsByTourId(r.TourId).Where(t => t.CurrentStatus==TourPoint.Status.Active || t.CurrentStatus==TourPoint.Status.NotActive).Count()!=0)
-                    Tours.Add(_tourService.GetTourById(r.TourId));
-            }
-        }
+       
 
         private void HandleMessage()
         {
@@ -53,14 +42,13 @@
             {
                 if (SelectedTour.TourStarted)
                 {
-                    TourPoint tourPoint = _tourPointRepository.GetActiveTourPointOnTour(SelectedTour.TourId);
-                    if (tourPoint == null)
+                    if (_tourPointService.GetActiveTourPointOnTour(SelectedTour.TourId)== null)
                     {
                         MessageBox.Show(TourViewConstants.ActiveTourPointNotFound, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
                     }
                     else
                     {
-                        MessageBox.Show("Trenutno je aktivna " + tourPoint.Name + " tacka!", TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
+                        MessageBox.Show("Trenutno je aktivna " + _tourPointService.GetActiveTourPointOnTour(SelectedTour.TourId).Name + " tacka!", TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
                     }
                 }
                 else
