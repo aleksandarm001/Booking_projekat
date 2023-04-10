@@ -24,8 +24,6 @@ namespace InitialProject.View
         public int NumberOfGuests { get; set; }
         private string _strNumberOfGuests;
 
-
-
         public string StrNumberOfGuests
         {
             get => _strNumberOfGuests;
@@ -91,20 +89,14 @@ namespace InitialProject.View
 
         private void MakeReservation()
         {
-
             if (Vaucer.SelectedIndex != -1)
             {
-                Voucher voucher = Vouchers.ElementAt(Vaucer.SelectedIndex);
-                _reservationService.MakeReservation(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests, voucher.Id);
-                _tourService.ReduceMaxGuestNumber(Tour.TourId, NumberOfGuests);
-                _voucherService.Delete(voucher);
+                _reservationService.MakeReservationWithVoucher(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests, Vouchers[Vaucer.SelectedIndex]);
             }
             else
             {
-                _reservationService.MakeReservation(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests, 0);
-                _tourService.ReduceMaxGuestNumber(Tour.TourId, NumberOfGuests);
+                _reservationService.MakeReservationWithoutVoucher(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests);
             }
-
             MessageBox.Show("Rezervacija uspjesna");
             this.Close();
         }

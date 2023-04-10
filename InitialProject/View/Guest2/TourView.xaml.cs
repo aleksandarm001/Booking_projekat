@@ -36,7 +36,7 @@
 
         private readonly TourService _tourService;
 
-        private readonly TourAttendanceRepository _attendanceRepository;
+        private readonly TourAttendanceService _tourAttendanceService;
 
         private ObservableCollection<Tour> _tours { get; set; }
         public ObservableCollection<Tour> Tours
@@ -55,7 +55,7 @@
             DataContext = this;
             UserId = userId;
             _tourService = new TourService();
-            _attendanceRepository = new TourAttendanceRepository();
+            _tourAttendanceService = new TourAttendanceService();
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             Tours = new ObservableCollection<Tour>(_tourService.GetAllNotStartedTours());
@@ -86,7 +86,7 @@
         private void InitializeLanguages()
         {
             Languages = new ObservableCollection<string>();
-            Languages.Add("");
+            Languages.Insert(0, string.Empty);
             foreach (Tour t in Tours)
             {
 
@@ -108,7 +108,6 @@
                     Locations.Add(t.Location);
                 }
             }
-
         }
 
 
@@ -215,7 +214,7 @@
                     }
                 }
                 Cities.Insert(0, string.Empty);
-                SelectedCity = Cities[1];
+                SelectedCity = Cities[0];
             }
         }
 
@@ -238,7 +237,7 @@
 
         private void CheckTourAttendance()
         {
-            TourAttendances = new ObservableCollection<TourAttendance>(_attendanceRepository.GetAllToCheckByUser(UserId));
+            TourAttendances = new ObservableCollection<TourAttendance>(_tourAttendanceService.GetAllToCheckByUser(UserId));
             if (!TourAttendances.IsNullOrEmpty())
             {
                 foreach (var t in TourAttendances)

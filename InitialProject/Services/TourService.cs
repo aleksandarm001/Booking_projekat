@@ -5,22 +5,20 @@
     using InitialProject.Repository;
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows.Input;
 
     public class TourService
     {
         private readonly TourRepository _tourRepository;
         private readonly TourAttendanceRepository _tourAttendanceRepository;
+        private TourPointService _tourPointService;
         private List<Tour> _tours;
 
         public TourService()
         {
             _tourRepository = new TourRepository();
             _tourAttendanceRepository = new TourAttendanceRepository();
+            _tourPointService = new TourPointService();
             _tours = _tourRepository.GetAll();
         }
 
@@ -34,14 +32,14 @@
             return _tours.Where(t => t.TourStarted == false).ToList();
         }
 
-        public Tour GetTourById(int id)     
-        { 
+        public Tour GetTourById(int id)
+        {
             return _tours.Where(t => t.TourId == id).FirstOrDefault();
         }
 
         public List<Tour> GetSimilarAsTourHasFullCapacity(string country, string city)
         {
-            return (List<Tour>)_tours.Where(a =>(a.Location.Country == country) && (a.Location.City == city) && (a.MaxGuestNumber != 0));
+            return (List<Tour>)_tours.Where(a => (a.Location.Country == country) && (a.Location.City == city) && (a.MaxGuestNumber != 0));
         }
 
         public void ReduceMaxGuestNumber(int tourId, int guestNumber)
@@ -54,20 +52,32 @@
 
         public List<Tour> GetAllFinished(int userId)
         {
-            List <TourAttendance> _tourAttendance = _tourAttendanceRepository.GetAllPresented(userId);
+            List<TourAttendance> _tourAttendance = _tourAttendanceRepository.GetAllPresented(userId);
             List<Tour> tours = new List<Tour>();
             foreach (TourAttendance t in _tourAttendance)
             {
                 if (!tours.Contains(_tours.Find(tour => tour.TourId == t.TourId)))
-                    tours.Add(_tours.Find(tour=>tour.TourId==t.TourId));
+                    tours.Add(_tours.Find(tour => tour.TourId == t.TourId));
             }
             return tours;
         }
 
+        public List<Tour> GetAllReservedAndNotFinishedTour(int userId)
+        {
+            List<Tour> tours = new List<Tour>();
+            tours = _tours.Where(t => t.TourId == userId && t.TourStarted == false).ToList();
+            foreach (Tour tour in _tours.Where(t => t.TourId == userId && t.TourStarted == true).ToList())
+                if (!_tourPointService.TourStartedAndFinished(tour.TourId))
+                {
+                    tours.Add(tour);
+                }
+            return tours;
+        }
+
         public List<Tour> GetAllFiltered(string city, string country, string durationFrom, string durationTo, string language, string guestNumber)
-        { 
+        {
             List<Tour> toursFiltered = new List<Tour>();
-            foreach(Tour tour in  _tours)
+            foreach (Tour tour in GetAllNotStartedTours())
             {
                 if (CityFilter(tour, city) && CountryFilter(tour, country) && DurationFilter(tour, durationFrom, durationTo) && LanguageFilter(tour, language) && GuestNumberFilter(tour, guestNumber))
                 {
