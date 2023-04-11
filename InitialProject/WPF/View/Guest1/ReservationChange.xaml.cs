@@ -41,6 +41,7 @@ namespace InitialProject.View.Guest1
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             viewModel.ComboBox_SelectionChanged(CheckInPicker, CheckOutPicker);
+            Send_Button.IsEnabled = true;
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
