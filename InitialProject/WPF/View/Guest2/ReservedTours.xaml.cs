@@ -4,18 +4,32 @@
     using InitialProject.Model;
     using InitialProject.Services;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
     using System.Windows;
 
     /// <summary>
     /// Interaction logic for ReservedTours.xaml
     /// </summary>
-    public partial class ReservedTours : Window
+    public partial class ReservedTours : Window, INotifyPropertyChanged
     {
-        public ObservableCollection<Tour> Tours { get; set; }
+ 
         public Tour SelectedTour { get; set; }
         private TourPointService _tourPointService;
         private TourReservationService _tourReservationService;
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private ObservableCollection<Tour> _tours { get; set; }
+        public ObservableCollection<Tour> Tours
+        {
+            get { return _tours; }
+            set
+            {
+                _tours = value;
+                OnPropertyChanged(nameof(Tours));
+            }
+        }
 
         public ReservedTours(int userId)
         {
@@ -57,6 +71,11 @@
             {
                 MessageBox.Show(TourViewConstants.MustSelectTour, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
             }
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
