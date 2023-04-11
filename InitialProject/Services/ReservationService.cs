@@ -1,11 +1,8 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Repository;
-using InitialProject.View.Guest1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InitialProject.Services
 {
@@ -38,6 +35,17 @@ namespace InitialProject.Services
         {
             Reservation reservation = GetReservationById(reservationId);
             _repository.Delete(reservation);
+        }
+
+        public void MakeReservation(int userId, int tourId, DateTime startingDateTime, int numberOfGuests, int voucherId)
+        {
+            Reservation reservation = new Reservation(userId, tourId, startingDateTime, numberOfGuests, voucherId);
+            _repository.Save(reservation);
+        }
+
+        public List<Reservation> GetTourReservationByUserId(int userId)
+        {
+            return _repository.GetAll().Where(r => r.UserId == userId && r.TourId != -1).ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using InitialProject.Model;
+﻿using InitialProject.Domen.RepositoryInterfaces;
+using InitialProject.Model;
 using InitialProject.Serializer;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InitialProject.Repository
 {
-    public class ChangeReservationRequestRepository
+    public class ChangeReservationRequestRepository : IChangeReservationRepository
     {
         private const string FilePath = "../../../Resources/Data/requests.txt";
 

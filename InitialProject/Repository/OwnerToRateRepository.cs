@@ -1,4 +1,5 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.RepositoryInterfaces;
 using InitialProject.Model;
 using InitialProject.Serializer;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace InitialProject.Repository
 {
-    public class OwnerToRateRepository
+    public class OwnerToRateRepository : IOwnerToRateRepository
     {
         private const string FileParh = "../../../Resources/Data/ownersToRate.txt";
         private readonly Serializer<OwnerToRate> _serializer;

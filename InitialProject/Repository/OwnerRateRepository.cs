@@ -5,10 +5,11 @@ using System.Text;
 using InitialProject.Serializer;
 using System.Threading.Tasks;
 using InitialProject.Model;
+using InitialProject.Domen.RepositoryInterfaces;
 
 namespace InitialProject.Repository
 {
-    public class OwnerRateRepository
+    public class OwnerRateRepository : IOwnerRateRepository
     {
         private const string FileParh = "../../../Resources/Data/ownerRates.txt";
         private readonly Serializer<OwnerRate> _serializer;

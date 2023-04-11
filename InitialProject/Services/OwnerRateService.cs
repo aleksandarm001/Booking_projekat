@@ -1,4 +1,5 @@
-﻿using InitialProject.Model;
+﻿using InitialProject.Domen.RepositoryInterfaces;
+using InitialProject.Model;
 using InitialProject.Repository;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,9 @@ namespace InitialProject.Services
 {
     public class OwnerRateService
     {
-        private readonly OwnerRateRepository _ownerRateRepository;
+       // private readonly OwnerRateRepository _ownerRateRepository;
         private readonly GuestReviewRepository _guestReviewRepository;
+        private readonly IOwnerRateRepository _ownerRateRepository;
 
         public OwnerRateService()
         {
