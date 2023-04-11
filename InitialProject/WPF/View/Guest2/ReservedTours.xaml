@@ -27,7 +27,6 @@
                 <DataGridTextColumn Header="Trajanje ture" Width="100" Binding="{Binding Duration}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Jezik" Width="150" Binding="{Binding Language}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Datum i vrijeme" Width="150" Binding="{Binding StartingDateTime}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Broj ljudi" Width="*" Binding="{Binding MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Detalji" Name="Detalji" Click="Detalji_Click"  HorizontalAlignment="Left" Margin="652,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="30" Grid.Column="1"/>
