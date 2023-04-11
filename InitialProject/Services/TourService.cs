@@ -11,14 +11,14 @@
     public class TourService : ITourService
     {
         private readonly TourRepository _tourRepository;
-        private readonly TourAttendanceRepository _tourAttendanceRepository;
+        private readonly TourAttendanceService _tourAttendanceService;
         private TourPointService _tourPointService;
         private List<Tour> _tours;
 
         public TourService()
         {
             _tourRepository = new TourRepository();
-            _tourAttendanceRepository = new TourAttendanceRepository();
+            _tourAttendanceService = new TourAttendanceService();
             _tourPointService = new TourPointService();
             _tours = _tourRepository.GetAll();
         }
@@ -53,7 +53,7 @@
 
         public List<Tour> GetAllFinished(int userId)
         {
-            List<TourAttendance> _tourAttendance = _tourAttendanceRepository.GetAllPresented(userId);
+            List<TourAttendance> _tourAttendance = _tourAttendanceService.GetAllPresented(userId);
             List<Tour> tours = new List<Tour>();
             foreach (TourAttendance t in _tourAttendance)
             {

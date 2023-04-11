@@ -18,9 +18,6 @@ namespace InitialProject.Repository
 
 
         private readonly Serializer<TourPoint> _serializer;
-
-        private readonly ObservableCollection<TourPoint> _tourPointsToUpdate;
-
         private List<TourPoint> _tourPoints;
 
         public TourPointRepository()

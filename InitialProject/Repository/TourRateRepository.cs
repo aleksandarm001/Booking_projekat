@@ -10,7 +10,7 @@
         private const string FilePath = "../../../Resources/Data/tourRates.txt";
         private readonly Serializer<TourRate> _serializer;
 
-        private List<TourRate> _tourRates;
+        private readonly List<TourRate> _tourRates;
         public TourRateRepository()
         {
             _serializer = new Serializer<TourRate>();

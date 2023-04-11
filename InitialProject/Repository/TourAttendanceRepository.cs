@@ -57,16 +57,10 @@ namespace InitialProject.Repository
             return tourAttendance;
         }
 
-        public List<TourAttendance> GetAllToCheckByUser(int userId) 
-        {
-            return _tourAttendances.Where(tour => tour.UserId == userId && tour.UserAttended==TourAttendance.AttendanceStatus.OnHold).ToList();
-        }
+        
 
 
-        public List<TourAttendance> GetAllPresented(int userId)
-        {
-            return _tourAttendances.Where(tour => tour.UserId == userId && tour.UserAttended == TourAttendance.AttendanceStatus.Present).ToList();
-        }
+        
 
 
     }

@@ -27,6 +27,7 @@ namespace InitialProject.View
         private readonly GuestReviewRepository _guestReviewRepository;
         private readonly UserToReviewRepository _userToReviewRepository;
         public int GuestId { get; set; }
+        public int AccommodationId { get; set; }
 
         private int _hygieneGrade;
 
@@ -86,7 +87,7 @@ namespace InitialProject.View
         }
 
 
-        public GuestReviewForm(int guestId)
+        public GuestReviewForm(int guestId,int accommodationId)
         {
             InitializeComponent();
             DataContext = this;
@@ -94,6 +95,7 @@ namespace InitialProject.View
             IsReviewd = false;
             _guestReviewRepository = new GuestReviewRepository();
             GuestId = guestId;
+            AccommodationId= accommodationId;
         }
 
         private void SubmitReview(object sender, RoutedEventArgs e)
@@ -110,6 +112,7 @@ namespace InitialProject.View
             return new GuestReview
             {
                 GuestId= GuestId,
+                AccommodationId= AccommodationId,
                 Hygiene= HygieneGrade,
                 RuleFollowing= RuleFollowingGrade,
                 Comment= OwnerComment

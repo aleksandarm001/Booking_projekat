@@ -229,7 +229,7 @@
                 if (Tours.Count == 0)
                 {
                     MessageBox.Show(TourViewConstants.ViewOtherTours, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
-                    Tours = new ObservableCollection<Tour>(_tourService.GetAll());
+                    Tours = new ObservableCollection<Tour>(_tourService.GetAllNotStartedTours());
                 }
 
             }

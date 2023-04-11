@@ -1,5 +1,10 @@
-1|0|5|5|Glup ali uredan
-1|0|5|3|asdasda
-1|0|3|5|hjgjgjhg
-0|0|4|4|fsdfsdfs
-0|0|4|3|AAAAA
+1|19|1|1|ZZZZ
+1|20|2|2|HHH
+1|20|2|2|HHH
+1|1|3|4|AAA
+1|2|4|4|BBB
+1|6|5|5|Hajde1
+1|7|5|5|Hajde2
+1|3|5|5|Hajde3
+1|5|5|5|Hajde4
+1|6|5|5|Hajde6

@@ -55,6 +55,7 @@ namespace InitialProject.Model
 
             string[] csvValues = {
                 AccommodationID.ToString(),
+                UserId.ToString(),
                 Name,
                 Location.ToString(),
                 TypeOfAccommodation.ToString(),
@@ -68,12 +69,13 @@ namespace InitialProject.Model
         public void FromCSV(string[] values)
         {
             AccommodationID = Convert.ToInt32(values[0]);
-            Name = values[1];
-            Location = Location.fromStringToLocation(values[2]);
-            TypeOfAccommodation = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[3]);
-            MaxGuestNumber = Convert.ToInt32(values[4]);
-            MinReservationDays = Convert.ToInt32(values[5]);
-            DaysBeforeCancelling = Convert.ToInt32(values[6]);
+            UserId= Convert.ToInt32(values[1]);
+            Name = values[2];
+            Location = Location.fromStringToLocation(values[3]);
+            TypeOfAccommodation = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[4]);
+            MaxGuestNumber = Convert.ToInt32(values[5]);
+            MinReservationDays = Convert.ToInt32(values[6]);
+            DaysBeforeCancelling = Convert.ToInt32(values[7]);
             //Images = values[7].Split(";").ToList<string>();
         }
     }
