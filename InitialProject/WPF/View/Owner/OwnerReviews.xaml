@@ -9,8 +9,9 @@
       Title="OwnerReviews">
 
     <Grid>
+        
         <Label>Owner reviews:</Label>
-
+        <Image x:Name="zvjezda" Source="/Resources/Images/calendar.png" Margin="676,400,95,10" RenderTransformOrigin="0.503,0.446" Panel.ZIndex="1" Visibility="Visible"  ></Image>
         <DataGrid Grid.Column="1" Grid.Row="1" Margin="10,29,20,45"
                   ItemsSource="{Binding OwnerRates}"
                   IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">

@@ -46,6 +46,19 @@ namespace InitialProject.View.Owner
             OwnerId = userId;
 
             OwnerRates = new ObservableCollection<OwnerRate>(_ownerRateService.RatingsFromRatedGuest(OwnerId));
+            showSuperOwner(OwnerId);
+        }
+
+        public void showSuperOwner(int ownerId)
+        {
+            if(_ownerRateService.isSuperOwner(ownerId))
+            {
+                zvjezda.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                zvjezda.Visibility = Visibility.Collapsed;
+            }
         }
 
 

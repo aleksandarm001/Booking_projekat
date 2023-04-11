@@ -41,5 +41,27 @@ namespace InitialProject.Services
             }
             return RatingsFromRatedGuest;
         }
+
+        
+
+        public Boolean isSuperOwner(int ownerId)
+        {
+            List<OwnerRate> ownerRates = _ownerRateRepository.GetAllRatesByOwner(ownerId);
+
+            if(ownerRates.Count < 5)
+            {
+                return false;
+            }
+            else
+            {
+                
+                double rateAverage = ownerRates.Average(o => (o.CleanlinessRate + o.CorrectnessRate) / 2);
+                if(rateAverage > 4.5)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
