@@ -40,6 +40,7 @@ namespace InitialProject.View.Guide
             if(StatusComboBox.Text == "OnHold")
             {
                 selectedAttendance.UserAttended = TourAttendance.AttendanceStatus.OnHold;
+                selectedAttendance.CanGiveReview = true;
             }
             else if(StatusComboBox.Text == "NotPresent")
             {

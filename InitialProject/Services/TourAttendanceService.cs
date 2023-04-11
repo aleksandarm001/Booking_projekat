@@ -42,6 +42,11 @@
             return false;
         }
 
+        public int GetTourPointIdWhereUserActive(int userId, int tourId)
+        {
+            return (_tourAttendances.FindAll(t => t.UserId == userId && t.TourId == tourId && t.UserAttended == TourAttendance.AttendanceStatus.Present).FirstOrDefault().TourPointId);
+        }
+
         public void AddedComment(int userId, int tourId)
         {
             foreach (TourAttendance tourAttendance in _tourAttendances.FindAll(t => t.UserId == userId && t.TourId == tourId && t.CanGiveReview == true))
