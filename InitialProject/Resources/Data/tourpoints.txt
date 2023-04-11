@@ -1,12 +1,10 @@
-1|petrovaradin|1|NotActive|tvrdajva|1
-2|centar|1|NotActive|miletic|2
-3|petrovaradin|2|NotActive|tvrdajva|1
-4|centar|2|NotActive|miletic|2
-5|petrovaradin|3|Finished|tvrdajva|1
-6|centar|3|Finished|miletic|2
-7|sad|4|Finished|sad|1
-8|saddsa|4|Finished|sad|2
-9|d|4|Finished|d|1
-10|dd|4|Finished|dd|2
-11|sda|5|NotActive|sad|1
-12|sdaasd|5|NotActive|sad|2
+1|Avala|1|Finished|Avala|1
+2|Kalemegdan|1|Finished|Kalemegdan|2
+3|Knez Mihajlova|1|Finished|Knez Mihajlova|3
+4|Hram Svetog Save|1|Finished|Hram Svetog Save|4
+9|Petrovaradin|3|Finished|Petrovaradin|1
+10|Centar|3|Finished|Centar|2
+11|Ribarsko ostrvo|3|Finished|Ribarsko ostrvo|3
+12|Petrovaradin|4|NotActive|Petrovaradin|1
+13|Centar|4|NotActive|Centar|2
+14|Ribarsko ostrvo|4|NotActive|Ribarsko ostrvo|3

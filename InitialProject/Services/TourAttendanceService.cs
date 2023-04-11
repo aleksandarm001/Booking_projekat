@@ -9,16 +9,14 @@
     public class TourAttendanceService : ITourAttendanceService
     {
         private readonly TourAttendanceRepository _tourAttendanceRepository;
-        private List<TourAttendance> _tourAttendances;
         public TourAttendanceService()
         {
             _tourAttendanceRepository = new TourAttendanceRepository();
-            _tourAttendances = _tourAttendanceRepository.GetAll();
         }
 
         public List<TourAttendance> GetAll()
         {
-            return _tourAttendances;
+            return _tourAttendanceRepository.GetAll();
         }
 
         public void ConfirmTourAttendance(TourAttendance tourAttendance)
@@ -36,7 +34,7 @@
 
         public bool CheckPossibleComment(int userId, int tourId)
         {
-            if (_tourAttendances.FindAll(t => t.UserId == userId && t.TourId == tourId && t.CanGiveReview == true).Count != 0)
+            if (_tourAttendanceRepository.GetAll().FindAll(t => t.UserId == userId && t.TourId == tourId && t.CanGiveReview == true).Count != 0)
             {
                 return true;
             }
@@ -45,12 +43,12 @@
 
         public int GetTourPointIdWhereUserActive(int userId, int tourId)
         {
-            return (_tourAttendances.FindAll(t => t.UserId == userId && t.TourId == tourId && t.UserAttended == TourAttendance.AttendanceStatus.Present).FirstOrDefault().TourPointId);
+            return (_tourAttendanceRepository.GetAll().FindAll(t => t.UserId == userId && t.TourId == tourId && t.UserAttended == TourAttendance.AttendanceStatus.Present).FirstOrDefault().TourPointId);
         }
 
         public void AddedComment(int userId, int tourId)
         {
-            foreach (TourAttendance tourAttendance in _tourAttendances.FindAll(t => t.UserId == userId && t.TourId == tourId && t.CanGiveReview == true))
+            foreach (TourAttendance tourAttendance in _tourAttendanceRepository.GetAll().FindAll(t => t.UserId == userId && t.TourId == tourId && t.CanGiveReview == true))
             {
                 tourAttendance.CanGiveReview = false;
                 _tourAttendanceRepository.Update(tourAttendance);
@@ -60,12 +58,12 @@
 
         public List<TourAttendance> GetAllPresented(int userId)
         {
-            return _tourAttendances.Where(tour => tour.UserId == userId && tour.UserAttended == TourAttendance.AttendanceStatus.Present).ToList();
+            return _tourAttendanceRepository.GetAll().Where(tour => tour.UserId == userId && tour.UserAttended == TourAttendance.AttendanceStatus.Present).ToList();
         }
 
         public List<TourAttendance> GetAllToCheckByUser(int userId)
         {
-            return _tourAttendances.Where(tour => tour.UserId == userId && tour.UserAttended == TourAttendance.AttendanceStatus.OnHold).ToList();
+            return _tourAttendanceRepository.GetAll().Where(tour => tour.UserId == userId && tour.UserAttended == TourAttendance.AttendanceStatus.OnHold).ToList();
         }
 
     }

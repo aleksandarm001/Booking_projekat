@@ -9,16 +9,14 @@
     public class VoucherService
     {
         private readonly VoucherRepository _repository;
-        private List<Voucher> _vouchers;
         public VoucherService()
         {
             _repository = new VoucherRepository();
-            _vouchers = _repository.GetAll();
         }
 
         public List<Voucher> GetAllForUser(int userId)
         {
-            return _vouchers.Where(v => v.UserId == userId).ToList();
+            return _repository.GetAll().Where(v => v.UserId == userId).ToList();
         }
 
         public void Delete(Voucher voucher)
