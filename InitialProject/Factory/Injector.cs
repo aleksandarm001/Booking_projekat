@@ -62,10 +62,23 @@ namespace InitialProject.Factory
             return new TourPointRepository();
         }
 
-
+        public static ITourRateService tourRateService()
+        {
+            return new TourRateService();
+        }
         public static IUserService userService()
         {
             return new UserService();
+        }
+
+        public static ITourAttendanceService tourAttendance()
+        {
+            return new TourAttendanceService();
+        }
+
+        public static ITourPointService tourPointService()
+        {
+            return new TourPointService();
         }
     }
 }

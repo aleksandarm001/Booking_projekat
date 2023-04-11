@@ -31,12 +31,21 @@ namespace InitialProject.WPF.View.Guide
         }
         private void ShowStatisticButton(object sender, RoutedEventArgs e)
         {
-            
+            commentsViewModel.GetAllRatesForSelectedTour();
         }
-        private void DeleteFakeCommentButton(object sender, RoutedEventArgs e)
+        private void ShowTourAttendanceButton(object sender, RoutedEventArgs e)
         {
-           
+            commentsViewModel.ShowAllTourPointsForId();
         }
         
+        private void DeleteFakeCommentButton(object sender, RoutedEventArgs e)
+        {
+            commentsViewModel.SetReviewToNotValid();
+        }
+
+        private void Cmbx_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

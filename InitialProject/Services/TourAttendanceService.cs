@@ -2,10 +2,11 @@
 {
     using InitialProject.CustomClasses;
     using InitialProject.Repository;
+    using InitialProject.Services.IServices;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class TourAttendanceService
+    public class TourAttendanceService : ITourAttendanceService
     {
         private readonly TourAttendanceRepository _tourAttendanceRepository;
         private List<TourAttendance> _tourAttendances;

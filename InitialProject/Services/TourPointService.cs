@@ -2,13 +2,14 @@
 {
     using InitialProject.Model;
     using InitialProject.Repository;
+    using InitialProject.Services.IServices;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
-    public class TourPointService
+    public class TourPointService : ITourPointService
     {
         private TourPointRepository _tourPointRepository;
         private List<TourPoint> _tourPoints;
@@ -19,14 +20,20 @@
             _tourPoints = new List<TourPoint>(_tourPointRepository.GetAll());
         }
 
+
+        public List<TourPoint> GetAllTourPoints()
+        {
+            return _tourPoints;
+        }
+
         public bool TourStartedAndFinished(int tourId)
         {
-            return _tourPoints.Where(t=> t.TourId==tourId).Where(t => t.CurrentStatus == TourPoint.Status.Active || t.CurrentStatus == TourPoint.Status.NotActive).Count() == 0;
+            return _tourPoints.Where(t => t.TourId == tourId).Where(t => t.CurrentStatus == TourPoint.Status.Active || t.CurrentStatus == TourPoint.Status.NotActive).Count() == 0;
         }
 
         public TourPoint GetActiveTourPointOnTour(int tourId)
         {
-           return _tourPoints.Where(t => t.TourId == tourId).Where(t => t.CurrentStatus == TourPoint.Status.Active).FirstOrDefault();
+            return _tourPoints.Where(t => t.TourId == tourId).Where(t => t.CurrentStatus == TourPoint.Status.Active).FirstOrDefault();
         }
     }
 }

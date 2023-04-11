@@ -8,36 +8,37 @@
         Title="TourReviews" Height="516" Width="314">
     <Grid>
 
-        <ComboBox x:Name="Cmbx" ItemsSource="{Binding Tours}" SelectedValue="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="216" Margin="10,30,0,0"/>
+        <ComboBox x:Name="Cmbx" ItemsSource="{Binding Tours}" SelectedValue="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="216" Margin="10,30,0,0" SelectionChanged="Cmbx_SelectionChanged"/>
         <Button Content="Pokazi" Click="ShowStatisticButton" HorizontalAlignment="Left" Margin="231,28,0,0" VerticalAlignment="Top" Width="59" Height="25" RenderTransformOrigin="0.484,-0.454"/>
 
         <DataGrid Name ="ValidComments" Grid.Row="0" Margin="10,75,10,250" 
-                  ItemsSource="{Binding Path = Users, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path= SelectedTourAttendance, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Path = Reviews, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path= SelectedReview, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="True"  SelectionMode="Single" AutoGenerateColumns="false"
                   Visibility ="Visible">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Width="30" Binding="{Binding UserId}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Tour Point" Width="100" Binding="{Binding TourId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="UserId" Width="50" Binding="{Binding GuestId}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Comment" Width="150" Binding="{Binding Comment}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Is Valid" Width="150" Binding="{Binding IsValid}"></DataGridTextColumn>
             </DataGrid.Columns>
 
         </DataGrid>
-        <DataGrid x:Name ="NotValidComment" Grid.Row="0" Margin="10,269,10,63" 
-            ItemsSource="{Binding Users, UpdateSourceTrigger=PropertyChanged}"
-            SelectedItem="{Binding SelectedTourAttendance, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid x:Name ="NotValidComment" Grid.Row="0" Margin="10,292,10,40" 
+            ItemsSource="{Binding UserOnTours, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
             IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="false"
             Visibility ="Visible">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Width="30" Binding="{Binding UserId}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Tour Point" Width="100" Binding="{Binding TourId}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Comment" Width="150" Binding="{Binding Comment}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Present" Width="100" Binding="{Binding CanGiveReview}"></DataGridTextColumn>
             </DataGrid.Columns>
 
         </DataGrid>
-        <Button Content="Obrisi komentar" Click="DeleteFakeCommentButton" HorizontalAlignment="Center" Margin="0,455,0,0" VerticalAlignment="Top" Width="108" Height="25" RenderTransformOrigin="0.484,-0.454"/>
+        <Button Content="Prijavi" Click="DeleteFakeCommentButton" HorizontalAlignment="Left" Margin="196,262,0,0" VerticalAlignment="Top" Width="108" Height="25" RenderTransformOrigin="0.484,-0.454"/>
+        <Button Content="Prikazi ture na kojima je bio" Click="ShowTourAttendanceButton" HorizontalAlignment="Left" Margin="10,262,0,0" VerticalAlignment="Top" Width="160" Height="25" RenderTransformOrigin="0.484,-0.454"/>
 
     </Grid>
 </Window>
