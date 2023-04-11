@@ -3,19 +3,34 @@
     using InitialProject.Constants;
     using InitialProject.Model;
     using InitialProject.Services;
+    using System;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
     using System.Windows;
 
     /// <summary>
     /// Interaction logic for FinishedTours.xaml
     /// </summary>
-    public partial class FinishedTours : Window
+    public partial class FinishedTours : Window, INotifyPropertyChanged
     {
-        public ObservableCollection<Tour> Tours { get; set; }
         public Tour SelectedTour { get; set; }
         private readonly TourService _tourService;
         private readonly TourAttendanceService _tourAttendanceService;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public int UserId { get; set; }
+        private ObservableCollection<Tour> _tours { get; set; }
+        public ObservableCollection<Tour> Tours
+        {
+            get { return _tours; }
+            set
+            {
+                _tours = value;
+                OnPropertyChanged(nameof(Tours));
+            }
+        }
 
 
         public FinishedTours(int userId)
@@ -42,6 +57,11 @@
                     MessageBox.Show(TourViewConstants.TourReviewed, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
                 }
             }
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
