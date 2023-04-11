@@ -2,6 +2,7 @@
 {
     using InitialProject.Domen.Model;
     using InitialProject.Domen.RepositoryInterfaces;
+    using InitialProject.Model;
     using InitialProject.Serializer;
     using System.Collections.Generic;
     using System.Linq;
@@ -32,6 +33,16 @@
             _serializer.ToCSV(FilePath, _tourReservations);
             return reservation;
         }
+
+
+        public void Delete(TourReservation reservation)
+        {
+            _tourReservations = _serializer.FromCSV(FilePath);
+            TourReservation foundedTour = _tourReservations.Find(t => t.TourId == reservation.TourId);
+            _tourReservations.Remove(foundedTour);
+            _serializer.ToCSV(FilePath, _tourReservations);
+        }
+
         public int NextId()
         {
             _tourReservations = _serializer.FromCSV(FilePath);

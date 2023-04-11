@@ -1,2 +1,10 @@
-1|7|3|1|Test1|NotPresent|False
-2|7|4|1|Test1|OnHold|False
+1|3|5|6|Test4|NotPresent|False
+2|3|5|7|Test4|Present|True
+3|3|5|9|Test3|Present|True
+4|3|6|6|Test4|Present|True
+5|3|6|7|Test4|Present|True
+6|3|6|9|Test3|Present|True
+7|4|7|1|Test1|Present|False
+8|4|8|1|Test1|NotPresent|False
+9|4|9|1|Test1|Present|False
+10|4|10|1|Test1|NotPresent|False

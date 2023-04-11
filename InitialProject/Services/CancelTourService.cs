@@ -1,7 +1,9 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.Model;
 using InitialProject.Domen.RepositoryInterfaces;
 using InitialProject.Factory;
 using InitialProject.Model;
+using InitialProject.Repository;
 using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
@@ -14,13 +16,15 @@ namespace InitialProject.Services
     public class CancelTourService : ICancelTourService
     {
         private readonly ITourRepository _tourRepository;
-        private readonly IReservationRepository _reservationRepository;
+        private readonly ITourReservationRepository _tourReservationRepository;
         private readonly IVoucherRepository _voucherRepository;
+        private readonly ITourPointRepository _tourPointRepository;
         public CancelTourService()
         {
             _tourRepository = Injector.tourRepository();
-            _reservationRepository = Injector.reservationRepository();
+            _tourReservationRepository = Injector.tourReservationRepository();
             _voucherRepository = Injector.voucherRepository();
+            _tourPointRepository = Injector.tourPointRepository();
         }
 
         public List<Tour> GetAll()
@@ -34,7 +38,7 @@ namespace InitialProject.Services
             List<Tour> toursToCancel = new();
             foreach (Tour tour in tours)
             {
-                if (tour.StartingDateTime < DateTime.Now.AddDays(2).Date && tour.TourStarted == false)
+                if (tour.StartingDateTime > DateTime.Now.AddDays(2).Date && tour.TourStarted == false)
                 {
                     toursToCancel.Add(tour);
                 }
@@ -47,15 +51,19 @@ namespace InitialProject.Services
         {
             int tourId = int.Parse(tourToCancel.Split(' ')[0]);
             _tourRepository.Delete(_tourRepository.GetById(tourId));
-            List<Reservation> reservations = _reservationRepository.GetAll();
-            foreach (Reservation reservation in reservations)
+            List<TourReservation> reservations = _tourReservationRepository.GetAll();
+            foreach (TourReservation reservation in reservations)
             {
                 if (reservation.TourId == tourId)
                 {
-                    _reservationRepository.Delete(reservation);
+                    _tourReservationRepository.Delete(reservation);
+                    foreach(var TourPoint in _tourPointRepository.GetAll().Where(c=>c.TourId == tourId).ToList())
+                    {
+                        _tourPointRepository.Delete(TourPoint);
+                    }
+                    CreateVoucher(reservation.UserId);
                 }
 
-                CreateVoucher(reservation.UserId);
             }
             
         }

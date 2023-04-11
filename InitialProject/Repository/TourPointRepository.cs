@@ -11,7 +11,7 @@ using System.Windows.Data;
 
 namespace InitialProject.Repository
 {
-    public class TourPointRepository 
+    public class TourPointRepository : ITourPointRepository
     {
         private const string FilePath = "../../../Resources/Data/tourpoints.txt";
         private const string TempFilePath = "../../../Resources/TempData/tourpoints.txt";

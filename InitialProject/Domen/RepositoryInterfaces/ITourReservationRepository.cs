@@ -13,6 +13,7 @@
         TourReservation Save(TourReservation tourReservation);
         int NextId();
 
+        void Delete(TourReservation reservation);
 
     }
 }

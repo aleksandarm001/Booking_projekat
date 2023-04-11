@@ -6,19 +6,21 @@ using InitialProject.Model;
 using InitialProject.Services.IServices;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 
 namespace InitialProject.Services
 {
     public class TourStatisticsService : ITourStatisticsService
     {
         private readonly ITourRepository _tourRepository;
-        private readonly IReservationRepository _reservationRepository;
+        //private readonly ITourReservationRepository tourReservationRepository;
         private readonly IUserService userService;
         private readonly ITourReservationService tourReservationService;
+        private readonly ITourReservationRepository tourReservationRepository;
         public TourStatisticsService()
         {
             _tourRepository = Injector.tourRepository();
-            _reservationRepository = Injector.reservationRepository();
+            tourReservationRepository = Injector.tourReservationRepository();
             userService = Injector.userService();
             tourReservationService = Injector.tourReservationService();
         }
@@ -45,9 +47,9 @@ namespace InitialProject.Services
         public Tour GetMostVisitedTour(string year)
         {
             Dictionary<int, int> tourVisits = new Dictionary<int, int>();
-            List<Reservation> reservations = _reservationRepository.GetAll().Where(c=> c.TourId > 0).ToList();
+            List<TourReservation> reservations = tourReservationRepository.GetAll().Where(c=> c.TourId > 0).ToList();
 
-            foreach (Reservation reservation in reservations)
+            foreach (TourReservation reservation in reservations)
             {
                 Tour tour = _tourRepository.GetById(reservation.TourId);
                 if (tour.StartingDateTime.Year.ToString() == year)
@@ -95,15 +97,15 @@ namespace InitialProject.Services
 
                         if (Age < 18)
                         {
-                            numberOfPeopleWithAgeUnder18++;
+                            numberOfPeopleWithAgeUnder18 += reservation.NumberOfGuests;
                         }
                         else if (Age >= 18 && Age <= 50)
                         {
-                            numberOfPeopleWithAgeBetween18And50++;
+                            numberOfPeopleWithAgeBetween18And50 += reservation.NumberOfGuests;
                         }
                         else
                         {
-                            numberOfPeopleWithAgeOver50++;
+                            numberOfPeopleWithAgeOver50 += reservation.NumberOfGuests;
                         }
                 }
             }
@@ -113,7 +115,7 @@ namespace InitialProject.Services
             double percentageWithoutVouchers = 0;
             if (numberOfPeople > 0)
             {
-                double percentage = numberOfPeople / 100;
+                double percentage = (double)100 / numberOfPeople;
                 percentageWithVoucher = percentage * numberOfPeopleWithVoucher;
                 percentageWithoutVouchers = 100 - percentageWithVoucher;
             }
