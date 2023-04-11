@@ -3,3 +3,5 @@
 3|tura3|Buenos Aires;Argentina|tura test|Afrikaans|3|4/10/2023 7:00:03 PM|2|True
 4|tura 4|Lagos;Nigeria|tura|Afrikaans|11|4/10/2023 8:00:46 PM|1|True
 5|afsd|Buenos Aires;Argentina|332|Afrikaans|0|4/10/2023 12:00:50 AM|1|True
+6|sda|Tokyo;Japan|dasdas|Afrikaans|2|4/11/2023 2:03:55 AM|4|True
+7|d|Delhi;India|opis|Albanian|2|4/11/2023 2:03:46 AM|4|True

@@ -1,6 +1,8 @@
 ﻿using InitialProject.Model;
 using InitialProject.Repository;
+using InitialProject.View.Guest2;
 using InitialProject.View.Guide;
+using InitialProject.WPF.View.Guide;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -259,7 +261,12 @@ namespace InitialProject.View
         }
 
 
-
+        
+        private void ReviewsButton(object sender, RoutedEventArgs e)
+        {
+            TourReviews review = new TourReviews();
+            review.Show();
+        }
 
         private void AddKeyPointButton(object sender, RoutedEventArgs e)
         {

@@ -21,7 +21,7 @@ namespace InitialProject.View
     {
         private readonly TourRepository _tourRepository;
         private readonly TourPointRepository _tourPointRepository;
-        private readonly ReservationRepository _reservationRepository;
+        private readonly TourReservationRepository _reservationRepository;
         private readonly UserRepository _userRepository;
         private readonly TourAttendanceRepository _tourAttendanceRepository;
         
@@ -31,7 +31,7 @@ namespace InitialProject.View
             InitializeComponent();
             _tourRepository = new TourRepository();
             _tourPointRepository = new TourPointRepository();
-            _reservationRepository = new ReservationRepository();
+            _reservationRepository = new TourReservationRepository();
             _userRepository = new UserRepository();
             _tourAttendanceRepository = new TourAttendanceRepository();
 

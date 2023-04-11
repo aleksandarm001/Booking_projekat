@@ -70,6 +70,7 @@
             <Button Grid.Column="0" Click="TrackButton" Content="Track" HorizontalAlignment="Left" Margin="0,19,0,0" Grid.Row="10" VerticalAlignment="Top" Width="43" />
             <Button Click="CancelTourButton" Content="Cancel Tours" HorizontalAlignment="Center" Margin="0,19,0,0" Grid.Row="10" VerticalAlignment="Top" Width="77" />
             <Button Grid.Column="0" Click="StatisticButton" Content="Statistic" HorizontalAlignment="Left" Margin="131,19,0,0" Grid.Row="10" VerticalAlignment="Top" Width="48" Grid.ColumnSpan="2" />
+            <Button Grid.Column="1" Click="ReviewsButton" Content="Reviews" HorizontalAlignment="Left" Margin="6,19,0,0" Grid.Row="10" VerticalAlignment="Top" Width="48" />
 
 
         </Grid>
