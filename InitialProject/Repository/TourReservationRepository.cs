@@ -1,11 +1,12 @@
 ﻿namespace InitialProject.Repository
 {
     using InitialProject.Domen.Model;
+    using InitialProject.Domen.RepositoryInterfaces;
     using InitialProject.Serializer;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class TourReservationRepository
+    public class TourReservationRepository : ITourReservationRepository
     {
         private const string FilePath = "../../../Resources/Data/tourreservations.txt";
 
@@ -41,9 +42,5 @@
             return _tourReservations.Max(t => t.ReservationId) + 1;
         }
 
-        public TourReservation GetByReservationId(int reservationId)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

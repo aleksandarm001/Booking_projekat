@@ -68,7 +68,6 @@
                 }
 
             }
-            //_serializer.ToCSV(FilePath, _vouchers);
         }
     }
 }

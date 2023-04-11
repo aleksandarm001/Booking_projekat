@@ -3,6 +3,7 @@
     using InitialProject.CustomClasses;
     using InitialProject.Repository;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class TourAttendanceService
     {
@@ -12,6 +13,11 @@
         {
             _tourAttendanceRepository = new TourAttendanceRepository();
             _tourAttendances = _tourAttendanceRepository.GetAll();
+        }
+
+        public List<TourAttendance> GetAll()
+        {
+            return _tourAttendances;
         }
 
         public void ConfirmTourAttendance(TourAttendance tourAttendance)
@@ -46,9 +52,15 @@
 
         }
 
+        public List<TourAttendance> GetAllPresented(int userId)
+        {
+            return _tourAttendances.Where(tour => tour.UserId == userId && tour.UserAttended == TourAttendance.AttendanceStatus.Present).ToList();
+        }
+
         public List<TourAttendance> GetAllToCheckByUser(int userId)
         {
-            return _tourAttendanceRepository.GetAllToCheckByUser(userId);
+            return _tourAttendances.Where(tour => tour.UserId == userId && tour.UserAttended == TourAttendance.AttendanceStatus.OnHold).ToList();
         }
+
     }
 }

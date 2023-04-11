@@ -23,7 +23,7 @@ namespace InitialProject.Repository
             _tourImages = new List<TourImages>();
         }
 
-        public List<TourImages> getAll()
+        public List<TourImages> GetAll()
         {
             return _serializer.FromCSV(FilePath);
         }

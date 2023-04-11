@@ -14,12 +14,10 @@ namespace InitialProject.Repository
 
         private readonly Serializer<Language> _serializer;
 
-        private List<Language> _comments;
 
         public LanguageRepository()
         {
             _serializer = new Serializer<Language>();
-            _comments = _serializer.FromCSV(FilePath);
         }
 
 
