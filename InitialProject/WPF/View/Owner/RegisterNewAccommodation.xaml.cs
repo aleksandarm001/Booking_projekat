@@ -31,6 +31,7 @@ namespace InitialProject.View
     {
 
         public UrlTable urlTable;
+        public int userId;
 
         private readonly AccommodationRepository _accommodationRepository;
         private readonly AccommodationImageRepository _accommodationImageRepository;
@@ -128,13 +129,14 @@ namespace InitialProject.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public RegisterNewAccommodation()
+        public RegisterNewAccommodation(int _userId)
         {
             InitializeComponent();
             DataContext = this;
 
             Images = new ObservableCollection<AccommodationImage>();
             urlTable = new UrlTable(Images);
+            userId = _userId;
 
             _accommodationRepository = new AccommodationRepository();
             _locationRepository = new LocationRepository();
@@ -144,7 +146,7 @@ namespace InitialProject.View
             Locations = new ObservableCollection<Location>(_locationRepository.getAll());
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
-            UsersToReview = new ObservableCollection<UserToReview>(_userToReviewRepository.GetByOwnerId(0));
+            UsersToReview = new ObservableCollection<UserToReview>(_userToReviewRepository.GetByOwnerId(_userId));
 
             AccommodationCancelationDays = "1";
             RateNotification();
@@ -155,9 +157,9 @@ namespace InitialProject.View
         {
             foreach(UserToReview userToReview in UsersToReview) 
             { 
-                if(CheckDateRange(userToReview.LeavingDay)) // 0 je defaultni owner id
+                if(CheckDateRange(userToReview.LeavingDay) && userToReview.OwnerId == userId) // 0 je defaultni owner id
                 {
-                    RateUser(userToReview.Guest1Id, userToReview.LeavingDay);
+                    RateUser(userToReview.Guest1Id,userToReview.AccommodationId, userToReview.LeavingDay);
                 }
                 else
                 {
@@ -165,12 +167,12 @@ namespace InitialProject.View
                 }
             }
         }
-        private void RateUser(int userID, DateTime date)
+        private void RateUser(int userID,int accommodationId, DateTime date)
         {
             MessageBoxResult dialogResult = MessageBox.Show("Rate User", "You can still rate user", MessageBoxButton.YesNo);
             if (dialogResult == MessageBoxResult.Yes)
             {
-                GuestReviewForm reviewForm = new GuestReviewForm(userID);
+                GuestReviewForm reviewForm = new GuestReviewForm(userID,accommodationId);
                 reviewForm.ShowDialog();
                 if (reviewForm.IsReviewd)
                 {
@@ -248,7 +250,7 @@ namespace InitialProject.View
         {
             if (IsValid )
             {
-                Accommodation newAccommodation = CreateNewAccommodation();
+                Accommodation newAccommodation = CreateNewAccommodation(userId);
                 SaveAccommodation(newAccommodation);
                 SaveAccommodationImages(Images);
                 Close();
@@ -259,10 +261,11 @@ namespace InitialProject.View
             }
         }
 
-        private Accommodation CreateNewAccommodation()
+        private Accommodation CreateNewAccommodation(int _userId)
         {
             return new Accommodation
             {
+                UserId = _userId,
                 Name = AccommodationName,
                 MaxGuestNumber = Convert.ToInt32(AccommodationMaxGuests),
                 DaysBeforeCancelling = Convert.ToInt32(AccommodationCancelationDays),

@@ -12,13 +12,14 @@
         <Label>Owner reviews:</Label>
 
         <DataGrid Grid.Column="1" Grid.Row="1" Margin="10,29,20,45"
-                  
+                  ItemsSource="{Binding OwnerRates}"
                   IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="AcommodationId" Width="*" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Cleanliness" Width="*" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Correctness Rate" Width="*" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Additional comment" Width="*" ></DataGridTextColumn>
+                <DataGridTextColumn Header="User id" Width="*" Binding="{Binding userId}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Accommodation id" Width="*" Binding="{Binding AccommodationId}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Cleanliness" Width="*" Binding="{Binding CleanlinessRate}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Correctness rate" Width="*" Binding="{Binding CorrectnessRate}"  ></DataGridTextColumn>
+                <DataGridTextColumn Header="Additional comment" Width="*" Binding="{Binding Comment}" ></DataGridTextColumn>
                 
             </DataGrid.Columns>
         </DataGrid>
