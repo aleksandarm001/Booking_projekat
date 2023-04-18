@@ -1,7 +1,7 @@
-﻿using InitialProject.Serializer;
+﻿using InitialProject.Domen;
 using System;
 
-namespace InitialProject.Model
+namespace InitialProject.Domen.Model
 {
     public class User : ISerializable
     {
@@ -22,7 +22,7 @@ namespace InitialProject.Model
             TypeOfUser = typeOfUser;
             Age = age;
         }
-        public User() 
+        public User()
         {
             Id = -1;
             Name = "";
@@ -52,7 +52,7 @@ namespace InitialProject.Model
             Email = values[3];
             Password = values[4];
             TypeOfUser = (UserType)Enum.Parse(typeof(UserType), values[5]);
-            Age= Convert.ToInt32(values[6]);
+            Age = Convert.ToInt32(values[6]);
         }
     }
 }

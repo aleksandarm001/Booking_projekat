@@ -1,8 +1,9 @@
 ﻿namespace InitialProject.Services
 {
+    using InitialProject.Aplication.Contracts.Repository;
+    using InitialProject.Aplication.Factory;
     using InitialProject.CustomClasses;
-    using InitialProject.Model;
-    using InitialProject.Repository;
+    using InitialProject.Domen.Model;
     using InitialProject.Services.IServices;
     using System;
     using System.Collections.Generic;
@@ -10,14 +11,14 @@
 
     public class TourService : ITourService
     {
-        private readonly TourRepository _tourRepository;
+        private readonly ITourRepository _tourRepository;
         private readonly TourAttendanceService _tourAttendanceService;
         private TourPointService _tourPointService;
         private List<Tour> _tours;
 
         public TourService()
         {
-            _tourRepository = new TourRepository();
+            _tourRepository = Injector.CreateInstance<ITourRepository>();
             _tourAttendanceService = new TourAttendanceService();
             _tourPointService = new TourPointService();
             _tours = _tourRepository.GetAll();

@@ -1,11 +1,11 @@
-﻿namespace InitialProject.Services
-{
-    using InitialProject.CustomClasses;
-    using InitialProject.Repository;
-    using InitialProject.Services.IServices;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using InitialProject.CustomClasses;
+using InitialProject.Repository;
+using InitialProject.Services.IServices;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace InitialProject.Services
+{
     public class TourAttendanceService : ITourAttendanceService
     {
         private readonly TourAttendanceRepository _tourAttendanceRepository;

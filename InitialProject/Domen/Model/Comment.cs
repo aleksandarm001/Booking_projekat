@@ -1,7 +1,6 @@
-﻿using InitialProject.Serializer;
-using System;
+﻿using System;
 
-namespace InitialProject.Model
+namespace InitialProject.Domen.Model
 {
     public class Comment : ISerializable
     {

@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace InitialProject.Model
+namespace InitialProject.Domen.Model
 {
     public class StartingDateTimes
     {
         public List<DateTime> dateTimes = new List<DateTime>();
-        public StartingDateTimes() 
+        public StartingDateTimes()
         {
-            
+
         }
 
 

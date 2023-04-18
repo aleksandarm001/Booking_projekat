@@ -1,11 +1,6 @@
-﻿using InitialProject.CustomClasses;
-using InitialProject.Domen.RepositoryInterfaces;
+﻿using InitialProject.Aplication.Contracts.Repository;
+using InitialProject.CustomClasses;
 using InitialProject.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InitialProject.Services
 {

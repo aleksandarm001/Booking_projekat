@@ -1,5 +1,4 @@
 ﻿using InitialProject.Domen.Model;
-using InitialProject.Model;
 using System.Collections.Generic;
 
 namespace InitialProject.Services.IServices

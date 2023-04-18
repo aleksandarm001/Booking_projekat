@@ -1,11 +1,7 @@
-﻿ using InitialProject.CustomClasses;
-using InitialProject.Model;
-using InitialProject.Repository;
+﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InitialProject.Services
 {

@@ -1,6 +1,4 @@
-﻿using InitialProject.Serializer;
-
-namespace InitialProject.Model
+﻿namespace InitialProject.Domen.Model
 {
     public class Language : ISerializable
     {

@@ -1,6 +1,6 @@
-﻿namespace InitialProject.Model
+﻿namespace InitialProject.Domen.Model
 {
-    using InitialProject.Serializer;
+    using InitialProject.Domen;
     using System;
 
     public class Voucher : ISerializable

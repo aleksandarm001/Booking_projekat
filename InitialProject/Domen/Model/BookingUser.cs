@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace InitialProject.Model
+namespace InitialProject.Domen.Model
 {
     public enum UserType { Owner = 0, Guest1, Guest2, Guide }
     public class BookingUser

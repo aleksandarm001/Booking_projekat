@@ -1,11 +1,6 @@
-﻿using InitialProject.Serializer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
-namespace InitialProject.Model
+namespace InitialProject.Domen.Model
 {
     public class TourImages : ISerializable
     {
@@ -30,7 +25,7 @@ namespace InitialProject.Model
 
         public void FromCSV(string[] values)
         {
-            TourId= Convert.ToInt32(values[0]);
+            TourId = Convert.ToInt32(values[0]);
             ImageId = Convert.ToInt32(values[1]);
             Url = values[2];
         }
@@ -47,6 +42,6 @@ namespace InitialProject.Model
             };
             return csvValues;
         }
-    
+
     }
 }

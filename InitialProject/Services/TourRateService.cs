@@ -1,10 +1,9 @@
 ﻿namespace InitialProject.Services
 {
-    using InitialProject.Model;
+    using InitialProject.Domen.Model;
     using InitialProject.Repository;
     using InitialProject.Services.IServices;
     using System.Collections.Generic;
-    using System.Windows.Documents;
 
     public class TourRateService : ITourRateService
     {

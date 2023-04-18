@@ -1,4 +1,4 @@
-﻿using InitialProject.Serializer;
+﻿using InitialProject.Domen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace InitialProject.Model
+namespace InitialProject.Domen.Model
 {
-    public class OwnerRate: ISerializable
+    public class OwnerRate : ISerializable
     {
         public int OwnerRateId { get; set; }
         public int ownerId { get; set; }
@@ -67,9 +67,9 @@ namespace InitialProject.Model
         private string ImagesListToString()
         {
             string s = "";
-            foreach(string image in Images)
+            foreach (string image in Images)
             {
-                if(Images.IndexOf(image) == Images.Count - 1)
+                if (Images.IndexOf(image) == Images.Count - 1)
                 {
                     s += image;
                 }

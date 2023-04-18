@@ -1,12 +1,9 @@
-﻿using InitialProject.CustomClasses;
+﻿using InitialProject.Aplication.Contracts.Repository;
+using InitialProject.Aplication.Factory;
 using InitialProject.Domen.Model;
-using InitialProject.Domen.RepositoryInterfaces;
-using InitialProject.Factory;
-using InitialProject.Model;
 using InitialProject.Services.IServices;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
 
 namespace InitialProject.Services
 {
@@ -19,10 +16,10 @@ namespace InitialProject.Services
         private readonly ITourReservationRepository tourReservationRepository;
         public TourStatisticsService()
         {
-            _tourRepository = Injector.tourRepository();
-            tourReservationRepository = Injector.tourReservationRepository();
-            userService = Injector.userService();
-            tourReservationService = Injector.tourReservationService();
+            _tourRepository = Injector.CreateInstance<ITourRepository>();
+            tourReservationRepository = Injector.CreateInstance<ITourReservationRepository>();
+            userService = Injector.CreateInstance<IUserService>();
+            tourReservationService = Injector.CreateInstance<ITourReservationService>();
         }
 
         public List<string> GetAllYears()
@@ -111,6 +108,12 @@ namespace InitialProject.Services
             }
 
 
+           
+            return calculateStatistic(numberOfPeople, numberOfPeopleWithVoucher, numberOfPeopleWithAgeUnder18, numberOfPeopleWithAgeBetween18And50, numberOfPeopleWithAgeOver50);
+        }
+
+        private Statistic calculateStatistic(int numberOfPeople,int numberOfPeopleWithVoucher,int numberOfPeopleWithAgeUnder18,int numberOfPeopleWithAgeBetween18And50, int numberOfPeopleWithAgeOver50)
+        {
             double percentageWithVoucher = 0;
             double percentageWithoutVouchers = 0;
             if (numberOfPeople > 0)
@@ -120,10 +123,10 @@ namespace InitialProject.Services
                 percentageWithoutVouchers = 100 - percentageWithVoucher;
             }
 
-                
-
             Statistic statistic = new Statistic(numberOfPeopleWithAgeUnder18, numberOfPeopleWithAgeBetween18And50, numberOfPeopleWithAgeOver50, percentageWithVoucher, percentageWithoutVouchers);
             return statistic;
+
+
         }
 
 

@@ -1,13 +1,10 @@
 ﻿namespace InitialProject.Services
 {
-    using InitialProject.Model;
+    using InitialProject.Domen.Model;
     using InitialProject.Repository;
     using InitialProject.Services.IServices;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class TourPointService : ITourPointService
     {

@@ -1,15 +1,9 @@
-﻿using InitialProject.Serializer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Animation;
+﻿using System;
 
-namespace InitialProject.Model
+namespace InitialProject.Domen.Model
 {
-    public enum StatusType { Pending, Canceled, Approved}
-    public class ChangeReservationRequest: ISerializable
+    public enum StatusType { Pending, Canceled, Approved }
+    public class ChangeReservationRequest : ISerializable
     {
         private int _requestId;
         private int _reservationId;
@@ -23,14 +17,14 @@ namespace InitialProject.Model
 
         public ChangeReservationRequest(int reservationId, string accommodationName, DateTime newStartDate, DateTime newEndDate, StatusType requestStatus, int userId, int ownerId)
         {
-            this.ReservationId = reservationId;
-            this.AccommodationName = accommodationName;
-            this.NewStartDate = newStartDate;
-            this.NewEndDate = newEndDate;
-            this.RequestStatus = requestStatus;
-            this.UserId = userId;
-            this.OwnerId = ownerId;
-            this.OwnerComment = "-";
+            ReservationId = reservationId;
+            AccommodationName = accommodationName;
+            NewStartDate = newStartDate;
+            NewEndDate = newEndDate;
+            RequestStatus = requestStatus;
+            UserId = userId;
+            OwnerId = ownerId;
+            OwnerComment = "-";
         }
         public ChangeReservationRequest()
         {
@@ -48,7 +42,7 @@ namespace InitialProject.Model
         public string[] ToCSV()
         {
             string[] csvValues = {
-                _requestId.ToString(),   
+                _requestId.ToString(),
                 _reservationId.ToString(),
                 _accommodationName.ToString(),
                 _newStartDate.ToString(),

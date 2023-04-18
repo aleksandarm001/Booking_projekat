@@ -1,28 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO.Packaging;
-using System.Linq;
-using InitialProject.Serializer;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace InitialProject.Model
+namespace InitialProject.Domen.Model
 {
     public class TourPoint : ISerializable
     {
 
-        public enum Status { Active = 0, NotActive = 1, Finished = 2, ForceFisnihed = 3}
+        public enum Status { Active = 0, NotActive = 1, Finished = 2, ForceFisnihed = 3 }
         public int Id { get; set; }
         public string Name { get; set; }
         public int TourId { get; set; }
         public Status CurrentStatus { get; set; } = Status.NotActive;
         public string Description { get; set; }
         public int Order { get; set; } = 0;
-        
+
 
         public TourPoint()
         {
-            
+
 
         }
 
@@ -51,12 +45,12 @@ namespace InitialProject.Model
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
-            TourId= Convert.ToInt32(values[2]);
+            TourId = Convert.ToInt32(values[2]);
             CurrentStatus = (Status)Enum.Parse(typeof(Status), values[3]);
             Description = values[4];
             Order = Convert.ToInt32(values[5]);
         }
 
-        
+
     }
 }

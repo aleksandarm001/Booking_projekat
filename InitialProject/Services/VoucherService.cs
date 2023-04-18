@@ -1,8 +1,7 @@
 ﻿namespace InitialProject.Services
 {
-    using InitialProject.Model;
+    using InitialProject.Domen.Model;
     using InitialProject.Repository;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 

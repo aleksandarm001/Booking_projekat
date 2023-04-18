@@ -1,12 +1,8 @@
-﻿using InitialProject.Domen.RepositoryInterfaces;
-using InitialProject.Factory;
-using InitialProject.Model;
+﻿using InitialProject.Aplication.Contracts.Repository;
+using InitialProject.Aplication.Factory;
+using InitialProject.Domen.Model;
 using InitialProject.Services.IServices;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InitialProject.Services
 {
@@ -15,7 +11,7 @@ namespace InitialProject.Services
         private readonly IUserRepository _userRepository;
         public UserService()
         {
-            _userRepository = Injector.userRepository();
+            _userRepository = Injector.CreateInstance<IUserRepository>();
         }
 
         public List<User> GetAllUsers()

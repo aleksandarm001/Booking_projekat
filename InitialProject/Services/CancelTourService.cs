@@ -1,8 +1,7 @@
-﻿using InitialProject.CustomClasses;
+﻿using InitialProject.Aplication.Contracts.Repository;
+using InitialProject.Aplication.Factory;
+using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
-using InitialProject.Domen.RepositoryInterfaces;
-using InitialProject.Factory;
-using InitialProject.Model;
 using InitialProject.Repository;
 using InitialProject.Services.IServices;
 using System;
@@ -21,10 +20,10 @@ namespace InitialProject.Services
         private readonly ITourPointRepository _tourPointRepository;
         public CancelTourService()
         {
-            _tourRepository = Injector.tourRepository();
-            _tourReservationRepository = Injector.tourReservationRepository();
-            _voucherRepository = Injector.voucherRepository();
-            _tourPointRepository = Injector.tourPointRepository();
+            _tourRepository = Injector.CreateInstance<ITourRepository>();
+            _tourReservationRepository = Injector.CreateInstance<ITourReservationRepository>();
+            _voucherRepository = Injector.CreateInstance<VoucherRepository>();
+            _tourPointRepository = Injector.CreateInstance<TourPointRepository>();
         }
 
         public List<Tour> GetAll()

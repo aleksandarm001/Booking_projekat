@@ -1,12 +1,10 @@
-﻿ using InitialProject.Serializer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace InitialProject.Model
+namespace InitialProject.Domen.Model
 {
     public class Tour : ISerializable, INotifyPropertyChanged
     {
@@ -16,18 +14,19 @@ namespace InitialProject.Model
         public string Description { get; set; }
         public Language Language { get; set; }
         private int _maxGuestNumber;
-        public int MaxGuestNumber 
-        { get => _maxGuestNumber;
-            set 
+        public int MaxGuestNumber
+        {
+            get => _maxGuestNumber;
+            set
             {
                 if (value != _maxGuestNumber)
                 {
                     _maxGuestNumber = value;
                     OnPropertyChanged();
                 }
-            
+
             }
-            
+
         }
 
         public List<TourPoint> KeyPoints { get; set; }
@@ -73,7 +72,7 @@ namespace InitialProject.Model
             Description = values[3];
             Language = Language.fromStringToLanguage(values[4]);
             MaxGuestNumber = Convert.ToInt32(values[5]);
-            StartingDateTime = DateTime.Parse(values[6]); 
+            StartingDateTime = DateTime.Parse(values[6]);
             Duration = Convert.ToInt32(values[7]);
             TourStarted = bool.Parse(values[8]);
             //Images = values[9].Split(";").ToList<string>();
@@ -81,14 +80,14 @@ namespace InitialProject.Model
         }
 
 
-        public string DateTimeToCSV(List<DateTime> startingDateTimes) 
+        public string DateTimeToCSV(List<DateTime> startingDateTimes)
         {
             StringBuilder dateTimes = new StringBuilder();
             foreach (DateTime startingDateTime in startingDateTimes)
             {
                 dateTimes.Append(";" + startingDateTime.ToString());
             }
-            
+
             return dateTimes.ToString().Substring(1);
         }
 
@@ -105,8 +104,8 @@ namespace InitialProject.Model
 
         public void ReduceGuestNumber(int guestNumber)
         {
-            if (MaxGuestNumber>=guestNumber)
-                MaxGuestNumber-=guestNumber;
+            if (MaxGuestNumber >= guestNumber)
+                MaxGuestNumber -= guestNumber;
         }
 
         public override string ToString()

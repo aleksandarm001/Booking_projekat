@@ -1,4 +1,4 @@
-﻿using InitialProject.Model;
+﻿using InitialProject.Domen.Model;
 using System.Collections.Generic;
 
 namespace InitialProject.Services.IServices

@@ -1,16 +1,10 @@
 ﻿using InitialProject.CustomClasses;
-using InitialProject.Serializer;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Media.Imaging;
 
-namespace InitialProject.Model
+namespace InitialProject.Domen.Model
 {
-    public enum AccommodationType { Apartment = 0, House = 1, Shack = 2}
+    public enum AccommodationType { Apartment = 0, House = 1, Shack = 2 }
     public class Accommodation : ISerializable
     {
         public int UserId { get; set; } //ID Vlasnika smestaja
@@ -23,11 +17,11 @@ namespace InitialProject.Model
         public List<AccommodationImage> Images { get; set; }
         public List<Reservation> Reservations { get; set; }
         public int AccommodationID { get; set; }
-        public Accommodation(int userId,string name, Location location, AccommodationType type, int maxGuestNumber,
+        public Accommodation(int userId, string name, Location location, AccommodationType type, int maxGuestNumber,
             int minReservationDays, int daysBeforeCancelling, List<AccommodationImage> images,
             List<Reservation> reservations)
         {
-            UserId= userId;
+            UserId = userId;
             Name = name;
             Location = location;
             TypeOfAccommodation = type;
@@ -63,13 +57,13 @@ namespace InitialProject.Model
                 MinReservationDays.ToString(),
                 DaysBeforeCancelling.ToString(),
 
-            };  
+            };
             return csvValues;
         }
         public void FromCSV(string[] values)
         {
             AccommodationID = Convert.ToInt32(values[0]);
-            UserId= Convert.ToInt32(values[1]);
+            UserId = Convert.ToInt32(values[1]);
             Name = values[2];
             Location = Location.fromStringToLocation(values[3]);
             TypeOfAccommodation = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[4]);
