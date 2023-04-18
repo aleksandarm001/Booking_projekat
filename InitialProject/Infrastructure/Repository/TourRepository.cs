@@ -1,6 +1,7 @@
 ﻿using InitialProject.Aplication.Contracts.Repository;
 using InitialProject.Domen.Model;
 using InitialProject.Serializer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,8 +21,20 @@ namespace InitialProject.Repository
         public TourRepository()
         {
             _serializer = new Serializer<Tour>();
-            _tours = _serializer.FromCSV(FilePath);
+            try
+            {
+                _tours = _serializer.FromCSV(FilePath);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or show a message to the user
+                // For example: Console.WriteLine($"Error initializing TourRepository: {ex.Message}");
+
+                // Set _tours to an empty list to avoid NullReferenceException
+                _tours = new List<Tour>();
+            }
         }
+
 
         public List<Tour> GetAll()
         {

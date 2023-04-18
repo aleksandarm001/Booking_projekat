@@ -22,8 +22,8 @@ namespace InitialProject.Services
         {
             _tourRepository = Injector.CreateInstance<ITourRepository>();
             _tourReservationRepository = Injector.CreateInstance<ITourReservationRepository>();
-            _voucherRepository = Injector.CreateInstance<VoucherRepository>();
-            _tourPointRepository = Injector.CreateInstance<TourPointRepository>();
+            _voucherRepository = Injector.CreateInstance<IVoucherRepository>();
+            _tourPointRepository = Injector.CreateInstance<ITourPointRepository>();
         }
 
         public List<Tour> GetAll()
