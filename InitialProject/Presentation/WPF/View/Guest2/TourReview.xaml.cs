@@ -19,6 +19,7 @@
             _tourRateService = new TourRateService();
             TourRate.TourId = tourId;
             TourRate.GuestId = userId;
+            TourRate.IsValid = true;
             InitializeComponent();
             DataContext = this;
             InitializeRating();

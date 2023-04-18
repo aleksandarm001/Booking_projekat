@@ -17,16 +17,16 @@
 
         public bool? IsValid { get; set; }
 
-        public TourRate(int guestId, int tourId, int guideKnowledge, int guideLanguage, int tourInterest, string? comment, List<string>? images, bool? isValid)
+        public TourRate(int guestId, int tourId, int guideKnowledge, int guideLanguage, int tourInterest, bool isValid, string? comment, List<string>? images)
         {
             GuestId = guestId;
             TourId = tourId;
             GuideKnowledge = guideKnowledge;
             GuideLanguage = guideLanguage;
             TourInterest = tourInterest;
+            IsValid = isValid;
             Comment = comment;
             Images = images;
-            IsValid = isValid;
         }
 
         public string[] ToCSV()
@@ -38,10 +38,9 @@
                 GuideKnowledge.ToString(),
                 GuideLanguage.ToString(),
                 TourInterest.ToString(),
+                IsValid.ToString(),
                 Comment,
-                ImagesListToString(),
-                IsValid.ToString()
-
+                ImagesListToString()
             };
             return csvValues;
         }
@@ -52,9 +51,9 @@
             GuideKnowledge = Convert.ToInt32(values[2]);
             GuideLanguage = Convert.ToInt32(values[3]);
             TourInterest = Convert.ToInt32(values[4]);
-            Comment = values[5];
-            Images = StringToImagesList(values[6]);
-            IsValid = Convert.ToBoolean(values[7]);
+            IsValid = Convert.ToBoolean(values[5]);
+            Comment = values[6];
+            Images = StringToImagesList(values[7]);
         }
 
         private string ImagesListToString()
