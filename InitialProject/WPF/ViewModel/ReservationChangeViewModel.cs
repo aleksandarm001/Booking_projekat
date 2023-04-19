@@ -62,7 +62,11 @@ namespace InitialProject.ViewModel
         {
             _ownerId = accommodationService.GetOwnerIdByReservationId(SelectedReservationId);
             string accommodationName = accommodationService.GetNameByReservationId(SelectedReservationId);
-            ChangeReservationRequest request = new ChangeReservationRequest(SelectedReservationId, accommodationName, NewCheckInDate, NewCheckOutDate, StatusType.Pending, _userId, _ownerId);
+            int accommodationId = accommodationService.GetAccommodationIdByReservationId(SelectedReservationId);
+
+            Boolean isAvailable = requestService.isDateRangeAvailable(accommodationId, NewCheckInDate, NewCheckOutDate);
+
+            ChangeReservationRequest request = new ChangeReservationRequest(SelectedReservationId, accommodationName, NewCheckInDate, NewCheckOutDate, StatusType.Pending, _userId, _ownerId,isAvailable);
             requestService.SaveRequest(request);
             UpdateRequests(request);
         }

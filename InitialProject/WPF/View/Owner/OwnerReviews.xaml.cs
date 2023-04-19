@@ -1,5 +1,6 @@
 ﻿using InitialProject.Model;
 using InitialProject.Services;
+using InitialProject.WPF.View.Owner;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -68,6 +69,12 @@ namespace InitialProject.View.Owner
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ReservationRescheduleRequests reservationRescheduleRequests = new ReservationRescheduleRequests();
+            reservationRescheduleRequests.Show();
         }
     }
 

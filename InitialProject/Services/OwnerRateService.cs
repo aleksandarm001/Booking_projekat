@@ -52,15 +52,14 @@ namespace InitialProject.Services
             {
                 return false;
             }
-            else
-            {
+            
                 
-                double rateAverage = ownerRates.Average(o => (o.CleanlinessRate + o.CorrectnessRate) / 2);
-                if(rateAverage > 4.5)
-                {
-                    return true;
-                }
+            double rateAverage = ownerRates.Average(o => (o.CleanlinessRate + o.CorrectnessRate) / 2);
+            if(rateAverage > 4.5)
+            {
+               return true;
             }
+            
             return false;
         }
     }

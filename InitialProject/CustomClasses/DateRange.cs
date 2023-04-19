@@ -67,6 +67,7 @@ namespace InitialProject.CustomClasses
             }
         }
         
+        
         public bool WithinRange(DateRange range)
         {
             for (DateTime date = range.StartDate; date <= range.EndDate; date = date.AddDays(1))

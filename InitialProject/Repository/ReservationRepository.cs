@@ -2,6 +2,7 @@
 using InitialProject.Domen.RepositoryInterfaces;
 using InitialProject.Model;
 using InitialProject.Serializer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -48,6 +49,20 @@ namespace InitialProject.Repository
             Reservation foundedAccommodation = _reservations.Find(r => r.ReservationId == reservation.ReservationId);
             _reservations.Remove(foundedAccommodation);
             _serializer.ToCSV(FilePath, _reservations);
+        }
+
+       
+        public Reservation Update(Reservation reservation,DateTime newStart, DateTime newEnd)
+        {
+            _reservations = _serializer.FromCSV(FilePath);
+            Reservation current = _reservations.Find(r =>r.ReservationId == reservation.ReservationId);
+            int index = _reservations.IndexOf(current);
+            reservation.ReservationDateRange.StartDate= newStart;
+            reservation.ReservationDateRange.EndDate = newEnd;
+            _reservations.Remove(current);
+            _reservations.Insert(index, reservation);
+            _serializer.ToCSV(FilePath, _reservations);
+            return reservation;
         }
 
         public Reservation GetByReservationId(int reservationId)

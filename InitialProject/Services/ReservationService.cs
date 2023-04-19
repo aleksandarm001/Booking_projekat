@@ -11,9 +11,15 @@ namespace InitialProject.Services
     public class ReservationService : IReservationService
     {
         private readonly ReservationRepository _repository;
+        
         public ReservationService()
         {
             _repository = new ReservationRepository();
+        }
+
+        public List<Reservation> GetAll()
+        {
+            return _repository.GetAll();
         }
         public List<Reservation> GetReservationsByUserId(int userId)
         {
@@ -37,6 +43,11 @@ namespace InitialProject.Services
         {
             Reservation reservation = GetReservationById(reservationId);
             _repository.Delete(reservation);
+        }
+
+        public void UpdateReservation(int reservationId,DateTime newStart,DateTime newEnd)
+        {
+           _repository.Update(GetReservationById(reservationId),newStart,newEnd);
         }
 
     }
