@@ -18,3 +18,4 @@
 18|3|Zona Apartman 2|Serbia;Novi Sad|Apartment|2|1|1
 19|9|88 rooms|Japan;Tokyo|Apartment|5|2|3
 20|9|Japanski dormeo|Japan;Tokyo|Shack|5|2|3
+21|3|Hotel Srbija|Serbia;Novi Sad|House|5|4|3

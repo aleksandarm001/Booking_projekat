@@ -11,7 +11,7 @@ namespace InitialProject.CustomClasses
         public int AccommodationId { get; set; }
         public DateTime LeavingDay { get; set; }
 
-        public UserToReview(int ownerId, int guest1Id,int accommodationId, DateTime date)
+        public UserToReview(int ownerId,int accommodationId, int guest1Id, DateTime date)
         {
             OwnerId = ownerId;
             Guest1Id = guest1Id;
