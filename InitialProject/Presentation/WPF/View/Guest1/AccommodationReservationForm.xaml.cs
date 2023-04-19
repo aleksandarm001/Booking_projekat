@@ -194,14 +194,14 @@ namespace InitialProject.View
             if(guestNumberInputDialog.NumberOfGuests != 0)
             {
                 NumberOfGuests = guestNumberInputDialog.NumberOfGuests;
-                ReserveAccommodation(SelectedAccommodation.AccommodationID, _userId, SelectedDateRange, NumberOfGuests,SelectedAccommodation.UserId);
+                ReserveAccommodation(SelectedAccommodation.AccommodationID, _userId, SelectedDateRange, NumberOfGuests);
                 MessageBox.Show("You successfuly reserved " + ReservationDays.ToString() + " day(s) at " + AccommodationName);
                 guestNumberInputDialog.Close();
             }
         }
-        private void ReserveAccommodation(int accommodationID, int userID, DateRange dateRange, int numberOfGuests,int ownerId)
+        private void ReserveAccommodation(int accommodationID, int userID, DateRange dateRange, int numberOfGuests)
         {
-            Reservation reservation = new Reservation(dateRange, numberOfGuests, userID,accommodationID,ownerId);
+            Reservation reservation = new Reservation(dateRange, numberOfGuests, userID);
             AccommodationReservation accommodationReservation = new AccommodationReservation(accommodationID, _reservationRepository.NextId());
             SelectedAccommodation.Reservations.Add(reservation);
             Reservations.Add(reservation);
