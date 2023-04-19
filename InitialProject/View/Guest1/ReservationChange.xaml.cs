@@ -29,7 +29,7 @@ namespace InitialProject.View.Guest1
         public ReservationChange(int userId, ObservableCollection<ChangeReservationRequest> Requests)
         {
             InitializeComponent();
-            ReservationChangeViewModel viewModel = new ReservationChangeViewModel(userId, Requests);
+            viewModel = new ReservationChangeViewModel(userId, Requests);
             DataContext = viewModel;
             Send_Button.IsEnabled = false;
         }
