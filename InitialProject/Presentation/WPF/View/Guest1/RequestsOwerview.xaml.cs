@@ -39,7 +39,7 @@ namespace InitialProject.View.Guest1
 
         private void CancelReservation_Click(object sender, RoutedEventArgs e)
         {
-            CancelReservation cancelReservation = new CancelReservation(_userId);
+            CancelReservation cancelReservation = new CancelReservation(_userId, viewModel.Requests);
             cancelReservation.Owner = this;
             cancelReservation.ShowDialog();
         }

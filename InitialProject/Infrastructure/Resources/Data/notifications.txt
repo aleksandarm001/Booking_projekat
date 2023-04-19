@@ -1,3 +1,9 @@
 -1|-1|-1|ReservationCancelled|-1
 1|1|0|ReservationCancelled|3
 2|1|0|ReservationCancelled|4
+3|1|0|ReservationCancelled|4
+4|1|0|ReservationCancelled|3
+5|1|0|ReservationCancelled|2
+6|1|0|ReservationCancelled|2
+7|1|0|ReservationCancelled|2
+8|1|0|ReservationCancelled|2

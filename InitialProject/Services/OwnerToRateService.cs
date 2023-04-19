@@ -40,7 +40,7 @@ namespace InitialProject.Services
                     int accommodationId = GetAccommodationIdByReservationId(r.ReservationId);
                     OwnerToRate ownerToRate = new OwnerToRate(GetOwnerIdByAccommodationId(accommodationId), accommodationId, r.UserId, r.ReservationDateRange.EndDate);
                     _ownerToRateRepository.Save(ownerToRate);
-                    //_reservationService.Delete(r);
+                    _reservationService.Delete(r.ReservationId);
                     _accommodationReservationRepository.DeleteReservation(r.ReservationId);
                 }
             }
@@ -58,7 +58,6 @@ namespace InitialProject.Services
         {
             return reservation.ReservationDateRange.EndDate < DateTime.Now;
         }
-        //PITAJ IMA LI POTREBE DA SE OVO STAVI U REPOZITORIUJM
         private int GetAccommodationIdByReservationId(int reservationId)
         {
             return (_accommodationReservationRepository.GetAll().Find(a => a.ReservationId == reservationId)).AccommodationId;

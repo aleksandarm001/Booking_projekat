@@ -1,4 +1,5 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.Model;
 using InitialProject.Presentation.WPF.ViewModel;
 using InitialProject.Services;
 using System;
@@ -26,10 +27,10 @@ namespace InitialProject.View.Guest1
     public partial class CancelReservation : Window
     {
         private CancelReservationViewModel viewModel;
-        public CancelReservation(int userId)
+        public CancelReservation(int userId, ObservableCollection<ChangeReservationRequest> requests)
         {
             InitializeComponent();
-            viewModel = new CancelReservationViewModel(userId);
+            viewModel = new CancelReservationViewModel(userId, requests);
             DataContext = viewModel;
             CancelButton.IsEnabled = false;
         }
