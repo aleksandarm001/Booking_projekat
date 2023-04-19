@@ -2,16 +2,17 @@
 using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Repository;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace InitialProject.Services
 {
-    public class OwnerToRateService
+    public class OwnerToRateService : IOwnerToRateService
     {
         private readonly IOwnerToRateRepository _ownerToRateRepository;
-        private readonly ReservationService _reservationService;
+        private readonly IReservationService _reservationService;
         private readonly IAccommodationReservationRepository _accommodationReservationRepository;
         private readonly IAccommodationRepository _accommodationRepository;
         private List<OwnerToRate> _ownersToRate;
@@ -54,18 +55,6 @@ namespace InitialProject.Services
                 _ownerToRateRepository.Delete(o);
             }
         }
-        private bool CheckIfLeftReservation(Reservation reservation)
-        {
-            return reservation.ReservationDateRange.EndDate < DateTime.Now;
-        }
-        private int GetAccommodationIdByReservationId(int reservationId)
-        {
-            return (_accommodationReservationRepository.GetAll().Find(a => a.ReservationId == reservationId)).AccommodationId;
-        }
-        public int GetOwnerIdByAccommodationId(int accommodationId)
-        {
-            return (_accommodationRepository.GetAll().Find(a => a.AccommodationID == accommodationId)).UserId;
-        }
         public Dictionary<int, string> GetAccommodationNamesByUser(int userId)
         {
             Dictionary<int, string> accommodationNames = new Dictionary<int, string>();
@@ -83,6 +72,18 @@ namespace InitialProject.Services
         {
             OwnerToRate founded = _ownersToRate.Find(or => or.AccommodationId == accommodationId);
             _ownerToRateRepository.Delete(founded);
+        }
+        private bool CheckIfLeftReservation(Reservation reservation)
+        {
+            return reservation.ReservationDateRange.EndDate < DateTime.Now;
+        }
+        private int GetAccommodationIdByReservationId(int reservationId)
+        {
+            return (_accommodationReservationRepository.GetAll().Find(a => a.ReservationId == reservationId)).AccommodationId;
+        }
+        public int GetOwnerIdByAccommodationId(int accommodationId)
+        {
+            return (_accommodationRepository.GetAll().Find(a => a.AccommodationID == accommodationId)).UserId;
         }
     }
 }

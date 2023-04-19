@@ -1,13 +1,14 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Repository;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace InitialProject.Services
 {
-    public class ChangeReservationRequestService
+    public class ChangeReservationRequestService : IChangeReservationRequestService
     {
         private readonly ChangeReservationRequestRepository _requestRepository;
         private readonly ReservationService _reservationService;

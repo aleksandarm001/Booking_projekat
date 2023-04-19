@@ -38,7 +38,7 @@ namespace InitialProject.View.Owner
 
         public void showSuperOwner(int ownerId)
         {
-            if(_ownerRateService.isSuperOwner(ownerId))
+            if(_ownerRateService.IsSuperOwner(ownerId))
             {
                 zvjezda.Visibility = Visibility.Visible;
             }

@@ -2,11 +2,12 @@
 using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Repository;
+using InitialProject.Services.IServices;
 using System.Collections.Generic;
 
 namespace InitialProject.Services
 {
-    public class AccommodationService
+    public class AccommodationService : IAccommodationService
     {
         private readonly IAccommodationRepository _repository;
         private readonly IAccommodationReservationRepository _accommodationReservationRepository;
