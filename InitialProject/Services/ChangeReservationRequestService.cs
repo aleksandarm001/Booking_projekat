@@ -1,5 +1,7 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.Model;
 using InitialProject.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +11,6 @@ namespace InitialProject.Services
     {
         private readonly ChangeReservationRequestRepository _requestRepository;
         private readonly ReservationService _reservationService;
-        private List<ChangeReservationRequest> _changes;
         public ChangeReservationRequestService()
         {
             _requestRepository = new ChangeReservationRequestRepository();
@@ -18,6 +19,7 @@ namespace InitialProject.Services
 
         public List<ChangeReservationRequest> GetRequests(int userId)
         {
+            UpdateRequests(userId);
             return _requestRepository.GetAll().Where(r => r.UserId == userId).ToList();
         }
 
@@ -30,6 +32,29 @@ namespace InitialProject.Services
             else
             {
                 _requestRepository.Save(request);
+            }
+        }
+
+        public void DeleteRequestByReservationId(int reservationId)
+        {
+            ChangeReservationRequest foundedRequest = _requestRepository.GetAll().Find(r => r.ReservationId == reservationId);
+            if (foundedRequest != null)
+            {
+                _requestRepository.Delete(foundedRequest);
+            }
+        }
+        public ChangeReservationRequest FindRequestByReservationId(int reservationId)
+        {
+            return _requestRepository.GetAll().First(x => x.ReservationId == reservationId);
+        }
+        private void UpdateRequests(int userId)
+        {
+            foreach(Reservation reservation in _reservationService.GetReservationsByUserId(userId))
+            {
+                if(reservation.ReservationDateRange.StartDate <= DateTime.Now)
+                {
+                    DeleteRequestByReservationId(reservation.ReservationId);
+                }
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.Model;
 using InitialProject.Services;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace InitialProject.Presentation.WPF.ViewModel
         private readonly AccommodationService _accommodationService;
         private readonly AccommodationReservationService _accommodationReservationService;
         private readonly NotificationService _notificationService;
+        private readonly ChangeReservationRequestService _requestService;
         private int _userId;
         private int _ownerId;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -38,21 +40,39 @@ namespace InitialProject.Presentation.WPF.ViewModel
                 }
             }
         }
-        public CancelReservationViewModel(int userId)
+        private ObservableCollection<ChangeReservationRequest> _requests;
+        public ObservableCollection<ChangeReservationRequest> Requests
+        {
+            get
+            {
+                return _requests;
+            }
+            set
+            {
+                _requests = value;
+                OnPropertyChanged(nameof(Requests));
+            }
+        }
+        public CancelReservationViewModel(int userId, ObservableCollection<ChangeReservationRequest> requests)
         {
             _userId = userId;
             _reservationService = new ReservationService();
             _accommodationService = new AccommodationService();
             _accommodationReservationService = new AccommodationReservationService();
             _notificationService = new NotificationService();
+            _requestService = new ChangeReservationRequestService();
+            Requests = requests;
             InitializeReservations();
         }
         public void CancelReservation()
         {
             if (_accommodationReservationService.IsCancellingPossible(DateTime.Now, SelectedReservationId))
             {
+                ChangeReservationRequest requestToRemove = Requests.First(request => request.ReservationId == SelectedReservationId);
+                Requests.Remove(requestToRemove);
                 _reservationService.Delete(SelectedReservationId);
                 _accommodationService.DeleteReservation(SelectedReservationId);
+                _requestService.DeleteRequestByReservationId(SelectedReservationId);
                 Notification notification = new Notification(_userId, _ownerId, TypeNotification.ReservationCancelled, SelectedReservationId);
                 _notificationService.SaveNotification(notification);
                 MessageBox.Show("You successfully cancelled reservation!");
