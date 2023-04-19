@@ -145,7 +145,7 @@ namespace InitialProject.View
         {
             foreach(UserToReview userToReview in UsersToReview) 
             { 
-                if(CheckDateRange(userToReview.LeavingDay) && userToReview.OwnerId == userId) // 0 je defaultni owner id
+                if(CheckDateRange(userToReview.LeavingDay) && userToReview.OwnerId == userId) 
                 {
                     RateUser(userToReview.Guest1Id,userToReview.AccommodationId, userToReview.LeavingDay);
                 }

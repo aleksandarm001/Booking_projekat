@@ -43,7 +43,7 @@ namespace InitialProject
                 if(user.Email == Email && user.Password == Password)
                 {
                     match = true;
-                    StartWindow startWindow = new StartWindow(user.Id);
+                    //StartWindow startWindow = new StartWindow(user.Id);
                     this.Close();
                     ChooseWindow(user);
                     break;
