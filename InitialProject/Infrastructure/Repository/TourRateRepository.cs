@@ -1,10 +1,11 @@
 ﻿namespace InitialProject.Repository
 {
+    using InitialProject.Application.Contracts.Repository;
     using InitialProject.Domen.Model;
     using InitialProject.Serializer;
     using System.Collections.Generic;
 
-    public class TourRateRepository
+    public class TourRateRepository : ITourRateRepository
     {
         private const string FilePath = "../../../Infrastructure/Resources/Data/tourRates.txt";
         private readonly Serializer<TourRate> _serializer;

@@ -1,5 +1,7 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.Aplication.Factory;
+using InitialProject.Domen.Model;
 using InitialProject.Services;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,9 +15,8 @@ namespace InitialProject.View
         public event PropertyChangedEventHandler PropertyChanged;
         public Tour Tour { get; set; }
         public int UserId { get; set; }
-        private TourService _tourService;
-        private TourReservationService _tourReservationService;
-        private VoucherService _voucherService;
+        private ITourReservationService _tourReservationService;
+        private IVoucherService _voucherService;
         public ObservableCollection<Voucher> Vouchers { get; set; }
         public ObservableCollection<string> VouchersString { get; set; }
         public string SelectedVoucher { get; set; }
@@ -49,9 +50,8 @@ namespace InitialProject.View
             Tour = t;
             UserId = userId;
             this.NumberOfGuests = NumberOfGuests;
-            _tourService = new TourService();
-            _tourReservationService = new TourReservationService();
-            _voucherService = new VoucherService();
+            _tourReservationService = Injector.CreateInstance<ITourReservationService>();
+            _voucherService = Injector.CreateInstance<IVoucherService>();
             VouchersString = new ObservableCollection<string>();
             Vouchers = new ObservableCollection<Voucher>(_voucherService.GetAllForUser(userId));
             InitializeVouchers();

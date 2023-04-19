@@ -1,9 +1,10 @@
 ﻿namespace InitialProject.View
 {
+    using InitialProject.Aplication.Factory;
     using InitialProject.CustomClasses;
     using InitialProject.Domen.Model;
     using InitialProject.Presentation.WPF.Constants;
-    using InitialProject.Services;
+    using InitialProject.Services.IServices;
     using InitialProject.View.Guest2;
     using Microsoft.TeamFoundation.Common;
     using System.Collections.ObjectModel;
@@ -33,9 +34,9 @@
         public string SelectedDurationFrom { get; set; }
         public string SelectedDurationTo { get; set; }
 
-        private readonly TourService _tourService;
+        private readonly ITourService _tourService;
 
-        private readonly TourAttendanceService _tourAttendanceService;
+        private readonly ITourAttendanceService _tourAttendanceService;
 
         private ObservableCollection<Tour> _tours { get; set; }
         public ObservableCollection<Tour> Tours
@@ -53,8 +54,8 @@
             InitializeComponent();
             DataContext = this;
             UserId = userId;
-            _tourService = new TourService();
-            _tourAttendanceService = new TourAttendanceService();
+            _tourService = Injector.CreateInstance<ITourService>();
+            _tourAttendanceService = Injector.CreateInstance<ITourAttendanceService>();
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             Tours = new ObservableCollection<Tour>(_tourService.GetAllNotStartedTours());
@@ -142,7 +143,7 @@
             {
                 Duration.Add(i.ToString());
             }
-            Duration.Insert(0,string.Empty);
+            Duration.Insert(0, string.Empty);
         }
         private void Rezervisi_Click(object sender, RoutedEventArgs e)
         {

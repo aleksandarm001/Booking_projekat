@@ -14,5 +14,7 @@ namespace InitialProject.Services.IServices
 
         List<Tour> GetAllFinishedTours();
         void ReduceMaxGuestNumber(int tourId, int guestNumber);
+
+        public List<Tour> GetAllNotFinishedTour();
     }
 }

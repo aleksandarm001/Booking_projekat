@@ -1,11 +1,12 @@
-﻿using InitialProject.CustomClasses;
+﻿using InitialProject.Application.Contracts.Repository;
+using InitialProject.CustomClasses;
 using InitialProject.Serializer;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace InitialProject.Repository
 {
-    public class TourAttendanceRepository
+    public class TourAttendanceRepository : ITourAttendanceRepository 
     {
         private const string FilePath = "../../../Infrastructure/Resources/Data/tourattendances.txt";
 

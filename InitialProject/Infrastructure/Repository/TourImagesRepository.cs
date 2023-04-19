@@ -1,11 +1,12 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.Application.Contracts.Repository;
+using InitialProject.Domen.Model;
 using InitialProject.Serializer;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace InitialProject.Repository
 {
-    public class TourImagesRepository
+    public class TourImagesRepository : ITourImageRepository
     {
         private const string FilePath = "../../../Infrastructure/Resources/Data/tourimages.txt";
 

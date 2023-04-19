@@ -12,14 +12,14 @@
     public class TourService : ITourService
     {
         private readonly ITourRepository _tourRepository;
-        private readonly TourAttendanceService _tourAttendanceService;
-        private TourPointService _tourPointService;
+        private readonly ITourAttendanceService _tourAttendanceService;
+        private ITourPointService _tourPointService;
 
         public TourService()
         {
             _tourRepository = Injector.CreateInstance<ITourRepository>();
-            _tourAttendanceService = new TourAttendanceService();
-            _tourPointService = new TourPointService();
+            _tourAttendanceService = Injector.CreateInstance<ITourAttendanceService>();
+            _tourPointService = Injector.CreateInstance<ITourPointService>();
         }
 
         public List<Tour> GetAll()

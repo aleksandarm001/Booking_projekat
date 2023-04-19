@@ -1,4 +1,6 @@
-﻿using InitialProject.CustomClasses;
+﻿using InitialProject.Aplication.Factory;
+using InitialProject.Application.Contracts.Repository;
+using InitialProject.CustomClasses;
 using InitialProject.Repository;
 using InitialProject.Services.IServices;
 using System.Collections.Generic;
@@ -8,10 +10,10 @@ namespace InitialProject.Services
 {
     public class TourAttendanceService : ITourAttendanceService
     {
-        private readonly TourAttendanceRepository _tourAttendanceRepository;
+        private readonly ITourAttendanceRepository _tourAttendanceRepository;
         public TourAttendanceService()
         {
-            _tourAttendanceRepository = new TourAttendanceRepository();
+            _tourAttendanceRepository = Injector.CreateInstance<ITourAttendanceRepository>();
         }
 
         public List<TourAttendance> GetAll()

@@ -1,14 +1,10 @@
 ﻿using InitialProject.Aplication.Contracts.Repository;
 using InitialProject.Aplication.Factory;
-using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
-using InitialProject.Repository;
 using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InitialProject.Services
 {
@@ -44,7 +40,7 @@ namespace InitialProject.Services
             }
             return toursToCancel;
         }
-        
+
         //Cancel tour and give Voucher to user
         public void CancelTour(string tourToCancel)
         {
@@ -56,7 +52,7 @@ namespace InitialProject.Services
                 if (reservation.TourId == tourId)
                 {
                     _tourReservationRepository.Delete(reservation);
-                    foreach(var TourPoint in _tourPointRepository.GetAll().Where(c=>c.TourId == tourId).ToList())
+                    foreach (var TourPoint in _tourPointRepository.GetAll().Where(c => c.TourId == tourId).ToList())
                     {
                         _tourPointRepository.Delete(TourPoint);
                     }
@@ -64,7 +60,7 @@ namespace InitialProject.Services
                 }
 
             }
-            
+
         }
 
         private void CreateVoucher(int userID)

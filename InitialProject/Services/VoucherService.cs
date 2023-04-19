@@ -1,16 +1,19 @@
 ﻿namespace InitialProject.Services
 {
+    using InitialProject.Aplication.Contracts.Repository;
+    using InitialProject.Aplication.Factory;
     using InitialProject.Domen.Model;
     using InitialProject.Repository;
+    using InitialProject.Services.IServices;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class VoucherService
+    public class VoucherService : IVoucherService
     {
-        private readonly VoucherRepository _repository;
+        private readonly IVoucherRepository _repository;
         public VoucherService()
         {
-            _repository = new VoucherRepository();
+            _repository = Injector.CreateInstance<IVoucherRepository>();
         }
 
         public List<Voucher> GetAllForUser(int userId)

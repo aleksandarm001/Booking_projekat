@@ -1,8 +1,10 @@
 ﻿namespace InitialProject.View.Guest2
 {
+    using InitialProject.Aplication.Factory;
     using InitialProject.Domen.Model;
     using InitialProject.Presentation.WPF.Constants;
-    using InitialProject.Services;
+    using InitialProject.Presentation.WPF.ViewModel.Guest2;
+    using InitialProject.Services.IServices;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
@@ -13,10 +15,10 @@
     /// </summary>
     public partial class ReservedTours : Window, INotifyPropertyChanged
     {
- 
+        private ReservedTourViewModel _reservedTourViewModel;
         public Tour SelectedTour { get; set; }
-        private TourPointService _tourPointService;
-        private TourReservationService _tourReservationService;
+        private ITourPointService _tourPointService;
+        private ITourReservationService _tourReservationService;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -35,42 +37,15 @@
         {
             InitializeComponent();
             DataContext = this;
-            _tourPointService = new TourPointService();
-            _tourReservationService = new TourReservationService();
+            _reservedTourViewModel = new ReservedTourViewModel();
+            _tourPointService = Injector.CreateInstance<ITourPointService>();
+            _tourReservationService = Injector.CreateInstance<ITourReservationService>();
             Tours = new ObservableCollection<Tour>(_tourReservationService.GetAllReservedAndNotFinishedTour(userId));
         }
 
         private void Detalji_Click(object sender, RoutedEventArgs e)
         {
-            HandleMessage();
-        }
-
-
-
-        private void HandleMessage()
-        {
-            if (SelectedTour != null)
-            {
-                if (SelectedTour.TourStarted)
-                {
-                    if (_tourPointService.GetActiveTourPointOnTour(SelectedTour.TourId) == null)
-                    {
-                        MessageBox.Show(TourViewConstants.ActiveTourPointNotFound, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Trenutno je aktivna " + _tourPointService.GetActiveTourPointOnTour(SelectedTour.TourId).Name + " tacka!", TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(TourViewConstants.TourNotStarted, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
-                }
-            }
-            else
-            {
-                MessageBox.Show(TourViewConstants.MustSelectTour, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
-            }
+            _reservedTourViewModel.HandleMessageForDetails(SelectedTour);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

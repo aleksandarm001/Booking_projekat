@@ -1,5 +1,7 @@
 ﻿namespace InitialProject.Services
 {
+    using InitialProject.Aplication.Factory;
+    using InitialProject.Application.Contracts.Repository;
     using InitialProject.Domen.Model;
     using InitialProject.Repository;
     using InitialProject.Services.IServices;
@@ -7,13 +9,13 @@
 
     public class TourRateService : ITourRateService
     {
-        private readonly TourRateRepository _repository;
-        private TourAttendanceService _tourAttendanceService;
+        private readonly ITourRateRepository _repository;
+        private readonly ITourAttendanceService _tourAttendanceService;
 
         public TourRateService()
         {
-            _repository = new TourRateRepository();
-            _tourAttendanceService = new TourAttendanceService();
+            _repository = Injector.CreateInstance<ITourRateRepository>();
+            _tourAttendanceService = Injector.CreateInstance<ITourAttendanceService>();
         }
 
         public List<TourRate> GetAllRates()

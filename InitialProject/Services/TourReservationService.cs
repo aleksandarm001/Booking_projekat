@@ -1,5 +1,7 @@
 ﻿namespace InitialProject.Services
 {
+    using InitialProject.Aplication.Contracts.Repository;
+    using InitialProject.Aplication.Factory;
     using InitialProject.Domen.Model;
     using InitialProject.Repository;
     using InitialProject.Services.IServices;
@@ -9,14 +11,14 @@
 
     public class TourReservationService : ITourReservationService
     {
-        private readonly TourReservationRepository _repository;
-        private readonly TourService _tourService;
-        private readonly VoucherService _voucherService;
+        private readonly ITourReservationRepository _repository;
+        private readonly ITourService _tourService;
+        private readonly IVoucherService _voucherService;
         public TourReservationService()
         {
-            _repository = new TourReservationRepository();
-            _tourService = new TourService();
-            _voucherService = new VoucherService();
+            _repository = Injector.CreateInstance<ITourReservationRepository>();
+            _tourService = Injector.CreateInstance<ITourService>();
+            _voucherService = Injector.CreateInstance<IVoucherService>();
         }
         public List<TourReservation> GetReservationsByUserId(int userId)
         {

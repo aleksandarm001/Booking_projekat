@@ -1,8 +1,10 @@
 ﻿namespace InitialProject.View.Guest2
 {
+    using InitialProject.Aplication.Factory;
     using InitialProject.Domen.Model;
     using InitialProject.Presentation.WPF.Constants;
-    using InitialProject.Services;
+    using InitialProject.Presentation.WPF.ViewModel.Guest2;
+    using InitialProject.Services.IServices;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
@@ -13,9 +15,9 @@
     /// </summary>
     public partial class FinishedTours : Window, INotifyPropertyChanged
     {
+        private FinishedTourViewModel _finishedTourViewModel;
         public Tour SelectedTour { get; set; }
-        private readonly TourService _tourService;
-        private readonly TourAttendanceService _tourAttendanceService;
+        private readonly ITourService _tourService;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -37,25 +39,14 @@
             InitializeComponent();
             DataContext = this;
             UserId = userId;
-            _tourService = new TourService();
-            _tourAttendanceService = new TourAttendanceService();
+            _finishedTourViewModel = new FinishedTourViewModel();
+            _tourService = Injector.CreateInstance<ITourService>();
             Tours = new ObservableCollection<Tour>(_tourService.GetAllFinished(UserId));
         }
 
         private void Ocijeni_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedTour != null)
-            {
-                if (_tourAttendanceService.CheckPossibleComment(UserId, SelectedTour.TourId))
-                {
-                    TourReview tourReview = new TourReview(SelectedTour.TourId, UserId);
-                    tourReview.Show();
-                }
-                else
-                {
-                    MessageBox.Show(TourViewConstants.TourReviewed, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
-                }
-            }
+            _finishedTourViewModel.RateTour(SelectedTour, UserId);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

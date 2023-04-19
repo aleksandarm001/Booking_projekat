@@ -2,6 +2,7 @@
 {
     using InitialProject.Domen.Model;
     using InitialProject.Presentation.WPF.Constants;
+    using InitialProject.Presentation.WPF.ViewModel.Guest2;
     using InitialProject.Services;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -11,12 +12,12 @@
     {
         public static ObservableCollection<string> Rating { get; set; }
         public TourRate TourRate { get; set; }
-        private TourRateService _tourRateService;
+        private TourReviewViewModel _tourReviewViewModel;
 
         public TourReview(int tourId, int userId)
         {
+            _tourReviewViewModel = new TourReviewViewModel();
             TourRate = new TourRate();
-            _tourRateService = new TourRateService();
             TourRate.TourId = tourId;
             TourRate.GuestId = userId;
             TourRate.IsValid = true;
@@ -48,8 +49,7 @@
 
         private void Potvrdi_Click(object sender, RoutedEventArgs e)
         {
-            _tourRateService.MakeTourRate(TourRate);
-            MessageBox.Show(TourViewConstants.CommentNoted, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
+            _tourReviewViewModel.RateTour(TourRate);
             this.Close();
         }
 

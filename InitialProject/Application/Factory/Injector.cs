@@ -26,6 +26,7 @@ namespace InitialProject.Aplication.Factory
             { typeof(IUserService), new Lazy<object>(() => new UserService()) },
             { typeof(ITourAttendanceService), new Lazy<object>(() => new TourAttendanceService()) },
             { typeof(ITourPointService), new Lazy<object>(() => new TourPointService()) },
+            { typeof(IVoucherService), new Lazy<object>(() => new VoucherService()) },
         };
 
         public static T CreateInstance<T>()

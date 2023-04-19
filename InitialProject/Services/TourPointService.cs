@@ -1,5 +1,7 @@
 ﻿namespace InitialProject.Services
 {
+    using InitialProject.Aplication.Contracts.Repository;
+    using InitialProject.Aplication.Factory;
     using InitialProject.Domen.Model;
     using InitialProject.Repository;
     using InitialProject.Services.IServices;
@@ -8,11 +10,11 @@
 
     public class TourPointService : ITourPointService
     {
-        private TourPointRepository _tourPointRepository;
+        private ITourPointRepository _tourPointRepository;
 
         public TourPointService()
         {
-            _tourPointRepository = new TourPointRepository();
+            _tourPointRepository = Injector.CreateInstance<ITourPointRepository>();
         }
 
 

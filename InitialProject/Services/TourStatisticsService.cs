@@ -10,7 +10,6 @@ namespace InitialProject.Services
     public class TourStatisticsService : ITourStatisticsService
     {
         private readonly ITourRepository _tourRepository;
-        //private readonly ITourReservationRepository tourReservationRepository;
         private readonly IUserService userService;
         private readonly ITourReservationService tourReservationService;
         private readonly ITourReservationRepository tourReservationRepository;
