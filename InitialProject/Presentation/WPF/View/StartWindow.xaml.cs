@@ -86,6 +86,7 @@ namespace InitialProject.View
             foreach(Reservation reservation in Reservations){
                 if (CheckIfLeftReservation(reservation))
                 {
+                    _reservationRepository.Delete(reservation);
                     int accommodation_id = ReservationAccommodationId(reservation);
                     int owner_id = OwnerReservationId(accommodation_id);
                     //tourReservationRepository.Delete(reservation);
