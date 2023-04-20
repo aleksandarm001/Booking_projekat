@@ -1,13 +1,14 @@
 ﻿using InitialProject.Aplication.Contracts.Repository;
 using InitialProject.Domen.Model;
 using InitialProject.Repository;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace InitialProject.Services
 {
-    public class OwnerRateService
+    public class OwnerRateService : IOwnerRateService
     {
         private readonly GuestReviewRepository guestReviewRepository;
         private readonly IOwnerRateRepository _ownerRateRepository;
@@ -42,7 +43,7 @@ namespace InitialProject.Services
 
         
 
-        public Boolean isSuperOwner(int ownerId)
+        public bool IsSuperOwner(int ownerId)
         {
             List<OwnerRate> ownerRates = _ownerRateRepository.GetAllRatesByOwner(ownerId);
 
