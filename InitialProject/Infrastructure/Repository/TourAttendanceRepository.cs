@@ -1,4 +1,4 @@
-﻿using InitialProject.Application.Contracts.Repository;
+﻿using InitialProject.Aplication.Contracts.Repository;
 using InitialProject.CustomClasses;
 using InitialProject.Serializer;
 using System.Collections.Generic;

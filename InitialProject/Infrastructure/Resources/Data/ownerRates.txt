@@ -1,7 +1,8 @@
-1|9|1|20|3|4|Dobar je momak|slika.jpgs
+1|9|1|19|3|4|Dobar je momak|slika.jpgs
 2|3|1|1|5|3| je momak|slika.jpgs
-3|3|1|2|5|3|Dobar je momak|slika.jpgs
+3|3|1|4|5|3|Dobar je momak|slika.jpgs
 3|3|1|3|5|3|Dobar je momak|slika.jpgs
 4|3|1|5|5|3|Dobar je momak|slika.jpgs
 5|3|1|6|5|3|Dobar je momak|slika.jpgs
 6|3|1|7|5|3|Dobar je momak|slika.jpgs
+7|3|1|7|5|3|Dobar decko|slika.png

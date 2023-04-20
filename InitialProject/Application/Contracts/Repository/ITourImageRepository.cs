@@ -1,4 +1,4 @@
-﻿namespace InitialProject.Application.Contracts.Repository
+﻿namespace InitialProject.Aplication.Contracts.Repository
 {
     using InitialProject.Domen.Model;
     using System.Collections.Generic;
