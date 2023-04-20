@@ -11,5 +11,6 @@ namespace InitialProject.Services.IServices
         int NextId();
         User Save(User user);
         void Update(User user);
+        void UsePoints(int userId);
     }
 }

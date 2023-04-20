@@ -23,17 +23,8 @@ namespace InitialProject.Services.IServices
         {
             List<UserReservationCounter> users = _userReservationCounterRepository.GetAll();
             UserReservationCounter user = users.Find(u => u.UserId == userId);
-            if (user.InitialDate.Year == DateTime.Now.Year)
-            {
-                user.ReservationCount++;
-                _userReservationCounterRepository.Update(user);
-            }
-            else
-            {
-                user.ReservationCount = 0;
-                user.InitialDate = new DateTime(DateTime.Now.Year, 1, 1);
-                _userReservationCounterRepository.Update(user);
-            }
+            user.ReservationCount++;
+            _userReservationCounterRepository.Update(user);
         }
         public void InitializeReservationCounter(int userId)
         {

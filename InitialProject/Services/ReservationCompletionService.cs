@@ -15,16 +15,16 @@ namespace InitialProject.Services
     {
         private readonly IReservationService _reservationService;
         private readonly IOwnerToRateService _ownerToRateService;
-        private readonly IAccommodationReservationService _accommodationReservationService;
         private readonly IAccommodationService _accommodationService;
         private readonly IUserReservationCounterService _userReservationCounterService;
+        private readonly IUserService _userService;
         public ReservationCompletionService()
         {
             _reservationService = Injector.CreateInstance<IReservationService>();
             _ownerToRateService = Injector.CreateInstance<IOwnerToRateService>();
-            _accommodationReservationService = Injector.CreateInstance<IAccommodationReservationService>();
             _accommodationService = Injector.CreateInstance<IAccommodationService>();
             _userReservationCounterService = Injector.CreateInstance<IUserReservationCounterService>();
+            _userService = Injector.CreateInstance<IUserService>(); 
         }
         public void HandleReservationCompletion(int userId, int reservationId)
         {
@@ -38,17 +38,14 @@ namespace InitialProject.Services
             {
                 int accommodationId = _accommodationService.GetAccommodationIdByReservationId(reservationId);
 
-                // Add owner to OwnerToRate
                 int ownerId = _accommodationService.GetOwnerIdByAccommodationId(accommodationId);
                 OwnerToRate ownerToRate = new OwnerToRate(ownerId, accommodationId, reservation.UserId, reservation.ReservationDateRange.EndDate);
                 _ownerToRateService.Save(ownerToRate);
-
-                // Delete reservation
-                _reservationService.Delete(reservationId);
+                _reservationService.Delete(reservationId); //ODRADI LOGICKO BRISANJE
                 _accommodationService.DeleteReservation(reservationId);
-
-                //update userReservationCounter
                 _userReservationCounterService.UpdateReservationCounter(userId);
+                _userService.UsePoints(userId);
+
                 // Add user to UserToReview
                 //UserToReview userToReview = new UserToReview(reservation.UserId, accommodationId, reservation.ReservationDateRange.EndDate);
                 //_userToReviewRepository.Save(userToReview);
@@ -58,5 +55,6 @@ namespace InitialProject.Services
         {
             return reservation.ReservationDateRange.EndDate < DateTime.Now;
         }
+        
     }
 }
