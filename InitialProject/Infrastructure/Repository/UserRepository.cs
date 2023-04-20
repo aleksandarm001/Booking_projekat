@@ -51,5 +51,15 @@ namespace InitialProject.Repository
             _users = _serializer.FromCSV(FilePath);
             return _users;
         }
+        public User Update(User user)
+        {
+            _users = _serializer.FromCSV(FilePath);
+            User current = _users.Find(u => u.Id == user.Id);
+            int index = _users.IndexOf(current);
+            _users.Remove(current);
+            _users.Insert(index, user);
+            _serializer.ToCSV(FilePath, _users);
+            return user;
+        }
     }
 }

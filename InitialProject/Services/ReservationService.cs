@@ -37,6 +37,5 @@ namespace InitialProject.Services
             Reservation reservation = GetReservationById(reservationId);
             _repository.Delete(reservation);
         }
-
     }
 }

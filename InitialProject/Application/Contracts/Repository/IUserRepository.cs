@@ -10,5 +10,6 @@ namespace InitialProject.Aplication.Contracts.Repository
         User GetByUsername(string username);
         int NextId();
         User Save(User user);
+        User Update(User user);
     }
 }

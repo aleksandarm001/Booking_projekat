@@ -10,5 +10,6 @@ namespace InitialProject.Services.IServices
         User GetByUsername(string username);
         int NextId();
         User Save(User user);
+        void Update(User user);
     }
 }

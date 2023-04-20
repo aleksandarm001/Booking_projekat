@@ -5,7 +5,6 @@ namespace InitialProject.Domen.Model
 {
     public class User : ISerializable
     {
-
         public int Id { get; set; }
         public string Name { get; set; }
         public string Username { get; set; }
@@ -13,6 +12,8 @@ namespace InitialProject.Domen.Model
         public string Password { get; set; }
         public UserType TypeOfUser { get; set; }
         public int Age { get; set; }
+        public bool IsSuperGuest { get; set; }
+        public int Points { get; set; }
         public User(string name, string username, string email, string password, UserType typeOfUser, int age)
         {
             Name = name;
@@ -21,6 +22,8 @@ namespace InitialProject.Domen.Model
             Password = password;
             TypeOfUser = typeOfUser;
             Age = age;
+            IsSuperGuest = false;
+            Points = 0;
         }
         public User()
         {
@@ -39,7 +42,9 @@ namespace InitialProject.Domen.Model
                 Email,
                 Password,
                 TypeOfUser.ToString(),
-                Age.ToString()
+                Age.ToString(),
+                IsSuperGuest.ToString(),
+                Points.ToString(),  
             };
             return csvValues;
         }
@@ -53,6 +58,8 @@ namespace InitialProject.Domen.Model
             Password = values[4];
             TypeOfUser = (UserType)Enum.Parse(typeof(UserType), values[5]);
             Age = Convert.ToInt32(values[6]);
+            IsSuperGuest = Convert.ToBoolean(values[7]);
+            Points = Convert.ToInt32(values[8]);
         }
     }
 }

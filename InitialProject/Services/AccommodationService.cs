@@ -48,6 +48,10 @@ namespace InitialProject.Services
             int accommodationId = GetAccommodationIdByReservationId(reservationId);
             return _accommodations.Find(accommodation => accommodation.AccommodationID == accommodationId);
         }
+        public Accommodation GetAccommodationById(int accommodationId)
+        {
+            return _accommodations.Find(accommodation => accommodation.AccommodationID == accommodationId);
+        }
         public int GetReservationIdByAccommodationId(int accommodationId)
         {
             return _accommodationReservations.Find(accommodation => accommodation.AccommodationId == accommodationId).ReservationId;

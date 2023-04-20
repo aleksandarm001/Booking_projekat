@@ -34,5 +34,9 @@ namespace InitialProject.Services
         {
             return _userRepository.Save(user);
         }
+        public void Update(User user)
+        {
+            _userRepository.Update(user);
+        }
     }
 }

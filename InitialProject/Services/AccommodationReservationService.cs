@@ -47,5 +47,6 @@ namespace InitialProject.Services
         {
             reservations.RemoveAll(r => r.ReservationDateRange.StartDate <= DateTime.Now);
         }
+
     }
 }

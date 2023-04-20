@@ -15,6 +15,7 @@ namespace InitialProject.Services.IServices
         int GetOwnerIdByReservationId(int reservationId);
         int GetAccommodationIdByReservationId(int reservationId);
         Accommodation GetAccommodationByReservationId(int reservationId);
+        Accommodation GetAccommodationById(int accommodationId);
         int GetReservationIdByAccommodationId(int accommodationId);
         void DeleteReservation(int reservationId);
     }

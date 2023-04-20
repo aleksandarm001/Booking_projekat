@@ -48,6 +48,16 @@ namespace InitialProject.Repository
             _reservations.Remove(foundedAccommodation);
             _serializer.ToCSV(FilePath, _reservations);
         }
+        public Reservation Update(Reservation reservation)
+        {
+            _reservations = _serializer.FromCSV(FilePath);
+            Reservation current = _reservations.Find(res => res.ReservationId == reservation.ReservationId);
+            int index = _reservations.IndexOf(current);
+            _reservations.Remove(current);
+            _reservations.Insert(index, reservation);
+            _serializer.ToCSV(FilePath, _reservations);
+            return reservation;
+        }
 
         public Reservation GetByReservationId(int reservationId)
         {

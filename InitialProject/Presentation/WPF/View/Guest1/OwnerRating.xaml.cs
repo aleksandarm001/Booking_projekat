@@ -1,6 +1,7 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Services;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,8 +18,9 @@ namespace InitialProject.View.Guest1
     {
         public List<OwnerToRate> ownersToRate;
         public ObservableCollection<KeyValuePair<int, string>> AccommodationsName { get; set; }
-        private OwnerToRateService ownerToRateService;
-        private OwnerRateService ownerRateService;
+        private readonly OwnerToRateService ownerToRateService;
+        private readonly OwnerRateService ownerRateService;
+        private readonly AccommodationService accommodationService;
         public List<string> NekaLista;
         public List<string> Grades { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -88,8 +90,9 @@ namespace InitialProject.View.Guest1
             InitializeGrades();
             _userId = userId;
             DataContext = this;
-            ownerToRateService = new OwnerToRateService(userId);
+            ownerToRateService = new OwnerToRateService();
             ownerRateService = new OwnerRateService();
+            accommodationService = new AccommodationService();
             Images = new List<string>();
             AccommodationsName = new ObservableCollection<KeyValuePair<int, string>>(ownerToRateService.GetAccommodationNamesByUser(userId));
         }
@@ -105,7 +108,7 @@ namespace InitialProject.View.Guest1
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             ownerToRateService.DeleteOwnerToRate(SelectedAccommodationId);
-            int ownerId = ownerToRateService.GetOwnerIdByAccommodationId(SelectedAccommodationId);
+            int ownerId = accommodationService.GetOwnerIdByAccommodationId(SelectedAccommodationId);
             OwnerRate ownerRate = new OwnerRate(_userId, ownerId,SelectedAccommodationId, Cleanliness, Correctness, AdditionalComment, Images);
             this.Close();
             ownerRateService.SaveRate(ownerRate);
