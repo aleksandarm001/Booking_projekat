@@ -27,15 +27,11 @@ namespace InitialProject.View.Guest1
     public partial class CancelReservation : Window
     {
         private CancelReservationViewModel viewModel;
-        public CancelReservation(int userId, ObservableCollection<ChangeReservationRequest> requests)
+        public CancelReservation(ObservableCollection<ChangeReservationRequest> requests)
         {
             InitializeComponent();
-            viewModel = new CancelReservationViewModel();
+            viewModel = new CancelReservationViewModel(requests);
             DataContext = viewModel;
-        }
-        private void Close_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

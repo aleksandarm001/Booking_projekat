@@ -3,6 +3,7 @@ using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Services;
 using InitialProject.Services.IServices;
+using InitialProject.View.Guest1;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,6 +29,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private readonly IChangeReservationRequestService _requestService;
         private readonly IUserService _userService;
         private int _selectedReservationId;
+        private bool _canCancelReservation;
         public int SelectedReservationId
         {
             get => _selectedReservationId;
@@ -38,12 +40,25 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                     _selectedReservationId = value;
                     CanCancelReservation = true;
                     OnPropertyChanged(nameof(SelectedReservationId));
+                    OnPropertyChanged(nameof(CanCancelReservation));
                 }
             }
         }
-        public bool CanCancelReservation { get; set; }
+        public bool CanCancelReservation
+        {
+            get => _canCancelReservation;
+            set
+            {
+                if (_canCancelReservation != value)
+                {
+                    _canCancelReservation = value;
+                    OnPropertyChanged(nameof(CanCancelReservation));
+                }
+            }
+        }
         public RelayCommand CancelReservationCommand { get; set; }
         public RelayCommand CloseCommand { get; set; }
+        public RelayCommand SelectionChangedCommand { get; set; }
 
         private ObservableCollection<ChangeReservationRequest> _requests;
         public ObservableCollection<ChangeReservationRequest> Requests
@@ -58,7 +73,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 OnPropertyChanged(nameof(Requests));
             }
         }
-        public CancelReservationViewModel()
+        public CancelReservationViewModel(ObservableCollection<ChangeReservationRequest> requests)
         {
             _reservationService = Injector.CreateInstance<IReservationService>();
             _accommodationService = Injector.CreateInstance<IAccommodationService>();
@@ -66,30 +81,28 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             _notificationService = Injector.CreateInstance<INotificationService>();
             _requestService = Injector.CreateInstance<IChangeReservationRequestService>();
             _userService = Injector.CreateInstance<IUserService>();
-            MessageBox.Show(_userService.GetUserId().ToString());
-            InitializeReservations();
             _userId = _userService.GetUserId();
             CanCancelReservation = false;
-            CancelReservationCommand = new RelayCommand(CancelReservation);
+            CancelReservationCommand = new RelayCommand(ReservationCancel);
             CloseCommand = new RelayCommand(Close);
-            Requests = new ObservableCollection<ChangeReservationRequest>(_requestService.GetRequests(_userService.GetUserId()));
+            SelectionChangedCommand = new RelayCommand(SelectionChanged);
+            InitializeReservations();
+            Requests = requests;
         }
-        public void CancelReservation(object parameter)
+        public void SelectionChanged(object parameter)
+        {
+            CanCancelReservation = true;
+        }
+        public void ReservationCancel(object parameter)
         {
             if (_accommodationReservationService.IsCancellingPossible(DateTime.Now, SelectedReservationId))
             {
-                ChangeReservationRequest requestToRemove = Requests.First(request => request.ReservationId == SelectedReservationId);
-                Requests.Remove(requestToRemove);
-
-                _reservationService.Delete(SelectedReservationId);
-                _accommodationService.DeleteReservation(SelectedReservationId);
-                _requestService.DeleteRequestByReservationId(SelectedReservationId);
-
-                _ownerId = _accommodationService.GetOwnerIdByReservationId(SelectedReservationId);
-
-                Notification notification = new Notification(_userId, _ownerId, TypeNotification.ReservationCancelled, SelectedReservationId);
-                _notificationService.SaveNotification(notification);
+                DeleteRequest();
+                DeleteReservation();
+                CreateNotification();
                 MessageBox.Show("You successfully cancelled reservation!");
+                App.Current.MainWindow = App.Current.Windows.OfType<CancelReservation>().FirstOrDefault();
+                App.Current.MainWindow.Close();
             }
             else
             {
@@ -98,16 +111,41 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         public void Close(object parameter)
         {
-            var window = parameter as Window;
-            window.Close();
+            if (parameter is Window window)
+            {
+                window.Close();
+            }
         }
         private void InitializeReservations()
         {
-            Reservations = new ObservableCollection<KeyValuePair<int, string>>(_accommodationReservationService.GetReservationsByUserId(_userId));
+            Reservations = new ObservableCollection<KeyValuePair<int, string>>(_accommodationReservationService.GetReservationsByUserId(_userService.GetUserId()));
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private void DeleteReservation()
+        {
+            _reservationService.Delete(SelectedReservationId);
+            _accommodationService.DeleteReservation(SelectedReservationId);
+            _requestService.DeleteRequestByReservationId(SelectedReservationId);
+        }
+        private void CreateNotification()
+        {
+            _ownerId = _accommodationService.GetOwnerIdByReservationId(SelectedReservationId);
+            Notification notification = new Notification(_userId, _ownerId,TypeNotification.ReservationCancelled, SelectedReservationId);
+            _notificationService.SaveNotification(notification);
+        }
+        private void DeleteRequest()
+        {
+            try
+            {
+                ChangeReservationRequest requestToRemove = Requests?.First(request => request.ReservationId == SelectedReservationId);
+                Requests.Remove(requestToRemove);
+            }
+            catch (InvalidOperationException ex)
+            {
+            }
         }
     }
 }
