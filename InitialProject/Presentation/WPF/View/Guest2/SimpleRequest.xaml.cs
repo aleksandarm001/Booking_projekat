@@ -4,6 +4,7 @@
     using InitialProject.Aplication.Factory;
     using InitialProject.Domen.Model;
     using InitialProject.Repository;
+    using InitialProject.Services;
     using InitialProject.Services.IServices;
     using Microsoft.VisualStudio.Services.WebApi.Location;
     using System;
@@ -31,31 +32,25 @@
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<Language> Languages { get; set; }
-        public LocationRepository _locationRepository;
-        public LanguageRepository _languageRepository;
+        private readonly ILanguageService _languageService;
         private readonly ITourRequestService _tourRequestService;
-    //    private readonly ILocationService _locationService;
-        private int UserId;
+        private readonly Services.IServices.ILocationService _locationService;
         public SimpleRequest(int userId)
         {
             InitializeComponent();
-            UserId = userId;
+
             TourRequest = new TourRequest();
             TourRequest.StartingDate = DateTime.Today.AddDays(2);
             TourRequest.EndingDate = DateTime.Today.AddDays(2);
             DataContext = this;
             TourRequest.UserId = userId;
             _tourRequestService = Injector.CreateInstance<ITourRequestService>();
-            _locationRepository = new LocationRepository();
-            _languageRepository = new LanguageRepository();
-        //    _locationService = Injector.CreateInstance<ILocationService>();
+            _languageService = Injector.CreateInstance<ILanguageService>();
+            _locationService = Injector.CreateInstance<Services.IServices.ILocationService>();
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
-            Locations = new ObservableCollection<Location>(_locationRepository.getAll());
-            //Locations = new ObservableCollection<Location>(_locationService.getAll());
-            Languages = new ObservableCollection<Language>(_languageRepository.GetAll());
-            Cities = new ObservableCollection<string>();
-            Countries = new ObservableCollection<string>();
+            Locations = new ObservableCollection<Location>(_locationService.GetAll());
+            Languages = new ObservableCollection<Language>(_languageService.GetAll());
             ReadCitiesAndCountries();
             DatePickerStart.DisplayDateStart = DateTime.Today.AddDays(2);
             DatePickerEnd.DisplayDateStart = DateTime.Today.AddDays(2);
@@ -111,10 +106,7 @@
         private void FilterCities(object sender, SelectionChangedEventArgs e)
         {
             if (sender is not ComboBox cmbx) return;
-
-
             string country = cmbx.SelectedItem?.ToString() ?? string.Empty;
-
             if (string.IsNullOrEmpty(country))
             {
                 ReadCitiesAndCountries();

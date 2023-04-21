@@ -3,8 +3,8 @@
     using InitialProject.Domen.Model;
     using System.Collections.Generic;
 
-    public interface ILocationService
+    public interface ILanguageService
     {
-        public List<Location> GetAll();
+        public List<Language> GetAll();
     }
 }

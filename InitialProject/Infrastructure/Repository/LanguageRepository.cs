@@ -1,10 +1,11 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.Aplication.Contracts.Repository;
+using InitialProject.Domen.Model;
 using InitialProject.Serializer;
 using System.Collections.Generic;
 
 namespace InitialProject.Repository
 {
-    public class LanguageRepository
+    public class LanguageRepository : ILanguageRepository
     {
         private const string FilePath = "../../../Infrastructure/Resources/Data/languages.txt";
 
