@@ -32,6 +32,8 @@ namespace InitialProject.Aplication.Factory
             { typeof(IAccommodationService), new Lazy<object>(() => new AccommodationService()) },
             { typeof(IUserReservationCounterService), new Lazy<object>(() => new UserReservationCounterService()) },
             { typeof(IOwnerRateService), new Lazy<object>(() => new OwnerRateService()) },
+            { typeof(INotificationService), new Lazy<object>(() => new NotificationService()) },
+            { typeof(IChangeReservationRequestService), new Lazy<object>(() => new ChangeReservationRequestService()) },
         };
 
         public static T CreateInstance<T>()

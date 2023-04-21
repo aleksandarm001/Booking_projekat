@@ -1,5 +1,5 @@
 ﻿using InitialProject.Domen.Model;
-using InitialProject.Presentation.WPF.ViewModel;
+using InitialProject.Presentation.WPF.ViewModel.Guest1;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;

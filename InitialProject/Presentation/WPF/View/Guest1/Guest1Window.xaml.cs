@@ -20,12 +20,14 @@ namespace InitialProject.View.Guest1
         private readonly IReservationCompletionService _reservationCompletionService;
         private readonly IReservationService _reservationService;
         private readonly IUserReservationCounterService _userReservationCounterService;
+        private readonly IUserService _userService;
 
         public Guest1Window(int userId, ObservableCollection<Location> locations)
         {
             InitializeComponent();
             _reservationCompletionService = new ReservationCompletionService();
             _userReservationCounterService = Injector.CreateInstance<IUserReservationCounterService>();
+            _userService = Injector.CreateInstance<IUserService>();
             _reservationService = new ReservationService();
             _userId = userId;
             Locations = locations;

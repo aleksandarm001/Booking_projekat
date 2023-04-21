@@ -1,4 +1,5 @@
 ﻿using InitialProject.Domen.CustomClasses;
+using InitialProject.Presentation.WPF.ViewModel.Guest1;
 using InitialProject.Services;
 using System;
 using System.Collections.Generic;
@@ -22,35 +23,16 @@ namespace InitialProject.Presentation.WPF.View.Guest1
     /// <summary>
     /// Interaction logic for ReviewsOverview.xaml
     /// </summary>
-    public partial class ReviewsOverview : Window, INotifyPropertyChanged
+    public partial class ReviewsOverview : Window
     {
-        private readonly ReviewInfoService reviewInfoService;
-        public ObservableCollection<ReviewInfoDTO> Reviews { get; set; }
-        public event PropertyChangedEventHandler PropertyChanged;
-        public double AverageRate { get; set; }
-        public int ReviewsNumber { get; set; }
+        private ReviewsOverviewViewModel viewModel;
+
         public ReviewsOverview(int userId)
         {
             InitializeComponent();
-            DataContext = this;
-            reviewInfoService = new ReviewInfoService();
-            Reviews = new ObservableCollection<ReviewInfoDTO>(reviewInfoService.GetReviewInfo(userId));
-            InitializeAverageRate();
-            ReviewsNumber = Reviews.Count();
-
-        }
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        private void InitializeAverageRate()
-        {
-            double sum = 0;
-            foreach(var review in Reviews)
-            {
-                sum += review.Hygiene + review.FollowingRules;
-            }
-            AverageRate = sum / Reviews.Count();
+            viewModel = new ReviewsOverviewViewModel(userId);
+            DataContext = viewModel;
         }
     }
 }
+
