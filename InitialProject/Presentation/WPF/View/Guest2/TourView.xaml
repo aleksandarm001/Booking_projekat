@@ -77,7 +77,8 @@
             </GridSplitter.RenderTransform>
         </GridSplitter>
         <Button Content="Zavrsene ture"  Name="ZavrseneTure"  Click="ZavrseneTure_Click"  HorizontalAlignment="Left" Margin="544,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="81" Height="30" Grid.Column="1"/>
-        <Button Content="Rezervisane ture"  x:Name="RezervisaneTure"  Click="RezervisaneTure_Click"  HorizontalAlignment="Left" Margin="424,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="30" Grid.Column="1"/>
+        <Button Content="Rezervisane ture"  x:Name="RezervisaneTure"  Click="RezervisaneTure_Click"  HorizontalAlignment="Left" Margin="422,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100" Height="30" Grid.Column="1"/>
+        <Button Content="Zahtjevane ture"  x:Name="ZahtjevaneTure"  Click="ZahtjevaneTure_Click"  HorizontalAlignment="Left" Margin="301,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="106" Height="30" Grid.Column="1"/>
 
 
     </Grid>

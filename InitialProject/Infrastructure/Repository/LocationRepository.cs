@@ -1,10 +1,11 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.Aplication.Contracts.Repository;
+using InitialProject.Domen.Model;
 using InitialProject.Serializer;
 using System.Collections.Generic;
 
 namespace InitialProject.Repository
 {
-    internal class LocationRepository
+    public class LocationRepository : ILocationRepository
     {
         private const string FilePath = "../../../Infrastructure/Resources/Data/locations.txt";
 

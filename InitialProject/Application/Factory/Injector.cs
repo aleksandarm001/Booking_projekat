@@ -4,6 +4,7 @@ using InitialProject.Services.IServices;
 using System.Collections.Generic;
 using System;
 using InitialProject.Aplication.Contracts.Repository;
+using InitialProject.Infrastructure.Repository;
 
 namespace InitialProject.Aplication.Factory
 {
@@ -25,8 +26,13 @@ namespace InitialProject.Aplication.Factory
             { typeof(ITourRateService), new Lazy<object>(() => new TourRateService()) },
             { typeof(IUserService), new Lazy<object>(() => new UserService()) },
             { typeof(ITourAttendanceService), new Lazy<object>(() => new TourAttendanceService()) },
+            { typeof(ITourAttendanceRepository), new Lazy<object>(() => new TourAttendanceRepository()) },
             { typeof(ITourPointService), new Lazy<object>(() => new TourPointService()) },
             { typeof(IVoucherService), new Lazy<object>(() => new VoucherService()) },
+            { typeof(ILocationService), new Lazy<object>(() => new LocationService()) },
+            { typeof(ILocationRepository), new Lazy<object>(() => new LocationRepository()) },
+            { typeof(ITourRequestRepository), new Lazy<object>(() => new TourRequestRepository()) },
+            { typeof(ITourRequestService), new Lazy<object>(() => new TourRequestService()) },
         };
 
         public static T CreateInstance<T>()

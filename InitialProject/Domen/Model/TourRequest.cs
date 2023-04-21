@@ -10,13 +10,17 @@
         public Location Location { get; set; }
         public Language Language { get; set; }
         public string Description { get; set; }
-        public int GuestNumber { get; set; }
+        public int GuestNumber { get; set; } = 1;
         public DateTime StartingDate { get; set; }
         public DateTime EndingDate { get; set; }
-        public Status TourStatus { get; set; } = Status.OnHold;
+        public Status RequestStatus { get; set; } = Status.OnHold;
 
 
-        public TourRequest() { }
+        public TourRequest()   
+        {
+            Location = new Location();
+            Language = new Language();
+        }
 
         public string[] ToCSV()
         {
@@ -29,7 +33,7 @@
                 GuestNumber.ToString(),
                 StartingDate.ToString(),
                 EndingDate.ToString(),
-                TourStatus.ToString() };
+                RequestStatus.ToString() };
             return csvValues;
         }
 
@@ -42,8 +46,8 @@
             Description = values[4];
             GuestNumber = Convert.ToInt32(values[5]);
             StartingDate = DateTime.Parse(values[6]);
-            StartingDate = DateTime.Parse(values[7]);
-            TourStatus = (Status)Enum.Parse(typeof(Status), values[8]);
+            EndingDate = DateTime.Parse(values[7]);
+            RequestStatus = (Status)Enum.Parse(typeof(Status), values[8]);
         }
     }
 }

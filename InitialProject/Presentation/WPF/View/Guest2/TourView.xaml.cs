@@ -4,6 +4,7 @@
     using InitialProject.CustomClasses;
     using InitialProject.Domen.Model;
     using InitialProject.Presentation.WPF.Constants;
+    using InitialProject.Presentation.WPF.View.Guest2;
     using InitialProject.Services.IServices;
     using InitialProject.View.Guest2;
     using Microsoft.TeamFoundation.Common;
@@ -161,7 +162,7 @@
                 {
                     TourReservation tourReservation = new TourReservation(UserId, SelectedTour, NumberOfGuests);
                     tourReservation.ShowDialog();
-                    SelectedTour.ReduceGuestNumber(tourReservation.NumberOfGuests);
+                    //SelectedTour.ReduceGuestNumber(tourReservation.NumberOfGuests);
                 }
             }
         }
@@ -263,6 +264,12 @@
         {
             ReservedTours reservedTours = new ReservedTours(UserId);
             reservedTours.ShowDialog();
+        }
+
+        private void ZahtjevaneTure_Click(object sender, RoutedEventArgs e)
+        {
+            RequestedTour requestedTour = new RequestedTour(UserId);
+            requestedTour.ShowDialog();
         }
     }
 }
