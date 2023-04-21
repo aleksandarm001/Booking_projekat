@@ -12,12 +12,14 @@ namespace InitialProject.Domen.CustomClasses
         public string AccommodationName { get; set; }
         public int Hygiene { get; set; }
         public int FollowingRules { get; set; }
-        public ReviewInfoDTO(string ownerName, string accommodationName, int hygiene, int followingRules)
+        public string Comment { get; set; }
+        public ReviewInfoDTO(string ownerName, string accommodationName, int hygiene, int followingRules, string comment)
         {
             OwnerName = ownerName;
             AccommodationName = accommodationName;
             Hygiene = hygiene;
             FollowingRules = followingRules;
+            Comment = comment;
         }
         public ReviewInfoDTO()
         {
@@ -25,6 +27,7 @@ namespace InitialProject.Domen.CustomClasses
             AccommodationName = "";
             FollowingRules = 0;
             Hygiene = 0;
+            Comment = "";
         }
     }
 }

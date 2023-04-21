@@ -15,7 +15,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
     {
         private readonly ReviewInfoService reviewInfoService;
         private ObservableCollection<ReviewInfoDTO> reviews;
-        private double averageRate;
+        private string strAverageRate;
         private int reviewsNumber;
 
         public ObservableCollection<ReviewInfoDTO> Reviews
@@ -31,14 +31,14 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             }
         }
 
-        public double AverageRate
+        public string StrAverageRate
         {
-            get { return averageRate; }
+            get { return strAverageRate; }
             set
             {
-                if (averageRate != value)
+                if (strAverageRate != value)
                 {
-                    averageRate = value;
+                    strAverageRate = value;
                     OnPropertyChanged();
                 }
             }
@@ -64,22 +64,34 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             InitializeAverageRate();
             ReviewsNumber = Reviews.Count;
         }
-
         private void InitializeAverageRate()
+        {
+            double averageRate = CalculateAverageRate();
+            if (double.IsNaN(averageRate))
+            {
+                StrAverageRate = "-";
+            }
+            else
+            {
+                StrAverageRate = averageRate.ToString();
+            }
+        }
+        private double CalculateAverageRate()
         {
             double sum = 0;
             foreach (var review in Reviews)
             {
                 sum += review.Hygiene + review.FollowingRules;
             }
-            AverageRate = sum / Reviews.Count;
+            double result = Math.Round(sum / Reviews.Count, 1);
+            return result;
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 }

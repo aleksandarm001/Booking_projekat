@@ -22,7 +22,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private int _ownerId;
         public ObservableCollection<KeyValuePair<int, string>> Reservations { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
-        private IReservationService _reservationService;
+        private readonly IReservationService _reservationService;
         private readonly IAccommodationService _accommodationService;
         private readonly IAccommodationReservationService _accommodationReservationService;
         private readonly INotificationService _notificationService;
@@ -58,7 +58,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         public RelayCommand CancelReservationCommand { get; set; }
         public RelayCommand CloseCommand { get; set; }
-        public RelayCommand SelectionChangedCommand { get; set; }
 
         private ObservableCollection<ChangeReservationRequest> _requests;
         public ObservableCollection<ChangeReservationRequest> Requests
@@ -85,13 +84,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             CanCancelReservation = false;
             CancelReservationCommand = new RelayCommand(ReservationCancel);
             CloseCommand = new RelayCommand(Close);
-            SelectionChangedCommand = new RelayCommand(SelectionChanged);
             InitializeReservations();
             Requests = requests;
-        }
-        public void SelectionChanged(object parameter)
-        {
-            CanCancelReservation = true;
         }
         public void ReservationCancel(object parameter)
         {

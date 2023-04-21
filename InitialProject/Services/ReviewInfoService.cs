@@ -37,7 +37,7 @@ namespace InitialProject.Services
                 {
                     if(IsMatchingGuestAndOwnerReview(guestReview, ownerRate))
                     {
-                        ReviewInfoDTO reviewInfo = MakeReview(ownerRate.OwnerId, ownerRate.AccommodationId, guestReview.Hygiene, guestReview.RuleFollowing);
+                        ReviewInfoDTO reviewInfo = MakeReview(ownerRate.OwnerId, ownerRate.AccommodationId, guestReview.Hygiene, guestReview.RuleFollowing, guestReview.Comment);
                         result.Add(reviewInfo);
                         break;
                     }
@@ -45,11 +45,11 @@ namespace InitialProject.Services
             }
             return result;
         }
-        private ReviewInfoDTO MakeReview(int ownerId, int accommodationId, int hygiene, int followingRules)
+        private ReviewInfoDTO MakeReview(int ownerId, int accommodationId, int hygiene, int followingRules, string comment)
         {
             Accommodation foundedAccommodation = accommodationService.GetAccommodationByIdAndOwnerId(ownerId, accommodationId);
             User foundedUser = userService.GetById(ownerId);
-            return new ReviewInfoDTO(foundedUser.Name, foundedAccommodation.Name, hygiene, followingRules);
+            return new ReviewInfoDTO(foundedUser.Name, foundedAccommodation.Name, hygiene, followingRules, comment);
         }
         private bool IsMatchingGuestAndOwnerReview(GuestReview guestReview, OwnerRate ownerRate)
         {
