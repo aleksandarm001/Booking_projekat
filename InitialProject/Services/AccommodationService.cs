@@ -3,6 +3,7 @@ using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Repository;
 using InitialProject.Services.IServices;
+using System;
 using System.Collections.Generic;
 
 namespace InitialProject.Services
@@ -31,7 +32,15 @@ namespace InitialProject.Services
         }
         public int GetOwnerIdByAccommodationId(int accommodationId)
         {
-            return _accommodations.Find(a => a.AccommodationID == accommodationId).UserId;
+            var accommodation = _accommodations?.Find(a => a.AccommodationID == accommodationId);
+            if (accommodation != null)
+            {
+                return accommodation.UserId;
+            }
+            else
+            {
+                throw new Exception($"Accommodation not found for ID: {accommodationId}");
+            }
         }
         public int GetOwnerIdByReservationId(int reservationId)
         {
@@ -59,6 +68,10 @@ namespace InitialProject.Services
         public void DeleteReservation(int reservationId)
         {
             _accommodationReservationRepository.DeleteReservation(reservationId);
+        }
+        public Accommodation GetAccommodationByIdAndOwnerId(int ownerId, int accommodationId)
+        {
+            return _accommodations.Find(accommodation => accommodation.UserId == ownerId && accommodation.AccommodationID == accommodationId);
         }
     }
 }

@@ -18,6 +18,10 @@ namespace InitialProject.Services
             _ownerRateRepository = new OwnerRateRepository();
             guestReviewRepository = new GuestReviewRepository();
         }
+        public List<OwnerRate> GetAll()
+        {
+            return _ownerRateRepository.GetAll();
+        }
         public void SaveRate(OwnerRate ownerRate)
         {
             _ownerRateRepository.Save(ownerRate);
@@ -31,7 +35,7 @@ namespace InitialProject.Services
             {
                 foreach(GuestReview guestReview in guestReviewRepository.GetAll())
                 {
-                    if(ownerRate.userId == guestReview.GuestId && ownerRate.AccommodationId == guestReview.AccommodationId)
+                    if(ownerRate.UserId == guestReview.GuestId && ownerRate.AccommodationId == guestReview.AccommodationId)
                     {
                         RatingsFromRatedGuest.Add(ownerRate);
                         break;
@@ -61,6 +65,11 @@ namespace InitialProject.Services
                 }
             }
             return false;
+        }
+
+        public List<OwnerRate> GetRatesByUserId(int userId)
+        {
+            return GetAll().Where(rate => rate.UserId == userId).ToList();
         }
     }
 }

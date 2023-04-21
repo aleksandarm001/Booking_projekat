@@ -1,4 +1,4 @@
-﻿using InitialProject.Presentation.WPF.ViewModel;
+﻿using InitialProject.Presentation.WPF.ViewModel.Guest1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +39,7 @@ namespace InitialProject.View.Guest1
 
         private void CancelReservation_Click(object sender, RoutedEventArgs e)
         {
-            CancelReservation cancelReservation = new CancelReservation(_userId, viewModel.Requests);
+            CancelReservation cancelReservation = new CancelReservation(viewModel.Requests);
             cancelReservation.Owner = this;
             cancelReservation.ShowDialog();
         }

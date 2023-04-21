@@ -5,6 +5,8 @@ namespace InitialProject.Services.IServices
 {
     public interface IUserService
     {
+        int GetUserId();
+        void UpdateUserId(int newUserId);
         List<User> GetAllUsers();
         User GetById(int id);
         User GetByUsername(string username);

@@ -11,17 +11,17 @@ namespace InitialProject.Domen.Model
     public class OwnerRate : ISerializable
     {
         public int OwnerRateId { get; set; }
-        public int ownerId { get; set; }
+        public int OwnerId { get; set; }
         public int AccommodationId { get; set; }
-        public int userId { get; set; }
+        public int UserId { get; set; }
         public int CleanlinessRate { get; set; }
         public int CorrectnessRate { get; set; }
         public string? Comment { get; set; }
         public List<string>? Images { get; set; }
         public OwnerRate(int userId, int ownerId, int accommodationId, int cleanlinessRate, int correctnessRate, string? comment, List<string>? images)
         {
-            this.userId = userId;
-            this.ownerId = ownerId;
+            this.UserId = userId;
+            this.OwnerId = ownerId;
             AccommodationId = accommodationId;
             CleanlinessRate = cleanlinessRate;
             CorrectnessRate = correctnessRate;
@@ -30,8 +30,8 @@ namespace InitialProject.Domen.Model
         }
         public OwnerRate()
         {
-            userId = -1;
-            ownerId = -1;
+            UserId = -1;
+            OwnerId = -1;
             AccommodationId = -1;
             CleanlinessRate = 1;
             CorrectnessRate = 1;
@@ -43,8 +43,8 @@ namespace InitialProject.Domen.Model
 
             string[] csvValues = {
                 OwnerRateId.ToString(),
-                ownerId.ToString(),
-                userId.ToString(),
+                OwnerId.ToString(),
+                UserId.ToString(),
                 AccommodationId.ToString(),
                 CleanlinessRate.ToString(),
                 CorrectnessRate.ToString(),
@@ -56,8 +56,8 @@ namespace InitialProject.Domen.Model
         public void FromCSV(string[] values)
         {
             OwnerRateId = Convert.ToInt32(values[0]);
-            ownerId = Convert.ToInt32(values[1]);
-            userId = Convert.ToInt32(values[2]);
+            OwnerId = Convert.ToInt32(values[1]);
+            UserId = Convert.ToInt32(values[2]);
             AccommodationId = Convert.ToInt32(values[3]);
             CleanlinessRate = Convert.ToInt32(values[4]);
             CorrectnessRate = Convert.ToInt32(values[5]);

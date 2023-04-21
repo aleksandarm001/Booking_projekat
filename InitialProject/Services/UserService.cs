@@ -8,6 +8,8 @@ namespace InitialProject.Services
 {
     public class UserService : IUserService
     {
+        private int _userId;
+
         private readonly IUserRepository _userRepository;
         public UserService()
         {
@@ -45,8 +47,18 @@ namespace InitialProject.Services
             if(user.Points > 0)
             {
                 user.Points = user.Points - 1;
+                Update(user);
             }
-            Update(user);
+        }
+
+        public int GetUserId()
+        {
+            return _userId;
+        }
+
+        public void UpdateUserId(int newUserId)
+        {
+            _userId = newUserId;
         }
     }
 }

@@ -47,8 +47,8 @@ namespace InitialProject.Services
                 _userService.UsePoints(userId);
 
                 // Add user to UserToReview
-                //UserToReview userToReview = new UserToReview(reservation.UserId, accommodationId, reservation.ReservationDateRange.EndDate);
-                //_userToReviewRepository.Save(userToReview);
+                // UserToReview userToReview = new UserToReview(reservation.UserId, accommodationId, reservation.ReservationDateRange.EndDate);
+                // _userToReviewRepository.Save(userToReview);
             }
         }
         public bool CheckIfLeftReservation(Reservation reservation)

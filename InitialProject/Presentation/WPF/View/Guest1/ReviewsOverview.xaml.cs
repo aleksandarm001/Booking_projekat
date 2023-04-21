@@ -1,5 +1,4 @@
-﻿using InitialProject.CustomClasses;
-using InitialProject.Domen.Model;
+﻿using InitialProject.Domen.CustomClasses;
 using InitialProject.Presentation.WPF.ViewModel.Guest1;
 using InitialProject.Services;
 using System;
@@ -19,19 +18,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace InitialProject.View.Guest1
+namespace InitialProject.Presentation.WPF.View.Guest1
 {
     /// <summary>
-    /// Interaction logic for CancelReservation.xaml
+    /// Interaction logic for ReviewsOverview.xaml
     /// </summary>
-    public partial class CancelReservation : Window
+    public partial class ReviewsOverview : Window
     {
-        private CancelReservationViewModel viewModel;
-        public CancelReservation(ObservableCollection<ChangeReservationRequest> requests)
+        private ReviewsOverviewViewModel viewModel;
+
+        public ReviewsOverview(int userId)
         {
             InitializeComponent();
-            viewModel = new CancelReservationViewModel(requests);
+            viewModel = new ReviewsOverviewViewModel(userId);
             DataContext = viewModel;
         }
     }
 }
+

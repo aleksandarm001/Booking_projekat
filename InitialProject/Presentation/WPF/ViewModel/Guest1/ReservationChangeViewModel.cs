@@ -8,7 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 
-namespace InitialProject.Presentation.WPF.ViewModel
+namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 {
     public class ReservationChangeViewModel : INotifyPropertyChanged
     {

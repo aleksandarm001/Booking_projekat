@@ -4,12 +4,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace InitialProject.Presentation.WPF.ViewModel
+namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 {
     public class RequestsOverviewViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<ChangeReservationRequest> _requests;
-        private readonly AccommodationService _accommodationService;
         public ObservableCollection<ChangeReservationRequest> Requests
         {
             get
@@ -29,7 +28,6 @@ namespace InitialProject.Presentation.WPF.ViewModel
         public RequestsOverviewViewModel(int userId)
         {
             requestsService = new ChangeReservationRequestService();
-            _accommodationService = new AccommodationService();
             Requests = new ObservableCollection<ChangeReservationRequest>(requestsService.GetRequests(userId));
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
