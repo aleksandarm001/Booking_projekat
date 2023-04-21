@@ -60,5 +60,9 @@ namespace InitialProject.Services
         {
             _accommodationReservationRepository.DeleteReservation(reservationId);
         }
+        public Accommodation GetAccommodationByIdAndOwnerId(int ownerId, int accommodationId)
+        {
+            return _accommodations.Find(accommodation => accommodation.UserId == ownerId && accommodation.AccommodationID == accommodationId);
+        }
     }
 }

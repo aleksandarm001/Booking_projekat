@@ -45,8 +45,8 @@ namespace InitialProject.Services
             if(user.Points > 0)
             {
                 user.Points = user.Points - 1;
+                Update(user);
             }
-            Update(user);
         }
     }
 }

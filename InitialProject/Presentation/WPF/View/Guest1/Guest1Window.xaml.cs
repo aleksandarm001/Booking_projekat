@@ -1,6 +1,7 @@
 ﻿using InitialProject.Aplication.Factory;
 using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.View.Guest1;
 using InitialProject.Services;
 using InitialProject.Services.IServices;
 using System.Collections.ObjectModel;
@@ -62,6 +63,12 @@ namespace InitialProject.View.Guest1
         private void UpdateOwnerToRate()
         {
             _ownerToRateService.DeleteIfFiveDaysPassed();
+        }
+
+        private void ReviewOverview_Click(object sender, RoutedEventArgs e)
+        {
+            ReviewsOverview reviewsOverview = new ReviewsOverview(_userId);
+            reviewsOverview.ShowDialog();
         }
     }
 }

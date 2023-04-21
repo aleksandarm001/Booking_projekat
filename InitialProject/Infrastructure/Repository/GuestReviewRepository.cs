@@ -25,6 +25,11 @@ namespace InitialProject.Repository
             return _serializer.FromCSV(FilePath);
         }
 
+        public List<GuestReview> GetByUserId(int userId)
+        {
+            return GetAll().Where(review => review.GuestId == userId).ToList();
+        }
+
         public GuestReview Save(GuestReview guestReview)
         {
             _guestReviews.Add(guestReview);
