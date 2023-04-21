@@ -34,5 +34,19 @@ namespace InitialProject.Services
         {
             return _userRepository.Save(user);
         }
+        public void Update(User user)
+        {
+            _userRepository.Update(user);
+        }
+
+        public void UsePoints(int userId)
+        {
+            var user = _userRepository.GetById(userId);
+            if(user.Points > 0)
+            {
+                user.Points = user.Points - 1;
+            }
+            Update(user);
+        }
     }
 }

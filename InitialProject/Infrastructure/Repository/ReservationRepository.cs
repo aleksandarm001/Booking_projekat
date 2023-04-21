@@ -9,9 +9,7 @@ namespace InitialProject.Repository
     public class ReservationRepository : IReservationRepository
     {
         private const string FilePath = "../../../Infrastructure/Resources/Data/reservations.txt";
-
         private readonly Serializer<Reservation> _serializer;
-
         private List<Reservation> _reservations;
 
         public ReservationRepository()
@@ -19,12 +17,10 @@ namespace InitialProject.Repository
             _serializer = new Serializer<Reservation>();
             _reservations = _serializer.FromCSV(FilePath);
         }
-
         public List<Reservation> GetAll()
         {
             return _serializer.FromCSV(FilePath);
         }
-
         public Reservation Save(Reservation reservation)
         {
             reservation.ReservationId = NextId();
@@ -48,7 +44,16 @@ namespace InitialProject.Repository
             _reservations.Remove(foundedAccommodation);
             _serializer.ToCSV(FilePath, _reservations);
         }
-
+        public Reservation Update(Reservation reservation)
+        {
+            _reservations = _serializer.FromCSV(FilePath);
+            Reservation current = _reservations.Find(res => res.ReservationId == reservation.ReservationId);
+            int index = _reservations.IndexOf(current);
+            _reservations.Remove(current);
+            _reservations.Insert(index, reservation);
+            _serializer.ToCSV(FilePath, _reservations);
+            return reservation;
+        }
         public Reservation GetByReservationId(int reservationId)
         {
             throw new System.NotImplementedException();

@@ -1,14 +1,15 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 
 namespace InitialProject.Services
 {
-    public class AccommodationReservationService
+    public class AccommodationReservationService : IAccommodationReservationService
     {
-        private readonly ReservationService reservationService;
-        private readonly AccommodationService accommodationService;
+        private readonly IReservationService reservationService;
+        private readonly IAccommodationService accommodationService;
         public AccommodationReservationService()
         {
             reservationService = new ReservationService();
@@ -30,9 +31,8 @@ namespace InitialProject.Services
                     value = value + " " + accommodationName + "; " + founded.ReservationDateRange.SStartDate + "-" + founded.ReservationDateRange.SEndDate;
                     result.Add(reservation.ReservationId, value);
                 }
-                return result;
             }
-            return null;
+            return result;
 
         }
         public bool IsCancellingPossible(DateTime currentDate, int ReservationId)
@@ -47,5 +47,6 @@ namespace InitialProject.Services
         {
             reservations.RemoveAll(r => r.ReservationDateRange.StartDate <= DateTime.Now);
         }
+
     }
 }

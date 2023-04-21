@@ -33,6 +33,10 @@ namespace InitialProject.Aplication.Factory
             { typeof(ILocationRepository), new Lazy<object>(() => new LocationRepository()) },
             { typeof(ITourRequestRepository), new Lazy<object>(() => new TourRequestRepository()) },
             { typeof(ITourRequestService), new Lazy<object>(() => new TourRequestService()) },
+            { typeof(IOwnerToRateService), new Lazy<object>(() => new OwnerToRateService()) },
+            { typeof(IAccommodationReservationService), new Lazy<object>(() => new AccommodationReservationService()) },
+            { typeof(IAccommodationService), new Lazy<object>(() => new AccommodationService()) },
+            { typeof(IUserReservationCounterService), new Lazy<object>(() => new UserReservationCounterService()) },
         };
 
         public static T CreateInstance<T>()

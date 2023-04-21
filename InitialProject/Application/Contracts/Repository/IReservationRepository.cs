@@ -14,5 +14,6 @@ namespace InitialProject.Aplication.Contracts.Repository
         Reservation GetByReservationId(int reservationId);
         int NextId();
         Reservation Save(Reservation reservation);
+        Reservation Update(Reservation reservation);
     }
 }
