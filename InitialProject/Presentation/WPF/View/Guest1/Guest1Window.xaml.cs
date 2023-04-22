@@ -1,5 +1,4 @@
 ﻿using InitialProject.Aplication.Factory;
-using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Presentation.WPF.View.Guest1;
 using InitialProject.Presentation.WPF.ViewModel.Guest1;
