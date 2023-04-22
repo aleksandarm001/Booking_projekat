@@ -17,4 +17,5 @@ namespace InitialProject.Domen.CustomClasses
             { "Level 5", "The accommodation is in very poor condition and not worth renting unless renovated." }
         };
     }
+
 }

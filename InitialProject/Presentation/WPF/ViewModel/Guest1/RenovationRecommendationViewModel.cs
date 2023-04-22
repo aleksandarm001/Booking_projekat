@@ -1,6 +1,7 @@
 ﻿using InitialProject.Aplication.Factory;
 using InitialProject.Domen.CustomClasses;
 using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.View.Guest1;
 using InitialProject.Services.IServices;
 using InitialProject.View.Guest1;
 using System;
@@ -23,6 +24,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         public Dictionary<string, string> Levels { get; set; }
         public RelayCommand SubmitCommand { get; set; }
         public RelayCommand CloseCommand { get; set; }
+        public RelayCommand F3OpenLevels { get; private set; }
         public string Comment { get; set; }
         private readonly IRenovationRecommendationService _renovationService;
         private readonly IAccommodationService _accommodationService;
@@ -63,6 +65,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             CanSubmit = false;
             SubmitCommand = new RelayCommand(SubmitRecommendation);
             CloseCommand = new RelayCommand(CloseWindow);
+            F3OpenLevels = new RelayCommand(OpenRenovationLevelsOverview);
         }
         public void SubmitRecommendation(object parameter)
         {
@@ -70,6 +73,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             int ownerId = _accommodationService.GetOwnerIdByAccommodationId(_accommodationId);
             RenovationRecommendation renovationRecommendation = new RenovationRecommendation(ownerId, _accommodationId, userId, SelectedLevel, Comment);
             _renovationService.Save(renovationRecommendation);
+            Window window = App.Current.MainWindow;
+            window.Close();
         }
         public void CloseWindow(object parameter)
         {
@@ -77,6 +82,13 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             {
                 window.Close();
             }
+        }
+        public void OpenRenovationLevelsOverview(object parameter)
+        {
+            RenovationLevelsOverview dialog = new RenovationLevelsOverview(); 
+            dialog.Owner = App.Current.MainWindow;
+            dialog.WindowStartupLocation = WindowStartupLocation.CenterOwner; 
+            dialog.ShowDialog();
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

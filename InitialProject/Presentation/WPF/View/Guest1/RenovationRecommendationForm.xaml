@@ -8,6 +8,9 @@
         d:DataContext="{d:DesignInstance Type=local:RenovationRecommendationViewModel}"
         mc:Ignorable="d"
         Title="RenovationRecommendation" Height="630" Width="520">
+    <Window.InputBindings>
+        <KeyBinding Key="F3" Command="{Binding F3OpenLevels}" />
+    </Window.InputBindings>
     <Grid>
         <Menu FontSize="12">
             <Menu.Resources>

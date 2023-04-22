@@ -76,7 +76,9 @@ namespace InitialProject.View.Guest1
 
         private void RenovationRecommendation_Click(object sender, RoutedEventArgs e)
         {
-             RenovationRecommendationForm renovationRecommendation = new RenovationRecommendationForm();
+            RenovationRecommendationForm renovationRecommendation = new RenovationRecommendationForm();
+            renovationRecommendation.Owner = App.Current.MainWindow;
+            renovationRecommendation.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             renovationRecommendation.ShowDialog();
         }
     }
