@@ -92,6 +92,5 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
 }

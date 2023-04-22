@@ -1,4 +1,5 @@
-﻿using InitialProject.Services.IServices;
+﻿using InitialProject.Domen.CustomClasses;
+using InitialProject.Services.IServices;
 using System.Windows;
 using System.Windows.Input;
 

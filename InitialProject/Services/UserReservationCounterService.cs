@@ -1,6 +1,7 @@
 ﻿using InitialProject.Application.Contracts.Repository;
 using InitialProject.Domen.Model;
 using InitialProject.Infrastructure.Repository;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.VisualStudio.Services.Graph.GraphResourceIds;
 
-namespace InitialProject.Services.IServices
+namespace InitialProject.Services
 {
     public class UserReservationCounterService : IUserReservationCounterService
     {
@@ -30,14 +31,14 @@ namespace InitialProject.Services.IServices
         {
             List<UserReservationCounter> users = _userReservationCounterRepository.GetAll();
             UserReservationCounter user = users.Find(u => u.UserId == userId);
-            if(user == null)
+            if (user == null)
             {
                 UserReservationCounter newUser = new UserReservationCounter(userId, 0, new DateTime(DateTime.Now.Year, 1, 1));
                 _userReservationCounterRepository.Save(newUser);
             }
             else
             {
-                if(user.InitialDate.Year == DateTime.Now.Year - 1)
+                if (user.InitialDate.Year == DateTime.Now.Year - 1)
                 {
                     CheckUserForSuperGuest(userId, user.ReservationCount);
                     ResetData(userId, users);

@@ -2,6 +2,7 @@
 using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Presentation.WPF.View.Guest1;
+using InitialProject.Presentation.WPF.ViewModel.Guest1;
 using InitialProject.Services;
 using InitialProject.Services.IServices;
 using System.Collections.ObjectModel;
@@ -71,6 +72,12 @@ namespace InitialProject.View.Guest1
         {
             ReviewsOverview reviewsOverview = new ReviewsOverview(_userId);
             reviewsOverview.ShowDialog();
+        }
+
+        private void RenovationRecommendation_Click(object sender, RoutedEventArgs e)
+        {
+             RenovationRecommendationForm renovationRecommendation = new RenovationRecommendationForm();
+            renovationRecommendation.ShowDialog();
         }
     }
 }
