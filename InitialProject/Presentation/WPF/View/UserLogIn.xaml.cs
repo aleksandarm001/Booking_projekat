@@ -1,4 +1,4 @@
-﻿using InitialProject.View;
+using InitialProject.View;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -10,6 +10,7 @@ using InitialProject.Domen.Model;
 using InitialProject.Services;
 using InitialProject.Aplication.Factory;
 using InitialProject.Services.IServices;
+using InitialProject.Presentation.WPF.View.Owner;
 
 namespace InitialProject
 {
@@ -79,6 +80,12 @@ namespace InitialProject
                     window.Show();
                     this.Close();
                     break;
+                /*case(UserType.Owner):
+                    OwnerStartWindow start = new OwnerStartWindow(user.Id);
+                    start.Show();
+                    this.Close();
+                    break;
+             */
                 default:
                     StartWindow startWindow = new StartWindow(user.Id);
                     startWindow.Show();

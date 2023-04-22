@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="OwnerReviews">
-
+    
     <Grid>
         
         <Label>Owner reviews:</Label>
@@ -24,6 +24,8 @@
                 
             </DataGrid.Columns>
         </DataGrid>
+
+        <Button Margin="400,4,312,410" Click="Button_Click">Button</Button>
 
     </Grid>
 </Window>

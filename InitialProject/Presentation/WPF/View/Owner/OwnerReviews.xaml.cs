@@ -1,9 +1,11 @@
 ﻿using InitialProject.Domen.Model;
 using InitialProject.Services;
+using InitialProject.View.Guest1;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using InitialProject.Presentation.WPF.View.Owner;
 
 namespace InitialProject.View.Owner
 {
@@ -55,6 +57,12 @@ namespace InitialProject.View.Owner
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OwnerChangeReservationRequests ownerChangeReservationRequests = new OwnerChangeReservationRequests(OwnerId);
+            ownerChangeReservationRequests.Show();
         }
     }
 

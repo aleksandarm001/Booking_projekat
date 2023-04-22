@@ -5,6 +5,7 @@ using InitialProject.Repository;
 using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace InitialProject.Services
 {
@@ -72,6 +73,15 @@ namespace InitialProject.Services
         public Accommodation GetAccommodationByIdAndOwnerId(int ownerId, int accommodationId)
         {
             return _accommodations.Find(accommodation => accommodation.UserId == ownerId && accommodation.AccommodationID == accommodationId);
+
+        public int GetAccommodationIdByAccommodationName(string accommodationName)
+        {
+            return _accommodations.Find(a => a.Name == accommodationName).AccommodationID; 
+        }
+
+        public List<Accommodation>GetAccommodationsByOwnerId(int ownerId)
+        {
+            return _repository.GetAll().Where(a => a.UserId== ownerId).ToList();
         }
     }
 }
