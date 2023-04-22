@@ -73,7 +73,7 @@ namespace InitialProject.Services
         public Accommodation GetAccommodationByIdAndOwnerId(int ownerId, int accommodationId)
         {
             return _accommodations.Find(accommodation => accommodation.UserId == ownerId && accommodation.AccommodationID == accommodationId);
-
+        }
         public int GetAccommodationIdByAccommodationName(string accommodationName)
         {
             return _accommodations.Find(a => a.Name == accommodationName).AccommodationID; 
