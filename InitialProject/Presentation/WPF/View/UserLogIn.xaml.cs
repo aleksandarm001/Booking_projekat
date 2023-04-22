@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using InitialProject.View.Guest1;
 using InitialProject.Repository;
 using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.View.Owner;
 
 namespace InitialProject
 {
@@ -73,6 +74,12 @@ namespace InitialProject
                     window.Show();
                     this.Close();
                     break;
+                /*case(UserType.Owner):
+                    OwnerStartWindow start = new OwnerStartWindow(user.Id);
+                    start.Show();
+                    this.Close();
+                    break;
+             */
                 default:
                     StartWindow startWindow = new StartWindow(user.Id);
                     startWindow.Show();

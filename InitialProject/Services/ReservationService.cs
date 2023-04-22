@@ -32,6 +32,7 @@ namespace InitialProject.Services
         {
             return _repository.GetAll().Find(r => r.ReservationId == reservationId);
         }
+      
         public void Delete(int reservationId)
         {
             Reservation reservation = GetReservationById(reservationId);

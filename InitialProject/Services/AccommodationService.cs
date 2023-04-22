@@ -4,6 +4,7 @@ using InitialProject.Domen.Model;
 using InitialProject.Repository;
 using InitialProject.Services.IServices;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace InitialProject.Services
 {
@@ -59,6 +60,16 @@ namespace InitialProject.Services
         public void DeleteReservation(int reservationId)
         {
             _accommodationReservationRepository.DeleteReservation(reservationId);
+        }
+
+        public int GetAccommodationIdByAccommodationName(string accommodationName)
+        {
+            return _accommodations.Find(a => a.Name == accommodationName).AccommodationID; 
+        }
+
+        public List<Accommodation>GetAccommodationsByOwnerId(int ownerId)
+        {
+            return _repository.GetAll().Where(a => a.UserId== ownerId).ToList();
         }
     }
 }

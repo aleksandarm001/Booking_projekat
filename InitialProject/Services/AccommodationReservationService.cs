@@ -1,8 +1,11 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
+using InitialProject.Repository;
 using InitialProject.Services.IServices;
+using Microsoft.VisualStudio.Services.Common;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace InitialProject.Services
 {
@@ -10,10 +13,13 @@ namespace InitialProject.Services
     {
         private readonly IReservationService reservationService;
         private readonly IAccommodationService accommodationService;
+        private readonly AccommodationReservationRepository _accommodationReservationRepository;
+        
         public AccommodationReservationService()
         {
             reservationService = new ReservationService();
             accommodationService = new AccommodationService();
+            _accommodationReservationRepository = new AccommodationReservationRepository();
         }
         public Dictionary<int, string> GetReservationsByUserId(int userId)
         {
@@ -48,5 +54,18 @@ namespace InitialProject.Services
             reservations.RemoveAll(r => r.ReservationDateRange.StartDate <= DateTime.Now);
         }
 
+        public List<int> GetReservationsIdsByAccommodationId(int accommodationId)
+        {
+            List<int> reservationIds = new List<int>();
+            List<AccommodationReservation> reservations = _accommodationReservationRepository.GetAll(); //Pitaj Igora
+            foreach(AccommodationReservation ar in reservations)
+            {
+                if (ar.AccommodationId == accommodationId)
+                {
+                    reservationIds.Add(ar.ReservationId);
+                }
+            }
+            return reservationIds;
+        }
     }
 }
