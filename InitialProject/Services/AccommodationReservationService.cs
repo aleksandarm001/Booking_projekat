@@ -1,4 +1,6 @@
-﻿using InitialProject.CustomClasses;
+﻿using InitialProject.Aplication.Contracts.Repository;
+using InitialProject.Aplication.Factory;
+using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Repository;
 using InitialProject.Services.IServices;
@@ -11,29 +13,29 @@ namespace InitialProject.Services
 {
     public class AccommodationReservationService : IAccommodationReservationService
     {
-        private readonly IReservationService reservationService;
-        private readonly IAccommodationService accommodationService;
-        private readonly AccommodationReservationRepository _accommodationReservationRepository;
+        private readonly IReservationService _reservationService;
+        private readonly IAccommodationService _accommodationService;
+        private readonly IAccommodationReservationRepository _accommodationReservationRepository;
         
         public AccommodationReservationService()
         {
-            reservationService = new ReservationService();
-            accommodationService = new AccommodationService();
-            _accommodationReservationRepository = new AccommodationReservationRepository();
+            _reservationService = Injector.CreateInstance<IReservationService>();
+            _accommodationService = Injector.CreateInstance<IAccommodationService>();
+            _accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
         }
         public Dictionary<int, string> GetReservationsByUserId(int userId)
         {
             Dictionary<int, string> result = new Dictionary<int, string>();
-            List<Reservation> usersReservations = reservationService.GetReservationsByUserId(userId);
+            List<Reservation> usersReservations = _reservationService.GetReservationsByUserId(userId);
             FilterReservations(usersReservations);
             if (usersReservations.Count > 0)
             {
                 foreach (Reservation reservation in usersReservations)
                 {
-                    int accommodationId = accommodationService.GetAccommodationIdByReservationId(reservation.ReservationId);
-                    Reservation founded = reservationService.GetReservationById(reservation.ReservationId);
+                    int accommodationId = _accommodationService.GetAccommodationIdByReservationId(reservation.ReservationId);
+                    Reservation founded = _reservationService.GetReservationById(reservation.ReservationId);
                     string value = "";
-                    string accommodationName = accommodationService.GetNameById(accommodationId);
+                    string accommodationName = _accommodationService.GetNameById(accommodationId);
                     value = value + " " + accommodationName + "; " + founded.ReservationDateRange.SStartDate + "-" + founded.ReservationDateRange.SEndDate;
                     result.Add(reservation.ReservationId, value);
                 }
@@ -43,8 +45,8 @@ namespace InitialProject.Services
         }
         public bool IsCancellingPossible(DateTime currentDate, int ReservationId)
         {
-            Accommodation founded = accommodationService.GetAccommodationByReservationId(ReservationId);
-            Reservation reservation = reservationService.GetReservationById(ReservationId);
+            Accommodation founded = _accommodationService.GetAccommodationByReservationId(ReservationId);
+            Reservation reservation = _reservationService.GetReservationById(ReservationId);
             int daysBeforeCancel = founded.DaysBeforeCancelling;
             DateTime allowedCancellingDate = reservation.ReservationDateRange.EndDate.AddDays(daysBeforeCancel);
             return allowedCancellingDate > currentDate;

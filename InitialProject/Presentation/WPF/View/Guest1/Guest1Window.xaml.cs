@@ -25,13 +25,14 @@ namespace InitialProject.View.Guest1
         public Guest1Window(int userId, ObservableCollection<Location> locations)
         {
             InitializeComponent();
-            _reservationCompletionService = new ReservationCompletionService();
+            _reservationCompletionService = Injector.CreateInstance<IReservationCompletionService>();
             _userReservationCounterService = Injector.CreateInstance<IUserReservationCounterService>();
             _userService = Injector.CreateInstance<IUserService>();
-            _reservationService = new ReservationService();
+            _reservationService = Injector.CreateInstance<IReservationService>();
+            _ownerToRateService = Injector.CreateInstance<IOwnerToRateService>();
             _userId = userId;
             Locations = locations;
-            _ownerToRateService = new OwnerToRateService();
+            _reservationService.HandleCheckingIn();
             InitializeReservationCounter();
             HandleReservationCompletion();
             UpdateOwnerToRate();
@@ -75,7 +76,7 @@ namespace InitialProject.View.Guest1
 
         private void RenovationRecommendation_Click(object sender, RoutedEventArgs e)
         {
-            RenovationRecommendationForm renovationRecommendation = new RenovationRecommendationForm();
+            RenovationRecommendationForm renovationRecommendation = new RenovationRecommendationForm(1);
             renovationRecommendation.Owner = App.Current.MainWindow;
             renovationRecommendation.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             renovationRecommendation.ShowDialog();

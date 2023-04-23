@@ -20,10 +20,10 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
     public partial class RenovationRecommendationForm : Window
     {
         private readonly RenovationRecommendationViewModel viewModel;
-        public RenovationRecommendationForm()
+        public RenovationRecommendationForm(int accommmodationId)
         {
             InitializeComponent();
-            viewModel = new RenovationRecommendationViewModel(1);
+            viewModel = new RenovationRecommendationViewModel(accommmodationId);
             DataContext = viewModel;
         }
     }

@@ -1,4 +1,5 @@
-﻿using InitialProject.Application.Contracts.Repository;
+﻿using InitialProject.Aplication.Factory;
+using InitialProject.Application.Contracts.Repository;
 using InitialProject.Domen.Model;
 using InitialProject.Infrastructure.Repository;
 using InitialProject.Services.IServices;
@@ -17,8 +18,8 @@ namespace InitialProject.Services
         private readonly IUserService _userService;
         public UserReservationCounterService()
         {
-            _userReservationCounterRepository = new UserReservationCounterRepository();
-            _userService = new UserService();
+            _userReservationCounterRepository = Injector.CreateInstance<IUserReservationCounterRepository>();
+            _userService = Injector.CreateInstance<IUserService>();
         }
         public void UpdateReservationCounter(int userId)
         {

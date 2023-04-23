@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using InitialProject.Aplication.Contracts.Repository;
 using InitialProject.Infrastructure.Repository;
+using InitialProject.Application.Contracts.Repository;
 
 namespace InitialProject.Aplication.Factory
 {
@@ -43,6 +44,14 @@ namespace InitialProject.Aplication.Factory
             { typeof(INotificationService), new Lazy<object>(() => new NotificationService()) },
             { typeof(IChangeReservationRequestService), new Lazy<object>(() => new ChangeReservationRequestService()) },
             { typeof(IRenovationRecommendationService), new Lazy<object>(() => new RenovationRecommendationService()) },
+            { typeof(IReservationCompletionService), new Lazy<object>(() => new ReservationCompletionService()) },
+            { typeof(IAccommodationReservationRepository), new Lazy<object>(() => new AccommodationReservationRepository()) },
+            { typeof(IAccommodationRepository), new Lazy<object>(() => new AccommodationRepository()) },
+            { typeof(INotificationRepository), new Lazy<object>(() => new NotificationRespository()) },
+            { typeof(IOwnerRateRepository), new Lazy<object>(() => new OwnerRateRepository()) },
+            { typeof(IOwnerToRateRepository), new Lazy<object>(() => new OwnerToRateRepository()) },
+            { typeof(IRenovationRecommendationRepository), new Lazy<object>(() => new RenovationRecommendationRepository()) },
+            { typeof(IUserReservationCounterRepository), new Lazy<object>(() => new UserReservationCounterRepository()) },
         };
 
         public static T CreateInstance<T>()

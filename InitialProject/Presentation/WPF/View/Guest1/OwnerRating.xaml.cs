@@ -1,5 +1,6 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.ViewModel.Guest1;
 using InitialProject.Services;
 using InitialProject.Services.IServices;
 using System;
@@ -8,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace InitialProject.View.Guest1
 {
@@ -110,8 +112,9 @@ namespace InitialProject.View.Guest1
             ownerToRateService.DeleteOwnerToRate(SelectedAccommodationId);
             int ownerId = accommodationService.GetOwnerIdByAccommodationId(SelectedAccommodationId);
             OwnerRate ownerRate = new OwnerRate(_userId, ownerId,SelectedAccommodationId, Cleanliness, Correctness, AdditionalComment, Images);
-            this.Close();
             ownerRateService.SaveRate(ownerRate);
+            AskRenovationRecommendation();
+
         }
         private void InitializeGrades()
         {
@@ -119,6 +122,21 @@ namespace InitialProject.View.Guest1
             for(int i = 1; i < 6; i++)
             {
                 Grades.Add(i.ToString());
+            }
+        }
+        private void AskRenovationRecommendation()
+        {
+            if (MessageBox.Show("Do you want to left reccommoendation?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                this.Close();
+                RenovationRecommendationForm renovationRecommendation = new RenovationRecommendationForm(SelectedAccommodationId);
+                renovationRecommendation.Owner = App.Current.MainWindow;
+                renovationRecommendation.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                renovationRecommendation.ShowDialog();
+            }
+            else
+            {
+                this.Close();
             }
         }
     }

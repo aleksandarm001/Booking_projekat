@@ -1,4 +1,5 @@
 ﻿using InitialProject.Aplication.Contracts.Repository;
+using InitialProject.Aplication.Factory;
 using InitialProject.CustomClasses;
 using InitialProject.Repository;
 using InitialProject.Services.IServices;
@@ -11,7 +12,7 @@ namespace InitialProject.Services
 
         public NotificationService()
         {
-            _notificationRespository = new NotificationRespository();
+            _notificationRespository = Injector.CreateInstance<INotificationRepository>();
         }
 
         public Notification SaveNotification(Notification notificiation)

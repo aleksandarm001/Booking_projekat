@@ -1,4 +1,6 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.Aplication.Contracts.Repository;
+using InitialProject.Aplication.Factory;
+using InitialProject.Domen.Model;
 using InitialProject.Repository;
 using InitialProject.Services.IServices;
 using System;
@@ -9,10 +11,10 @@ namespace InitialProject.Services
 {
     public class ReservationService : IReservationService
     {
-        private readonly ReservationRepository _repository;
+        private readonly IReservationRepository _repository;
         public ReservationService()
         {
-            _repository = new ReservationRepository();
+            _repository = Injector.CreateInstance<IReservationRepository>();
         }
         public List<Reservation> GetReservationsByUserId(int userId)
         {
@@ -55,7 +57,8 @@ namespace InitialProject.Services
             {
                 if (reservation.ReservationDateRange.StartDate <= DateTime.Now && reservation.ReservationDateRange.EndDate > DateTime.Now)
                 {
-
+                    reservation.Status = ReservationStatus.CheckedIn;
+                    _repository.Update(reservation);
                 }
             }
 

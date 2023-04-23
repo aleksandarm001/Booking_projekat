@@ -4,3 +4,6 @@
 4|3|1|1|Level 2|Sve je dobro samo pod obrisi i okreci zidove
 5|3|1|1|Level 4|
 6|3|1|1|Level 4|
+7|3|6|1|Level 5|asdasdasdasdas
+8|3|6|1|Level 4|nez sta bi rekao
+9|3|6|1|Level 5|asdasd

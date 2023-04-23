@@ -1,4 +1,5 @@
-﻿using InitialProject.Application.Contracts.Repository;
+﻿using InitialProject.Aplication.Factory;
+using InitialProject.Application.Contracts.Repository;
 using InitialProject.Domen.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Infrastructure.Repository;
@@ -16,7 +17,7 @@ namespace InitialProject.Services
         private readonly IRenovationRecommendationRepository _repository;
         public RenovationRecommendationService()
         {
-            _repository = new RenovationRecommendationRepository();
+            _repository = Injector.CreateInstance<IRenovationRecommendationRepository>();
         }
         public void Delete(RenovationRecommendation recommendation)
         {

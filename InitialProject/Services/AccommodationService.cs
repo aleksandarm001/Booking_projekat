@@ -1,4 +1,5 @@
 ﻿using InitialProject.Aplication.Contracts.Repository;
+using InitialProject.Aplication.Factory;
 using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Repository;
@@ -11,28 +12,31 @@ namespace InitialProject.Services
 {
     public class AccommodationService : IAccommodationService
     {
-        private readonly IAccommodationRepository _repository;
+        private readonly IAccommodationRepository _accommodationRepository;
         private readonly IAccommodationReservationRepository _accommodationReservationRepository;
         private List<Accommodation> _accommodations;
         private List<AccommodationReservation> _accommodationReservations;
         public AccommodationService()
         {
-            _repository = new AccommodationRepository();
-            _accommodationReservationRepository = new AccommodationReservationRepository();
-            _accommodations = _repository.GetAll();
-            _accommodationReservations = _accommodationReservationRepository.GetAll();
+            _accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
+            _accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
+            _accommodations = new List<Accommodation>();
+            _accommodationReservations = new List<AccommodationReservation>();  
         }
         public string GetNameById(int accommodationId)
         {
+            _accommodations = _accommodationRepository.GetAll();
             return _accommodations.Find(a => a.AccommodationID == accommodationId).Name;
         }
         public string GetNameByReservationId(int reservationId)
         {
+            _accommodations = _accommodationRepository.GetAll();
             int accommodationId = GetAccommodationIdByReservationId(reservationId);
             return _accommodations.Find(a => a.AccommodationID == accommodationId).Name;
         }
         public int GetOwnerIdByAccommodationId(int accommodationId)
         {
+            _accommodations = _accommodationRepository.GetAll();
             var accommodation = _accommodations?.Find(a => a.AccommodationID == accommodationId);
             if (accommodation != null)
             {
@@ -50,20 +54,24 @@ namespace InitialProject.Services
         }
         public int GetAccommodationIdByReservationId(int reservationId)
         {
-            if(_accommodationReservations.Find(a => a.ReservationId == reservationId) == null) return 0;
+            _accommodationReservations = _accommodationReservationRepository.GetAll();
+            if (_accommodationReservations.Find(a => a.ReservationId == reservationId) == null) return 0;
             return _accommodationReservations.Find(a => a.ReservationId == reservationId).AccommodationId;
         }
         public Accommodation GetAccommodationByReservationId(int reservationId)
         {
+            _accommodations = _accommodationRepository.GetAll();
             int accommodationId = GetAccommodationIdByReservationId(reservationId);
             return _accommodations.Find(accommodation => accommodation.AccommodationID == accommodationId);
         }
         public Accommodation GetAccommodationById(int accommodationId)
         {
+            _accommodations = _accommodationRepository.GetAll();
             return _accommodations.Find(accommodation => accommodation.AccommodationID == accommodationId);
         }
         public int GetReservationIdByAccommodationId(int accommodationId)
         {
+            _accommodationReservations = _accommodationReservationRepository.GetAll();
             return _accommodationReservations.Find(accommodation => accommodation.AccommodationId == accommodationId).ReservationId;
         }
         public void DeleteReservation(int reservationId)
@@ -72,16 +80,19 @@ namespace InitialProject.Services
         }
         public Accommodation GetAccommodationByIdAndOwnerId(int ownerId, int accommodationId)
         {
+            _accommodations = _accommodationRepository.GetAll();
             return _accommodations.Find(accommodation => accommodation.UserId == ownerId && accommodation.AccommodationID == accommodationId);
         }
         public int GetAccommodationIdByAccommodationName(string accommodationName)
         {
+            _accommodations = _accommodationRepository.GetAll();
             return _accommodations.Find(a => a.Name == accommodationName).AccommodationID; 
         }
 
         public List<Accommodation>GetAccommodationsByOwnerId(int ownerId)
         {
-            return _repository.GetAll().Where(a => a.UserId== ownerId).ToList();
+            _accommodations = _accommodationRepository.GetAll();
+            return _accommodations.Where(a => a.UserId== ownerId).ToList();
         }
     }
 }
