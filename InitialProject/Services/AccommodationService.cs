@@ -94,5 +94,22 @@ namespace InitialProject.Services
             _accommodations = _accommodationRepository.GetAll();
             return _accommodations.Where(a => a.UserId== ownerId).ToList();
         }
+
+        public List<Accommodation> GetAccommodationsByGuestsAndDaysReserved(int guestNumber, int reservationDays)
+        {
+            _accommodations = _accommodationRepository.GetAll();
+            return _accommodations.Where(a => a.MaxGuestNumber >= guestNumber && a.MinReservationDays <= reservationDays).ToList();
+        }
+        public List<int> GetReservationIdsByAccommodationId(int accommodationId)
+        {
+            _accommodationReservations = _accommodationReservationRepository.GetAll();
+            List<AccommodationReservation> founded = _accommodationReservations.Where(ar => ar.AccommodationId == accommodationId).ToList();
+            List<int> result = new List<int>();
+            foreach(AccommodationReservation foundedReservation in founded)
+            {
+                result.Add(foundedReservation.ReservationId);
+            }
+            return result;
+        }
     }
 }

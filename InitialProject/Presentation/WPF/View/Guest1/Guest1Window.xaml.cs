@@ -81,5 +81,13 @@ namespace InitialProject.View.Guest1
             renovationRecommendation.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             renovationRecommendation.ShowDialog();
         }
+
+        private void AnywhereAnytime_Click(object sender, RoutedEventArgs e)
+        {
+            AnywhereAnytimeWindow anywhereAnytimeWindow = new AnywhereAnytimeWindow();
+            anywhereAnytimeWindow.Owner = App.Current.MainWindow;
+            anywhereAnytimeWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            anywhereAnytimeWindow.ShowDialog();
+        }
     }
 }

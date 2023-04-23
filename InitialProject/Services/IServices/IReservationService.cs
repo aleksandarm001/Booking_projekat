@@ -1,4 +1,5 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.Model;
 using System;
 using System.Collections.Generic;
 

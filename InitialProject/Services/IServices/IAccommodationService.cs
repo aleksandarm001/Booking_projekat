@@ -19,5 +19,7 @@ namespace InitialProject.Services.IServices
         Accommodation GetAccommodationByIdAndOwnerId(int ownerId, int accommodationId);
         int GetReservationIdByAccommodationId(int accommodationId);
         void DeleteReservation(int reservationId);
+        List<Accommodation> GetAccommodationsByGuestsAndDaysReserved(int guestNumber, int reservationDays);
+        List<int> GetReservationIdsByAccommodationId(int accommodationId);
     }
 }

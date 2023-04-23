@@ -56,6 +56,7 @@ namespace InitialProject.Services
             reservations.RemoveAll(r => r.ReservationDateRange.StartDate <= DateTime.Now);
         }
 
+
         public List<int> GetReservationsIdsByAccommodationId(int accommodationId)
         {
             List<int> reservationIds = new List<int>();
@@ -68,6 +69,58 @@ namespace InitialProject.Services
                 }
             }
             return reservationIds;
+        }
+
+
+        private List<Reservation> GetReservationsByAccommodation(int accommodationId)
+        {
+            List<int> ids = _accommodationService.GetReservationIdsByAccommodationId(accommodationId);
+            List<Reservation> result = new List<Reservation>();
+            foreach (int id in ids)
+            {
+                Reservation reservation = _reservationService.GetReservationById(id);
+                result.Add(reservation);
+            }
+            return result;
+        }
+        public List<DateRange> GetAvailableDays(int accommodationId, int reservationDays, DateTime startDate, DateTime endDate)
+        {
+            List<DateRange> allDates = GetAllPossibleDates(startDate, endDate, reservationDays);
+            List<Reservation> reservations = GetReservationsByAccommodation(accommodationId).ToList();
+            List<DateRange> datesToRemove = new List<DateRange>();
+            foreach (Reservation reservation in reservations)
+            {
+                foreach (DateRange range in allDates)
+                {
+                    if (reservation.ReservationDateRange.WithinRange(range) && !datesToRemove.Contains(range))
+                    {
+                        datesToRemove.Add(range);
+                    }
+                }
+            }
+            RemoveUnavailableDates(allDates, datesToRemove);
+            return allDates;
+        }
+        private List<DateRange> GetAllPossibleDates(DateTime StartDay, DateTime EndDay, int reservationDays)
+        {
+            List<DateRange> result = new List<DateRange>();
+            for (var day = StartDay; day.Date <= EndDay; day = day.AddDays(1))
+            {
+                if (day.AddDays(reservationDays).Date <= EndDay)
+                {
+                    DateRange range = new DateRange(day.Date, day.AddDays(reservationDays).Date);
+                    result.Add(range);
+                }
+            }
+            return result;
+        }
+        private void RemoveUnavailableDates(List<DateRange> allDates, List<DateRange> datesToRemove)
+        {
+            foreach (DateRange range in datesToRemove)
+            {
+                DateRange dateRange = allDates.Find(r => r.StartDate == range.StartDate && r.EndDate == range.EndDate);
+                allDates.Remove(dateRange);
+            }
         }
     }
 }
