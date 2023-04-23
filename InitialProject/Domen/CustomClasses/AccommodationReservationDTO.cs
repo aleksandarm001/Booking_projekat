@@ -1,4 +1,5 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +12,15 @@ namespace InitialProject.Domen.CustomClasses
     {
         public int AccommodationId { get; set; }
         public string AccommodationName { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
+        public Location Location { get; set; }
         public AccommodationType TypeOfAccommodation { get; set; }
-        public DateTime CheckInDate { get; set; }
-        public DateTime CheckOutDate { get; set; }
-        public AccommodationReservationDTO(string accommodationName, string country, string city, AccommodationType accommodationType, DateTime checkInDate, DateTime checkOutDate)
+        public DateRange CheckInOutDates { get; set; } 
+        public AccommodationReservationDTO(string accommodationName, Location location, AccommodationType accommodationType, DateRange dateRange)
         {
             AccommodationName = accommodationName;
-            Country = country;
-            City = city;
+            this.Location = location;
             TypeOfAccommodation = accommodationType;
-            CheckInDate = checkInDate;
-            CheckOutDate = checkOutDate;
+            CheckInOutDates = dateRange;
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InitialProject.Presentation.WPF.ViewModel.Guest1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,12 @@ namespace InitialProject.Presentation.WPF.View.Guest1
     /// </summary>
     public partial class AnywhereAnytimeWindow : Window
     {
+        private AnywhereAnytimeViewModel viewModel;
         public AnywhereAnytimeWindow()
         {
             InitializeComponent();
+            viewModel = new AnywhereAnytimeViewModel();
+            DataContext = viewModel;
         }
     }
 }
