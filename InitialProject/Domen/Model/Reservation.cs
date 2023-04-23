@@ -34,7 +34,7 @@ namespace InitialProject.Domen.Model
             UserId = userId;
             ReservationDateRange = dateRange;
             NumberOfGuests = guestNumber;
-
+            Status = ReservationStatus.Reserved;
         }
         public string[] ToCSV()
         {

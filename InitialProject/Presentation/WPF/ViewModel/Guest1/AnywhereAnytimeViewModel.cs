@@ -13,6 +13,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Guest1
@@ -29,6 +30,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         public event PropertyChangedEventHandler? PropertyChanged;
         public RelayCommand ApplyFiltersCommand { get; set; }
         public RelayCommand ResetFiltersCommand { get; set; }
+        public RelayCommand ReserveCommand { get; set; }
         public ObservableCollection<AccommodationReservationDTO> Accommodations
         {
             get 
@@ -128,7 +130,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 }
             }
         }
-        private ObservableCollection<DateTime> _blackoutedDates;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -143,6 +144,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             _userService = Injector.CreateInstance<IUserService>();
             ApplyFiltersCommand = new RelayCommand(ApplyFilters);
             ResetFiltersCommand = new RelayCommand(ResetFilters);
+            ReserveCommand = new RelayCommand(MakeReservation);
             StartDay = DateTime.Now;
             EndDay = DateTime.Now;
             AccommodationsNumber = 0;
@@ -150,9 +152,13 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 
         public void ApplyFilters(object parameter)
         {
+            UpdateAccommodations();
+        }
+        private void UpdateAccommodations()
+        {
             Accommodations.Clear();
             List<Accommodation> accommodations = _accommodationService.GetAccommodationsByGuestsAndDaysReserved(NumberOfGuests, ReservationDays);
-            foreach(Accommodation accommodation in accommodations)
+            foreach (Accommodation accommodation in accommodations)
             {
                 List<DateRange> days = _accommodationReservationService.GetAvailableDays(accommodation.AccommodationID, ReservationDays, StartDay, EndDay);
                 Make(accommodation, days);
@@ -163,7 +169,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         {
             foreach(DateRange day in days)
             {
-                AccommodationReservationDTO a = new AccommodationReservationDTO(accommodation.Name, accommodation.Location, accommodation.TypeOfAccommodation, day);
+                AccommodationReservationDTO a = new AccommodationReservationDTO(accommodation.AccommodationID,accommodation.Name, accommodation.Location, accommodation.TypeOfAccommodation, day);
                 Accommodations.Add(a);
             }
         }
@@ -175,6 +181,18 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             StrNumberOfGuests = string.Empty;
             Accommodations.Clear();
             AccommodationsNumber = 0;
+        }
+        public void MakeReservation(object parameter)
+        {
+            if(MessageBox.Show("Confirm reservation", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Information) == MessageBoxResult.OK)
+            {
+                Reservation reservation = new Reservation(SelectedAccommodation.CheckInOutDates, NumberOfGuests, _userService.GetUserId());
+                _reservationService.Save(reservation);
+                AccommodationReservation accommodationReservation = new AccommodationReservation(SelectedAccommodation.AccommodationId, reservation.ReservationId);
+                _accommodationService.Save(accommodationReservation);
+                MessageBox.Show("You successfuly reserved " + StrReservationDays + " day(s) at " + SelectedAccommodation.AccommodationName + " for " + StrNumberOfGuests + " people.(" + SelectedAccommodation.CheckInOutDates.ToStringForPrint()+")");
+                UpdateAccommodations();
+            }
         }
     }
 }

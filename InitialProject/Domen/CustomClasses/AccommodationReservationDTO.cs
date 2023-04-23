@@ -15,8 +15,9 @@ namespace InitialProject.Domen.CustomClasses
         public Location Location { get; set; }
         public AccommodationType TypeOfAccommodation { get; set; }
         public DateRange CheckInOutDates { get; set; } 
-        public AccommodationReservationDTO(string accommodationName, Location location, AccommodationType accommodationType, DateRange dateRange)
+        public AccommodationReservationDTO(int accommodationId, string accommodationName, Location location, AccommodationType accommodationType, DateRange dateRange)
         {
+            AccommodationId = accommodationId;
             AccommodationName = accommodationName;
             this.Location = location;
             TypeOfAccommodation = accommodationType;

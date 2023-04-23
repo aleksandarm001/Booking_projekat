@@ -117,7 +117,7 @@ namespace InitialProject.Services
             List<Reservation> reservations = new List<Reservation>();
             foreach(int id in reservationsIds)
             {
-                reservations.Add(_reservationService.GetReservationById(id));
+                reservations.Add(_reservationService.GetActiveReservations(id));
             }
            // if (reservations == null)
             //{
@@ -166,7 +166,7 @@ namespace InitialProject.Services
 
         public void ChangeReservationDateRange(DateTime newStartDate , DateTime newEndDate, int reservationId)
         {
-            Reservation reservation = _reservationService.GetReservationById(reservationId);
+            Reservation reservation = _reservationService.GetActiveReservations(reservationId);
             reservation.ReservationDateRange.StartDate = newStartDate;
             reservation.ReservationDateRange.EndDate = newEndDate;
             _reservationRepository.Update(reservation);

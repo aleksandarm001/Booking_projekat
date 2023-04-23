@@ -33,7 +33,7 @@ namespace InitialProject.Services
                 foreach (Reservation reservation in usersReservations)
                 {
                     int accommodationId = _accommodationService.GetAccommodationIdByReservationId(reservation.ReservationId);
-                    Reservation founded = _reservationService.GetReservationById(reservation.ReservationId);
+                    Reservation founded = _reservationService.GetActiveReservations(reservation.ReservationId);
                     string value = "";
                     string accommodationName = _accommodationService.GetNameById(accommodationId);
                     value = value + " " + accommodationName + "; " + founded.ReservationDateRange.SStartDate + "-" + founded.ReservationDateRange.SEndDate;
@@ -46,7 +46,7 @@ namespace InitialProject.Services
         public bool IsCancellingPossible(DateTime currentDate, int ReservationId)
         {
             Accommodation founded = _accommodationService.GetAccommodationByReservationId(ReservationId);
-            Reservation reservation = _reservationService.GetReservationById(ReservationId);
+            Reservation reservation = _reservationService.GetActiveReservations(ReservationId);
             int daysBeforeCancel = founded.DaysBeforeCancelling;
             DateTime allowedCancellingDate = reservation.ReservationDateRange.EndDate.AddDays(daysBeforeCancel);
             return allowedCancellingDate > currentDate;
@@ -78,7 +78,7 @@ namespace InitialProject.Services
             List<Reservation> result = new List<Reservation>();
             foreach (int id in ids)
             {
-                Reservation reservation = _reservationService.GetReservationById(id);
+                Reservation reservation = _reservationService.GetActiveReservations(id);
                 result.Add(reservation);
             }
             return result;
@@ -90,6 +90,15 @@ namespace InitialProject.Services
             List<DateRange> datesToRemove = new List<DateRange>();
             foreach (Reservation reservation in reservations)
             {
+                AddDatesToRemove(reservation, allDates, datesToRemove);   
+            }
+            RemoveUnavailableDates(allDates, datesToRemove);
+            return allDates;
+        }
+        private void AddDatesToRemove(Reservation reservation, List<DateRange> allDates, List<DateRange> datesToRemove)
+        {
+            if(reservation != null)
+            {
                 foreach (DateRange range in allDates)
                 {
                     if (reservation.ReservationDateRange.WithinRange(range) && !datesToRemove.Contains(range))
@@ -98,8 +107,6 @@ namespace InitialProject.Services
                     }
                 }
             }
-            RemoveUnavailableDates(allDates, datesToRemove);
-            return allDates;
         }
         private List<DateRange> GetAllPossibleDates(DateTime StartDay, DateTime EndDay, int reservationDays)
         {

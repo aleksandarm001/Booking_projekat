@@ -111,5 +111,10 @@ namespace InitialProject.Services
             }
             return result;
         }
+
+        public void Save(AccommodationReservation accommodationReservation)
+        {
+            _accommodationReservationRepository.Save(accommodationReservation);
+        }
     }
 }

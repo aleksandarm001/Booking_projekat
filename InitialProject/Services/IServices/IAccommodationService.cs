@@ -1,4 +1,5 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,6 @@ namespace InitialProject.Services.IServices
         void DeleteReservation(int reservationId);
         List<Accommodation> GetAccommodationsByGuestsAndDaysReserved(int guestNumber, int reservationDays);
         List<int> GetReservationIdsByAccommodationId(int accommodationId);
+        void Save(AccommodationReservation accommodationReservation);
     }
 }
