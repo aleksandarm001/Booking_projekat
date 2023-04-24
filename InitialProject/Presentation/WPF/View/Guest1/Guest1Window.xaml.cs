@@ -89,5 +89,13 @@ namespace InitialProject.View.Guest1
             anywhereAnytimeWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             anywhereAnytimeWindow.ShowDialog();
         }
+
+        private void OpenForums_Click(object sender, RoutedEventArgs e)
+        {
+            ForumsOverviewWindow forumsOverviewWindow = new ForumsOverviewWindow();
+            forumsOverviewWindow.Owner = App.Current.MainWindow;
+            forumsOverviewWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            forumsOverviewWindow.ShowDialog();
+        }
     }
 }

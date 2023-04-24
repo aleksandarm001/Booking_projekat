@@ -52,6 +52,7 @@ namespace InitialProject.Aplication.Factory
             { typeof(IOwnerToRateRepository), new Lazy<object>(() => new OwnerToRateRepository()) },
             { typeof(IRenovationRecommendationRepository), new Lazy<object>(() => new RenovationRecommendationRepository()) },
             { typeof(IUserReservationCounterRepository), new Lazy<object>(() => new UserReservationCounterRepository()) },
+            { typeof(IForumRepository), new Lazy<object>(() => new ForumRepository()) },
         };
 
         public static T CreateInstance<T>()
