@@ -30,19 +30,19 @@ namespace InitialProject.Services
             List<Reservation> reservations = GetReservationsByUserId(userId);
             return reservations.Find(r => r.ReservationId == reservationId).ReservationDateRange.EndDate;
         }
-        public Reservation GetActiveReservations(int reservationId)
+        public Reservation GetActiveReservation(int reservationId)
         {
             return _repository.GetAll().Find(r => r.ReservationId == reservationId && r.Status != ReservationStatus.Finished);
         }
       
         public void Delete(int reservationId)
         {
-            Reservation reservation = GetActiveReservations(reservationId);
+            Reservation reservation = GetActiveReservation(reservationId);
             _repository.Delete(reservation);
         }
         public void DeleteLogical(int reservationId)
         {
-            Reservation reservation = GetActiveReservations(reservationId);
+            Reservation reservation = GetActiveReservation(reservationId);
             reservation.Status = ReservationStatus.Finished;
             _repository.Update(reservation);
         }

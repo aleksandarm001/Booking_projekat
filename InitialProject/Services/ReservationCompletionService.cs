@@ -29,7 +29,7 @@ namespace InitialProject.Services
         }
         public void HandleReservationCompletion(int userId, int reservationId)
         {
-            Reservation reservation = _reservationService.GetActiveReservations(reservationId);
+            Reservation reservation = _reservationService.GetActiveReservation(reservationId);
             if (reservation == null)
             {
                 return;

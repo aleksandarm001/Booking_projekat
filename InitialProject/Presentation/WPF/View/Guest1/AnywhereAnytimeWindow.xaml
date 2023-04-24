@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest1" xmlns:guest1="clr-namespace:InitialProject.Presentation.WPF.ViewModel.Guest1"
         d:DataContext="{d:DesignInstance Type=guest1:AnywhereAnytimeViewModel}"
         mc:Ignorable="d"
-        Title="AnywhereAnytimeWindow" Height="700" Width="1024">
+        Title="AnywhereAnytimeWindow" Height="710" Width="1024">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -82,7 +82,7 @@
                 </Border>
 
             </Grid>
-            <GridSplitter Width="5" Background="DarkGray" HorizontalAlignment="Left" ResizeBehavior="PreviousAndNext" Margin="275,0,0,0"/>
+            <GridSplitter Width="5" Background="DarkGray" HorizontalAlignment="Left" ResizeBehavior="PreviousAndNext" Margin="275,0,0,-10"/>
             <StackPanel Grid.Column="1" Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Margin="15,10,0,0">
                     <TextBlock Text="{Binding AccommodationsNumber, UpdateSourceTrigger=PropertyChanged}" FontSize="26" FontWeight="DemiBold" Margin="0,0,5,0"></TextBlock>

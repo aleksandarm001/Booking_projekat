@@ -12,7 +12,7 @@ namespace InitialProject.Services.IServices
         void DeleteLogical(int reservationId);  
         DateTime GetCheckInDate(int userId, int reservationId);
         DateTime GetCheckOutDate(int userId, int reservationId);
-        Reservation GetActiveReservations(int reservationId);
+        Reservation GetActiveReservation(int reservationId);
         List<Reservation> GetReservationsByUserId(int userId);
         void HandleCheckingIn();
     }

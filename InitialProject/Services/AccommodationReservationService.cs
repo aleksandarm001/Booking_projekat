@@ -33,7 +33,7 @@ namespace InitialProject.Services
                 foreach (Reservation reservation in usersReservations)
                 {
                     int accommodationId = _accommodationService.GetAccommodationIdByReservationId(reservation.ReservationId);
-                    Reservation founded = _reservationService.GetActiveReservations(reservation.ReservationId);
+                    Reservation founded = _reservationService.GetActiveReservation(reservation.ReservationId);
                     string value = "";
                     string accommodationName = _accommodationService.GetNameById(accommodationId);
                     value = value + " " + accommodationName + "; " + founded.ReservationDateRange.SStartDate + "-" + founded.ReservationDateRange.SEndDate;
@@ -46,7 +46,7 @@ namespace InitialProject.Services
         public bool IsCancellingPossible(DateTime currentDate, int ReservationId)
         {
             Accommodation founded = _accommodationService.GetAccommodationByReservationId(ReservationId);
-            Reservation reservation = _reservationService.GetActiveReservations(ReservationId);
+            Reservation reservation = _reservationService.GetActiveReservation(ReservationId);
             int daysBeforeCancel = founded.DaysBeforeCancelling;
             DateTime allowedCancellingDate = reservation.ReservationDateRange.EndDate.AddDays(daysBeforeCancel);
             return allowedCancellingDate > currentDate;
@@ -71,20 +71,8 @@ namespace InitialProject.Services
             return reservationIds;
         }
 
-
-        private List<Reservation> GetReservationsByAccommodation(int accommodationId)
-        {
-            List<int> ids = _accommodationService.GetReservationIdsByAccommodationId(accommodationId);
-            List<Reservation> result = new List<Reservation>();
-            foreach (int id in ids)
-            {
-                Reservation reservation = _reservationService.GetActiveReservations(id);
-                result.Add(reservation);
-            }
-            return result;
-        }
         public List<DateRange> GetAvailableDays(int accommodationId, int reservationDays, DateTime startDate, DateTime endDate)
-        {
+        {  
             List<DateRange> allDates = GetAllPossibleDates(startDate, endDate, reservationDays);
             List<Reservation> reservations = GetReservationsByAccommodation(accommodationId).ToList();
             List<DateRange> datesToRemove = new List<DateRange>();
@@ -94,6 +82,17 @@ namespace InitialProject.Services
             }
             RemoveUnavailableDates(allDates, datesToRemove);
             return allDates;
+        }
+        private List<Reservation> GetReservationsByAccommodation(int accommodationId)
+        {
+            List<int> ids = _accommodationService.GetReservationIdsByAccommodationId(accommodationId);
+            List<Reservation> result = new List<Reservation>();
+            foreach (int id in ids)
+            {
+                Reservation reservation = _reservationService.GetActiveReservation(id);
+                result.Add(reservation);
+            }
+            return result;
         }
         private void AddDatesToRemove(Reservation reservation, List<DateRange> allDates, List<DateRange> datesToRemove)
         {

@@ -98,8 +98,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 }
             }
         }
-        private DateTime _startDay;
-        public DateTime StartDay
+        private DateTime? _startDay;
+        public DateTime? StartDay
         {
             get
             {
@@ -114,8 +114,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 }
             }
         }
-        private DateTime _endDay;
-        public DateTime EndDay
+        private DateTime? _endDay;
+        public DateTime? EndDay
         {
             get
             {
@@ -145,8 +145,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             ApplyFiltersCommand = new RelayCommand(ApplyFilters);
             ResetFiltersCommand = new RelayCommand(ResetFilters);
             ReserveCommand = new RelayCommand(MakeReservation);
-            StartDay = DateTime.Now;
-            EndDay = DateTime.Now;
             AccommodationsNumber = 0;
         }
 
@@ -157,15 +155,24 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private void UpdateAccommodations()
         {
             Accommodations.Clear();
+            CheckDatesIfNull();
             List<Accommodation> accommodations = _accommodationService.GetAccommodationsByGuestsAndDaysReserved(NumberOfGuests, ReservationDays);
             foreach (Accommodation accommodation in accommodations)
             {
-                List<DateRange> days = _accommodationReservationService.GetAvailableDays(accommodation.AccommodationID, ReservationDays, StartDay, EndDay);
-                Make(accommodation, days);
+                List<DateRange> days = _accommodationReservationService.GetAvailableDays(accommodation.AccommodationID, ReservationDays, (DateTime)StartDay, (DateTime)EndDay);
+                CreateAccommodationReservationDTO(accommodation, days);
             }
             AccommodationsNumber = Accommodations.Count();
         }
-        private void Make(Accommodation accommodation,List<DateRange> days)
+        private void CheckDatesIfNull()
+        {
+            if(StartDay == null && EndDay == null)
+            {
+                StartDay = DateTime.Now;
+                EndDay = DateTime.Now.AddDays(60);
+            }
+        }
+        private void CreateAccommodationReservationDTO(Accommodation accommodation,List<DateRange> days)
         {
             foreach(DateRange day in days)
             {
@@ -175,8 +182,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         public void ResetFilters(object parameter)
         {
-            StartDay = DateTime.Now;
-            EndDay = DateTime.Now;
+            StartDay = null;
+            EndDay = null;
             StrReservationDays = string.Empty;
             StrNumberOfGuests = string.Empty;
             Accommodations.Clear();
