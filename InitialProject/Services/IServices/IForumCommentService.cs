@@ -13,5 +13,6 @@ namespace InitialProject.Services.IServices
         ForumComment Save(ForumComment forum);
         void Delete(ForumComment forum);
         void Update(ForumComment forum);
+        int GetCommentsNumberByForum(int forumId);
     }
 }

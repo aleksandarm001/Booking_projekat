@@ -13,6 +13,8 @@ namespace InitialProject.Services.IServices
         Forum Save(Forum forum);
         void Delete(Forum forum);
         void Update(Forum forum);
+        List<Forum> GetForumsByCreatorId(int userId);
+        Forum GetForumById(int forumId);
 
     }
 }

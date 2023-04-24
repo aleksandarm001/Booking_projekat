@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest1"
+        d:DataContext="{d:DesignInstance Type=guest1:ForumsOverviewViewModel}"
+        xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest1" xmlns:guest1="clr-namespace:InitialProject.Presentation.WPF.ViewModel.Guest1"
         mc:Ignorable="d"
-        Title="Forums Overview" Height="750" Width="920">
+        Title="Forums Overview" Height="770" Width="920">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -39,20 +40,20 @@
             <TabControl Height="420" Width="800" Margin="0,10,0,0">
                 <TabItem Header="My Forums (F7)" FontSize="14">
                     <DataGrid Height="390" Width="790" HorizontalAlignment="Center"
-                      ItemsSource="{Binding Path = Accommodations, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding Path= SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Path = MyForums, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding Path= SelectedMyForum, UpdateSourceTrigger=PropertyChanged}"
                       IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Topic" Width="*" Binding="{Binding AccommodationName}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Topic" Width="*" Binding="{Binding Topic}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Location" Width="0.65*" Binding="{Binding Location}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Date Created" Width="0.7*" Binding="{Binding TypeOfAccommodation}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Comments" Width="0.55*" Binding="{Binding CheckInOutDates.SStartDate}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Status" Width="0.4*" Binding="{Binding CheckInOutDates.SEndDate}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Very useful" Width="0.5*" Binding="{Binding CheckInOutDates.SEndDate}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Date Created" Width="0.7*" Binding="{Binding DateCreated}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Comments" Width="0.55*" Binding="{Binding CommentsNumber}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Status" Width="0.4*" Binding="{Binding Status}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Very useful" Width="0.5*" Binding="{Binding VeryUseful}"></DataGridTextColumn>
                             <DataGridTemplateColumn Header="Open" Width="0.45*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="Reserve" Command="{Binding DataContext.ReserveCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                        <Button Content="Reserve" Command="{Binding DataContext.OpenForumCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -61,20 +62,20 @@
                 </TabItem>
                 <TabItem Header="Forums Overview (F8)" FontSize="14">
                     <DataGrid Height="390" Width="790" HorizontalAlignment="Center"
-                      ItemsSource="{Binding Path = Accommodations, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding Path= SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Path = AllForums, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding Path= SelectedForum, UpdateSourceTrigger=PropertyChanged}"
                       IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Topic" Width="*" Binding="{Binding AccommodationName}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Topic" Width="*" Binding="{Binding Topic}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Location" Width="0.65*" Binding="{Binding Location}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Date Created" Width="0.7*" Binding="{Binding TypeOfAccommodation}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Comments" Width="0.55*" Binding="{Binding CheckInOutDates.SStartDate}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Status" Width="0.4*" Binding="{Binding CheckInOutDates.SEndDate}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Very useful" Width="0.5*" Binding="{Binding CheckInOutDates.SEndDate}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Date Created" Width="0.7*" Binding="{Binding DateCreated}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Comments" Width="0.55*" Binding="{Binding CommentsNumber}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Status" Width="0.4*" Binding="{Binding Status}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Very useful" Width="0.5*" Binding="{Binding VeryUseful}"></DataGridTextColumn>
                             <DataGridTemplateColumn Header="Open" Width="0.45*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="Reserve" Command="{Binding DataContext.ReserveCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                        <Button Content="Reserve" Command="{Binding DataContext.OpenForumCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

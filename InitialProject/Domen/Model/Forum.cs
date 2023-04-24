@@ -39,6 +39,8 @@ namespace InitialProject.Domen.Model
         }
         public Forum()
         {
+            Location = new Location();
+            Comments = new List<Comment>();
         }
         public string[] ToCSV()
         {

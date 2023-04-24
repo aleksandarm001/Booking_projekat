@@ -28,6 +28,12 @@ namespace InitialProject.Services
             return _forumCommentRepository.GetAll();
         }
 
+        public int GetCommentsNumberByForum(int forumId)
+        {
+            List<ForumComment> forums = _forumCommentRepository.GetAll();
+            return forums.Where(forum => forum.ForumId == forumId).Count();
+        }
+
         public ForumComment Save(ForumComment forum)
         {
             return _forumCommentRepository.Save(forum);

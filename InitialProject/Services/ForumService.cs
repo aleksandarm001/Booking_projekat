@@ -27,6 +27,18 @@ namespace InitialProject.Services
         {
             return _forumRepository.GetAll();
         }
+
+        public Forum GetForumById(int forumId)
+        {
+            return GetAll().Find(forum => forum.ForumId == forumId);
+        }
+
+        public List<Forum> GetForumsByCreatorId(int userId)
+        {
+            List<Forum> forums = GetAll();
+            return forums.Where(forum => forum.CreatorId == userId).ToList();
+        }
+
         public Forum Save(Forum forum)
         {
             return _forumRepository.Save(forum);
