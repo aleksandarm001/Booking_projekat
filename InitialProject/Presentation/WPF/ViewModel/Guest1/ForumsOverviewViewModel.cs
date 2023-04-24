@@ -97,9 +97,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private void OpenCreateForumForm(object parameter)
         {
             CreatingForumForm creatingForumForm = new CreatingForumForm();
-            creatingForumForm.Owner = App.Current.MainWindow;
+            creatingForumForm.Owner = App.Current.Windows.OfType<ForumsOverviewWindow>().FirstOrDefault();
             creatingForumForm.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             creatingForumForm.ShowDialog();
+            InitializeAllForums();
+            InitializeMyForums();
         }
         private void InitializeMyForums()
         {
@@ -113,6 +115,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 ForumOverviewDTO forum = new ForumOverviewDTO(myForum.ForumId,myForum.ForumTopic, myForum.Location, myForum.DateCreated, commentsNumber, myForum.Status, useful);
                 MyForums.Add(forum);
             }
+            OnPropertyChanged("MyForums");
         }
         private void InitializeAllForums()
         {
@@ -126,6 +129,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 ForumOverviewDTO forum = new ForumOverviewDTO(f.ForumId, f.ForumTopic, f.Location, f.DateCreated, commentsNumber, f.Status, useful);
                 AllForums.Add(forum);
             }
+            OnPropertyChanged("Forums");
         }
         private string CheckUseful(Forum myForum)
         {
@@ -140,7 +144,12 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         private void CloseForum(object parameter)
         {
-
+            CloseForumWindow closeForumWindow = new CloseForumWindow();
+            closeForumWindow.Owner = App.Current.Windows.OfType<ForumsOverviewWindow>().FirstOrDefault();
+            closeForumWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            closeForumWindow.ShowDialog();
+            InitializeAllForums();
+            InitializeMyForums();
         }
         private void OpenForum(object parameter)
         {
