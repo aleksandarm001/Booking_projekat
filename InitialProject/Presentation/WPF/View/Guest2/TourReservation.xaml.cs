@@ -1,15 +1,16 @@
-﻿using InitialProject.Aplication.Factory;
-using InitialProject.Domen.Model;
-using InitialProject.Services;
-using InitialProject.Services.IServices;
-using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows;
-
-namespace InitialProject.View
+﻿namespace InitialProject.Presentation.WPF.View.Guest2
 {
+
+    using InitialProject.Aplication.Factory;
+    using InitialProject.Domen.Model;
+    using InitialProject.Services.IServices;
+    using System;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+    using System.Windows;
+
+
     public partial class TourReservation : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -20,6 +21,9 @@ namespace InitialProject.View
         public ObservableCollection<Voucher> Vouchers { get; set; }
         public ObservableCollection<string> VouchersString { get; set; }
         public string SelectedVoucher { get; set; }
+        public string First { get; set; }
+        public string Second { get; set; }
+        public string Third { get; set; }
 
         public int NumberOfGuests { get; set; }
         private string _strNumberOfGuests;
@@ -43,11 +47,11 @@ namespace InitialProject.View
             }
         }
 
-        public TourReservation(int userId, Tour t, int NumberOfGuests)
+        public TourReservation(int userId, Tour tour, int NumberOfGuests)
         {
             InitializeComponent();
             DataContext = this;
-            Tour = t;
+            Tour = tour;
             UserId = userId;
             this.NumberOfGuests = NumberOfGuests;
             _tourReservationService = Injector.CreateInstance<ITourReservationService>();
@@ -55,6 +59,9 @@ namespace InitialProject.View
             VouchersString = new ObservableCollection<string>();
             Vouchers = new ObservableCollection<Voucher>(_voucherService.GetAllForUser(userId));
             InitializeVouchers();
+            First = "Izabrali ste turu u " + Tour.Location.City + " koja se izvodi " + Tour.StartingDateTime.ToShortDateString() + " u " + Tour.StartingDateTime.TimeOfDay.ToString() + ".";
+            Second = "Tura se izvodi na " + Tour.Language + " jeziku i traje " + Tour.Duration + "h.";
+            Third = "Preostali broj slobodnih mjesta je " + Tour.MaxGuestNumber + ".";
 
         }
 
@@ -66,7 +73,7 @@ namespace InitialProject.View
             }
             else
             {
-                MakeReservation();
+                MakeReservation(Vaucer.SelectedIndex);
             }
 
         }
@@ -86,15 +93,15 @@ namespace InitialProject.View
             }
         }
 
-        private void MakeReservation()
+        private void MakeReservation(int voucher)
         {
-            if (Vaucer.SelectedIndex != -1)
+            if (voucher != 0)
             {
-                _tourReservationService.MakeReservationWithVoucher(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests, Vouchers[Vaucer.SelectedIndex]);
+                _tourReservationService.MakeReservationWithVoucher(UserId, Tour, NumberOfGuests, Vouchers[Vaucer.SelectedIndex-1]);
             }
             else
             {
-                _tourReservationService.MakeReservationWithoutVoucher(UserId, Tour.TourId, Tour.StartingDateTime, NumberOfGuests);
+                _tourReservationService.MakeReservationWithoutVoucher(UserId, Tour, NumberOfGuests);
             }
             MessageBox.Show("Rezervacija uspjesna");
             this.Close();
@@ -102,9 +109,10 @@ namespace InitialProject.View
 
         private void InitializeVouchers()
         {
+            VouchersString.Add("Bez vaučera");
             foreach (Voucher v in Vouchers)
             {
-                VouchersString.Add(v.Name + " vrijedi do " + v.ValidUntil.ToShortDateString());
+                VouchersString.Add(v.Name + ", vrijedi do " + v.ValidUntil.ToShortDateString());
             }
         }
 

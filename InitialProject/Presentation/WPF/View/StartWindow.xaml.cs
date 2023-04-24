@@ -1,5 +1,6 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.View.Guest2;
 using InitialProject.Repository;
 using InitialProject.View.Guest1;
 using InitialProject.View.Owner;
@@ -58,8 +59,11 @@ namespace InitialProject.View
         }
         private void Guest2_ButtonClick(object sender, RoutedEventArgs e)
         {
-            TourView tourView = new TourView(1);
-            tourView.Show();
+            //TourView tourView = new TourView(1);
+            //tourView.Show();
+
+            HomeWindow homeWindow = new HomeWindow(1);
+            homeWindow.Show();
         }
         private void Owner_ButtonClick(object sender, RoutedEventArgs e)
         {

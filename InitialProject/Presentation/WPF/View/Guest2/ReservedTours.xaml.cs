@@ -17,7 +17,6 @@
     {
         private ReservedTourViewModel _reservedTourViewModel;
         public Tour SelectedTour { get; set; }
-        private ITourPointService _tourPointService;
         private ITourReservationService _tourReservationService;
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -38,7 +37,6 @@
             InitializeComponent();
             DataContext = this;
             _reservedTourViewModel = new ReservedTourViewModel();
-            _tourPointService = Injector.CreateInstance<ITourPointService>();
             _tourReservationService = Injector.CreateInstance<ITourReservationService>();
             Tours = new ObservableCollection<Tour>(_tourReservationService.GetAllReservedAndNotFinishedTour(userId));
         }

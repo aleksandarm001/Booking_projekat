@@ -22,11 +22,11 @@
             VoucherId = 0;
         }
 
-        public TourReservation(int userId, int tourId, DateTime startDate, int numberOfVisitors, int voucherId)
+        public TourReservation(int userId, int tourId, DateTime startDate, int duration, int numberOfVisitors, int voucherId)
         {
             UserId = userId;
             TourId = tourId;
-            ReservationDateRange = new DateRange(startDate, numberOfVisitors);
+            ReservationDateRange = new DateRange(startDate, duration);
             NumberOfGuests = numberOfVisitors;
             VoucherId = voucherId;
         }

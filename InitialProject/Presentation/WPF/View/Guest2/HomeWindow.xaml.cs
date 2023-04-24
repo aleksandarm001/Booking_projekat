@@ -4,7 +4,7 @@
     using InitialProject.CustomClasses;
     using InitialProject.Domen.Model;
     using InitialProject.Presentation.WPF.Constants;
-    using InitialProject.Presentation.WPF.View.Guest2;
+    using InitialProject.Presentation.WPF.ViewModel.Guest2;
     using InitialProject.Services.IServices;
     using InitialProject.View.Guest2;
     using Microsoft.TeamFoundation.Common;
@@ -15,19 +15,29 @@
     using System.Windows;
     using System.Windows.Controls;
 
-    public partial class TourView : Window, INotifyPropertyChanged
+    /// <summary>
+    /// Interaction logic for HomeWindow.xaml
+    /// </summary>
+    public partial class HomeWindow : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public static ObservableCollection<string> Duration { get; set; }
         public static ObservableCollection<int> GuestNumber { get; set; }
         public static ObservableCollection<string> Languages { get; set; }
+        public static ObservableCollection<string> Localization { get; set; }
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<string> Countries { get; set; }
 
+        public static ObservableCollection<Voucher> Vouchers { get; set; }
+
         public static ObservableCollection<TourAttendance> TourAttendances { get; set; }
         private int UserId { get; }
+
+        public Tour Tour { get; set; }
         public Tour SelectedTour { get; set; }
+        public Tour FinishedTour { get; set; }
+        public Tour ReservedTour { get; set; }
         public int NumberOfGuests { get; set; }
         public string SelectedLanguage { get; set; }
         public string SelectedCity { get; set; }
@@ -35,9 +45,18 @@
         public string SelectedDurationFrom { get; set; }
         public string SelectedDurationTo { get; set; }
 
+
+        private FinishedTourViewModel _finishedTourViewModel;
+        private ReservedTourViewModel _reservedTourViewModel;
         private readonly ITourService _tourService;
 
         private readonly ITourAttendanceService _tourAttendanceService;
+
+        private readonly ITourReservationService _tourReservationService;
+
+        private readonly ITourRequestService _tourRequestService;
+
+        private readonly IVoucherService _voucherService;
 
         private ObservableCollection<Tour> _tours { get; set; }
         public ObservableCollection<Tour> Tours
@@ -49,22 +68,63 @@
                 OnPropertyChanged(nameof(Tours));
             }
         }
+        private ObservableCollection<Tour> _reservedTours { get; set; }
+        public ObservableCollection<Tour> ReservedTours
+        {
+            get { return _reservedTours; }
+            set
+            {
+                _reservedTours = value;
+                OnPropertyChanged(nameof(ReservedTours));
+            }
+        }
+        private ObservableCollection<Tour> _finishedTours { get; set; }
+        public ObservableCollection<Tour> FinishedTours
+        {
+            get { return _finishedTours; }
+            set
+            {
+                _finishedTours = value;
+                OnPropertyChanged(nameof(FinishedTours));
+            }
+        }
 
-        public TourView(int userId)
+        private ObservableCollection<TourRequest> _requestedTours { get; set; }
+        public ObservableCollection<TourRequest> RequestedTours
+        {
+            get { return _requestedTours; }
+            set
+            {
+                _requestedTours = value;
+                OnPropertyChanged(nameof(RequestedTours));
+            }
+        }
+
+        public HomeWindow(int userId)
         {
             InitializeComponent();
             DataContext = this;
             UserId = userId;
+            _tourReservationService = Injector.CreateInstance<ITourReservationService>();
             _tourService = Injector.CreateInstance<ITourService>();
             _tourAttendanceService = Injector.CreateInstance<ITourAttendanceService>();
+            _tourRequestService = Injector.CreateInstance<ITourRequestService>();
+            _voucherService = Injector.CreateInstance<IVoucherService>();
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             Tours = new ObservableCollection<Tour>(_tourService.GetAllNotStartedTours());
+            Vouchers = new ObservableCollection<Voucher>(_voucherService.GetAllForUser(UserId));
+            _finishedTourViewModel = new FinishedTourViewModel();
+            _reservedTourViewModel = new ReservedTourViewModel();
+            ReservedTours = new ObservableCollection<Tour>(_tourReservationService.GetAllReservedAndNotFinishedTour(UserId));
+            FinishedTours = new ObservableCollection<Tour>(_tourService.GetAllFinished(UserId));
+            RequestedTours = new ObservableCollection<TourRequest>(_tourRequestService.GetAllTourRequests(UserId));
 
             InitializeLanguages();
             InitializeLocations();
             InitializeGuestNumber();
             InitializeDuration();
+            InitializeLocalization();
             ReadCitiesAndCountries();
             CheckTourAttendance();
         }
@@ -111,6 +171,13 @@
             }
         }
 
+        private void InitializeLocalization()
+        {
+            Localization = new ObservableCollection<string>();
+            Localization.Add("Srpski");
+            Localization.Add("Engleski");
+        }
+
 
         private void InitializeGuestNumber()
         {
@@ -148,23 +215,18 @@
         }
         private void Rezervisi_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedTour == null)
+
+            if (Tour.MaxGuestNumber == 0)
             {
-                MessageBox.Show(TourViewConstants.MustSelectTour, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Yes);
+                HandleFullTourCapacity();
             }
             else
             {
-                if (SelectedTour.MaxGuestNumber == 0)
-                {
-                    HandleFullTourCapacity();
-                }
-                else
-                {
-                    Presentation.WPF.View.Guest2.TourReservation tourReservation = new Presentation.WPF.View.Guest2.TourReservation(UserId, SelectedTour, NumberOfGuests);
-                    tourReservation.ShowDialog();
-                    //SelectedTour.ReduceGuestNumber(tourReservation.NumberOfGuests);
-                }
+                Presentation.WPF.View.Guest2.TourReservation tourReservation = new TourReservation(UserId, Tour, NumberOfGuests);
+                tourReservation.ShowDialog();
+                //SelectedTour.ReduceGuestNumber(tourReservation.NumberOfGuests);
             }
+
         }
 
 
@@ -253,23 +315,34 @@
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
-        private void ZavrseneTure_Click(object sender, RoutedEventArgs e)
+        private void PrikaziTuru_Click(object sender, RoutedEventArgs e)
         {
-            FinishedTours finishedTours = new FinishedTours(UserId);
-            finishedTours.ShowDialog();
+            Tour = SelectedTour;
+            OnPropertyChanged(nameof(Tour));
+            TureGrid.Visibility = Visibility.Hidden;
+            TuraGrid.Visibility = Visibility.Visible;
         }
 
-        private void RezervisaneTure_Click(object sender, RoutedEventArgs e)
+        private void Detalji_Click(object sender, RoutedEventArgs e)
         {
-            ReservedTours reservedTours = new ReservedTours(UserId);
-            reservedTours.ShowDialog();
+            _reservedTourViewModel.HandleMessageForDetails(ReservedTour);
         }
 
-        private void ZahtjevaneTure_Click(object sender, RoutedEventArgs e)
+        private void Ocijeni_Click(object sender, RoutedEventArgs e)
         {
-            RequestedTour requestedTour = new RequestedTour(UserId);
-            requestedTour.ShowDialog();
+            _finishedTourViewModel.RateTour(FinishedTour, UserId);
         }
+
+        private void PrikaziStatistiku_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void KreirajObicanZahtje_Click(object sender, RoutedEventArgs e)
+        {
+            SimpleRequest simpleRequest = new SimpleRequest(UserId);
+            simpleRequest.ShowDialog();
+        }
+
     }
 }

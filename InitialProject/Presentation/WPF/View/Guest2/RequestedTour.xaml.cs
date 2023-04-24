@@ -17,13 +17,13 @@
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private ObservableCollection<TourRequest> _tours { get; set; }
+        private ObservableCollection<TourRequest> _requestedTours { get; set; }
         public ObservableCollection<TourRequest> RequestedTours
         {
-            get { return _tours; }
+            get { return _requestedTours; }
             set
             {
-                _tours = value;
+                _requestedTours = value;
                 OnPropertyChanged(nameof(RequestedTours));
             }
         }

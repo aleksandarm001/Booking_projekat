@@ -22,6 +22,8 @@
             ValidUntil = validUntil;
         }
 
+        
+
         public Voucher() { }
 
         public void FromCSV(string[] values)

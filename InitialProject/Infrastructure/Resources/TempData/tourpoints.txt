@@ -1,2 +1,0 @@
-1|kt1|1|NotActive|tkt1|1
-2|kt2|1|NotActive|tkt2|2

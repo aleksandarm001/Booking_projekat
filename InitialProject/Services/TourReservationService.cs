@@ -24,19 +24,19 @@
         {
             return _repository.GetAll().Where(r => r.UserId == userId).ToList();
         }
-        public void MakeReservationWithVoucher(int userId, int tourId, DateTime startingDateTime, int numberOfGuests, Voucher voucher)
+        public void MakeReservationWithVoucher(int userId, Tour tour, int numberOfGuests, Voucher voucher)
         {
-            TourReservation tourReservation = new TourReservation(userId, tourId, startingDateTime, numberOfGuests, voucher.Id);
+            TourReservation tourReservation = new TourReservation(userId, tour.TourId, tour.StartingDateTime, tour.Duration, numberOfGuests, voucher.Id);
             _repository.Save(tourReservation);
-            _tourService.ReduceMaxGuestNumber(tourId, numberOfGuests);
+            _tourService.ReduceMaxGuestNumber(tour.TourId, numberOfGuests);
             _voucherService.Delete(voucher);
         }
 
-        public void MakeReservationWithoutVoucher(int userId, int tourId, DateTime startingDateTime, int numberOfGuests)
+        public void MakeReservationWithoutVoucher(int userId, Tour tour, int numberOfGuests)
         {
-            TourReservation tourReservation = new TourReservation(userId, tourId, startingDateTime, numberOfGuests, 0);
+            TourReservation tourReservation = new TourReservation(userId, tour.TourId, tour.StartingDateTime ,tour.Duration , numberOfGuests, 0);
             _repository.Save(tourReservation);
-            _tourService.ReduceMaxGuestNumber(tourId, numberOfGuests);
+            _tourService.ReduceMaxGuestNumber(tour.TourId, numberOfGuests);
         }
 
         public List<Tour> GetAllReservedAndNotFinishedTour(int userId)

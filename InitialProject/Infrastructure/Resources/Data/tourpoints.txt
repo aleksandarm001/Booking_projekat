@@ -1,2 +1,4 @@
 1|kt1|1|NotActive|tkt1|1
 2|kt2|1|NotActive|tkt2|2
+3|kt1|2|NotActive|kt1|1
+4|kt2|2|NotActive|kt2|2

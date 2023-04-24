@@ -9,7 +9,7 @@ namespace InitialProject.Services.IServices
         List<TourReservation> GetAllReservations();
         List<Tour> GetAllReservedAndNotFinishedTour(int userId);
         List<TourReservation> GetReservationsByUserId(int userId);
-        void MakeReservationWithoutVoucher(int userId, int tourId, DateTime startingDateTime, int numberOfGuests);
-        void MakeReservationWithVoucher(int userId, int tourId, DateTime startingDateTime, int numberOfGuests, Voucher voucher);
+        void MakeReservationWithoutVoucher(int userId,Tour tour, int numberOfGuests);
+        void MakeReservationWithVoucher(int userId,Tour tour, int numberOfGuests, Voucher voucher);
     }
 }
