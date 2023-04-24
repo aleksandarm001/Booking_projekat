@@ -14,7 +14,8 @@ namespace InitialProject.Services.IServices
         void Delete(Forum forum);
         void Update(Forum forum);
         List<Forum> GetForumsByCreatorId(int userId);
+        List<Forum> GetActiveForumsByCreatorId(int userId);
         Forum GetForumById(int forumId);
-
+        Dictionary<int, string> GetForumsByUserKeyValue(int userId);
     }
 }

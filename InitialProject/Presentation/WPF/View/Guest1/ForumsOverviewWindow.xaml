@@ -34,7 +34,7 @@
             <GridSplitter Margin="0, 10,0,0" Grid.Row="1" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="Gray"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Command="{Binding CreateForumCommand}" Content="Create Forum (F9)" Margin="0,15,120,15" FontSize="16" Width="150" Height="35"/>
-                <Button Content="Close Forum (F10)" Margin="120,15,0,15" FontSize="16" Width="150" Height="35"/>
+                <Button Command="{Binding CloseForumCommand}" Content="Close Forum (F10)" Margin="120,15,0,15" FontSize="16" Width="150" Height="35"/>
             </StackPanel>
             <GridSplitter Margin="0,0,0,0" Grid.Row="1" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="Gray"/>
             <TabControl Height="420" Width="800" Margin="0,10,0,0">
