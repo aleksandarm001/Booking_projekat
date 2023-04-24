@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 {
@@ -17,6 +18,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private void OpenCreateForumForm(object parameter)
         {
             CreatingForumForm creatingForumForm = new CreatingForumForm();
+            creatingForumForm.Owner = App.Current.MainWindow;
+            creatingForumForm.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             creatingForumForm.ShowDialog();
         }
     }
