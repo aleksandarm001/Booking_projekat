@@ -5,12 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View.Guest1"
         mc:Ignorable="d"
-        Title="Guest1Window" Height="300" Width="500"
+        Title="Guest1Window" Height="330" Width="500"
         WindowStartupLocation ="CenterScreen">
     <Grid>
-        <Button Content="Accommodation Display" HorizontalAlignment="Center" Margin="0,61,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="AccommodationDisplay_Click"/>
-        <Button Content="Owner Rating" HorizontalAlignment="Center" Margin="0,188,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="OwnerRating_Click"/>
-        <Button Content="Requests Overview" HorizontalAlignment="Center" Margin="0,124,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="RequestsOverview_Click"/>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" Content="Accommodation Display" HorizontalAlignment="Center" Margin="0,36,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="AccommodationDisplay_Click"/>
+        <Button Grid.Column="0" Content="Owner Rating" HorizontalAlignment="Center" Margin="0,163,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="OwnerRating_Click"/>
+        <Button Grid.Column="0" Content="Requests Overview" HorizontalAlignment="Center" Margin="0,99,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="RequestsOverview_Click"/>
+        <Button Grid.Column="1" Content="Reviews Overview" HorizontalAlignment="Center" Margin="0,36,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="ReviewOverview_Click"/>
+        <Button Grid.Column="1" Content="RenovationRecommendation" FontSize="10" HorizontalAlignment="Center" Margin="0,99,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="RenovationRecommendation_Click"/>
+        <Button Grid.Column="1" Content="AnywhereAnytime" FontSize="10" HorizontalAlignment="Center" Margin="0,164,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="AnywhereAnytime_Click"/>
+        <Button Content="Forums" HorizontalAlignment="Center" Margin="0,225,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="OpenForums_Click"/>
     </Grid>
 </Window>

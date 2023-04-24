@@ -1,4 +1,4 @@
-﻿using InitialProject.View;
+using InitialProject.View;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -7,6 +7,10 @@ using System.Collections.ObjectModel;
 using InitialProject.View.Guest1;
 using InitialProject.Repository;
 using InitialProject.Domen.Model;
+using InitialProject.Services;
+using InitialProject.Aplication.Factory;
+using InitialProject.Services.IServices;
+using InitialProject.Presentation.WPF.View.Owner;
 
 namespace InitialProject
 {
@@ -22,6 +26,7 @@ namespace InitialProject
         public event PropertyChangedEventHandler? PropertyChanged;
         public static ObservableCollection<Location> Locations { get; set; }
         private readonly AccommodationRepository _accommodationRepository;
+        private readonly IUserService _userService;
 
 
 
@@ -30,6 +35,7 @@ namespace InitialProject
             InitializeComponent();
             DataContext = this;
             _userRepository = new UserRepository();
+            _userService = Injector.CreateInstance<IUserService>();
             _accommodationRepository = new AccommodationRepository();
             Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
 
@@ -44,7 +50,8 @@ namespace InitialProject
                 {
                     match = true;
                     //StartWindow startWindow = new StartWindow(user.Id); 
-                   // this.Close();
+                    // this.Close();
+                    _userService.UpdateUserId(user.Id);
                     ChooseWindow(user);
                     break;
                 }
@@ -73,6 +80,12 @@ namespace InitialProject
                     window.Show();
                     this.Close();
                     break;
+                /*case(UserType.Owner):
+                    OwnerStartWindow start = new OwnerStartWindow(user.Id);
+                    start.Show();
+                    this.Close();
+                    break;
+             */
                 default:
                     StartWindow startWindow = new StartWindow(user.Id);
                     startWindow.Show();

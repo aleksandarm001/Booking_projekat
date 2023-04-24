@@ -1,6 +1,7 @@
 ﻿using InitialProject.Aplication.Factory;
-using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.View.Guest1;
+using InitialProject.Presentation.WPF.ViewModel.Guest1;
 using InitialProject.Services;
 using InitialProject.Services.IServices;
 using System.Collections.ObjectModel;
@@ -19,16 +20,19 @@ namespace InitialProject.View.Guest1
         private readonly IReservationCompletionService _reservationCompletionService;
         private readonly IReservationService _reservationService;
         private readonly IUserReservationCounterService _userReservationCounterService;
+        private readonly IUserService _userService;
 
         public Guest1Window(int userId, ObservableCollection<Location> locations)
         {
             InitializeComponent();
-            _reservationCompletionService = new ReservationCompletionService();
+            _reservationCompletionService = Injector.CreateInstance<IReservationCompletionService>();
             _userReservationCounterService = Injector.CreateInstance<IUserReservationCounterService>();
-            _reservationService = new ReservationService();
+            _userService = Injector.CreateInstance<IUserService>();
+            _reservationService = Injector.CreateInstance<IReservationService>();
+            _ownerToRateService = Injector.CreateInstance<IOwnerToRateService>();
             _userId = userId;
             Locations = locations;
-            _ownerToRateService = new OwnerToRateService();
+            _reservationService.HandleCheckingIn();
             InitializeReservationCounter();
             HandleReservationCompletion();
             UpdateOwnerToRate();
@@ -62,6 +66,36 @@ namespace InitialProject.View.Guest1
         private void UpdateOwnerToRate()
         {
             _ownerToRateService.DeleteIfFiveDaysPassed();
+        }
+
+        private void ReviewOverview_Click(object sender, RoutedEventArgs e)
+        {
+            ReviewsOverview reviewsOverview = new ReviewsOverview(_userId);
+            reviewsOverview.ShowDialog();
+        }
+
+        private void RenovationRecommendation_Click(object sender, RoutedEventArgs e)
+        {
+            RenovationRecommendationForm renovationRecommendation = new RenovationRecommendationForm(1);
+            renovationRecommendation.Owner = App.Current.MainWindow;
+            renovationRecommendation.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            renovationRecommendation.ShowDialog();
+        }
+
+        private void AnywhereAnytime_Click(object sender, RoutedEventArgs e)
+        {
+            AnywhereAnytimeWindow anywhereAnytimeWindow = new AnywhereAnytimeWindow();
+            anywhereAnytimeWindow.Owner = App.Current.MainWindow;
+            anywhereAnytimeWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            anywhereAnytimeWindow.ShowDialog();
+        }
+
+        private void OpenForums_Click(object sender, RoutedEventArgs e)
+        {
+            ForumsOverviewWindow forumsOverviewWindow = new ForumsOverviewWindow();
+            forumsOverviewWindow.Owner = App.Current.MainWindow;
+            forumsOverviewWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            forumsOverviewWindow.ShowDialog();
         }
     }
 }

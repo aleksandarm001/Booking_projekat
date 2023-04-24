@@ -82,6 +82,10 @@ namespace InitialProject.CustomClasses
         {
             return StartDate.ToString() + "," + EndDate.ToString();
         }
+        public string ToStringForPrint()
+        {
+            return SStartDate + " - " + SEndDate;
+        }
         public DateRange fromStringToDateRange(string value)
         {
             string[] result = value.Split(",");

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using InitialProject.Aplication.Contracts.Repository;
 using InitialProject.Infrastructure.Repository;
+using InitialProject.Application.Contracts.Repository;
 
 namespace InitialProject.Aplication.Factory
 {
@@ -39,6 +40,23 @@ namespace InitialProject.Aplication.Factory
             { typeof(IUserReservationCounterService), new Lazy<object>(() => new UserReservationCounterService()) },
             { typeof(ILanguageRepository), new Lazy<object>(() => new LanguageRepository()) },
             { typeof(ILanguageService), new Lazy<object>(() => new LanguageService()) },
+            { typeof(IOwnerRateService), new Lazy<object>(() => new OwnerRateService()) },
+            { typeof(INotificationService), new Lazy<object>(() => new NotificationService()) },
+            { typeof(IChangeReservationRequestService), new Lazy<object>(() => new ChangeReservationRequestService()) },
+            { typeof(IRenovationRecommendationService), new Lazy<object>(() => new RenovationRecommendationService()) },
+            { typeof(IReservationCompletionService), new Lazy<object>(() => new ReservationCompletionService()) },
+            { typeof(IAccommodationReservationRepository), new Lazy<object>(() => new AccommodationReservationRepository()) },
+            { typeof(IAccommodationRepository), new Lazy<object>(() => new AccommodationRepository()) },
+            { typeof(INotificationRepository), new Lazy<object>(() => new NotificationRespository()) },
+            { typeof(IOwnerRateRepository), new Lazy<object>(() => new OwnerRateRepository()) },
+            { typeof(IOwnerToRateRepository), new Lazy<object>(() => new OwnerToRateRepository()) },
+            { typeof(IRenovationRecommendationRepository), new Lazy<object>(() => new RenovationRecommendationRepository()) },
+            { typeof(IUserReservationCounterRepository), new Lazy<object>(() => new UserReservationCounterRepository()) },
+            { typeof(IForumRepository), new Lazy<object>(() => new ForumRepository()) },
+            { typeof(IForumCommentRepository), new Lazy<object>(() => new ForumCommentRepository()) },
+            { typeof(IForumService), new Lazy<object>(() => new ForumService()) },
+            { typeof(IForumCommentService), new Lazy<object>(() => new ForumCommentService()) },
+            { typeof(ICommentRepository), new Lazy<object>(() => new CommentRepository()) }
         };
 
         public static T CreateInstance<T>()

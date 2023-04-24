@@ -7,9 +7,7 @@
     {
         public List<Location> getAll();
         public Location Save(Location locations);
-
         public void Delete(Location location);
-
         public Location GetById(int id);
     }
 }

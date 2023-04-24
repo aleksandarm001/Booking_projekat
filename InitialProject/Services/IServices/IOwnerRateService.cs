@@ -9,8 +9,10 @@ namespace InitialProject.Services.IServices
 {
     public interface IOwnerRateService
     {
+        List<OwnerRate> GetAll();
         void SaveRate(OwnerRate ownerRate);
         List<OwnerRate> RatingsFromRatedGuest(int ownerId);
         bool IsSuperOwner(int ownerId);
+        List<OwnerRate> GetRatesByUserId(int userId);
     }
 }

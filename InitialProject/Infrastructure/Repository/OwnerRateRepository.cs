@@ -31,7 +31,7 @@ namespace InitialProject.Repository
         public List<OwnerRate> GetAllRatesByOwner(int ownerId)
         {
             _ownerRates = GetAll();
-            return _ownerRates.Where(r => r.ownerId == ownerId).ToList();
+            return _ownerRates.Where(r => r.OwnerId == ownerId).ToList();
         }
         public int NextId()
         {

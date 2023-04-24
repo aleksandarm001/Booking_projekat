@@ -1,5 +1,4 @@
-﻿using InitialProject.CustomClasses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace InitialProject.Domen.Model

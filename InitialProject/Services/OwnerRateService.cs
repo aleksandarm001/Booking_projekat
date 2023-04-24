@@ -1,4 +1,5 @@
 ﻿using InitialProject.Aplication.Contracts.Repository;
+using InitialProject.Aplication.Factory;
 using InitialProject.Domen.Model;
 using InitialProject.Repository;
 using InitialProject.Services.IServices;
@@ -15,8 +16,12 @@ namespace InitialProject.Services
 
         public OwnerRateService()
         {
-            _ownerRateRepository = new OwnerRateRepository();
+            _ownerRateRepository = Injector.CreateInstance<IOwnerRateRepository>();
             guestReviewRepository = new GuestReviewRepository();
+        }
+        public List<OwnerRate> GetAll()
+        {
+            return _ownerRateRepository.GetAll();
         }
         public void SaveRate(OwnerRate ownerRate)
         {
@@ -31,7 +36,7 @@ namespace InitialProject.Services
             {
                 foreach(GuestReview guestReview in guestReviewRepository.GetAll())
                 {
-                    if(ownerRate.userId == guestReview.GuestId && ownerRate.AccommodationId == guestReview.AccommodationId)
+                    if(ownerRate.UserId == guestReview.GuestId && ownerRate.AccommodationId == guestReview.AccommodationId)
                     {
                         RatingsFromRatedGuest.Add(ownerRate);
                         break;
@@ -61,6 +66,11 @@ namespace InitialProject.Services
                 }
             }
             return false;
+        }
+
+        public List<OwnerRate> GetRatesByUserId(int userId)
+        {
+            return GetAll().Where(rate => rate.UserId == userId).ToList();
         }
     }
 }

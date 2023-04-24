@@ -317,8 +317,17 @@ namespace InitialProject.View
             foreach (AccommodationReservation accommodationReservation in AccommodationReservations)
             {
                 Accommodation accommodation = Accommodations.ToList().Find(a => a.AccommodationID == accommodationReservation.AccommodationId);
-                accommodation.Reservations.Add(Reservations.ToList().Find(r => r.ReservationId == accommodationReservation.ReservationId));
+                Reservation reservation = FindReservation(accommodationReservation);
+                if (reservation != null)
+                {
+                    accommodation.Reservations.Add(reservation);
+                }
             }
+        }
+        private Reservation FindReservation(AccommodationReservation accommodationReservation)
+        {
+            Reservation founded = Reservations.ToList().Find(r => r.ReservationId == accommodationReservation.ReservationId && r.Status != ReservationStatus.Finished);
+            return founded;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

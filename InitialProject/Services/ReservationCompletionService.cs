@@ -1,6 +1,7 @@
 ﻿using InitialProject.Aplication.Contracts.Repository;
 using InitialProject.Aplication.Factory;
 using InitialProject.CustomClasses;
+using InitialProject.Domen.Model;
 using InitialProject.Repository;
 using InitialProject.Services.IServices;
 using System;
@@ -28,7 +29,7 @@ namespace InitialProject.Services
         }
         public void HandleReservationCompletion(int userId, int reservationId)
         {
-            Reservation reservation = _reservationService.GetReservationById(reservationId);
+            Reservation reservation = _reservationService.GetActiveReservation(reservationId);
             if (reservation == null)
             {
                 return;
@@ -41,14 +42,13 @@ namespace InitialProject.Services
                 int ownerId = _accommodationService.GetOwnerIdByAccommodationId(accommodationId);
                 OwnerToRate ownerToRate = new OwnerToRate(ownerId, accommodationId, reservation.UserId, reservation.ReservationDateRange.EndDate);
                 _ownerToRateService.Save(ownerToRate);
-                _reservationService.Delete(reservationId); //ODRADI LOGICKO BRISANJE
-                _accommodationService.DeleteReservation(reservationId);
+                _reservationService.DeleteLogical(reservationId); //ODRADI LOGICKO BRISANJE
                 _userReservationCounterService.UpdateReservationCounter(userId);
                 _userService.UsePoints(userId);
 
                 // Add user to UserToReview
-                //UserToReview userToReview = new UserToReview(reservation.UserId, accommodationId, reservation.ReservationDateRange.EndDate);
-                //_userToReviewRepository.Save(userToReview);
+                // UserToReview userToReview = new UserToReview(reservation.UserId, accommodationId, reservation.ReservationDateRange.EndDate);
+                // _userToReviewRepository.Save(userToReview);
             }
         }
         public bool CheckIfLeftReservation(Reservation reservation)

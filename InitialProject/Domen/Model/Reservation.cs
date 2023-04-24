@@ -1,30 +1,32 @@
 ﻿using System;
+using InitialProject.CustomClasses;
 using InitialProject.Domen;
 
-namespace InitialProject.CustomClasses
+namespace InitialProject.Domen.Model
 {
+    public enum ReservationStatus { Reserved, CheckedIn, Finished}
     public class Reservation : ISerializable
     {
         public int ReservationId { get; set; }
         public int UserId { get; set; }
-        public float AvgRating { get; set; }
         public DateRange ReservationDateRange { get; set; }
         public int NumberOfGuests { get; set; }
+        public ReservationStatus Status { get; set; }
 
-        public Reservation() 
+        public Reservation()
         {
             UserId = -1;
-            AvgRating = 0;
             ReservationDateRange = new DateRange();
             NumberOfGuests = 0;
+            Status = ReservationStatus.Reserved;
         }
 
-        public Reservation(int userId,  DateTime startDate, int numberOfVisitors)
+        public Reservation(int userId, DateTime startDate, int numberOfVisitors)
         {
             UserId = userId;
-            ReservationDateRange = new DateRange(startDate, numberOfVisitors);  
+            ReservationDateRange = new DateRange(startDate, numberOfVisitors);
             NumberOfGuests = numberOfVisitors;
-            AvgRating = 0;
+            Status = ReservationStatus.Reserved;
         }
 
         public Reservation(DateRange dateRange, int guestNumber, int userId)
@@ -32,7 +34,7 @@ namespace InitialProject.CustomClasses
             UserId = userId;
             ReservationDateRange = dateRange;
             NumberOfGuests = guestNumber;
-            
+            Status = ReservationStatus.Reserved;
         }
         public string[] ToCSV()
         {
@@ -41,9 +43,9 @@ namespace InitialProject.CustomClasses
                 ReservationDateRange.ToString(),
                 NumberOfGuests.ToString(),
                 UserId.ToString(),
-                AvgRating.ToString(),
+                Status.ToString(),
             };
-                
+
             return csvValues;
         }
 
@@ -53,7 +55,7 @@ namespace InitialProject.CustomClasses
             ReservationDateRange = ReservationDateRange.fromStringToDateRange(values[1]);
             NumberOfGuests = Convert.ToInt32(values[2]);
             UserId = Convert.ToInt32(values[3]);
-            AvgRating = float.Parse(values[4]);
+            Status = (ReservationStatus)Enum.Parse(typeof(ReservationStatus), values[4]);
         }
 
     }
