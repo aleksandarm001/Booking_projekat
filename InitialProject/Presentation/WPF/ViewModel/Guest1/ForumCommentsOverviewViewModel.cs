@@ -19,6 +19,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private bool _canLeaveComment;
         private string _topic;
         private string _location;
+        private string _newComment;
         private ObservableCollection<CommentDTO> _comments;
         public event PropertyChangedEventHandler? PropertyChanged;
         private readonly IForumCommentService _forumCommentService;
@@ -76,7 +77,18 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 }
             }
         }
-        public string NewComment { get; set; }
+        public string NewComment
+        {
+            get => _newComment;
+            set
+            {
+                if (_newComment != value)
+                {
+                    _newComment = value;
+                    OnPropertyChanged(nameof(NewComment));
+                }
+            }
+        }
         public ForumCommentsOverviewViewModel()
         {
             _forumService = Injector.CreateInstance<IForumService>();
@@ -90,6 +102,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             InitializeForumComments();
             InitializeTopic();
             InitializeLocation();
+            InitializeCanLeaveComment();
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -103,7 +116,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             {
                 Comment com = _commentService.GetByCommentId(commentId);
                 User user = _userService.GetById(com.UserId);
-                bool highlight = CheckForHighlight();
+                bool highlight = CheckForHighlight(user);
                 CommentDTO commentDTO = new CommentDTO(user.Username, com.Text, com.CreationTime, highlight);
                 Comments.Add(commentDTO);
             }
@@ -120,16 +133,25 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         private void SubmitComment(object parameter)
         {
-            Comment newComment = new Comment(DateTime.Now, NewComment, _userService.GetUserId());
-            newComment = _commentService.Save(newComment);
-            ForumComment forumComment = new ForumComment(_forumIdService.ForumId, newComment.CommentId);
-            _forumCommentService.Save(forumComment);
-            InitializeForumComments();
+            if (!string.IsNullOrEmpty(NewComment))
+            {
+                Comment newComment = new Comment(DateTime.Now, NewComment, _userService.GetUserId());
+                newComment = _commentService.Save(newComment);
+                ForumComment forumComment = new ForumComment(_forumIdService.ForumId, newComment.CommentId);
+                _forumCommentService.Save(forumComment);
+                NewComment = "";
+                InitializeForumComments();
+            }
         }
-        private bool CheckForHighlight()
+        private bool CheckForHighlight(User user)
         {
             Location location = _forumService.GetLocation(_forumIdService.ForumId);
-            return _accommodationReservationService.WasOnLocation(_userService.GetUserId(), location);
+            return _accommodationReservationService.WasOnLocation(user.Id, location);
+        }
+        private void InitializeCanLeaveComment()
+        {
+            Forum forum = _forumService.GetForumById(_forumIdService.ForumId);
+            CanLeaveComment = forum.Status == ForumStatus.Open;
         }
     }
 }

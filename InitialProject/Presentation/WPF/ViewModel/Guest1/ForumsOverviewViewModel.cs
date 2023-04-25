@@ -25,6 +25,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private readonly IForumCommentService _forumCommentService;
         private readonly IUserService _userService;
         private readonly IForumIdService _forumIdService;
+        private readonly IForumUtilityService _forumUtilityService;
+
         public RelayCommand CreateForumCommand { get; set; }
         public RelayCommand CloseForumCommand { get; set; }
         public RelayCommand OpenForumCommand { get; set; }
@@ -75,6 +77,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             _forumCommentService = Injector.CreateInstance<IForumCommentService>();
             _userService = Injector.CreateInstance<IUserService>();
             _forumIdService = Injector.CreateInstance<IForumIdService>();
+            _forumUtilityService = Injector.CreateInstance<IForumUtilityService>();
             CreateForumCommand = new RelayCommand(OpenCreateForumForm);
             CloseForumCommand = new RelayCommand(CloseForum);
             OpenForumCommand = new RelayCommand(OpenForum);
@@ -120,22 +123,14 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             }
             OnPropertyChanged("Forums");
         }
-        private string CheckUseful(Forum myForum)
+        private string CheckUseful(Forum forum)
         {
-            if (myForum.VeryUseful)
-            {
-                return "Yes";
-            }
-            else
-            {
-                return "No";
-            }
+            return _forumUtilityService.CheckUseful(forum);
         }
         private void CloseForum(object parameter)
         {
             CloseForumWindow closeForumWindow = new CloseForumWindow();
-            closeForumWindow.Owner = App.Current.Windows.OfType<ForumsOverviewWindow>().FirstOrDefault();
-            closeForumWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            SetWindowsProperties(closeForumWindow);
             closeForumWindow.ShowDialog();
             InitializeAllForums();
             InitializeMyForums();
@@ -148,12 +143,16 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 
             }
             ForumCommentsOverview forumCommentsOverview = new ForumCommentsOverview();
-            forumCommentsOverview.Owner = App.Current.Windows.OfType<ForumsOverviewWindow>().FirstOrDefault();
-            forumCommentsOverview.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            SetWindowsProperties(forumCommentsOverview);
             forumCommentsOverview.ShowDialog();
             InitializeAllForums();
             InitializeMyForums();
 
+        }
+        private void SetWindowsProperties(Window window)
+        {
+            window.Owner = App.Current.Windows.OfType<ForumsOverviewWindow>().FirstOrDefault();
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
         }
     }
 }

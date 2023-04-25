@@ -78,11 +78,16 @@ namespace InitialProject.Services
             foreach(Reservation reservation in userReservations)
             {
                 Accommodation accommodation = _accommodationService.GetAccommodationByReservationId(reservation.ReservationId);
-                if(accommodation.Location.City == location.City && accommodation.Location.Country == location.Country){
+                if(IsMatchingLocation(accommodation,location))
+                {
                     return true;
                 }
             }
             return false;
+        }
+        private bool IsMatchingLocation(Accommodation accommodation, Location location)
+        {
+            return accommodation.Location.City == location.City && accommodation.Location.Country == location.Country;
         }
         public List<DateRange> GetAvailableDays(int accommodationId, int reservationDays, DateTime startDate, DateTime endDate)
         {  

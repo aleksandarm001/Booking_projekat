@@ -23,5 +23,6 @@ namespace InitialProject.Services.IServices
         List<Accommodation> GetAccommodationsByGuestsAndDaysReserved(int guestNumber, int reservationDays);
         List<int> GetReservationIdsByAccommodationId(int accommodationId);
         void Save(AccommodationReservation accommodationReservation);
+        bool HasAccommodationOnLocation(int userId, Location location);
     }
 }
