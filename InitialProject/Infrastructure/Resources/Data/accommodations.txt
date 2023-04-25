@@ -19,3 +19,8 @@
 19|9|88 rooms|Japan;Tokyo|Apartment|5|2|3
 20|9|Japanski dormeo|Japan;Tokyo|Shack|5|2|3
 21|3|Hotel Srbija|Serbia;Novi Sad|House|5|4|3
+22|3|Novi smestaj|Russia;Mumbai|House|3|4|5
+23|9|RadiMolimTe|China;Karachi|Shack|3|3|1
+24|9|Hajdeee|Brazil;São Paulo|House|3|3|3
+25|9|Djubrad|Srbija;Cairo|Shack|3|2|1
+26|3|Droga|Brazil;Mumbai|Apartment|5|5|15
