@@ -14,6 +14,7 @@ namespace InitialProject.Domen.CustomClasses
         public string SPostedDate { get; set; }
         public DateTime PostedDate { get; set; }
         public bool IsHighlighted { get; set; }
+        public bool IsntHighlighted { get; set; }
         public CommentDTO(string userName, string comment, DateTime postedDate, bool highlighted)
         {
             Username = userName;
@@ -21,6 +22,7 @@ namespace InitialProject.Domen.CustomClasses
             PostedDate = postedDate;
             SPostedDate = string.Format("{0:dd.MM.yyyy.}", postedDate);
             IsHighlighted = highlighted;
+            IsntHighlighted = !highlighted;
         }
     }
 }

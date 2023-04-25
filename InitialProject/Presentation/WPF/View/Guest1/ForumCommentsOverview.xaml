@@ -4,10 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:guest1="clr-namespace:InitialProject.Presentation.WPF.ViewModel.Guest1"
+        xmlns:Converters="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
+        xmlns:LocalConverters="clr-namespace:InitialProject.Domen.CustomClasses"
         d:DataContext="{d:DesignInstance Type=guest1:ForumCommentsOverviewViewModel}"
         xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest1" 
         mc:Ignorable="d"
         Title="ForumCommentsOverview" Height="910" Width="1000">
+    <Window.Resources>
+        <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <LocalConverters:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -31,13 +38,15 @@
             <Rectangle Height="110" Fill="LightGray" VerticalAlignment="Top"/>
         </Border>
         <StackPanel Grid.Row="2">
-            <StackPanel Orientation="Horizontal" Margin="20,0,20,0">
-                <TextBlock Text="Topic: " FontSize="20" Margin="0,10,0,0"/>
-                <TextBlock Text="{Binding Topic}" FontSize="20" FontWeight="DemiBold" Margin="0,10,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="40,0,20,0">
+                <Image Source="/Infrastructure/Resources/Images/chat.png" Width="30" Height="30" Margin="0,10,0,0"/>
+                <TextBlock Text="  " FontSize="20" Margin="0,10,0,0"/>
+                <TextBlock Text="{Binding Topic}" FontSize="20" FontWeight="SemiBold" Margin="0,10,0,0"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="20,0,20,0">
-                <TextBlock Text="Location: " FontSize="20" Margin="0,10,0,0"/>
-                <TextBlock Text="{Binding Location}" FontSize="20" FontWeight="DemiBold" Margin="0,10,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="40,0,20,0">
+                <Image Source="/Infrastructure/Resources/Images/pin3.png" Width="30" Height="30" Margin="0,10,0,0"/>
+                <TextBlock Text="  " FontSize="20" Margin="0,10,0,0"/>
+                <TextBlock Text="{Binding Location}" FontSize="20" FontWeight="SemiBold" Margin="0,10,0,0"/>
             </StackPanel>
             <Border Grid.Row="1" BorderBrush="LightGray" BorderThickness="0,1,0,0" Margin="0,15,0,0"/>
             <ListBox ItemsSource="{Binding Comments}" Height="450" Width="990"
@@ -46,7 +55,7 @@
                     <Style TargetType="ListBoxItem">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsHighlighted}" Value="True">
-                                <Setter Property="Background" Value="#fcf99c"/>
+                                <Setter Property="Background" Value="#90ee90"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -58,16 +67,22 @@
                                 <TextBlock Text="User: " FontSize="14"/>
                                 <TextBlock Text="{Binding Username}" FontWeight="DemiBold" FontSize="14"/>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
                                 <TextBlock Text="Posted on: " FontSize="14"/>
                                 <TextBlock Text="{Binding SPostedDate}" FontWeight="DemiBold" FontSize="14"/>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                <TextBlock Text="Been here: " FontSize="14"/>
+                                <TextBlock Text="Yes" FontWeight="DemiBold" FontSize="14"
+                                    Visibility="{Binding IsHighlighted, Converter={StaticResource BooleanToVisibilityConverter}}" /> 
+                                <TextBlock Text="No" FontWeight="DemiBold" FontSize="14"
+                                    Visibility="{Binding IsntHighlighted , Converter={StaticResource BooleanToVisibilityConverter}}" /> 
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
                                 <TextBlock Text="Comment: " FontSize="14"/>
                                 <TextBlock Text="{Binding Comment}" 
                                        FontSize="14" TextWrapping="Wrap" MaxWidth="800" Width="750"/>
                             </StackPanel>
-
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
