@@ -16,18 +16,22 @@ namespace InitialProject.Services
         {
             _repository = Injector.CreateInstance<IReservationRepository>();
         }
-        public List<Reservation> GetReservationsByUserId(int userId)
+        public List<Reservation> GetActiveReservationsByUser(int userId)
         {
             return _repository.GetAll().Where(r => r.UserId == userId && r.Status != ReservationStatus.Finished).ToList();
         }
+        public List<Reservation> GetAllReservationsByUser(int userId)
+        {
+            return _repository.GetAll().Where(r => r.UserId == userId).ToList();
+        }
         public DateTime GetCheckInDate(int userId, int reservationId)
         {
-            List<Reservation> reservations = GetReservationsByUserId(userId);
+            List<Reservation> reservations = GetActiveReservationsByUser(userId);
             return reservations.Find(r => r.ReservationId == reservationId).ReservationDateRange.StartDate;
         }
         public DateTime GetCheckOutDate(int userId, int reservationId)
         {
-            List<Reservation> reservations = GetReservationsByUserId(userId);
+            List<Reservation> reservations = GetActiveReservationsByUser(userId);
             return reservations.Find(r => r.ReservationId == reservationId).ReservationDateRange.EndDate;
         }
         public Reservation GetActiveReservation(int reservationId)

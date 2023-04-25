@@ -55,7 +55,7 @@ namespace InitialProject.View.Guest1
         }
         private void HandleReservationCompletion()
         {
-            foreach(Reservation reservation in _reservationService.GetReservationsByUserId(_userId))
+            foreach(Reservation reservation in _reservationService.GetActiveReservationsByUser(_userId))
             {
                 _reservationCompletionService.HandleReservationCompletion(_userId, reservation.ReservationId);
             }

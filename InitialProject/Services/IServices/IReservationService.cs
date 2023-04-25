@@ -13,7 +13,8 @@ namespace InitialProject.Services.IServices
         DateTime GetCheckInDate(int userId, int reservationId);
         DateTime GetCheckOutDate(int userId, int reservationId);
         Reservation GetActiveReservation(int reservationId);
-        List<Reservation> GetReservationsByUserId(int userId);
+        List<Reservation> GetActiveReservationsByUser(int userId);
+        List<Reservation> GetAllReservationsByUser(int userid);
         void HandleCheckingIn();
     }
 }

@@ -26,6 +26,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private readonly IForumService _forumService;
         private readonly IUserService _userService;
         private readonly ICommentService _commentService;
+        private readonly IAccommodationReservationService _accommodationReservationService;
         public RelayCommand SubmitCommentCommand { get; set; }
         public ObservableCollection<CommentDTO> Comments
         {
@@ -83,6 +84,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             _userService = Injector.CreateInstance<IUserService>();
             _commentService = Injector.CreateInstance<ICommentService>();
             _forumIdService = Injector.CreateInstance<IForumIdService>();
+            _accommodationReservationService = Injector.CreateInstance<IAccommodationReservationService>();
             Comments = new ObservableCollection<CommentDTO>();
             SubmitCommentCommand = new RelayCommand(SubmitComment);
             InitializeForumComments();
@@ -101,7 +103,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             {
                 Comment com = _commentService.GetByCommentId(commentId);
                 User user = _userService.GetById(com.UserId);
-                CommentDTO commentDTO = new CommentDTO(user.Username, com.Text, com.CreationTime);
+                bool highlight = CheckForHighlight();
+                CommentDTO commentDTO = new CommentDTO(user.Username, com.Text, com.CreationTime, highlight);
                 Comments.Add(commentDTO);
             }
             Comments = new ObservableCollection<CommentDTO>(Comments.OrderByDescending(c => c.PostedDate).ToList());
@@ -122,6 +125,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             ForumComment forumComment = new ForumComment(_forumIdService.ForumId, newComment.CommentId);
             _forumCommentService.Save(forumComment);
             InitializeForumComments();
+        }
+        private bool CheckForHighlight()
+        {
+            Location location = _forumService.GetLocation(_forumIdService.ForumId);
+            return _accommodationReservationService.WasOnLocation(_userService.GetUserId(), location);
         }
     }
 }
