@@ -1,5 +1,1 @@
 1|1|nesto vise o ovoj lokaciji|Lagos;Nigeria|4/24/2023 4:06:36 PM|Closed|False
-2|2|nesto vise o ovoj lokaciji|Berlin;Germany|4/24/2023 4:06:36 PM|Open|False
-3|2|nesto vise o ovoj lokaciji|Novi Sad;Serbia|4/24/2023 4:06:36 PM|Open|False
-4|1|Sta ima da se pojede dobro u bgu|Belgrade;Serbia|4/24/2023 8:02:07 PM|Closed|False
-5|1|asdasdasd|Beijing;China|4/24/2023 8:04:37 PM|Open|False

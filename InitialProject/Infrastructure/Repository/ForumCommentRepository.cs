@@ -28,6 +28,7 @@ namespace InitialProject.Infrastructure.Repository
 
         public ForumComment Save(ForumComment forumComment)
         {
+            _forumComments = GetAll();
             _forumComments.Add(forumComment);
             _serializer.ToCSV(FilePath, _forumComments);
             return forumComment;

@@ -17,5 +17,7 @@ namespace InitialProject.Services.IServices
         List<Forum> GetActiveForumsByCreatorId(int userId);
         Forum GetForumById(int forumId);
         Dictionary<int, string> GetForumsByUserKeyValue(int userId);
+        string GetTopic(int forumId);
+        Location GetLocation(int forumId);
     }
 }

@@ -57,6 +57,12 @@ namespace InitialProject.Services
             return result;
         }
 
+        public string GetTopic(int forumId)
+        {
+            Forum forum = GetForumById(forumId);
+            return forum.ForumTopic;
+        }
+
         public Forum Save(Forum forum)
         {
             return _forumRepository.Save(forum);
@@ -65,6 +71,11 @@ namespace InitialProject.Services
         public void Update(Forum forum)
         {
             _forumRepository.Update(forum);
+        }
+        public Location GetLocation(int forumId)
+        {
+            Forum forum = GetForumById(forumId);
+            return forum.Location;
         }
     }
 }

@@ -75,12 +75,12 @@ namespace InitialProject.View.Guest1
             reviewsOverview.ShowDialog();
         }
 
-        private void RenovationRecommendation_Click(object sender, RoutedEventArgs e)
+        private void ForumComments_Click(object sender, RoutedEventArgs e)
         {
-            RenovationRecommendationForm renovationRecommendation = new RenovationRecommendationForm(1);
-            renovationRecommendation.Owner = App.Current.Windows.OfType<Guest1Window>().FirstOrDefault();
-            renovationRecommendation.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            renovationRecommendation.ShowDialog();
+            ForumCommentsOverview commentsOverview = new ForumCommentsOverview();
+            commentsOverview.Owner = App.Current.Windows.OfType<Guest1Window>().FirstOrDefault();
+            commentsOverview.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            commentsOverview.ShowDialog();
         }
 
         private void AnywhereAnytime_Click(object sender, RoutedEventArgs e)

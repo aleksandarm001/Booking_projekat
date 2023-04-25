@@ -19,7 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace InitialProject.View.Guest1
+namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 {
     /// <summary>
     /// Interaction logic for CancelReservation.xaml

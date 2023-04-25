@@ -28,6 +28,19 @@ namespace InitialProject.Services
             return _forumCommentRepository.GetAll();
         }
 
+        public List<int> GetCommentsIdByForumId(int forumId)
+        {
+            List<ForumComment> forums = _forumCommentRepository.GetAll();
+            List<ForumComment> forumComments = new List<ForumComment>();
+            List<int> result = new List<int>();
+            forumComments = forums.Where(forum => forum.ForumId == forumId).ToList();
+            foreach(ForumComment forum in forumComments)
+            {
+                result.Add(forum.CommentId);
+            }
+            return result;
+        }
+
         public int GetCommentsNumberByForum(int forumId)
         {
             List<ForumComment> forums = _forumCommentRepository.GetAll();
