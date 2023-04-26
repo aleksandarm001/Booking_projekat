@@ -15,6 +15,7 @@ namespace InitialProject.Domen.Model
         public int UserId { get; set; }
         public string RenovationLevel { get; set; }
         public string Comment { get; set; }
+        public DateTime RecommendationDate { get; set; }
 
         public RenovationRecommendation()
         {
@@ -32,6 +33,7 @@ namespace InitialProject.Domen.Model
             UserId = userId;
             RenovationLevel = renovationLevel;
             Comment = comment;
+            RecommendationDate = DateTime.Now;
         }
 
         public string[] ToCSV()
@@ -42,7 +44,8 @@ namespace InitialProject.Domen.Model
                 AccommodationId.ToString(),
                 UserId.ToString(),
                 RenovationLevel,
-                Comment
+                Comment,
+                RecommendationDate.ToString(),
         };
             return csvValues;
         }
@@ -55,6 +58,7 @@ namespace InitialProject.Domen.Model
             UserId = Convert.ToInt32(values[3]);
             RenovationLevel = values[4];
             Comment = values[5];
+            RecommendationDate = Convert.ToDateTime(values[6]);
         }
     }
 }

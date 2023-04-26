@@ -168,7 +168,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         private void SetupReservationSystem()
         {
-            HandleCheckingIn();
             InitializeReservationCounter();
             HandleReservationCompletion();
             UpdateOwnerToRate();
@@ -176,6 +175,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             InitializeUsername();
             InitializeSuperGuest();
             InitializePoints();
+            //HandleCheckingIn();
         }
         private void OpenAccommodationDisplay(object parameter)
         {
