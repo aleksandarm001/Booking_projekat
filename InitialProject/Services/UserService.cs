@@ -60,5 +60,21 @@ namespace InitialProject.Services
         {
             _userId = newUserId;
         }
+
+        public string GetUsername()
+        {
+            User user = GetById(_userId);
+            return user.Username;
+        }
+        public bool GetSuperGuest()
+        {
+            User user = GetById(_userId);
+            return user.IsSuperGuest;
+        }
+        public int GetUserPoints()
+        {
+            var user = GetById(_userId);
+            return user.Points;
+        }
     }
 }

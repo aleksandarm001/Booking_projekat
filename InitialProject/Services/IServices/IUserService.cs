@@ -14,5 +14,8 @@ namespace InitialProject.Services.IServices
         User Save(User user);
         void Update(User user);
         void UsePoints(int userId);
+        string GetUsername();
+        bool GetSuperGuest();
+        int GetUserPoints();
     }
 }

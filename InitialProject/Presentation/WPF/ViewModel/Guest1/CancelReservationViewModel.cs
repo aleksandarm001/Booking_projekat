@@ -92,11 +92,10 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             if (_accommodationReservationService.IsCancellingPossible(DateTime.Now, SelectedReservationId))
             {
                 DeleteRequest();
-                DeleteReservation();
                 CreateNotification();
+                DeleteReservation();
                 MessageBox.Show("You successfully cancelled reservation!");
-                App.Current.MainWindow = App.Current.Windows.OfType<CancelReservation>().FirstOrDefault();
-                App.Current.MainWindow.Close();
+                CloseWindow();
             }
             else
             {
@@ -140,6 +139,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             catch (InvalidOperationException ex)
             {
             }
+        }
+        private void CloseWindow()
+        {
+            App.Current.MainWindow = App.Current.Windows.OfType<CancelReservation>().FirstOrDefault();
+            App.Current.MainWindow.Close();
         }
     }
 }

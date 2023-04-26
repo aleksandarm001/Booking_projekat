@@ -149,22 +149,20 @@ namespace InitialProject.View
                 }
             }
         }
-        public AccommodationDisplay(ObservableCollection<Location> locations, int userId)
+        public AccommodationDisplay(int userId)
         {
             InitializeComponent();
             DataContext = this;
-            Locations = locations;
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             _accommodationRepository = new AccommodationRepository();
-            Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
-
+            Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll()); 
+            Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
             _reservationRepository = new ReservationRepository();
             _accommodationReservationRepository = new AccommodationReservationRepository();
             Reservations = new ObservableCollection<Reservation>(_reservationRepository.GetAll());
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
             InitializeReservationsByAccommodations();
-
             ReadCitiesAndCountries();
             _userId = userId;
         }

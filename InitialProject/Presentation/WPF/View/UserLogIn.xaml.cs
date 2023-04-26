@@ -11,6 +11,7 @@ using InitialProject.Services;
 using InitialProject.Aplication.Factory;
 using InitialProject.Services.IServices;
 using InitialProject.Presentation.WPF.View.Owner;
+using InitialProject.Presentation.WPF.View.Guest1;
 
 namespace InitialProject
 {
@@ -24,7 +25,6 @@ namespace InitialProject
         public string Password { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public static ObservableCollection<Location> Locations { get; set; }
         private readonly AccommodationRepository _accommodationRepository;
         private readonly IUserService _userService;
 
@@ -37,8 +37,6 @@ namespace InitialProject
             _userRepository = new UserRepository();
             _userService = Injector.CreateInstance<IUserService>();
             _accommodationRepository = new AccommodationRepository();
-            Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
-
         }
         private void Btn_LogIn(object sender, RoutedEventArgs e)
         {
@@ -76,7 +74,7 @@ namespace InitialProject
             switch (user.TypeOfUser)
             {
                 case (UserType.Guest1):
-                    Guest1Window window = new Guest1Window(user.Id, Locations);
+                    Guest1HomeWindow window = new Guest1HomeWindow();
                     window.Show();
                     this.Close();
                     break;

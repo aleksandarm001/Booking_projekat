@@ -72,5 +72,10 @@ namespace InitialProject.Services
         {
             _repository.Save(reservation);
         }
+
+        public List<Reservation> GetUpcomingReservationsByUser(int userId)
+        {
+            return _repository.GetAll().Where(r => r.UserId == userId && r.Status == ReservationStatus.Reserved).ToList();
+        }
     }
 }
