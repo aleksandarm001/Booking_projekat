@@ -116,5 +116,21 @@ namespace InitialProject.Services
         {
             _accommodationReservationRepository.Save(accommodationReservation);
         }
+        public bool HasAccommodationOnLocation(int ownerId, Location location)
+        {
+            List<Accommodation> accommodations = GetAccommodationsByOwnerId(ownerId);
+            foreach(Accommodation accommodation in accommodations)
+            {
+                if(IsMatchingLocation(accommodation, location))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private bool IsMatchingLocation(Accommodation accommodation, Location location)
+        {
+            return accommodation.Location.Country == location.Country && accommodation.Location.City == location.City;
+        }
     }
 }

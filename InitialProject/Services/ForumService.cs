@@ -23,6 +23,12 @@ namespace InitialProject.Services
             _forumRepository.Delete(forum);
         }
 
+        public List<Forum> GetActiveForumsByCreatorId(int userId)
+        {
+            List<Forum> forums = GetAll();
+            return forums.Where(forum => forum.CreatorId == userId && forum.Status == ForumStatus.Open).ToList();
+        }
+
         public List<Forum> GetAll()
         {
             return _forumRepository.GetAll();
@@ -39,6 +45,24 @@ namespace InitialProject.Services
             return forums.Where(forum => forum.CreatorId == userId).ToList();
         }
 
+        public Dictionary<int, string> GetForumsByUserKeyValue(int userId)
+        {
+            List<Forum> forums = GetActiveForumsByCreatorId(userId);
+            Dictionary<int, string> result = new Dictionary<int, string>();
+            foreach (Forum forum in forums)
+            {
+                string value = forum.Location.ToString() + " - " + forum.ForumTopic;
+                result.Add(forum.ForumId, value);
+            }
+            return result;
+        }
+
+        public string GetTopic(int forumId)
+        {
+            Forum forum = GetForumById(forumId);
+            return forum.ForumTopic;
+        }
+
         public Forum Save(Forum forum)
         {
             return _forumRepository.Save(forum);
@@ -46,7 +70,12 @@ namespace InitialProject.Services
 
         public void Update(Forum forum)
         {
-            _forumRepository.Save(forum);
+            _forumRepository.Update(forum);
+        }
+        public Location GetLocation(int forumId)
+        {
+            Forum forum = GetForumById(forumId);
+            return forum.Location;
         }
     }
 }

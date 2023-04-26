@@ -61,7 +61,7 @@ namespace InitialProject.Services
 
         private void UpdateRequests(int userId)
         {
-            foreach(Reservation reservation in _reservationService.GetReservationsByUserId(userId))
+            foreach(Reservation reservation in _reservationService.GetActiveReservationsByUser(userId))
             {
                 if(reservation.ReservationDateRange.StartDate <= DateTime.Now)
                 {

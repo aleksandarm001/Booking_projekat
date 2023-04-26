@@ -26,7 +26,7 @@ namespace InitialProject.Services
         public Dictionary<int, string> GetReservationsByUserId(int userId)
         {
             Dictionary<int, string> result = new Dictionary<int, string>();
-            List<Reservation> usersReservations = _reservationService.GetReservationsByUserId(userId);
+            List<Reservation> usersReservations = _reservationService.GetActiveReservationsByUser(userId);
             FilterReservations(usersReservations);
             if (usersReservations.Count > 0)
             {
@@ -71,6 +71,24 @@ namespace InitialProject.Services
             return reservationIds;
         }
 
+
+        public bool WasOnLocation(int userId, Location location)
+        {
+            List<Reservation> userReservations = _reservationService.GetAllReservationsByUser(userId);
+            foreach(Reservation reservation in userReservations)
+            {
+                Accommodation accommodation = _accommodationService.GetAccommodationByReservationId(reservation.ReservationId);
+                if(IsMatchingLocation(accommodation,location))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private bool IsMatchingLocation(Accommodation accommodation, Location location)
+        {
+            return accommodation.Location.City == location.City && accommodation.Location.Country == location.Country;
+        }
         public List<DateRange> GetAvailableDays(int accommodationId, int reservationDays, DateTime startDate, DateTime endDate)
         {  
             List<DateRange> allDates = GetAllPossibleDates(startDate, endDate, reservationDays);

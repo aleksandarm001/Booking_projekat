@@ -5,6 +5,7 @@ using InitialProject.Presentation.WPF.ViewModel.Guest1;
 using InitialProject.Services;
 using InitialProject.Services.IServices;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 
 namespace InitialProject.View.Guest1
@@ -54,7 +55,7 @@ namespace InitialProject.View.Guest1
         }
         private void HandleReservationCompletion()
         {
-            foreach(Reservation reservation in _reservationService.GetReservationsByUserId(_userId))
+            foreach(Reservation reservation in _reservationService.GetActiveReservationsByUser(_userId))
             {
                 _reservationCompletionService.HandleReservationCompletion(_userId, reservation.ReservationId);
             }
@@ -74,18 +75,18 @@ namespace InitialProject.View.Guest1
             reviewsOverview.ShowDialog();
         }
 
-        private void RenovationRecommendation_Click(object sender, RoutedEventArgs e)
+        private void ForumComments_Click(object sender, RoutedEventArgs e)
         {
-            RenovationRecommendationForm renovationRecommendation = new RenovationRecommendationForm(1);
-            renovationRecommendation.Owner = App.Current.MainWindow;
-            renovationRecommendation.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            renovationRecommendation.ShowDialog();
+            ForumCommentsOverview commentsOverview = new ForumCommentsOverview();
+            commentsOverview.Owner = App.Current.Windows.OfType<Guest1Window>().FirstOrDefault();
+            commentsOverview.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            commentsOverview.ShowDialog();
         }
 
         private void AnywhereAnytime_Click(object sender, RoutedEventArgs e)
         {
             AnywhereAnytimeWindow anywhereAnytimeWindow = new AnywhereAnytimeWindow();
-            anywhereAnytimeWindow.Owner = App.Current.MainWindow;
+            anywhereAnytimeWindow.Owner = App.Current.Windows.OfType<Guest1Window>().FirstOrDefault();
             anywhereAnytimeWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             anywhereAnytimeWindow.ShowDialog();
         }
@@ -93,7 +94,7 @@ namespace InitialProject.View.Guest1
         private void OpenForums_Click(object sender, RoutedEventArgs e)
         {
             ForumsOverviewWindow forumsOverviewWindow = new ForumsOverviewWindow();
-            forumsOverviewWindow.Owner = App.Current.MainWindow;
+            forumsOverviewWindow.Owner = App.Current.Windows.OfType<Guest1Window>().FirstOrDefault(); 
             forumsOverviewWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             forumsOverviewWindow.ShowDialog();
         }

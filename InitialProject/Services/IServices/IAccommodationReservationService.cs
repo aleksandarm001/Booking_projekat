@@ -1,4 +1,5 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace InitialProject.Services.IServices
         Dictionary<int, string> GetReservationsByUserId(int userId);
         bool IsCancellingPossible(DateTime currentDate, int reservationId);
         List<DateRange> GetAvailableDays(int accommodationId, int reservationDays, DateTime startDate, DateTime endDate);
+        bool WasOnLocation(int userId, Location location);
     }
 }

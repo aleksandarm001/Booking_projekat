@@ -14,5 +14,6 @@ namespace InitialProject.Services.IServices
         void Delete(ForumComment forum);
         void Update(ForumComment forum);
         int GetCommentsNumberByForum(int forumId);
+        List<int> GetCommentsIdByForumId(int forumId);
     }
 }

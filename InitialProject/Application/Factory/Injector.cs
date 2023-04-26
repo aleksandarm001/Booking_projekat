@@ -56,7 +56,10 @@ namespace InitialProject.Aplication.Factory
             { typeof(IForumCommentRepository), new Lazy<object>(() => new ForumCommentRepository()) },
             { typeof(IForumService), new Lazy<object>(() => new ForumService()) },
             { typeof(IForumCommentService), new Lazy<object>(() => new ForumCommentService()) },
-            { typeof(ICommentRepository), new Lazy<object>(() => new CommentRepository()) }
+            { typeof(ICommentRepository), new Lazy<object>(() => new CommentRepository()) },
+            { typeof(ICommentService), new Lazy<object>(() => new CommentService()) },
+            { typeof(IForumIdService), new Lazy<object>(() => new ForumIdService()) },
+            { typeof(IForumUtilityService), new Lazy<object>(() => new ForumUtilityService()) }
         };
 
         public static T CreateInstance<T>()

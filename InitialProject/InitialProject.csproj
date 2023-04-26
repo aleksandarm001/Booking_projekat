@@ -16,7 +16,11 @@
     <None Remove="Infrastructure/Resources\Images\view.png" />
     <None Remove="Infrastructure/Resources\Images\Zvjezda.png" />
     <None Remove="Infrastructure\Resources\Images\arrow.png" />
+    <None Remove="Infrastructure\Resources\Images\chat.png" />
     <None Remove="Infrastructure\Resources\Images\home.png" />
+    <None Remove="Infrastructure\Resources\Images\pin1.png" />
+    <None Remove="Infrastructure\Resources\Images\pin2.png" />
+    <None Remove="Infrastructure\Resources\Images\pin3.png" />
     <None Remove="Infrastructure\Resources\Images\repeat.png" />
     <None Remove="Infrastructure\Resources\Images\right-arrow.png" />
   </ItemGroup>
@@ -49,7 +53,19 @@
     <Content Include="Infrastructure\Resources\Images\arrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Infrastructure\Resources\Images\chat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Infrastructure\Resources\Images\home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Infrastructure\Resources\Images\pin1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Infrastructure\Resources\Images\pin2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Infrastructure\Resources\Images\pin3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure\Resources\Images\repeat.png">
