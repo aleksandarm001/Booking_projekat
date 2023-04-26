@@ -133,18 +133,31 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         {
             int userId = _userService.GetUserId();
             Location location = new Location(SelectedCity, SelectedCountry);
-
-            Comment comment = new Comment(DateTime.Now, Text, userId);
-            comment = _commentRepository.Save(comment);
-
-            Forum forum = new Forum(userId, Text, location, DateTime.Now);
-            forum = _forumService.Save(forum);
-
-            ForumComment forumComment = new ForumComment(forum.ForumId, comment.CommentId);
-            _forumCommentService.Save(forumComment);
-
-            MessageBox.Show("You successfully created forum!");
+            Comment comment = CreateComment(userId);
+            Forum forum = CreateForum(userId, location);
+            ForumComment forumComment = CreateForumComment(forum.ForumId, comment.CommentId);
+            ShowSuccessMessage();
             CloseWindow();
+        }
+
+        private Comment CreateComment(int userId)
+        {
+            Comment comment = new Comment(DateTime.Now, Text, userId);
+            return _commentRepository.Save(comment);
+        }
+        private Forum CreateForum(int userId, Location location)
+        {
+            Forum forum = new Forum(userId, Text, location, DateTime.Now);
+            return _forumService.Save(forum);
+        }
+        private ForumComment CreateForumComment(int forumId, int commentId)
+        {
+            ForumComment forumComment = new ForumComment(forumId, commentId);
+            return _forumCommentService.Save(forumComment);
+        }
+        private void ShowSuccessMessage()
+        {
+            MessageBox.Show("You successfully created forum!");
         }
         private void Close(object parameter)
         {
