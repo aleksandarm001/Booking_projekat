@@ -14,6 +14,8 @@
     using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Controls;
+    using Xceed.Wpf.Samples.SampleData;
+
 
     /// <summary>
     /// Interaction logic for HomeWindow.xaml
@@ -335,7 +337,8 @@
 
         private void PrikaziStatistiku_Click(object sender, RoutedEventArgs e)
         {
-
+            TourStatistic tourStatistic = new TourStatistic(UserId);
+            tourStatistic.Show();
         }
 
         private void KreirajObicanZahtje_Click(object sender, RoutedEventArgs e)
@@ -344,5 +347,9 @@
             simpleRequest.ShowDialog();
         }
 
+        private void TabItem_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            
+        }
     }
 }

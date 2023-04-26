@@ -2,6 +2,7 @@
 using InitialProject.Domen.Model;
 using InitialProject.Presentation.WPF.View.Guest2;
 using InitialProject.Repository;
+using InitialProject.View;
 using InitialProject.View.Guest1;
 using InitialProject.View.Owner;
 using System;
@@ -9,7 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 
-namespace InitialProject.View
+namespace InitialProject.Presentation.WPF.View
 {
     /// <summary>
     /// Interaction logic for StartWindow.xaml
@@ -59,9 +60,6 @@ namespace InitialProject.View
         }
         private void Guest2_ButtonClick(object sender, RoutedEventArgs e)
         {
-            //TourView tourView = new TourView(1);
-            //tourView.Show();
-
             HomeWindow homeWindow = new HomeWindow(1);
             homeWindow.Show();
         }

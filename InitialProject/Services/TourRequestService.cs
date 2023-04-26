@@ -4,6 +4,7 @@
     using InitialProject.Aplication.Factory;
     using InitialProject.Domen.Model;
     using InitialProject.Services.IServices;
+    using Microsoft.IdentityModel.Tokens;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -45,6 +46,8 @@
         {
             _repository.Update(tourRequest);
         }
+
+     
 
 
     }

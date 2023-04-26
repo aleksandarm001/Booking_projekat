@@ -10,7 +10,7 @@ using InitialProject.Domen.Model;
 using InitialProject.Services;
 using InitialProject.Aplication.Factory;
 using InitialProject.Services.IServices;
-using InitialProject.Presentation.WPF.View.Owner;
+using InitialProject.Presentation.WPF.View;
 
 namespace InitialProject
 {
