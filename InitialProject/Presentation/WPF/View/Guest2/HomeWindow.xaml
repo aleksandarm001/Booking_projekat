@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View"
+
         mc:Ignorable="d"
          Title="TourView" Height="745" Width="1366" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,0,0">
@@ -14,20 +15,20 @@
             <RowDefinition Height="55*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Image Source="/Infrastructure/Resources/Images/BookBuddy_logo1.png" Margin="5,46,1102,592" Height="50"  Grid.RowSpan="2"/>
+        <Image Source="/Infrastructure/Resources/Images/BookBuddy_logo1.png" Margin="5,46,1102,592" Height="50"  Grid.RowSpan="2" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" Cursor="Hand"/>
 
         <ComboBox x:Name ="Jezik"  ItemsSource="{Binding Localization}"  IsEditable="False" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Margin="1194,0,0,0" VerticalAlignment="Center" Width="109"/>
-        <Image Source="/Infrastructure/Resources/Images/arrow.png" Height="40" Width="40" Margin="10,8,1306,13"/>
+        <Image Source="/Infrastructure/Resources/Images/arrow.png" Height="40" Width="40" Margin="10,8,1306,13" MouseLeftButtonDown="Image_MouseLeftButtonDown" Cursor="Hand" />
         <Image Source="/Infrastructure/Resources/Images/right-arrow.png" Height="40" Width="40" Margin="65,8,1251,13"/>
         <Image Source="/Infrastructure/Resources/Images/repeat.png" Height="40" Width="40" Margin="130,8,1186,13"/>
         <Image Source="/Infrastructure/Resources/Images/home.png" Height="40" Width="40" Margin="194,8,1122,13"/>
-        <TabControl Grid.Row="2">
-            <TabItem Header="Pocetna" Height="50" Margin="280,0,-400,0" >
+        <TabControl Grid.Row="2" Name="Osnovni">
+            <TabItem Name="Pocetna" Header="Pocetna" Height="50" Margin="280,0,-400,0" >
                 <Grid Background="White">
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Ture" Height="50" Margin="400,0,-520,0" >
+            <TabItem  Header="Ture"  Height="50" Margin="400,0,-520,0" >
                 <Grid Background="White" Margin="0,0,0,0">
                     <Grid Name="TureGrid" >
 
@@ -131,7 +132,7 @@
 
 
             </TabItem>
-            <TabItem Header="Last minut" Height="50" Margin="520,0,-640,0">
+            <TabItem Header="Last minut"  Height="50" Margin="520,0,-640,0">
                 <Grid Background="White">
                     <Grid Background="White" Margin="0,0,0,0">
 
@@ -193,10 +194,10 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Korisnicko ime" Height="50" Margin="640,0,-834,0">
+            <TabItem Header="Korisnicko ime"  Height="50" Margin="640,0,-834,0">
                 <Grid Background="White">
                     <TabControl TabStripPlacement="Left"     Margin="0, 0, 0, 10">
-                        <TabItem Name="RezervisaneTure" Height="50" Width="277" Header="Rezervisane ture" VerticalAlignment="Bottom" Margin="0,0,0,0">
+                        <TabItem Name="RezervisaneTure" Cursor="Hand" Height="50" Width="277" Header="Rezervisane ture" VerticalAlignment="Bottom" Margin="0,0,0,0">
                             <DataGrid Margin="0,10,0,8"
                                 ItemsSource="{Binding ReservedTours, UpdateSourceTrigger=PropertyChanged}"
                                  SelectedItem="{Binding ReservedTour, UpdateSourceTrigger=PropertyChanged}"
@@ -220,7 +221,7 @@
                             </DataGrid>
                         </TabItem>
 
-                        <TabItem Name="ZavrseneTure" Header="Zavrsene ture" Height="50" Width="277" Margin="0,0,0,0">
+                        <TabItem Name="ZavrseneTure"  Header="Zavrsene ture" Height="50" Width="277" Margin="0,0,0,0">
                             <DataGrid Margin="0,10,0,8"
                                 ItemsSource="{Binding FinishedTours, UpdateSourceTrigger=PropertyChanged}"
                                  SelectedItem="{Binding FinishedTour, UpdateSourceTrigger=PropertyChanged}"
@@ -244,9 +245,9 @@
                             </DataGrid>
                         </TabItem>
 
-                        <TabItem Name="ZahtjevaneTure" Header="Zahtjevane ture" Height="50" Width="277" VerticalAlignment="Bottom" Margin="0,0,0,0">
+                        <TabItem Name="ZahtjevaneTure"  Header="Zahtjevane ture" Height="50" Width="277" VerticalAlignment="Bottom" Margin="0,0,0,0">
                             <TabControl TabStripPlacement="Top"    Margin="0,10,0,0">
-                                <TabItem Header="Obične" Width="525" Height="30" FontSize="16">
+                                <TabItem Header="Obične"  Cursor="Hand" Width="525" Height="30" FontSize="16">
                                     <Grid>
 
 
@@ -266,16 +267,33 @@
                                         </DataGrid>
                                         <Button x:Name="PrikaziStatistiku" Content="Prikazi statistiku" FontSize="16" Cursor="Hand" Click="PrikaziStatistiku_Click" HorizontalAlignment="Left" Margin="110,0,0,14" VerticalAlignment="Bottom" Width="200" Height="40">
                                         </Button>
-                                        <Button x:Name="KreirajObicanZahtje" Content="Kreiraj zahtjev za turu" FontSize="16" Cursor="Hand" Click="KreirajObicanZahtje_Click" HorizontalAlignment="Left" Margin="636,0,0,14" VerticalAlignment="Bottom" Width="200" Height="40"/>
+                                        <Button x:Name="KreirajObicanZahtjev" Content="Kreiraj zahtjev za turu" FontSize="16" Cursor="Hand" Click="KreirajObicanZahtjev_Click" HorizontalAlignment="Left" Margin="636,0,0,14" VerticalAlignment="Bottom" Width="200" Height="40"/>
                                     </Grid>
                                 </TabItem>
                                 <TabItem Header="Složene" Width="525" Height="30" FontSize="16">
-
+                                    <Grid>
+                                        <DataGrid Margin="5,20,5,70" FontSize="12"
+                                        ItemsSource="{Binding Path = RequestedComplexTours, UpdateSourceTrigger=PropertyChanged}"
+                                        IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Grid.ColumnSpan="3">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Grad" Width="100" Binding="{Binding Location.City}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Drzava" Width="100" Binding="{Binding Location.Country}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Broj ljudi" Width="100" Binding="{Binding GuestNumber}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Jezik" Width="150" Binding="{Binding Language}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Datum od" Width="150" Binding="{Binding StartingDate}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Datum do" Width="150" Binding="{Binding EndingDate}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Status" Width="*" Binding="{Binding RequestStatus}"></DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                        <Button x:Name="PrikaziStatistikuSlozene" IsEnabled="False" Content="Prikazi statistiku" FontSize="16" Cursor="Hand"  HorizontalAlignment="Left" Margin="110,0,0,14" VerticalAlignment="Bottom" Width="200" Height="40">
+                                        </Button>
+                                        <Button x:Name="KreirajSlozenZahtjev" Content="Kreiraj zahtjev za turu" FontSize="16" Cursor="Hand" Click="KreirajSlozenZahtjev_Click" HorizontalAlignment="Left" Margin="636,0,0,14" VerticalAlignment="Bottom" Width="200" Height="40"/>
+                                    </Grid>
                                 </TabItem>
                             </TabControl>
                         </TabItem>
 
-                        <TabItem Name="Vauceri" Header="Vauceri" Height="50" Width="277" VerticalAlignment="Bottom" Margin="0,0,0,0" >
+                        <TabItem Name="Vauceri"  Header="Vauceri" Height="50" Width="277" VerticalAlignment="Bottom" Margin="0,0,0,0" >
                             <DataGrid Margin="0,10,0,8"
                                 ItemsSource="{Binding Vouchers, UpdateSourceTrigger=PropertyChanged}"
                                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Width="1064">

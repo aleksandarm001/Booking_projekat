@@ -22,6 +22,7 @@
     /// </summary>
     public partial class HomeWindow : Window, INotifyPropertyChanged
     {
+        private HomeWindowViewModel _homeWindowViewModel;
         public event PropertyChangedEventHandler PropertyChanged;
         public static ObservableCollection<string> Duration { get; set; }
         public static ObservableCollection<int> GuestNumber { get; set; }
@@ -105,6 +106,7 @@
         public HomeWindow(int userId)
         {
             InitializeComponent();
+            _homeWindowViewModel = new HomeWindowViewModel();
             DataContext = this;
             UserId = userId;
             _tourReservationService = Injector.CreateInstance<ITourReservationService>();
@@ -341,15 +343,29 @@
             tourStatistic.Show();
         }
 
-        private void KreirajObicanZahtje_Click(object sender, RoutedEventArgs e)
+        private void KreirajObicanZahtjev_Click(object sender, RoutedEventArgs e)
         {
             SimpleRequest simpleRequest = new SimpleRequest(UserId);
             simpleRequest.ShowDialog();
         }
 
-        private void TabItem_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+
+        private void KreirajSlozenZahtjev_Click(object sender, RoutedEventArgs e)
         {
-            
+
+        }
+
+
+        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+            TureGrid.Visibility = Visibility.Visible;
+            TuraGrid.Visibility = Visibility.Hidden;
+        }
+
+        private void Image_MouseLeftButtonDown_1(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Pocetna.Visibility = Visibility.Visible;
         }
     }
 }
