@@ -33,5 +33,8 @@ namespace InitialProject.Presentation.WPF.ViewModel
         {
             _execute(parameter);
         }
+
+
+
     }
 }

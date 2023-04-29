@@ -1,5 +1,6 @@
 ﻿using InitialProject.Aplication.Contracts.Repository;
 using InitialProject.Aplication.Factory;
+using InitialProject.Domen.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Services.IServices;
 using System.Collections.Generic;
@@ -69,15 +70,33 @@ namespace InitialProject.Services
             
         }
 
-        public Statistic GetSpecificStatistic(string tour) 
+        // body of foreach loop in GetSpecificStatistic method
+
+        private void UpdateAgeStatistics(TourReservation reservation, ref AgeStatistics ageStatistics)
+        {
+            int age = userService.GetById(reservation.UserId).Age;
+
+            if (age < 18)
+            {
+                ageStatistics.NumberOfPeopleWithAgeUnder18 += reservation.NumberOfGuests;
+            }
+            else if (age >= 18 && age <= 50)
+            {
+                ageStatistics.NumberOfPeopleWithAgeBetween18And50 += reservation.NumberOfGuests;
+            }
+            else
+            {
+                ageStatistics.NumberOfPeopleWithAgeOver50 += reservation.NumberOfGuests;
+            }
+        }
+
+        public Statistic GetSpecificStatistic(string tour)
         {
             List<TourReservation> reservations = tourReservationService.GetAllReservations();
             int tourId = int.Parse(tour.Split(' ')[0]);
             int numberOfPeople = 0;
             int numberOfPeopleWithVoucher = 0;
-            int numberOfPeopleWithAgeUnder18 = 0;
-            int numberOfPeopleWithAgeBetween18And50 = 0;
-            int numberOfPeopleWithAgeOver50 = 0;
+            AgeStatistics ageStatistics = new AgeStatistics();
 
             foreach (TourReservation reservation in reservations)
             {
@@ -89,30 +108,21 @@ namespace InitialProject.Services
                         numberOfPeopleWithVoucher += reservation.NumberOfGuests;
                     }
 
-                    int Age = userService.GetById(reservation.UserId).Age;
-
-                        if (Age < 18)
-                        {
-                            numberOfPeopleWithAgeUnder18 += reservation.NumberOfGuests;
-                        }
-                        else if (Age >= 18 && Age <= 50)
-                        {
-                            numberOfPeopleWithAgeBetween18And50 += reservation.NumberOfGuests;
-                        }
-                        else
-                        {
-                            numberOfPeopleWithAgeOver50 += reservation.NumberOfGuests;
-                        }
+                    UpdateAgeStatistics(reservation, ref ageStatistics);
                 }
             }
 
-
-           
-            return calculateStatistic(numberOfPeople, numberOfPeopleWithVoucher, numberOfPeopleWithAgeUnder18, numberOfPeopleWithAgeBetween18And50, numberOfPeopleWithAgeOver50);
+            return calculateStatistic(numberOfPeople, numberOfPeopleWithVoucher, ageStatistics);
         }
 
-        private Statistic calculateStatistic(int numberOfPeople,int numberOfPeopleWithVoucher,int numberOfPeopleWithAgeUnder18,int numberOfPeopleWithAgeBetween18And50, int numberOfPeopleWithAgeOver50)
+
+        //made AgeStatistic class to make code more readable and to avoid passing 3 parameters to calculateStatistic method
+        private static Statistic calculateStatistic(int numberOfPeople,int numberOfPeopleWithVoucher,AgeStatistics ageStatistics)
         {
+            int numberOfPeopleWithAgeUnder18 = ageStatistics.NumberOfPeopleWithAgeUnder18;
+            int numberOfPeopleWithAgeBetween18And50 = ageStatistics.NumberOfPeopleWithAgeBetween18And50;
+            int numberOfPeopleWithAgeOver50 = ageStatistics.NumberOfPeopleWithAgeOver50;
+
             double percentageWithVoucher = 0;
             double percentageWithoutVouchers = 0;
             if (numberOfPeople > 0)
@@ -122,16 +132,11 @@ namespace InitialProject.Services
                 percentageWithoutVouchers = 100 - percentageWithVoucher;
             }
 
-            Statistic statistic = new Statistic(numberOfPeopleWithAgeUnder18, numberOfPeopleWithAgeBetween18And50, numberOfPeopleWithAgeOver50, percentageWithVoucher, percentageWithoutVouchers);
+            Statistic statistic = new(numberOfPeopleWithAgeUnder18, numberOfPeopleWithAgeBetween18And50, numberOfPeopleWithAgeOver50, percentageWithVoucher, percentageWithoutVouchers);
             return statistic;
-
-
         }
 
-
-
-
-
+        
     }
 }
 

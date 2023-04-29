@@ -22,11 +22,6 @@ namespace InitialProject.View.Guide
             this.Close();
         }
 
-        private void CancelButton(object sender, RoutedEventArgs e)
-        {
-            viewModel.CancelTour();
-            this.Close();
-        }
 
         private void EnableButton(object sender, SelectionChangedEventArgs e)
         {

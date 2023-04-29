@@ -18,7 +18,7 @@
 
 
         <Label Content="Select tour you want to cancel" HorizontalAlignment="Left" Margin="80,17,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="10" Height="23"/>
-        <Button x:Name ="Cancelbutton" Content="Cancel tour" HorizontalAlignment="Left" Margin="89,20,0,0" Grid.Row="2" VerticalAlignment="Top" Height="30" Width="110" Click="CancelButton"/>
+        <Button x:Name ="Cancelbutton" Content="Cancel tour" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="89,20,0,0" Grid.Row="2" VerticalAlignment="Top" Height="30" Width="110" />
         <Button Content="Quit" HorizontalAlignment="Left" Margin="256,20,0,0" Grid.Row="2" VerticalAlignment="Top" Height="30" Click="QuitButton" Width="110"/>
     </Grid>
 </Window>
