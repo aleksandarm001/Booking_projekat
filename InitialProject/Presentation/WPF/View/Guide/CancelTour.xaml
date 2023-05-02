@@ -14,11 +14,11 @@
             <RowDefinition Height="97*"/>
         </Grid.RowDefinitions>
         <Label Grid.Row ="0" Content="Cancel Tour" FontSize="15" FontWeight="DemiBold" FontFamily="Montserrat" HorizontalAlignment="Center" Margin="0,14,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="Cmbx" ItemsSource="{Binding Tours}" SelectedValue="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="300" Margin="66,51,0,0" SelectionChanged="EnableButton"/>
+        <ComboBox x:Name="Cmbx" ItemsSource="{Binding Tours}" SelectedValue="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="300" Margin="66,51,0,0" />
 
 
         <Label Content="Select tour you want to cancel" HorizontalAlignment="Left" Margin="80,17,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="10" Height="23"/>
         <Button x:Name ="Cancelbutton" Content="Cancel tour" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="89,20,0,0" Grid.Row="2" VerticalAlignment="Top" Height="30" Width="110" />
-        <Button Content="Quit" HorizontalAlignment="Left" Margin="256,20,0,0" Grid.Row="2" VerticalAlignment="Top" Height="30" Click="QuitButton" Width="110"/>
+        <Button Content="Quit" Command ="{Binding CloseCommand}" HorizontalAlignment="Left" Margin="256,20,0,0" Grid.Row="2" VerticalAlignment="Top" Height="30"  Width="110"/>
     </Grid>
 </Window>

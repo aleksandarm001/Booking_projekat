@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 
 namespace InitialProject.Presentation.WPF.ViewModel
@@ -12,12 +13,17 @@ namespace InitialProject.Presentation.WPF.ViewModel
     {
         private readonly ICancelTourService _cancelTourService;
         public ObservableCollection<string> Tours { get; set; }
-        public ICommand CancelCommand { get; set; }
-        public CancelTourViewModel()
+        public RelayCommand CancelCommand { get; set; }
+        public RelayCommand CloseCommand { get; set; }
+
+        private readonly Window _window;
+        public CancelTourViewModel(Window window)
         {
+            _window = window;
             _cancelTourService = Injector.CreateInstance<ICancelTourService>();
             LoadTours();
             CancelCommand = new RelayCommand(CancelTour);
+            CloseCommand = new RelayCommand(Close);
 
         }
 
@@ -49,8 +55,14 @@ namespace InitialProject.Presentation.WPF.ViewModel
                     _SelectedTour = value;
                     OnPropertyChanged();
                     IsCancelEnabled = !string.IsNullOrEmpty(_SelectedTour);
+                    
                 }
             }
+        }
+
+        public void Close(object parameter)
+        {
+            _window.Close();
         }
 
 
