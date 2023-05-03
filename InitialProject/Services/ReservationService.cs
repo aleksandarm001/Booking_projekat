@@ -59,7 +59,7 @@ namespace InitialProject.Services
             List<Reservation> reservations = GetAllWithoutFinished();
             foreach(Reservation reservation in reservations)
             {
-                if (reservation.ReservationDateRange.StartDate <= DateTime.Now && reservation.ReservationDateRange.EndDate > DateTime.Now)
+                if (HasCheckedIn(reservation))
                 {
                     reservation.Status = ReservationStatus.CheckedIn;
                     _repository.Update(reservation);
@@ -67,10 +67,18 @@ namespace InitialProject.Services
             }
 
         }
-
+        private bool HasCheckedIn(Reservation reservation)
+        {
+            return reservation.ReservationDateRange.StartDate <= DateTime.Now && reservation.ReservationDateRange.EndDate > DateTime.Now;
+        }
         public void Save(Reservation reservation)
         {
             _repository.Save(reservation);
+        }
+
+        public List<Reservation> GetUpcomingReservationsByUser(int userId)
+        {
+            return _repository.GetAll().Where(r => r.UserId == userId && r.Status == ReservationStatus.Reserved).ToList();
         }
     }
 }

@@ -55,8 +55,6 @@ namespace InitialProject.Presentation.WPF.View
 
         private void Guest1_ButtonClick(object sender, RoutedEventArgs e)
         {
-            Guest1Window guest1View = new Guest1Window(_userId, Locations);
-            guest1View.Show();
         }
         private void Guest2_ButtonClick(object sender, RoutedEventArgs e)
         {

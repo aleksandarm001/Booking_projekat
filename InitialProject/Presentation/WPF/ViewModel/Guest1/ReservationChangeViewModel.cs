@@ -1,5 +1,7 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.Aplication.Factory;
+using InitialProject.Domen.Model;
 using InitialProject.Services;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,10 +15,10 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
     public class ReservationChangeViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-        private ChangeReservationRequestService requestService;
-        private ReservationService reservationService;
-        private readonly AccommodationService accommodationService;
-        private readonly AccommodationReservationService accommodationReservationService;
+        private IChangeReservationRequestService _requestService;
+        private IReservationService _reservationService;
+        private readonly IAccommodationService _accommodationService;
+        private readonly IAccommodationReservationService _accommodationReservationService;
         private int _userId;
         private int _ownerId;
         public ObservableCollection<KeyValuePair<int, string>> ReservationsForChange { get; set; }
@@ -42,10 +44,10 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         public ReservationChangeViewModel(int userId, ObservableCollection<ChangeReservationRequest> Requests)
         {
-            reservationService = new ReservationService();
-            accommodationService = new AccommodationService();
-            requestService = new ChangeReservationRequestService();
-            accommodationReservationService = new AccommodationReservationService();
+            _reservationService = Injector.CreateInstance<IReservationService>();
+            _accommodationService = Injector.CreateInstance<IAccommodationService>();
+            _requestService = Injector.CreateInstance<IChangeReservationRequestService>();
+            _accommodationReservationService = Injector.CreateInstance<IAccommodationReservationService>();
             _userId = userId;
             this.Requests = Requests;
 
@@ -53,22 +55,22 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         private void InitializeReservationsForChange()
         {
-            ReservationsForChange = new ObservableCollection<KeyValuePair<int, string>>(accommodationReservationService.GetReservationsByUserId(_userId));
+            ReservationsForChange = new ObservableCollection<KeyValuePair<int, string>>(_accommodationReservationService.GetReservationsByUserId(_userId));
         }
         public void SendRequest_Button()
         {
-            _ownerId = accommodationService.GetOwnerIdByReservationId(SelectedReservationId);
-            string accommodationName = accommodationService.GetNameByReservationId(SelectedReservationId);
+            _ownerId = _accommodationService.GetOwnerIdByReservationId(SelectedReservationId);
+            string accommodationName = _accommodationService.GetNameByReservationId(SelectedReservationId);
             ChangeReservationRequest request = new ChangeReservationRequest(SelectedReservationId, accommodationName, NewCheckInDate, NewCheckOutDate, StatusType.Pending, _userId, _ownerId);
-            requestService.SaveRequest(request);
+            _requestService.SaveRequest(request);
             UpdateRequests(request);
         }
         public void ComboBox_SelectionChanged(DatePicker CheckInPicker, DatePicker CheckOutPicker)
         {
             if (SelectedReservationId != 0)
             {
-                CheckInPicker.SelectedDate = reservationService.GetCheckInDate(_userId, SelectedReservationId);
-                CheckOutPicker.SelectedDate = reservationService.GetCheckOutDate(_userId, SelectedReservationId);
+                CheckInPicker.SelectedDate = _reservationService.GetCheckInDate(_userId, SelectedReservationId);
+                CheckOutPicker.SelectedDate = _reservationService.GetCheckOutDate(_userId, SelectedReservationId);
             }
         }
         private void UpdateRequests(ChangeReservationRequest request)

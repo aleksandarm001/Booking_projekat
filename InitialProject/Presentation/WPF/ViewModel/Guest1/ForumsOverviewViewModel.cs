@@ -26,7 +26,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private readonly IUserService _userService;
         private readonly IForumIdService _forumIdService;
         private readonly IForumUtilityService _forumUtilityService;
-
         public RelayCommand CreateForumCommand { get; set; }
         public RelayCommand CloseForumCommand { get; set; }
         public RelayCommand OpenForumCommand { get; set; }
