@@ -69,7 +69,7 @@ namespace InitialProject.Services
         }
         private bool HasCheckedIn(Reservation reservation)
         {
-            return reservation.ReservationDateRange.StartDate <= DateTime.Now && reservation.ReservationDateRange.EndDate > DateTime.Now);
+            return reservation.ReservationDateRange.StartDate <= DateTime.Now && reservation.ReservationDateRange.EndDate > DateTime.Now;
         }
         public void Save(Reservation reservation)
         {
