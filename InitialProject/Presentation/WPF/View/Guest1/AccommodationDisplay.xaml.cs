@@ -149,6 +149,19 @@ namespace InitialProject.View
                 }
             }
         }
+        private int _accommodationsNumber;
+        public int AccommodationsNumber
+        {
+            get => _accommodationsNumber;
+            set
+            {
+                if (value != _accommodationsNumber)
+                {
+                    _accommodationsNumber = value;
+                    OnPropertyChanged("AccommodationsNumber");
+                }
+            }
+        }
         public AccommodationDisplay(int userId)
         {
             InitializeComponent();
@@ -164,6 +177,7 @@ namespace InitialProject.View
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
             InitializeReservationsByAccommodations();
             ReadCitiesAndCountries();
+            AccommodationsNumber = Accommodations.Count;
             _userId = userId;
         }
         private void InitializeNumberOfGuests(object sender, SelectionChangedEventArgs e)
@@ -260,6 +274,7 @@ namespace InitialProject.View
                     DaysReservationFilter(accommodation) &&
                     AccommodationTypeFilter(accommodation));
             };
+            AccommodationsNumber = view.Cast<object>().Count();
         }
         private void ReadCitiesAndCountries()
         {
@@ -338,6 +353,11 @@ namespace InitialProject.View
         {
             RequestsOwerview ro = new RequestsOwerview(_userId);
             ro.ShowDialog();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -26,12 +26,12 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private string _superguest;
         private string _username;
         private int _points;
-        private readonly IReservationCompletionService _reservationCompletionService;
-        private readonly IUserService _userService;
-        private readonly IUserReservationCounterService _userReservationCounterService;
-        private readonly IOwnerToRateService _ownerToRateService;
-        private readonly IReservationService _reservationService;
-        private readonly IAccommodationService _accommodationService;
+        private IReservationCompletionService _reservationCompletionService;
+        private IUserService _userService;
+        private IUserReservationCounterService _userReservationCounterService;
+        private IOwnerToRateService _ownerToRateService;
+        private IReservationService _reservationService;
+        private IAccommodationService _accommodationService;
         public event PropertyChangedEventHandler? PropertyChanged;
         public RelayCommand OpenAccommodationDisplay_Command { get; set; }
         public RelayCommand OpenForums_Command { get; set; }
@@ -93,13 +93,24 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 
         public Guest1HomeWindowViewModel()
         {
+            InitializeServices();
+            _userId = _userService.GetUserId();
+            InitializeCommands();
+            SetupReservationSystem();
+        }
+
+        private void InitializeServices()
+        {
             _userService = Injector.CreateInstance<IUserService>();
             _reservationCompletionService = Injector.CreateInstance<IReservationCompletionService>();
             _userReservationCounterService = Injector.CreateInstance<IUserReservationCounterService>();
             _ownerToRateService = Injector.CreateInstance<IOwnerToRateService>();
             _reservationService = Injector.CreateInstance<IReservationService>();
             _accommodationService = Injector.CreateInstance<IAccommodationService>();
-            _userId = _userService.GetUserId();
+        }
+
+        private void InitializeCommands()
+        {
             OpenAccommodationDisplay_Command = new RelayCommand(OpenAccommodationDisplay);
             OpenForums_Command = new RelayCommand(OpenForums);
             OpenMyRatings_Command = new RelayCommand(OpenMyRatings);
@@ -110,8 +121,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             OpenForumCreate_Command = new RelayCommand(OpenForumCreate);
             LogUserOut_Commend = new RelayCommand(LogUserOut);
             Reservations = new ObservableCollection<ReservationDTO>();
-            SetupReservationSystem();
         }
+
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -147,7 +158,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             }
             Reservations = new ObservableCollection<ReservationDTO>(Reservations.OrderBy(r => r.DateTimeCheckIn).ToList());
         }
-        private void HandleCheckingIn()
+        private void HandleCheckingIn() //HENDLUJ
         {
             _reservationService.HandleCheckingIn();
         }

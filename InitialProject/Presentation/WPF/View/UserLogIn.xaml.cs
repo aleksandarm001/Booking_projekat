@@ -11,6 +11,7 @@ using InitialProject.Services;
 using InitialProject.Aplication.Factory;
 using InitialProject.Services.IServices;
 using InitialProject.Presentation.WPF.View;
+using InitialProject.Presentation.WPF.View.Guest1;
 
 namespace InitialProject
 {
@@ -76,7 +77,7 @@ namespace InitialProject
             switch (user.TypeOfUser)
             {
                 case (UserType.Guest1):
-                    Guest1Window window = new Guest1Window(user.Id, Locations);
+                    Guest1HomeWindow window = new Guest1HomeWindow();
                     window.Show();
                     this.Close();
                     break;
