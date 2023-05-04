@@ -42,3 +42,6 @@
 42|25|image1
 43|25|image2
 44|26|image1
+45|27|slika1
+46|27|slika2
+47|28|slika1

@@ -30,18 +30,20 @@ namespace InitialProject.Presentation.WPF.View.Owner
     public partial class OwnerStartWindow : Window,INotifyPropertyChanged
     {
         private readonly AccommodationService _accommodationService = new AccommodationService();
+        private readonly GuestReviewService _guestReviewService;
+        private readonly AddAccommodationService _addAccommodationService;
 
         //Za dodavanje
-        private readonly AccommodationRepository _accommodationRepository;
-        private readonly LocationRepository _locationRepository;
-        private readonly AccommodationImageRepository _accommodationImageRepository;
+       // private readonly AccommodationRepository _accommodationRepository;
+        //private readonly LocationRepository _locationRepository;
+        //private readonly AccommodationImageRepository _accommodationImageRepository;
         
 
         //Za Guest review
-        private readonly ReservationRepository _reservationRepository;
-        private readonly GuestReviewRepository _guestReviewRepository;
-        private readonly UserToReviewRepository _userToReviewRepository;
-        private readonly AccommodationReservationRepository _accommodationReservationRepository;
+       // private readonly ReservationRepository _reservationRepository;
+       // private readonly GuestReviewRepository _guestReviewRepository;
+        //private readonly UserToReviewRepository _userToReviewRepository;
+        //private readonly AccommodationReservationRepository _accommodationReservationRepository;
 
         //Za owner review
         private readonly OwnerRateService _ownerRateService = new OwnerRateService();
@@ -168,35 +170,40 @@ namespace InitialProject.Presentation.WPF.View.Owner
             InitializeComponent();
             DataContext= this;
             UserId = userId;
- 
-            _accommodationRepository= new AccommodationRepository();
-            _locationRepository = new LocationRepository();
-            _accommodationImageRepository= new AccommodationImageRepository();
-            _reservationRepository = new ReservationRepository();
-            _guestReviewRepository = new GuestReviewRepository();
-            _userToReviewRepository= new UserToReviewRepository();
-            _accommodationReservationRepository = new AccommodationReservationRepository();
 
-            AllAccommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
+            _guestReviewService = new GuestReviewService();
+            _addAccommodationService= new AddAccommodationService();
+ 
+            //_accommodationRepository= new AccommodationRepository();
+            //_locationRepository = new LocationRepository();
+            //_accommodationImageRepository= new AccommodationImageRepository();
+            //_reservationRepository = new ReservationRepository();
+            //_guestReviewRepository = new GuestReviewRepository();
+            //_userToReviewRepository= new UserToReviewRepository();
+            //_accommodationReservationRepository = new AccommodationReservationRepository();
+
+            //AllAccommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
             Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetAccommodationsByOwnerId(userId));
-            Locations = new ObservableCollection<Location>(_locationRepository.getAll());
-            Cities = new ObservableCollection<string>();
-            Countries = new ObservableCollection<string>();
+            Locations = new ObservableCollection<Location>(_addAccommodationService.GetAllLocations());
+            Cities = new ObservableCollection<string>(_addAccommodationService.GetCities(Locations.ToList()));
+            Countries = new ObservableCollection<string>(_addAccommodationService.GetCountries(Locations.ToList()));
             Images = new ObservableCollection<AccommodationImage>();
 
-            Reservations = new ObservableCollection<Reservation>(_reservationRepository.GetAll());
-            GuestReviews = new List<GuestReview>(_guestReviewRepository.GetAll());
-            AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
-            UsersToReview = new ObservableCollection<UserToReview>(_userToReviewRepository.GetByOwnerId(UserId));
+           // Reservations = new ObservableCollection<Reservation>(_reservationRepository.GetAll());
+            //GuestReviews = new List<GuestReview>(_guestReviewRepository.GetAll());
+            //AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
+            UsersToReview = new ObservableCollection<UserToReview>(_guestReviewService.GetUsersByID(UserId));
 
             OwnerRates = new ObservableCollection<OwnerRate>(_ownerRateService.RatingsFromRatedGuest(UserId));
 
             Requests = new ObservableCollection<OwnerChangeRequests>(_requestService.OwnerChangeReservationRequest(UserId));
 
             AccommodationCancelationDays = "1";
-            ReadCitiesAndCountries();
-            InitializeUsersToReview();
-            RateNotification();
+
+
+            //ReadCitiesAndCountries();
+            _guestReviewService.InitializeUsersToReview();
+            _guestReviewService.RateNotification(UserId);
             showSuperOwner(UserId);
         }
 
@@ -204,6 +211,7 @@ namespace InitialProject.Presentation.WPF.View.Owner
         {
             OwnerAccommodations.Visibility= Visibility.Collapsed;
             AddAccommodation.Visibility = Visibility.Visible;
+            GuestsToReview.Visibility = Visibility.Collapsed;
         }
 
         private void AllAccommodations_ButtonClick(object sender, RoutedEventArgs e)
@@ -216,6 +224,8 @@ namespace InitialProject.Presentation.WPF.View.Owner
         {
             HomeButtons.Visibility = Visibility.Collapsed;
             GuestsButtons.Visibility = Visibility.Visible;
+            GuestsToReview.Visibility = Visibility.Visible;
+            ReservationButtons.Visibility = Visibility.Collapsed;
             AddAccommodation.Visibility = Visibility.Collapsed;
             OwnerAccommodations.Visibility = Visibility.Collapsed;
         }
@@ -240,6 +250,11 @@ namespace InitialProject.Presentation.WPF.View.Owner
         {
 
         }
+        private void OwnerReviews_ButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -250,7 +265,7 @@ namespace InitialProject.Presentation.WPF.View.Owner
         }
 
 
-        //DODAVANJE AKOMODACIJA
+  /*      //DODAVANJE AKOMODACIJA
         private void ReadCitiesAndCountries()
         {
             Cities.Clear();
@@ -265,7 +280,8 @@ namespace InitialProject.Presentation.WPF.View.Owner
                     Countries.Add(l.Country);
                 }
             }
-        }
+    }
+  /*
         /*
         private void FilterCities(object sender, SelectionChangedEventArgs e)
         {
@@ -308,52 +324,9 @@ namespace InitialProject.Presentation.WPF.View.Owner
         */
         private void SaveNewAccommodation_ButtonClick(object sender, RoutedEventArgs e)
         {
-            Accommodation newAccommodation = CreateNewAccommodation(UserId);
-            SaveAccommodation(newAccommodation);
-            SaveAccommodationImages(Images);
-        }
-
-        private Accommodation CreateNewAccommodation(int _userId)
-        {
-            return new Accommodation
-            {
-                UserId = _userId,
-                Name = AccommodationName,
-                MaxGuestNumber = Convert.ToInt32(AccommodationMaxGuests),
-                DaysBeforeCancelling = Convert.ToInt32(AccommodationCancelationDays),
-                MinReservationDays = Convert.ToInt32(AccommodationReservationMinDays),
-                Location = new Location(CountryComboBox.Text, CityComboBox.Text),
-                TypeOfAccommodation = GetAccommodationType()
-
-            };
-        }
-
-        private AccommodationType GetAccommodationType()
-        {
-            switch (TypeComboBox.Text)
-            {
-                case "Appartment":
-                    return AccommodationType.Apartment;
-                case "Shack":
-                    return AccommodationType.Shack;
-                default:
-                    return AccommodationType.House;
-
-            }
-        }
-
-        private void SaveAccommodation(Accommodation accommodation)
-        {
-            _accommodationRepository.Save(accommodation);
-            //Accommodations.Add(accommodation);
-        }
-
-        private void SaveAccommodationImages(ObservableCollection<AccommodationImage> images)
-        {
-            foreach (var image in images)
-            {
-                _accommodationImageRepository.Save(image, _accommodationRepository.GetLastAccommodationId());
-            }
+            Accommodation newAccommodation = _addAccommodationService.CreateNewAccommodation(UserId,AccommodationName, AccommodationMaxGuests,AccommodationCancelationDays, AccommodationReservationMinDays,CountryComboBox.Text,CityComboBox.Text,TypeComboBox.Text);
+            _addAccommodationService.SaveAccommodation(newAccommodation);
+            _addAccommodationService.SaveAccommodationImages(Images.ToList());
         }
 
         private void AddUrl_ButtonClick(object sender, RoutedEventArgs e)
@@ -362,27 +335,69 @@ namespace InitialProject.Presentation.WPF.View.Owner
             newImage.Url = UrlTextBox.Text;
             Images.Add(newImage);
         }
+        /*
+                private Accommodation CreateNewAccommodation(int _userId)
+                {
+                    return new Accommodation
+                    {
+                        UserId = _userId,
+                        Name = AccommodationName,
+                        MaxGuestNumber = Convert.ToInt32(AccommodationMaxGuests),
+                        DaysBeforeCancelling = Convert.ToInt32(AccommodationCancelationDays),
+                        MinReservationDays = Convert.ToInt32(AccommodationReservationMinDays),
+                        Location = new Location(CountryComboBox.Text, CityComboBox.Text),
+                        TypeOfAccommodation = GetAccommodationType()
+
+                    };
+                }
+
+                private AccommodationType GetAccommodationType()
+                {
+                    switch (TypeComboBox.Text)
+                    {
+                        case "Appartment":
+                            return AccommodationType.Apartment;
+                        case "Shack":
+                            return AccommodationType.Shack;
+                        default:
+                            return AccommodationType.House;
+
+                    }
+                }
+
+                private void SaveAccommodation(Accommodation accommodation)
+                {
+                    _accommodationRepository.Save(accommodation);
+                    //Accommodations.Add(accommodation);
+                }
+
+                private void SaveAccommodationImages(ObservableCollection<AccommodationImage> images)
+                {
+                    foreach (var image in images)
+                    {
+                        _accommodationImageRepository.Save(image, _accommodationRepository.GetLastAccommodationId());
+                    }
+                }
+        */
 
         //GOSTI ZA OCENJIVANJE
 
-        private void InitializeUsersToReview()
+     /*   private void InitializeUsersToReview()
         {
             foreach (Reservation reservation in Reservations)
             {
                 if (CheckIfLeftReservation(reservation))
                 {
-                    _reservationRepository.Delete(reservation);
-                    _accommodationReservationRepository.DeleteReservation(reservation.ReservationId);
                     int accommodation_id = ReservationAccommodationId(reservation);
                     int owner_id = OwnerReservationId(accommodation_id);
-                    UserToReview userToReview = new UserToReview(owner_id, accommodation_id, reservation.UserId, reservation.ReservationDateRange.EndDate); //bez sign in forme defaultni ownerId je 0
+                    UserToReview userToReview = new UserToReview(owner_id, accommodation_id, reservation.UserId, reservation.ReservationDateRange.EndDate); 
                     _userToReviewRepository.Save(userToReview);
-                    //UsersToReview.Add(userToReview);
-                    
+                    _reservationRepository.Delete(reservation);
+                    _accommodationReservationRepository.DeleteReservation(reservation.ReservationId);
+                   // UsersToReview.Add(userToReview); napravis if funkciju koja dodaje
+
                 }
             }
-            
-
         }
 
         private bool CheckIfLeftReservation(Reservation reservation)
@@ -443,6 +458,7 @@ namespace InitialProject.Presentation.WPF.View.Owner
                 if (reviewForm.IsReviewd)
                 {
                     _userToReviewRepository.DeleteByIdAndDate(userID, date);
+                    
                 }
             }
         }
@@ -457,7 +473,7 @@ namespace InitialProject.Presentation.WPF.View.Owner
             }
             return false;
         }
-
+     */
         private void Review_ButtonClick(object sender, RoutedEventArgs e)
         {
             if(SelectedUserToReview == null)
@@ -470,7 +486,7 @@ namespace InitialProject.Presentation.WPF.View.Owner
                 guestReviewForm.ShowDialog();
                 if (guestReviewForm.IsReviewd)
                 {
-                    _userToReviewRepository.DeleteByIdAndDate(SelectedUserToReview.Guest1Id, SelectedUserToReview.LeavingDay);
+                    _guestReviewService.DeleteByIdAndDate(SelectedUserToReview.Guest1Id, SelectedUserToReview.LeavingDay);
                 }
             }
         }
@@ -515,6 +531,11 @@ namespace InitialProject.Presentation.WPF.View.Owner
                 declineRequest.Show();
 
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
