@@ -1,4 +1,5 @@
-﻿using InitialProject.View;
+﻿using InitialProject.Presentation.WPF.ViewModel.Guide;
+using InitialProject.View;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -10,8 +11,11 @@ namespace InitialProject.Presentation.WPF.View.Guide
     /// </summary>
     public partial class GuideHomeScreen : Window
     {
+        private readonly GuideHomeScreenViewModel guideHomeScreenViewModel;
         public GuideHomeScreen()
         {
+            guideHomeScreenViewModel = new GuideHomeScreenViewModel(this);
+            DataContext = guideHomeScreenViewModel;
             InitializeComponent();
         }
 
@@ -24,8 +28,6 @@ namespace InitialProject.Presentation.WPF.View.Guide
         {
 
         }
-
-        
 
         private void BurgerMenuButton_Click(object sender, RoutedEventArgs e)
         {
