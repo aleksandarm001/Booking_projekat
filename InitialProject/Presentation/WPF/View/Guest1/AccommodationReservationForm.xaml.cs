@@ -210,5 +210,10 @@ namespace InitialProject.View
             _reservationRepository.Save(reservation);
             _accommodationReservationRepository.Save(accommodationReservation);
         }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

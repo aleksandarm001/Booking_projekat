@@ -71,12 +71,13 @@
             </Grid>
             <DataGrid Grid.Row="3" Width="800" Height="400" FontSize="16"
                 ItemsSource="{Binding Path = Reviews, UpdateSourceTrigger=PropertyChanged}"
+                Style ="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"
                 IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Owner" Width="0.5*" Binding="{Binding OwnerName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Owner" Width="0.45*" Binding="{Binding OwnerName}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Accommodation" Width="0.6*" Binding="{Binding AccommodationName}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Hygiene" Width="70" Binding="{Binding Hygiene}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Following Rules" Width="120" Binding="{Binding FollowingRules}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Hygiene" Width="0.3*" Binding="{Binding Hygiene}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Following Rules" Width="0.5*" Binding="{Binding FollowingRules}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Comment" Width="*" Binding="{Binding Comment}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>

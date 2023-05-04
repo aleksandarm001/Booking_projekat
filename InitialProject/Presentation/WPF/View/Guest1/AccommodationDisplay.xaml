@@ -38,23 +38,17 @@
                   SelectedItem="{Binding Path= SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Width="0.75*" Binding="{Binding Name}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Country" Width="0.7*" Binding="{Binding Location.Country}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="City" Width="0.7*" Binding="{Binding Location.City}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Accommodation Type" Width="1.1*" Binding="{Binding TypeOfAccommodation}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Max. Guest number" Width="0.99*" Binding="{Binding MaxGuestNumber}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Min. Reserve days" Width="0.99*" Binding="{Binding MinReservationDays}"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Reserve" Width="0.55*">
+                        <DataGridTextColumn Header="Name" Width="0.75*" Binding="{Binding Name}" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Country" Width="0.7*" Binding="{Binding Location.Country}" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Header="City" Width="0.7*" Binding="{Binding Location.City}" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Accommodation Type" Width="1.1*" Binding="{Binding TypeOfAccommodation}" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Max. Guest number" Width="0.99*" Binding="{Binding MaxGuestNumber}" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Min. Reserve days" Width="0.99*" Binding="{Binding MinReservationDays}" IsReadOnly="True" ></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Book" Width="0.55*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    
-                                    <Button BorderThickness="0"
-                                        Content="Reserve"
-                                        Foreground="White"
-                                        FontSize="12"
-                                        FontFamily="Montserrat"
-                                        Cursor="Hand"    
-                                        Click="BookClick">  
+                                    <Button x:Name="reserveButton" BorderThickness="0" Content="Book" Foreground="White"
+                                        FontSize="12" FontFamily="Montserrat" Cursor="Hand" Click="BookClick">
                                         <Button.Style>
                                             <Style TargetType="Button">
                                                 <Setter Property="Background" Value="#00A76D"/>
@@ -62,22 +56,31 @@
                                                     <Trigger Property="IsMouseOver" Value="True">
                                                         <Setter Property="Background" Value="#078563"/>
                                                     </Trigger>
+                                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
+                                                        <Setter Property="FocusVisualStyle">
+                                                            <Setter.Value>
+                                                                <Style>
+                                                                    <Setter Property="Control.BorderThickness" Value="2"/>
+                                                                    <Setter Property="Control.BorderBrush" Value="#FF0000"/>
+                                                                </Style>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </Button.Style>
                                         <Button.Template>
                                             <ControlTemplate TargetType="Button">
-                                                <Border Width="60" Height="30" CornerRadius="10"
-                                                    Background="{TemplateBinding Background}">
+                                                <Border Width="60" Height="30" CornerRadius="10" Background="{TemplateBinding Background}">
                                                     <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                                 </Border>
                                             </ControlTemplate>
                                         </Button.Template>
                                     </Button>
-                                    
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
