@@ -17,5 +17,6 @@ namespace InitialProject.Services.IServices
         List<Reservation> GetUpcomingReservationsByUser(int userId);
         List<Reservation> GetAllReservationsByUser(int userid);
         void HandleCheckingIn();
+        Reservation GetReservationById(int reservationId);
     }
 }

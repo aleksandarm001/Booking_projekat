@@ -17,7 +17,7 @@ namespace InitialProject.Services
         public OwnerRateService()
         {
             _ownerRateRepository = Injector.CreateInstance<IOwnerRateRepository>();
-            guestReviewRepository = new GuestReviewRepository();
+            _guestReviewRepository = new GuestReviewRepository();
         }
         public List<OwnerRate> GetAll()
         {

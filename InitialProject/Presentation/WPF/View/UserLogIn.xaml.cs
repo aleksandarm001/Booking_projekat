@@ -12,6 +12,7 @@ using InitialProject.Aplication.Factory;
 using InitialProject.Services.IServices;
 using InitialProject.Presentation.WPF.View;
 using InitialProject.Presentation.WPF.View.Guest1;
+using InitialProject.Presentation.WPF.View.Owner;
 
 namespace InitialProject
 {
