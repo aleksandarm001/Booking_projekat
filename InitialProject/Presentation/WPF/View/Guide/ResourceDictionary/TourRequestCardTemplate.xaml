@@ -17,8 +17,8 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontWeight="Bold" FontSize="16" />
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Date}" />
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding StartingDate}" FontWeight="Bold" FontSize="16" />
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding GuestNumber}" />
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Location}" />
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Language}" />
 

@@ -1,4 +1,7 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.Aplication.Factory;
+using InitialProject.Domen.Model;
+using InitialProject.Services;
+using InitialProject.Services.IServices;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -12,17 +15,20 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public ICommand ApproveCommand { get; set; }
         public ICommand DeclineCommand { get; set; }
 
+        private readonly ITourRequestService tourRequestService;
+
         public TourRequestsViewModel()
         {
             ApproveCommand = new RelayCommand(ApproveTourRequest);
             DeclineCommand = new RelayCommand(DeclineTourRequest);
+            tourRequestService = Injector.CreateInstance<ITourRequestService>();
 
-            _tourRequests = new ObservableCollection<TourRequest>
+            _tourRequests = new ObservableCollection<TourRequest>();
+            var tourRequestsList = tourRequestService.GetAllRequests();
+            foreach (var tourRequest in tourRequestsList)
             {
-                new TourRequest { Id = 1, Description = "opis1"},
-                new TourRequest { Id = 2, Description = "opis2" },
-                new TourRequest { Id = 3, Description = "opis3" }
-            };
+                _tourRequests.Add(tourRequest);
+            }
         }
 
         private ObservableCollection<TourRequest> _tourRequests { get; set; }

@@ -10,6 +10,9 @@
     public interface ITourRequestService
     {
         List<TourRequest> GetAllTourRequests(int userId);
+
+        List<TourRequest> GetAllRequests();
+
         void MakeTourRequest(TourRequest tourRequest);
 
         void Update(TourRequest tourRequest);

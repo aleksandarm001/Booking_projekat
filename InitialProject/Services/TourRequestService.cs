@@ -32,6 +32,12 @@
             }
         }
 
+        public List<TourRequest> GetAllRequests()
+        {
+            return _repository.GetAll().ToList();
+        }
+
+
         public List<TourRequest> GetAllTourRequests(int userId)
         {
             return _repository.GetAll().Where(tourRequest => tourRequest.UserId == userId).ToList();
