@@ -26,3 +26,6 @@
 26|3|Droga|Brazil;Mumbai|Apartment|5|5|15
 27|3|Why always me|Japan;Delhi|Apartment|3|4|5
 28|3|Smestaj|India;Mumbai|Apartment|3|2|1
+29|3|Ti si fakultet|China;Mumbai|Apartment|3|2|1
+30|3|Djadjadja|Brazil;São Paulo|Apartment|3|2|1
+31|3|Kokain|Egypt;Mumbai|Apartment|3|5|51

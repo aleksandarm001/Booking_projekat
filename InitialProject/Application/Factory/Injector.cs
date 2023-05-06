@@ -43,6 +43,8 @@ namespace InitialProject.Aplication.Factory
             { typeof(INotificationService), new Lazy<object>(() => new NotificationService()) },
             { typeof(IChangeReservationRequestService), new Lazy<object>(() => new ChangeReservationRequestService()) },
             { typeof(IRenovationRecommendationService), new Lazy<object>(() => new RenovationRecommendationService()) },
+            { typeof(IAddAccommodationService), new Lazy<object>(() => new AddAccommodationService()) },
+            { typeof(IGuestReviewService), new Lazy<object>(() => new GuestReviewService()) },
         };
 
         public static T CreateInstance<T>()

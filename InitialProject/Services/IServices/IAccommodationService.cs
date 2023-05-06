@@ -14,10 +14,13 @@ namespace InitialProject.Services.IServices
         int GetOwnerIdByAccommodationId(int accommodationId);
         int GetOwnerIdByReservationId(int reservationId);
         int GetAccommodationIdByReservationId(int reservationId);
+        int GetAccommodationIdByAccommodationName(string accommodationName);
         Accommodation GetAccommodationByReservationId(int reservationId);
         Accommodation GetAccommodationById(int accommodationId);
         Accommodation GetAccommodationByIdAndOwnerId(int ownerId, int accommodationId);
         int GetReservationIdByAccommodationId(int accommodationId);
         void DeleteReservation(int reservationId);
+        List<Accommodation> GetAccommodationsByOwnerId(int ownerId);
+
     }
 }

@@ -2,6 +2,7 @@
 using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Repository;
+using InitialProject.Services.IServices;
 using InitialProject.View;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,11 @@ using System.Windows;
 
 namespace InitialProject.Services
 {
-    public class GuestReviewService
+    public class GuestReviewService :IGuestReviewService
     {
-        private readonly ReservationRepository _reservationRepository;
-        private readonly AccommodationRepository _accommodationRepository;
-        private readonly AccommodationReservationRepository _accommodationReservationRepository;
+        private readonly IReservationRepository _reservationRepository;
+        private readonly IAccommodationRepository _accommodationRepository;
+        private readonly IAccommodationReservationRepository _accommodationReservationRepository;
         private readonly UserToReviewRepository _userToReviewRepository;
 
 
@@ -49,7 +50,7 @@ namespace InitialProject.Services
                     _userToReviewRepository.Save(userToReview);
                     _reservationRepository.Delete(reservation);
                     _accommodationReservationRepository.DeleteReservation(reservation.ReservationId);
-                    //UsersToReview.Add(userToReview);
+                    //users.Add(userToReview);
 
                 }
             }
@@ -57,11 +58,13 @@ namespace InitialProject.Services
 
         public bool CheckIfLeftReservation(Reservation reservation)
         {
-            if (reservation.ReservationDateRange.EndDate < DateTime.Now)
-            {
-                return true;
-            }
-            return false;
+            /* if (reservation.ReservationDateRange.EndDate < DateTime.Now)
+             {
+                 return true;
+             }
+             return false;
+            */
+            return reservation.ReservationDateRange.EndDate < DateTime.Now; 
         }
 
         public int ReservationAccommodationId(Reservation reservation)
@@ -90,9 +93,9 @@ namespace InitialProject.Services
 
         public void RateNotification(int ownerId)
         {
-            foreach (UserToReview userToReview in _userToReviewRepository.GetByOwnerId(ownerId))
+            foreach (UserToReview userToReview in _userToReviewRepository.GetByOwnerId(ownerId)) 
             {
-                if (CheckDateRange(userToReview.LeavingDay)) //&& userToReview.OwnerId == ownerId
+                if (CheckDateRange(userToReview.LeavingDay)) //&& userToReview.OwnerId == ownerId)
                 {
                     RateUser(userToReview.Guest1Id, userToReview.AccommodationId, userToReview.LeavingDay);
                 }

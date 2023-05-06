@@ -10,5 +10,6 @@ namespace InitialProject.Services.IServices
     {
         Dictionary<int, string> GetReservationsByUserId(int userId);
         bool IsCancellingPossible(DateTime currentDate, int reservationId);
+        List<int> GetReservationsIdsByAccommodationId(int accommodationId);
     }
 }

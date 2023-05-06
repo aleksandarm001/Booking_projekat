@@ -1,5 +1,7 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.Aplication.Contracts.Repository;
+using InitialProject.Domen.Model;
 using InitialProject.Repository;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace InitialProject.Services
 {
-    public class AddAccommodationService
+    public class AddAccommodationService : IAddAccommodationService
     {
 
-        private readonly AccommodationRepository _accommodationRepository;
-        private readonly LocationRepository _locationRepository;
+        private readonly IAccommodationRepository _accommodationRepository;
+        private readonly ILocationRepository _locationRepository;
         private readonly AccommodationImageRepository _accommodationImageRepository;
         
 
@@ -69,7 +71,7 @@ namespace InitialProject.Services
             };
         }
 
-        private AccommodationType GetAccommodationType(string type)
+        public AccommodationType GetAccommodationType(string type)
         {
             switch (type)
             {

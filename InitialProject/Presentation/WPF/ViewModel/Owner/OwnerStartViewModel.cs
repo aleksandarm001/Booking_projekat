@@ -1,10 +1,10 @@
-﻿using InitialProject.Aplication.Contracts.Repository;
-using InitialProject.Aplication.Factory;
+﻿using InitialProject.Aplication.Factory;
 using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
-using InitialProject.Repository;
-using InitialProject.Services;
+using InitialProject.Presentation.WPF.View.Owner;
 using InitialProject.Services.IServices;
+using InitialProject.Services;
+using InitialProject.View.Owner;
 using InitialProject.View;
 using System;
 using System.Collections.Generic;
@@ -12,49 +12,39 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-namespace InitialProject.Presentation.WPF.View.Owner
-{
-    /// <summary>
-    /// Interaction logic for OwnerStartWindow.xaml
-    /// </summary>
-    public partial class OwnerStartWindow : Window,INotifyPropertyChanged
+namespace InitialProject.Presentation.WPF.ViewModel.Owner
+{ 
+    
+    public class OwnerStartViewModel 
     {
+    /*
+
         private readonly IAccommodationService _accommodationService;
         private readonly IAddAccommodationService _addAccommodationService;
         private readonly IGuestReviewService _guestReviewService;
-        private readonly IOwnerRateService _ownerRateService;
-        private readonly IChangeReservationRequestService _requestService;
 
         //Za dodavanje
-       // private readonly AccommodationRepository _accommodationRepository;
+        // private readonly AccommodationRepository _accommodationRepository;
         //private readonly LocationRepository _locationRepository;
         //private readonly AccommodationImageRepository _accommodationImageRepository;
-        
+
 
         //Za Guest review
-       // private readonly ReservationRepository _reservationRepository;
-       // private readonly GuestReviewRepository _guestReviewRepository;
+        // private readonly ReservationRepository _reservationRepository;
+        // private readonly GuestReviewRepository _guestReviewRepository;
         //private readonly UserToReviewRepository _userToReviewRepository;
         //private readonly AccommodationReservationRepository _accommodationReservationRepository;
 
         //Za owner review
-      // private readonly OwnerRateService _ownerRateService = new OwnerRateService();
+        private readonly OwnerRateService _ownerRateService = new OwnerRateService();
         public ObservableCollection<OwnerRate> _ownerRates;
 
         //Za change reserv req
-        //private readonly ChangeReservationRequestService _requestService = new ChangeReservationRequestService();
+        private readonly ChangeReservationRequestService _requestService = new ChangeReservationRequestService();
         public ObservableCollection<OwnerChangeRequests> _requests;
         public OwnerChangeRequests SelectedRequest { get; set; }
         public ObservableCollection<OwnerChangeRequests> Requests
@@ -72,14 +62,14 @@ namespace InitialProject.Presentation.WPF.View.Owner
         public static ObservableCollection<string> Countries { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<Location> Locations { get; set; }
-        public static ObservableCollection<AccommodationImage> Images { get; set; } 
+        public static ObservableCollection<AccommodationImage> Images { get; set; }
 
         public static ObservableCollection<Reservation> Reservations { get; set; }
         public static List<GuestReview> GuestReviews { get; set; }
         public static ObservableCollection<UserToReview> UsersToReview { get; set; }
         public static ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
 
-        public static ObservableCollection<Accommodation>AllAccommodations { get; set; }
+        public static ObservableCollection<Accommodation> AllAccommodations { get; set; }
 
         public UserToReview SelectedUserToReview { get; set; }
         public ObservableCollection<Accommodation> Accommodations
@@ -167,20 +157,17 @@ namespace InitialProject.Presentation.WPF.View.Owner
                 }
             }
         }
+        public RelayCommand AddAccommodationCommand { get; set; }
 
 
-        public OwnerStartWindow(int userId)
+        public OwnerStartViewModel(int userId)
         {
-            InitializeComponent();
-            DataContext= this;
             UserId = userId;
 
             _accommodationService = Injector.CreateInstance<IAccommodationService>();
-            _addAccommodationService= Injector.CreateInstance<IAddAccommodationService>();
+            _addAccommodationService = Injector.CreateInstance<IAddAccommodationService>();
             _guestReviewService = Injector.CreateInstance<IGuestReviewService>();
-            _ownerRateService = Injector.CreateInstance<IOwnerRateService>();
-            _requestService = Injector.CreateInstance<IChangeReservationRequestService>();
- 
+
             //_accommodationRepository= new AccommodationRepository();
             //_locationRepository = new LocationRepository();
             //_accommodationImageRepository= new AccommodationImageRepository();
@@ -196,7 +183,7 @@ namespace InitialProject.Presentation.WPF.View.Owner
             Countries = new ObservableCollection<string>(_addAccommodationService.GetCountries(Locations.ToList()));
             Images = new ObservableCollection<AccommodationImage>();
 
-           // Reservations = new ObservableCollection<Reservation>(_reservationRepository.GetAll());
+            // Reservations = new ObservableCollection<Reservation>(_reservationRepository.GetAll());
             //GuestReviews = new List<GuestReview>(_guestReviewRepository.GetAll());
             //AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
             UsersToReview = new ObservableCollection<UserToReview>(_guestReviewService.GetUsersByID(UserId));
@@ -207,23 +194,27 @@ namespace InitialProject.Presentation.WPF.View.Owner
 
             AccommodationCancelationDays = "1";
 
+            AddAccommodationCommand = new RelayCommand(AddAccommodation_ButtonClick);
+
 
             //ReadCitiesAndCountries();
             _guestReviewService.InitializeUsersToReview();
             _guestReviewService.RateNotification(UserId);
             showSuperOwner(UserId);
         }
-
-        private void AddAccommodation_ButtonClick(object sender, RoutedEventArgs e)
+        
+        private void AddAccommodation_ButtonClick(object parameter)
         {
-            OwnerAccommodations.Visibility= Visibility.Collapsed;
+            OwnerAccommodations.Visibility = Visibility.Collapsed;
             AddAccommodation.Visibility = Visibility.Visible;
             GuestsToReview.Visibility = Visibility.Collapsed;
         }
 
+        /*
+
         private void AllAccommodations_ButtonClick(object sender, RoutedEventArgs e)
         {
-            AddAccommodation.Visibility= Visibility.Collapsed;
+            AddAccommodation.Visibility = Visibility.Collapsed;
             OwnerAccommodations.Visibility = Visibility.Visible;
         }
 
@@ -249,8 +240,8 @@ namespace InitialProject.Presentation.WPF.View.Owner
             AddAccommodation.Visibility = Visibility.Collapsed;
             OwnerAccommodations.Visibility = Visibility.Visible;
             GuestsToReview.Visibility = Visibility.Collapsed;
-            OwnerReviews.Visibility= Visibility.Collapsed;
-            
+            OwnerReviews.Visibility = Visibility.Collapsed;
+
         }
 
         private void Request_ButtonClick(object sender, RoutedEventArgs e)
@@ -262,7 +253,7 @@ namespace InitialProject.Presentation.WPF.View.Owner
 
         }
 
-
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -272,66 +263,66 @@ namespace InitialProject.Presentation.WPF.View.Owner
         }
 
 
-  /*      //DODAVANJE AKOMODACIJA
-        private void ReadCitiesAndCountries()
-        {
-            Cities.Clear();
-            Countries.Clear();
-            Cities.Add("");
-            Countries.Add("");
-            foreach (Location l in Locations)
-            {
-                Cities.Add(l.City);
-                if (!Countries.Contains(l.Country))
-                {
-                    Countries.Add(l.Country);
-                }
-            }
-    }
-  /*
+        /*      //DODAVANJE AKOMODACIJA
+              private void ReadCitiesAndCountries()
+              {
+                  Cities.Clear();
+                  Countries.Clear();
+                  Cities.Add("");
+                  Countries.Add("");
+                  foreach (Location l in Locations)
+                  {
+                      Cities.Add(l.City);
+                      if (!Countries.Contains(l.Country))
+                      {
+                          Countries.Add(l.Country);
+                      }
+                  }
+          }
         /*
-        private void FilterCities(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox cmbx = (ComboBox)sender;
-            string country = "";
-            try
-            {
-                if (cmbx.SelectedItem != null)
-                {
-                    country = cmbx.SelectedItem.ToString();
-                }
-                else
-                {
-                    cmbx.SelectedItem = 0;
-                }
-            }
-            catch (System.NullReferenceException)
-            {
-                ReadCitiesAndCountries();
-            }
-            if (country == "")
-            {
+              /*
+              private void FilterCities(object sender, SelectionChangedEventArgs e)
+              {
+                  ComboBox cmbx = (ComboBox)sender;
+                  string country = "";
+                  try
+                  {
+                      if (cmbx.SelectedItem != null)
+                      {
+                          country = cmbx.SelectedItem.ToString();
+                      }
+                      else
+                      {
+                          cmbx.SelectedItem = 0;
+                      }
+                  }
+                  catch (System.NullReferenceException)
+                  {
+                      ReadCitiesAndCountries();
+                  }
+                  if (country == "")
+                  {
 
-                ReadCitiesAndCountries();
-            }
-            else
-            {
-                Cities.Clear();
-                Cities.Add("");
-                foreach (Location loc in Locations)
-                {
-                    if (loc.Country == country)
-                    {
-                        Cities.Add(loc.City);
-                    }
-                }
-                CityComboBox.SelectedIndex = 1;
-            }
-        }
-        */
+                      ReadCitiesAndCountries();
+                  }
+                  else
+                  {
+                      Cities.Clear();
+                      Cities.Add("");
+                      foreach (Location loc in Locations)
+                      {
+                          if (loc.Country == country)
+                          {
+                              Cities.Add(loc.City);
+                          }
+                      }
+                      CityComboBox.SelectedIndex = 1;
+                  }
+              }
+              
         private void SaveNewAccommodation_ButtonClick(object sender, RoutedEventArgs e)
         {
-            Accommodation newAccommodation = _addAccommodationService.CreateNewAccommodation(UserId,AccommodationName, AccommodationMaxGuests,AccommodationCancelationDays, AccommodationReservationMinDays,CountryComboBox.Text,CityComboBox.Text,TypeComboBox.Text);
+            Accommodation newAccommodation = _addAccommodationService.CreateNewAccommodation(UserId, AccommodationName, AccommodationMaxGuests, AccommodationCancelationDays, AccommodationReservationMinDays, CountryComboBox.Text, CityComboBox.Text, TypeComboBox.Text);
             _addAccommodationService.SaveAccommodation(newAccommodation);
             _addAccommodationService.SaveAccommodationImages(Images.ToList());
         }
@@ -389,107 +380,107 @@ namespace InitialProject.Presentation.WPF.View.Owner
 
         //GOSTI ZA OCENJIVANJE
 
-     /*   private void InitializeUsersToReview()
-        {
-            foreach (Reservation reservation in Reservations)
-            {
-                if (CheckIfLeftReservation(reservation))
-                {
-                    int accommodation_id = ReservationAccommodationId(reservation);
-                    int owner_id = OwnerReservationId(accommodation_id);
-                    UserToReview userToReview = new UserToReview(owner_id, accommodation_id, reservation.UserId, reservation.ReservationDateRange.EndDate); 
-                    _userToReviewRepository.Save(userToReview);
-                    _reservationRepository.Delete(reservation);
-                    _accommodationReservationRepository.DeleteReservation(reservation.ReservationId);
-                   // UsersToReview.Add(userToReview); napravis if funkciju koja dodaje
+        /*   private void InitializeUsersToReview()
+           {
+               foreach (Reservation reservation in Reservations)
+               {
+                   if (CheckIfLeftReservation(reservation))
+                   {
+                       int accommodation_id = ReservationAccommodationId(reservation);
+                       int owner_id = OwnerReservationId(accommodation_id);
+                       UserToReview userToReview = new UserToReview(owner_id, accommodation_id, reservation.UserId, reservation.ReservationDateRange.EndDate); 
+                       _userToReviewRepository.Save(userToReview);
+                       _reservationRepository.Delete(reservation);
+                       _accommodationReservationRepository.DeleteReservation(reservation.ReservationId);
+                      // UsersToReview.Add(userToReview); napravis if funkciju koja dodaje
 
-                }
-            }
-        }
+                   }
+               }
+           }
 
-        private bool CheckIfLeftReservation(Reservation reservation)
-        {
-            if (reservation.ReservationDateRange.EndDate < DateTime.Now)
-            {
-                return true;
-            }
-            return false;
-        }
+           private bool CheckIfLeftReservation(Reservation reservation)
+           {
+               if (reservation.ReservationDateRange.EndDate < DateTime.Now)
+               {
+                   return true;
+               }
+               return false;
+           }
 
-        private int ReservationAccommodationId(Reservation reservation)
-        {
-            foreach (AccommodationReservation accommodationReservation in AccommodationReservations)
-            {
-                if (accommodationReservation.ReservationId == reservation.ReservationId)
-                {
-                    return accommodationReservation.AccommodationId;
-                }
-            }
-            return -1;
-        }
+           private int ReservationAccommodationId(Reservation reservation)
+           {
+               foreach (AccommodationReservation accommodationReservation in AccommodationReservations)
+               {
+                   if (accommodationReservation.ReservationId == reservation.ReservationId)
+                   {
+                       return accommodationReservation.AccommodationId;
+                   }
+               }
+               return -1;
+           }
 
-        private int OwnerReservationId(int accommodationId)
-        {
-            foreach (Accommodation accommodation in AllAccommodations)
-            {
-                if (accommodation.AccommodationID == accommodationId)
-                {
-                    return accommodation.UserId;
-                }
-            }
-            return -1;
-        }
+           private int OwnerReservationId(int accommodationId)
+           {
+               foreach (Accommodation accommodation in AllAccommodations)
+               {
+                   if (accommodation.AccommodationID == accommodationId)
+                   {
+                       return accommodation.UserId;
+                   }
+               }
+               return -1;
+           }
 
-        private void RateNotification()
-        {
-            foreach (UserToReview userToReview in UsersToReview)
-            {
-                if (CheckDateRange(userToReview.LeavingDay) && userToReview.OwnerId == UserId)
-                {
-                    RateUser(userToReview.Guest1Id, userToReview.AccommodationId, userToReview.LeavingDay);
-                }
-                else
-                {
-                    _userToReviewRepository.DeleteByIdAndDate(userToReview.Guest1Id, userToReview.LeavingDay);
-                }
-            }
-        }
+           private void RateNotification()
+           {
+               foreach (UserToReview userToReview in UsersToReview)
+               {
+                   if (CheckDateRange(userToReview.LeavingDay) && userToReview.OwnerId == UserId)
+                   {
+                       RateUser(userToReview.Guest1Id, userToReview.AccommodationId, userToReview.LeavingDay);
+                   }
+                   else
+                   {
+                       _userToReviewRepository.DeleteByIdAndDate(userToReview.Guest1Id, userToReview.LeavingDay);
+                   }
+               }
+           }
 
-        private void RateUser(int userID, int accommodationId, DateTime date)
-        {
-            MessageBoxResult dialogResult = MessageBox.Show("Rate User", "You can still rate user", MessageBoxButton.YesNo);
-            if (dialogResult == MessageBoxResult.Yes)
-            {
-                GuestReviewForm reviewForm = new GuestReviewForm(userID, accommodationId);
-                reviewForm.ShowDialog();
-                if (reviewForm.IsReviewd)
-                {
-                    _userToReviewRepository.DeleteByIdAndDate(userID, date);
-                    
-                }
-            }
-        }
+           private void RateUser(int userID, int accommodationId, DateTime date)
+           {
+               MessageBoxResult dialogResult = MessageBox.Show("Rate User", "You can still rate user", MessageBoxButton.YesNo);
+               if (dialogResult == MessageBoxResult.Yes)
+               {
+                   GuestReviewForm reviewForm = new GuestReviewForm(userID, accommodationId);
+                   reviewForm.ShowDialog();
+                   if (reviewForm.IsReviewd)
+                   {
+                       _userToReviewRepository.DeleteByIdAndDate(userID, date);
 
-        private bool CheckDateRange(DateTime date)
-        {
-            DateTime startDate = DateTime.Now;
-            DateTime endDate = DateTime.Now.AddDays(-5);
-            if (startDate >= date && endDate <= date)
-            {
-                return true;
-            }
-            return false;
-        }
-     */
+                   }
+               }
+           }
+
+           private bool CheckDateRange(DateTime date)
+           {
+               DateTime startDate = DateTime.Now;
+               DateTime endDate = DateTime.Now.AddDays(-5);
+               if (startDate >= date && endDate <= date)
+               {
+                   return true;
+               }
+               return false;
+           }
+        
         private void Review_ButtonClick(object sender, RoutedEventArgs e)
         {
-            if(SelectedUserToReview == null)
+            if (SelectedUserToReview == null)
             {
                 MessageBox.Show("User to review must be selected");
             }
             else
             {
-                GuestReviewForm guestReviewForm = new GuestReviewForm(SelectedUserToReview.Guest1Id,SelectedUserToReview.AccommodationId);
+                GuestReviewForm guestReviewForm = new GuestReviewForm(SelectedUserToReview.Guest1Id, SelectedUserToReview.AccommodationId);
                 guestReviewForm.ShowDialog();
                 if (guestReviewForm.IsReviewd)
                 {
@@ -503,11 +494,11 @@ namespace InitialProject.Presentation.WPF.View.Owner
         {
             if (_ownerRateService.IsSuperOwner(ownerId))
             {
-                zvjezda.Visibility = Visibility.Visible;
+                //zvjezda.Visibility = Visibility.Visible;
             }
             else
             {
-                zvjezda.Visibility = Visibility.Collapsed;
+                // zvjezda.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -544,5 +535,7 @@ namespace InitialProject.Presentation.WPF.View.Owner
         {
 
         }
+        */
     }
 }
+        

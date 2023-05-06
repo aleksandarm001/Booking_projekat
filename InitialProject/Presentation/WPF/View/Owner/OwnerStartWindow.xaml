@@ -38,7 +38,7 @@
                 <Button Content="Delete accommodation" HorizontalAlignment="Center" Margin="0,280,0,0" Grid.Row="2" VerticalAlignment="Top" Width="144" />
             </Grid>
 
-            <Grid x:Name="GuestsButtons" Visibility="Visible" DockPanel.Dock="Left" Width="192" >
+            <Grid x:Name="GuestsButtons" Visibility="Collapsed" DockPanel.Dock="Left" Width="192" >
                 <Label Grid.Row="2">Guests</Label>
                 <Button Content="Current guests" HorizontalAlignment="Center" Margin="0,46,0,0" VerticalAlignment="Top" Width="144" Click="AllAccommodations_ButtonClick"/>
                 <Button Content="Guests to review" HorizontalAlignment="Center" Margin="0,114,0,0" VerticalAlignment="Top" Width="144" Click="GuestsToReview_ButtonClick"/>
@@ -46,7 +46,7 @@
                 <Button Content="Forum" HorizontalAlignment="Center" Margin="0,254,0,0" VerticalAlignment="Top" Width="144"/>
             </Grid>
 
-            <Grid x:Name="ReservationButtons" Visibility="Collapsed" DockPanel.Dock="Left">
+            <Grid x:Name="ReservationButtons" Visibility="Visible" DockPanel.Dock="Left">
                 <Label Grid.Row="2">Reservations</Label>
                 <Button Content="All reservations" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Width="144" ></Button>
                 <Button Content="Requests" HorizontalAlignment="Center" Margin="0,108,0,0" VerticalAlignment="Top" Width="144" Click="Request_ButtonClick" ></Button>
@@ -143,10 +143,10 @@
                     <DataGridTextColumn Header="Accommodation Id" Width="*" Binding="{Binding AccommodationId}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            
+
         </DockPanel>
 
-        <DockPanel x:Name="OwnerReviews" Grid.Column="1" Grid.Row="2" Visibility="Visible">
+        <DockPanel x:Name="OwnerReviews" Grid.Column="1" Grid.Row="2" Visibility="Collapsed">
             <Label DockPanel.Dock="Top" Margin="25,15,0,0" Height="26">Your reviews:</Label>
             <DataGrid  ItemsSource ="{Binding Path=OwnerRates}" Height="270" Width="745" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
                 <DataGrid.Columns>
@@ -160,7 +160,7 @@
             </DataGrid>
         </DockPanel>
 
-        <DockPanel x:Name="ChangeReservationRequests" Grid.Column="1" Grid.Row="2" Visibility="Collapsed">
+        <DockPanel x:Name="ChangeReservationRequests" Grid.Column="1" Grid.Row="2" Visibility="Visible">
             <DataGrid DockPanel.Dock="Top" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Height="289" Width="776" Margin="0,20,0,0"
                       ItemsSource="{Binding Requests}"
                       SelectedItem="{Binding Path= SelectedRequest, UpdateSourceTrigger=PropertyChanged}">
@@ -182,7 +182,7 @@
         <Button Grid.Column="1" Content="Reservation" HorizontalAlignment="Left" Margin="234,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="82" Height="25"/>
         <Button Grid.Column="1" Content="Home" HorizontalAlignment="Left" Margin="316,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="84" Height="25" RenderTransformOrigin="0.481,-0.054" Click="Home_ButtonClick"/>
         <Button Grid.Column="1" Content="Guests" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Width="82" Height="25" Margin="400,0,0,0" Click="Guests_ButtonClick"/>
-
+        <Image x:Name="zvjezda"  Source="/Infrastructure/Resources/Images/Zvjezda.png" Grid.Column="1" Margin="496,16,272,15" Grid.Row="1"/>
 
 
     </Grid>
