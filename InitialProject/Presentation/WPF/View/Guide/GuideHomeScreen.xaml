@@ -35,7 +35,7 @@
             <Image Source="C:\Users\Zlatan\Desktop\hamburher.png" Height="60" VerticalAlignment="Center" Margin="124,0,1,0" Grid.Column="1"/>
 
             <!-- Burger Menu Button -->
-            <Button x:Name="BurgerMenuButton" Grid.Column="1" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" Click="BurgerMenuButton_Click">
+            <Button x:Name="BurgerMenuButton" Grid.Column="1" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding CreateTourCommand}">
                 <Image Source="C:\Users\Zlatan\Desktop\hamburher.png" Height="60" VerticalAlignment="Center"/>
             </Button>
         </Grid>
@@ -45,7 +45,7 @@
             <Border BorderBrush="Black" BorderThickness="0,2,0,0"/>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Grid>
-                    <Button Content="Create Tour" Margin="0,10" Width="200" Height="60" BorderBrush="Black" BorderThickness="2" FontWeight="Bold" Click="CreateTourButton">
+                    <Button Content="Create Tour" Margin="0,10" Width="200" Height="60" BorderBrush="Black" BorderThickness="2" FontWeight="Bold" Command="{Binding CreateTourCommand}">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="createTour" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="30">
@@ -129,7 +129,7 @@
                     </CheckBox>
                 </Grid>
                 <Grid>
-                    <Button Content="Tour Request's" Margin="0,10" Width="200" Height="60" BorderBrush="Black" BorderThickness="2" FontWeight="Bold">
+                    <Button Content="Tour Request's" Margin="0,10" Width="200" Height="60" BorderBrush="Black" BorderThickness="2" FontWeight="Bold" Command="{Binding TourRequestCommand}">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="tourreq" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="30">
@@ -206,7 +206,7 @@
             <Popup x:Name="InfoPopup" PlacementRectangle="-5,-5,0,0" IsOpen="{Binding IsPopupVisible}">
                 <!-- Content of the Popup -->
                 <Border Width="200" Height="100" Background="LightGray">
-                    <TextBlock Text="This is the content of the Popup." HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding PopupMessage}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
             </Popup>
 

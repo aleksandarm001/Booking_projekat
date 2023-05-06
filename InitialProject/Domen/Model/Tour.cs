@@ -29,7 +29,7 @@ namespace InitialProject.Domen.Model
 
         }
 
-        public List<TourPoint> KeyPoints { get; set; }
+        public List<TourPoint>? KeyPoints { get; set; }
         public DateTime StartingDateTime { get; set; }
         public int Duration { get; set; }
         public bool TourStarted { get; set; }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using InitialProject.Presentation.WPF.View.Guide;
+using InitialProject.View;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -17,6 +19,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public RelayCommand FirstQuestionCommand { get; }
         public RelayCommand SecondQuestionCommand { get; }
         public RelayCommand ThirdQuestionCommand { get; }
+        public RelayCommand CreateTourCommand { get; set; }
+
+        public RelayCommand TourRequestCommand { get; set; }
 
         private System.Timers.Timer popupTimer;
 
@@ -27,7 +32,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             FirstQuestionCommand = new RelayCommand(FirstAnswer);
             SecondQuestionCommand = new RelayCommand(SecondAnswer);
             ThirdQuestionCommand = new RelayCommand(ThirdAnswer);
-
+            CreateTourCommand = new RelayCommand(CreateTourView);
+            TourRequestCommand = new RelayCommand(CreateTourRequestView);
             _window = window;
         }
 
@@ -50,6 +56,17 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             {
                 isPopupVisible = value;
                 OnPropertyChanged(nameof(IsPopupVisible));
+            }
+        }
+
+        private string popupMessage;
+        public string PopupMessage
+        {
+            get { return popupMessage; }
+            set
+            {
+                popupMessage = value;
+                OnPropertyChanged(nameof(PopupMessage));
             }
         }
 
@@ -76,10 +93,24 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             // Update the visibility of the buttons based on the CheckBox's state
             ButtonsVisibility = IsChecked ? Visibility.Visible : Visibility.Collapsed;
         }
+        private void CreateTourView(object isChecked)
+        {
+            TourForm tourForm = new TourForm();
+            tourForm.Show();
+            _window.Close();
+        }
+
+        private void CreateTourRequestView(object isChecked)
+        {
+            TourRequestsView tourRequestForm = new TourRequestsView();
+            tourRequestForm.Show();
+            _window.Close();
+        }
+
 
         private void FirstAnswer(object isChecked)
         {
-            ShowInfoPopup("Temporary information 1");
+            PopupMessage = "Temporary information 1";
         }
 
         private void SecondAnswer(object isChecked)

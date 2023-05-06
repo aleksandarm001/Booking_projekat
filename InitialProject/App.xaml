@@ -5,6 +5,11 @@
              StartupUri="Presentation/WPF/View/UserLogIn.xaml">
 
     <Application.Resources>
-
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/TourRequestCardTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
+
 </Application>
