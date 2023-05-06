@@ -12,9 +12,9 @@ namespace InitialProject.Services
     {
         private readonly ChangeReservationRequestRepository _requestRepository;
         private readonly ReservationRepository _reservationRepository;
-        private readonly ReservationService _reservationService;
-        private readonly AccommodationService _accommodationService;
-        private readonly AccommodationReservationService _accommodationReservationService;
+        private readonly IReservationService _reservationService;
+        private readonly IAccommodationService _accommodationService;
+        private readonly IAccommodationReservationService _accommodationReservationService;
         
         public ChangeReservationRequestService()
         {
@@ -92,21 +92,27 @@ namespace InitialProject.Services
 
             foreach(ChangeReservationRequest crr in changeReservationRequests)
             {
-                OwnerChangeRequests ownerChangeReservationRequests = new OwnerChangeRequests();
-                ownerChangeReservationRequests.ReservationId = crr.ReservationId;
-                ownerChangeReservationRequests.RequestId= crr.RequestId;
-                ownerChangeReservationRequests.AccommodationName = crr.AccommodationName;
-                ownerChangeReservationRequests.ReservationId= crr.ReservationId;
-                ownerChangeReservationRequests.NewStartDate = crr.NewStartDate;
-                ownerChangeReservationRequests.NewEndDate = crr.NewEndDate;
-                ownerChangeReservationRequests.OwnerId= crr.OwnerId;
-                ownerChangeReservationRequests.IsDateAvailable = isDateRangeAvailable(crr.NewStartDate, crr.NewEndDate, crr.AccommodationName,crr.ReservationId);
 
+                OwnerChangeRequests ownerChangeReservationRequests = NewChangeReservationRequest(crr);
                 ownerChangeRequests.Add(ownerChangeReservationRequests);
             }
             return ownerChangeRequests;
         }
 
+        public OwnerChangeRequests NewChangeReservationRequest(ChangeReservationRequest crr)
+        {
+            return new OwnerChangeRequests
+            {
+                RequestId = crr.RequestId,
+                AccommodationName = crr.AccommodationName,
+                ReservationId = crr.ReservationId,
+                NewStartDate = crr.NewStartDate,
+                NewEndDate = crr.NewEndDate,
+                OwnerId = crr.OwnerId,
+                IsDateAvailable = isDateRangeAvailable(crr.NewStartDate, crr.NewEndDate, crr.AccommodationName, crr.ReservationId),
+
+            };
+        }
 
         public bool isDateRangeAvailable(DateTime newStartDate, DateTime newEndDate,string accommodationName,int reservationId) 
         {
@@ -114,15 +120,7 @@ namespace InitialProject.Services
             int accommodationId = _accommodationService.GetAccommodationIdByAccommodationName(accommodationName);
             List<int> reservationsIds = _accommodationReservationService.GetReservationsIdsByAccommodationId(accommodationId);
 
-            List<Reservation> reservations = new List<Reservation>();
-            foreach(int id in reservationsIds)
-            {
-                reservations.Add(_reservationService.GetActiveReservation(id));
-            }
-           // if (reservations == null)
-            //{
-              //  return true;
-            //}
+            List<Reservation> reservations = GetReservationsByIds(reservationsIds);
 
             foreach (Reservation reservation in reservations)
             {
@@ -135,10 +133,26 @@ namespace InitialProject.Services
             return true;
         }
 
+        private List<Reservation> GetReservationsByIds(List<int> reservationIds)
+        {
+            List<Reservation> reservations = new List<Reservation>();
+
+            foreach (int id in reservationIds)
+            {
+                reservations.Add(_reservationService.GetReservationById(id));
+            }
+
+            return reservations;
+        }
+
         public static bool DoRangesIntersect(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
         {
+            return ((start1 >= start2 && start1 <= end2) || (end1 >= start2 && end1 <= end2)
+                || (start2 >= start1 && start2 <= end1) || (end2 >= start1 && end2 <= end1));
+            /*
             if ((start1 >= start2 && start1 <= end2) || (end1 >= start2 && end1 <= end2)
                 || (start2 >= start1 && start2 <= end1) || (end2 >= start1 && end2 <= end1))
+           
             {
                 return true; // If ranges intersect, return true
             }
@@ -146,6 +160,7 @@ namespace InitialProject.Services
             {
                 return false; // If ranges do not intersect, return false
             }
+            */
         }
 
 

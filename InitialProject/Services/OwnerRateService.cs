@@ -11,7 +11,7 @@ namespace InitialProject.Services
 {
     public class OwnerRateService : IOwnerRateService
     {
-        private readonly GuestReviewRepository guestReviewRepository;
+        private readonly GuestReviewRepository _guestReviewRepository;
         private readonly IOwnerRateRepository _ownerRateRepository;
 
         public OwnerRateService()
@@ -30,20 +30,36 @@ namespace InitialProject.Services
 
         public List<OwnerRate> RatingsFromRatedGuest(int ownerId)
         {
-            List<OwnerRate> RatingsFromRatedGuest = new List<OwnerRate>();
-
+            List<OwnerRate> ratingsFromRatedGuests = new List<OwnerRate>();
+            /*
             foreach(OwnerRate ownerRate in _ownerRateRepository.GetAllRatesByOwner(ownerId))
             {
-                foreach(GuestReview guestReview in guestReviewRepository.GetAll())
+                foreach(GuestReview guestReview in _guestReviewRepository.GetAll())
                 {
                     if(ownerRate.UserId == guestReview.GuestId && ownerRate.AccommodationId == guestReview.AccommodationId)
                     {
-                        RatingsFromRatedGuest.Add(ownerRate);
+                        ratingsFromRatedGuest.Add(ownerRate);
                         break;
                     }
                 }
             }
-            return RatingsFromRatedGuest;
+            return ratingsFromRatedGuest;
+
+            */
+            List<OwnerRate> allRatesByOwner = _ownerRateRepository.GetAllRatesByOwner(ownerId);
+            List<GuestReview> allGuestReviews = _guestReviewRepository.GetAll();
+
+            foreach (OwnerRate ownerRate in allRatesByOwner)
+            {
+                bool isRatedByGuest = allGuestReviews.Any(guestReview =>
+                    ownerRate.UserId == guestReview.GuestId && ownerRate.AccommodationId == guestReview.AccommodationId);
+
+                if (isRatedByGuest)
+                {
+                    ratingsFromRatedGuests.Add(ownerRate);
+                }
+            }
+            return ratingsFromRatedGuests;
         }
 
         
@@ -51,7 +67,7 @@ namespace InitialProject.Services
         public bool IsSuperOwner(int ownerId)
         {
             List<OwnerRate> ownerRates = _ownerRateRepository.GetAllRatesByOwner(ownerId);
-
+            /*
             if(ownerRates.Count < 5)
             {
                 return false;
@@ -66,6 +82,12 @@ namespace InitialProject.Services
                 }
             }
             return false;
+            */
+            if(ownerRates.Count < 5)
+                return false;
+
+            double rateAverage = ownerRates.Average(o => (o.CleanlinessRate + o.CorrectnessRate) / 2);
+            return rateAverage > 4.5;
         }
 
         public List<OwnerRate> GetRatesByUserId(int userId)

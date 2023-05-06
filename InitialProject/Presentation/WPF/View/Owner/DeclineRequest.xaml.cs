@@ -37,14 +37,15 @@ namespace InitialProject.Presentation.WPF.View.Owner
                 OnPropertyChanged(nameof(Request));
             }
         }
+
 */
+       
         public int RequestId { get; set; }
         public string OwnerComment { get; set; }
         
         public DeclineRequest(int requestId)
         {
             InitializeComponent();
-            //Request = _requestService.GetRequestByRequestId(requestId);
             RequestId= requestId;
             OwnerComment= string.Empty;
             

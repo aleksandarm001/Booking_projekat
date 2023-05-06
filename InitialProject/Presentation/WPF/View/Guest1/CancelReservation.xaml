@@ -26,7 +26,7 @@
         <Button Content="Cancel Reservation" Command="{Binding CancelReservationCommand}" 
                 CommandParameter="{Binding SelectedReservationId}" 
                 IsEnabled="{Binding CanCancelReservation}" 
-                HorizontalAlignment="Left" Margin="89,20,0,0" Grid.Row="2" VerticalAlignment="Top" Height="30" Width="110"/>
+                HorizontalAlignment="Left" Margin="89,20,0,0" Grid.Row="2" VerticalAlignment="Top" Height="30" Width="110" />
         <Button Content="Quit" Command="{Binding CloseCommand}" 
                 CommandParameter="{Binding ElementName = cancelReservationWindow}" 
                 HorizontalAlignment="Left" Margin="256,20,0,0" Grid.Row="2" VerticalAlignment="Top" Height="30" Width="110"/>

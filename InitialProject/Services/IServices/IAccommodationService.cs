@@ -15,6 +15,7 @@ namespace InitialProject.Services.IServices
         int GetOwnerIdByAccommodationId(int accommodationId);
         int GetOwnerIdByReservationId(int reservationId);
         int GetAccommodationIdByReservationId(int reservationId);
+        int GetAccommodationIdByAccommodationName(string accommodationName);
         Accommodation GetAccommodationByReservationId(int reservationId);
         Accommodation GetAccommodationById(int accommodationId);
         Accommodation GetAccommodationByIdAndOwnerId(int ownerId, int accommodationId);
@@ -24,5 +25,7 @@ namespace InitialProject.Services.IServices
         List<int> GetReservationIdsByAccommodationId(int accommodationId);
         void Save(AccommodationReservation accommodationReservation);
         bool HasAccommodationOnLocation(int userId, Location location);
+        List<Accommodation> GetAccommodationsByOwnerId(int ownerId);
+
     }
 }

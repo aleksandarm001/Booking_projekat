@@ -33,5 +33,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             viewModel = new CancelReservationViewModel(requests);
             DataContext = viewModel;
         }
+
     }
 }

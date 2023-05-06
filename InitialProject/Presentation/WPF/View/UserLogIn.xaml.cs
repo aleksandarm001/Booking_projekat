@@ -81,12 +81,12 @@ namespace InitialProject
                     window.Show();
                     this.Close();
                     break;
-                /*case(UserType.Owner):
+                case(UserType.Owner):
                     OwnerStartWindow start = new OwnerStartWindow(user.Id);
                     start.Show();
                     this.Close();
                     break;
-             */
+             
                 default:
                     StartWindow startWindow = new StartWindow(user.Id);
                     startWindow.Show();

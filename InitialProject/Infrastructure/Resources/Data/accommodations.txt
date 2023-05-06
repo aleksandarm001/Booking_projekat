@@ -19,3 +19,13 @@
 19|9|88 rooms|Japan;Tokyo|Apartment|5|2|3
 20|9|Japanski dormeo|Japan;Tokyo|Shack|5|2|3
 21|3|Hotel Srbija|Serbia;Novi Sad|House|5|4|3
+22|3|Novi smestaj|Russia;Mumbai|House|3|4|5
+23|9|RadiMolimTe|China;Karachi|Shack|3|3|1
+24|9|Hajdeee|Brazil;São Paulo|House|3|3|3
+25|9|Djubrad|Srbija;Cairo|Shack|3|2|1
+26|3|Droga|Brazil;Mumbai|Apartment|5|5|15
+27|3|Why always me|Japan;Delhi|Apartment|3|4|5
+28|3|Smestaj|India;Mumbai|Apartment|3|2|1
+29|3|Ti si fakultet|China;Mumbai|Apartment|3|2|1
+30|3|Djadjadja|Brazil;São Paulo|Apartment|3|2|1
+31|3|Kokain|Egypt;Mumbai|Apartment|3|5|51

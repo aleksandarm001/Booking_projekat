@@ -13,5 +13,11 @@ namespace InitialProject.Services.IServices
         void SaveRequest(ChangeReservationRequest request);
         void DeleteRequestByReservationId(int reservationId);
         ChangeReservationRequest FindRequestByReservationId(int reservationId);
+        ChangeReservationRequest GetRequestByRequestId(int requestId);
+        List<ChangeReservationRequest> GetRequestsByOwnerId(int userId);
+        List<OwnerChangeRequests> OwnerChangeReservationRequest(int ownerId);
+        void AcceptRequest(int requestId);
+        void ChangeReservationDateRange(DateTime newStartDate, DateTime newEndDate, int reservationId);
+        void DeclineRequest(int requestId, string comment);
     }
 }

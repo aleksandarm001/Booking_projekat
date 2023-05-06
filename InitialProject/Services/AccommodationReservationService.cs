@@ -60,7 +60,7 @@ namespace InitialProject.Services
         public List<int> GetReservationsIdsByAccommodationId(int accommodationId)
         {
             List<int> reservationIds = new List<int>();
-            List<AccommodationReservation> reservations = _accommodationReservationRepository.GetAll(); //Pitaj Igora
+            List<AccommodationReservation> reservations = _accommodationReservationRepository.GetAll(); 
             foreach(AccommodationReservation ar in reservations)
             {
                 if (ar.AccommodationId == accommodationId)
