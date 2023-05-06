@@ -45,6 +45,7 @@ namespace InitialProject.Aplication.Factory
             { typeof(IRenovationRecommendationService), new Lazy<object>(() => new RenovationRecommendationService()) },
             { typeof(IAddAccommodationService), new Lazy<object>(() => new AddAccommodationService()) },
             { typeof(IGuestReviewService), new Lazy<object>(() => new GuestReviewService()) },
+            { typeof(IRenovationService), new Lazy<object>(() => new RenovationService()) },
         };
 
         public static T CreateInstance<T>()

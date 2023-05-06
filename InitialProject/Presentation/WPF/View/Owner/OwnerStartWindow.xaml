@@ -160,7 +160,7 @@
             </DataGrid>
         </DockPanel>
 
-        <DockPanel x:Name="ChangeReservationRequests" Grid.Column="1" Grid.Row="2" Visibility="Visible">
+        <DockPanel x:Name="ChangeReservationRequests" Grid.Column="1" Grid.Row="2" Visibility="Collapsed">
             <DataGrid DockPanel.Dock="Top" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Height="289" Width="776" Margin="0,20,0,0"
                       ItemsSource="{Binding Requests}"
                       SelectedItem="{Binding Path= SelectedRequest, UpdateSourceTrigger=PropertyChanged}">
@@ -177,6 +177,49 @@
                     <Button Content="Accept" Width="130"  Height ="30" HorizontalAlignment="Left" Margin="191,2,0,22" Click="AcceptChangeReservation_Button_Click"/>
                 </Grid>
             </DockPanel>
+        </DockPanel>
+
+        <DockPanel Grid.Row="2" Grid.Column="1">
+            <TabControl DockPanel.Dock="Top" Height="284" Width="764" Margin="15">
+                <TabItem Header="AccommodationAvailableForRenovation">
+                    <DataGrid  DockPanel.Dock="Top" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Height="253"
+                            ItemsSource="{Binding Accommodations , UpdateSourceTrigger=PropertyChanged}"
+                            SelectedItem="{Binding Path= SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,1,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Header="Accommodation name" Width="*" Binding="{Binding  Name}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Scheduled renovations">
+                    <DataGrid ItemsSource="{Binding ScheduledRenovations,UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path= SelectedRenovation,UpdateSourceTrigger=PropertyChanged}"
+                              IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Header="Accommodation name" Width="*" Binding="{Binding  AccommodationName}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Start date" Width="*" Binding="{Binding DateRange.SStartDate}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="End date" Width="*" Binding="{Binding DateRange.SEndDate}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Description" Width="*" Binding="{Binding Description}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Finished renovations">
+                    <DataGrid ItemsSource="{Binding FinishedRenovations,UpdateSourceTrigger=PropertyChanged}"
+                              IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Header="Accommodation name" Width="*" Binding="{Binding  AccommodationName}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Start date" Width="*" Binding="{Binding DateRange.SStartDate}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="End date" Width="*" Binding="{Binding DateRange.SEndDate}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Description" Width="*" Binding="{Binding Description}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
+            <Grid DockPanel.Dock="Bottom">
+                <Button Content="Add renovation" HorizontalAlignment="Left" Margin="238,7,0,0" VerticalAlignment="Top" Height="26" Width="100" Click="AddRenovation_ButtonClick"/>
+                <Button Content="Cancel renovation" HorizontalAlignment="Left" Margin="404,0,0,16" Width="100" Height="26" VerticalAlignment="Bottom" Click="CancelRenovation_ButtonClick"/>
+
+            </Grid>
         </DockPanel>
 
         <Button Grid.Column="1" Content="Reservation" HorizontalAlignment="Left" Margin="234,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="82" Height="25"/>
