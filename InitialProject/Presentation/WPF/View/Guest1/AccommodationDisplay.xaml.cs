@@ -359,5 +359,10 @@ namespace InitialProject.View
         {
 
         }
+
+        private void accommodationsDataGrid_SelectionChanged()
+        {
+
+        }
     }
 }

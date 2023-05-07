@@ -36,7 +36,7 @@
                           Width="880" Height="440" Margin="10,30,0,0" HorizontalAlignment="Left" x:Name="accommodationsDataGrid"
                   ItemsSource="{Binding Path = Accommodations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path= SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
-                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Width="0.75*" Binding="{Binding Name}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Country" Width="0.7*" Binding="{Binding Location.Country}"></DataGridTextColumn>

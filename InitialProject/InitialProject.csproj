@@ -20,6 +20,7 @@
     <None Remove="Infrastructure\Resources\Images\female_profile.png" />
     <None Remove="Infrastructure\Resources\Images\home.png" />
     <None Remove="Infrastructure\Resources\Images\homePageCommands.png" />
+    <None Remove="Infrastructure\Resources\Images\LisceBato.jpg" />
     <None Remove="Infrastructure\Resources\Images\pin1.png" />
     <None Remove="Infrastructure\Resources\Images\pin2.png" />
     <None Remove="Infrastructure\Resources\Images\pin3.png" />
@@ -50,7 +51,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure/Resources\Images\Zvjezda.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure\Resources\Images\arrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -65,6 +66,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure\Resources\Images\homePageCommands.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Infrastructure\Resources\Images\LisceBato.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure\Resources\Images\pin1.png">

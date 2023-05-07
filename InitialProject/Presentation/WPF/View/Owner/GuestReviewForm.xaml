@@ -42,8 +42,8 @@
             </ComboBox>
 
         </Grid>
-        <Button Content="Submit" Click="SubmitReview" HorizontalAlignment="Left" Margin="67,193,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.098,-0.979" Width="64"/>
-        <Button Content="Cancel" Click="Close"  HorizontalAlignment="Left" Margin="187,193,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.163,-0.295" Width="64"/>
+        <Button Content="Submit" Command="{Binding SubmitCommand}" HorizontalAlignment="Left" Margin="67,193,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.098,-0.979" Width="64"/>
+        <Button Content="Cancel" Command="{Binding CancelCommand }"  HorizontalAlignment="Left" Margin="187,193,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.163,-0.295" Width="64"/>
 
     </Grid>
 </Window>
