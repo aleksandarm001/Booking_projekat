@@ -59,7 +59,10 @@ namespace InitialProject.Aplication.Factory
             { typeof(ICommentRepository), new Lazy<object>(() => new CommentRepository()) },
             { typeof(ICommentService), new Lazy<object>(() => new CommentService()) },
             { typeof(IForumIdService), new Lazy<object>(() => new ForumIdService()) },
-            { typeof(IForumUtilityService), new Lazy<object>(() => new ForumUtilityService()) }
+            { typeof(IForumUtilityService), new Lazy<object>(() => new ForumUtilityService()) },
+            { typeof(IAddAccommodationService), new Lazy<object>(() => new AddAccommodationService()) },
+            { typeof(IGuestReviewService), new Lazy<object>(() => new GuestReviewService()) },
+            { typeof(IRenovationService), new Lazy<object>(() => new RenovationService()) },
         };
 
         public static T CreateInstance<T>()

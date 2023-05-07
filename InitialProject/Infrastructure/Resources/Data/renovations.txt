@@ -1,0 +1,2 @@
+2|2|Modern Loft|5/10/2023 12:00:00 AM,5/3/2023 12:00:00 AM|AAAAAA|True
+3|3|Charming Bungalow|5/13/2023 12:00:00 AM,5/16/2023 12:00:00 AM||False

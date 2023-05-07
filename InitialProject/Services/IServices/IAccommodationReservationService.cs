@@ -14,5 +14,6 @@ namespace InitialProject.Services.IServices
         bool IsCancellingPossible(DateTime currentDate, int reservationId);
         List<DateRange> GetAvailableDays(int accommodationId, int reservationDays, DateTime startDate, DateTime endDate);
         bool WasOnLocation(int userId, Location location);
+        List<int> GetReservationsIdsByAccommodationId(int accommodationId);
     }
 }

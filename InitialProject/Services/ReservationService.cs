@@ -80,5 +80,10 @@ namespace InitialProject.Services
         {
             return _repository.GetAll().Where(r => r.UserId == userId && r.Status == ReservationStatus.Reserved).ToList();
         }
+
+        public Reservation GetReservationById(int reservationId)
+        {
+            return _repository.GetAll().Find(r => r.ReservationId == reservationId);
+        }
     }
 }
