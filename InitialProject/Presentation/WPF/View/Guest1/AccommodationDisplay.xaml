@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InitialProject.View"
+        xmlns:local="clr-namespace:InitialProject.View" 
+        xmlns:val="clr-namespace:InitialProject.Presentation.WPF.ViewModel"
         mc:Ignorable="d"
         Title="Accommodation" Height="750" Width="1100"
         WindowStartupLocation ="CenterScreen"
@@ -112,8 +113,31 @@
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Foreground="White" Text="Number of guests" Margin="0,0,0,5" HorizontalAlignment="Left" />
                         <TextBox Background="#EFF2F7"  HorizontalAlignment="Left" TextWrapping="Wrap" 
-                         VerticalAlignment="Top" Text="{Binding Path=StrNumberOfGuests, UpdateSourceTrigger=PropertyChanged}"
-                         Width="140" Height="25"/>
+                         VerticalAlignment="Top" 
+                         Width="140" Height="25">
+                            <TextBox.Text>
+                                <Binding Path="StrNumberOfGuests" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <val:NumericValidation ValidationStep="RawProposedValue"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
                     </StackPanel>
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Foreground="White" Text="Reservation days" Margin="0,0,0,5" HorizontalAlignment="Left" />

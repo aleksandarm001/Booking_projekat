@@ -163,7 +163,7 @@
                         Text="{Binding Path=Password, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}"/>
 
 
-                    <Button     BorderThickness="0"
+                    <Button BorderThickness="0"
                             Content="SIGN UP"
                             Foreground="White"
                             FontSize="12"
