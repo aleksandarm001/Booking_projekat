@@ -139,7 +139,6 @@
                 <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"
                     Height="450"  HorizontalAlignment="Left" Margin="20,50,10,0"
                       ItemsSource="{Binding Path = Reservations, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding Path= SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
                       IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False"
                           FontSize="16">
                     <DataGrid.Columns>

@@ -10,6 +10,10 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None">
+    <Window.InputBindings>
+        <KeyBinding Key="F10" Command="{Binding SendRequest_Command}" />
+        <KeyBinding Key="F11" Command="{Binding  Cancel_Command}" />
+    </Window.InputBindings>
     <Grid>
         <Border CornerRadius="12" BorderThickness="5" Background="White" Margin="0,0,0,0">
             <Border.BorderBrush>
@@ -24,7 +28,7 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" Margin="0 3 15 0">
+            <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" Margin="0 10 12 0">
                 <Button x:Name="btnMinimize"
                         BorderThickness="0"
                         Content="-"
@@ -110,7 +114,7 @@
                             FontFamily="Montserrat"
                             Cursor="Hand"                           
                             Margin="0,0,0,0"
-                            Click="SendRequest_Button"
+                            Command="{Binding SendRequest_Command}"
                             HorizontalAlignment="Left"
                             x:Name="Send_Button">
                         <Button.Style>
@@ -140,7 +144,7 @@
                             FontFamily="Montserrat"
                             Cursor="Hand"                           
                             Margin="60,0,0,0"
-                            Click="Cancel_Click"
+                            Command="{Binding Cancel_Command}"
                             HorizontalAlignment="Right">
                         <Button.Style>
                             <Style TargetType="Button">

@@ -351,7 +351,7 @@ namespace InitialProject.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            RequestsOwerview ro = new RequestsOwerview(_userId);
+            RequestsOwerview ro = new RequestsOwerview();
             ro.ShowDialog();
         }
 

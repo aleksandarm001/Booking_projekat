@@ -1,4 +1,5 @@
-﻿using InitialProject.Aplication.Factory;
+﻿using Eco.ViewModel.Runtime;
+using InitialProject.Aplication.Factory;
 using InitialProject.Domen.Model;
 using InitialProject.Services;
 using InitialProject.Services.IServices;
@@ -8,12 +9,15 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Channels;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 {
     public class ReservationChangeViewModel : INotifyPropertyChanged
     {
+        private Window this_window;
         public event PropertyChangedEventHandler? PropertyChanged;
         private IChangeReservationRequestService _requestService;
         private IReservationService _reservationService;
@@ -25,6 +29,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         public int SelectedReservationId { get; set; }
         public DateTime NewCheckInDate { get; set; }
         public DateTime NewCheckOutDate { get; set; }
+        public RelayCommand SendRequest_Command { get; private set; }
+        public RelayCommand Cancel_Command { get; private set; }
         private ObservableCollection<ChangeReservationRequest> _requests;
         public ObservableCollection<ChangeReservationRequest> Requests
         {
@@ -42,7 +48,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public ReservationChangeViewModel(int userId, ObservableCollection<ChangeReservationRequest> Requests)
+        public ReservationChangeViewModel(int userId, ObservableCollection<ChangeReservationRequest> Requests, Window window)
         {
             _reservationService = Injector.CreateInstance<IReservationService>();
             _accommodationService = Injector.CreateInstance<IAccommodationService>();
@@ -50,20 +56,27 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             _accommodationReservationService = Injector.CreateInstance<IAccommodationReservationService>();
             _userId = userId;
             this.Requests = Requests;
-
+            SendRequest_Command = new RelayCommand(SendRequest);
+            Cancel_Command = new RelayCommand(Cancel);
             InitializeReservationsForChange();
+            this_window = window;
         }
         private void InitializeReservationsForChange()
         {
             ReservationsForChange = new ObservableCollection<KeyValuePair<int, string>>(_accommodationReservationService.GetReservationsByUserId(_userId));
         }
-        public void SendRequest_Button()
+        private void SendRequest(object parameter)
         {
             _ownerId = _accommodationService.GetOwnerIdByReservationId(SelectedReservationId);
             string accommodationName = _accommodationService.GetNameByReservationId(SelectedReservationId);
             ChangeReservationRequest request = new ChangeReservationRequest(SelectedReservationId, accommodationName, NewCheckInDate, NewCheckOutDate, StatusType.Pending, _userId, _ownerId);
             _requestService.SaveRequest(request);
             UpdateRequests(request);
+            this_window.Close();
+        }
+        private void Cancel(object parameter)
+        {
+            this_window.Close();
         }
         public void ComboBox_SelectionChanged(DatePicker CheckInPicker, DatePicker CheckOutPicker)
         {
