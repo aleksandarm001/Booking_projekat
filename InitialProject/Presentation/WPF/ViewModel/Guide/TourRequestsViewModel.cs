@@ -1,5 +1,6 @@
 ﻿using InitialProject.Aplication.Factory;
 using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.View.Guide;
 using InitialProject.Services;
 using InitialProject.Services.IServices;
 using System.Collections.ObjectModel;
@@ -15,13 +16,18 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public ICommand ApproveCommand { get; set; }
         public ICommand DeclineCommand { get; set; }
 
+        public ICommand FillterCommand { get; set; }
+
         private readonly ITourRequestService tourRequestService;
+        private readonly ITourService tourService;
 
         public TourRequestsViewModel()
         {
             ApproveCommand = new RelayCommand(ApproveTourRequest);
             DeclineCommand = new RelayCommand(DeclineTourRequest);
+            FillterCommand = new RelayCommand(FillterTourRequest);
             tourRequestService = Injector.CreateInstance<ITourRequestService>();
+            tourService = Injector.CreateInstance<ITourService>();
 
             _tourRequests = new ObservableCollection<TourRequest>();
             var tourRequestsList = tourRequestService.GetAllRequests();
@@ -81,7 +87,25 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             TourRequest selectedTourRequest = (TourRequest)obj;
             IsSelected = true;
             SelectedTourRequest = selectedTourRequest;
-            // Do something with the selected tour request
+            //should delete and to Tours
+            DeleteTourRequest(SelectedTourRequest);
+            //add to Tours txt
+            tourService.Save((Tour)SelectedTourRequest);
+            _tourRequests.Remove(SelectedTourRequest);
+            tourRequestService.Delete(SelectedTourRequest);
+
+
+        }
+
+        private void DeleteTourRequest(TourRequest tourReq)
+        {
+            tourRequestService.Delete(tourReq);
+        }
+
+        private void FillterTourRequest(object obj)
+        {
+           AcceptedTourRequestView T = new AcceptedTourRequestView();
+            T.Show();
         }
 
         private void DeclineTourRequest(object obj)
@@ -89,6 +113,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             TourRequest selectedTourRequest = (TourRequest)obj;
             IsSelected = true;
             SelectedTourRequest = selectedTourRequest;
+            DeleteTourRequest(selectedTourRequest);
+            _tourRequests.Remove(SelectedTourRequest);
+            tourRequestService.Delete(SelectedTourRequest);
         }
 
     }

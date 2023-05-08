@@ -12,6 +12,8 @@ namespace InitialProject.Services.IServices
         List<Tour> GetSimilarAsTourHasFullCapacity(string country, string city);
         Tour GetTourById(int id);
 
+        Tour Save(Tour tour);
+
         List<Tour> GetAllFinishedTours();
         void ReduceMaxGuestNumber(int tourId, int guestNumber);
 

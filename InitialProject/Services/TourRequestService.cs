@@ -53,8 +53,15 @@
             _repository.Update(tourRequest);
         }
 
-     
 
+        public void DeleteTourRequest(TourRequest tourRequst)
+        {
 
+        }
+
+        public TourRequest Delete(TourRequest tourRequest)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

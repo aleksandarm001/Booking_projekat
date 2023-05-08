@@ -10,6 +10,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -17,10 +18,17 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding StartingDate}" FontWeight="Bold" FontSize="16" />
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding GuestNumber}" />
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Location}" />
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Language}" />
+                <!-- Headers -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Starting Date:" FontWeight="Bold" />
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Guest Number:" FontWeight="Bold" />
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Location:" FontWeight="Bold" />
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Language:" FontWeight="Bold" />
+
+                <!-- Data -->
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding StartingDate}" FontWeight="Bold" FontSize="16" />
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding GuestNumber}" />
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Location}" />
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Language}" />
 
                 <Button Grid.Row="4" Grid.Column="1" Content="Approve" Margin="5" Padding="10,5" Command="{Binding DataContext.ApproveCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" />
                 <Button Grid.Row="4" Grid.Column="2" Content="Decline" Margin="5" Padding="10,5" Command="{Binding DataContext.DeclineCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" />
@@ -38,6 +46,7 @@
             </Border.Style>
         </Border>
     </DataTemplate>
+
 
 
 </ResourceDictionary>

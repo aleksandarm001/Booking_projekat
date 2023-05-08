@@ -18,5 +18,7 @@
         void Update(TourRequest tourRequest);
 
         void CheckRequests();
+
+        TourRequest Delete(TourRequest tourRequest);
     }
 }

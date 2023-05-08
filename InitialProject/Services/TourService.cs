@@ -130,5 +130,10 @@
             return (string.IsNullOrEmpty(language) || tour.Language.ToString() == language);
         }
 
+        public Tour Save(Tour tour)
+        {
+            return _tourRepository.Save(tour);
+        }
+
     }
 }
