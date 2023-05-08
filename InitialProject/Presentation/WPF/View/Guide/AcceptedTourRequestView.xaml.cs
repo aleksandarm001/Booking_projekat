@@ -41,9 +41,6 @@ namespace InitialProject.Presentation.WPF.View.Guide
             DataContext = this;
         }
 
-        private void CountriesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+       
     }
 }

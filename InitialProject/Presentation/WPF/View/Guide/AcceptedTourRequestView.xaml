@@ -28,6 +28,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
+
+
             <!-- Logo Image -->
             <Image Source="C:\Users\Zlatan\source\repos\SIMS-BookingBuddies\InitialProject\InitialProject\Infrastructure\Resources\Images\BookBuddy_logo1.png" Height="40" VerticalAlignment="Center" Margin="10"/>
 
@@ -49,10 +51,42 @@
         <!-- Content Area -->
         <!-- Content Area -->
         <Grid Grid.Row="1">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Tour Request" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" Margin="0,14,0,534"/>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="439">
                 <Border Width="300" Height="30" BorderBrush="Black" BorderThickness="2" Background="White" CornerRadius="15" Margin="0,5">
-                    <TextBox Text="{Binding Name}" FontSize="14" Padding="5" Background="Transparent" BorderThickness="0" ToolTip="Enter Name"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Width="270" Height="26" Text="{Binding KeyPoints}" FontSize="14" Padding="5" BorderThickness="0" ToolTip="Enter Date and Time" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                    <Style.Resources>
+                                        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Center" AlignmentY="Center" Stretch="None">
+                                            <VisualBrush.Visual>
+                                                <Label Content="Tour Name" Foreground="DarkGray" HorizontalAlignment="Center" />
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </Style.Resources>
+                                    <Style.Triggers>
+                                        <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="Text" Value="{x:Null}">
+                                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="IsKeyboardFocused" Value="True">
+                                            <Setter Property="Background" Value="White" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                    </Grid>
                 </Border>
+
+
+
 
                 <Grid>
                     <Grid.Resources>
@@ -91,7 +125,7 @@
                                         </Grid>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="ToggleButton" Property="Background" Value="#FFDDDDDD"/>
+                                                <Setter TargetName="ToggleButton" Property="Background" Value="#ff5f5f"/>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -102,63 +136,113 @@
                     </Grid.Resources>
                     <StackPanel>
                         <!-- Countries ComboBox -->
-                        <ComboBox x:Name="CountriesComboBox" Style="{StaticResource RoundedComboBoxStyle}" FontSize="14" Margin="0,5" ToolTip="Select Country" ItemsSource="{Binding Countries}" SelectedItem="{Binding Country}" SelectionChanged="CountriesComboBox_SelectionChanged"/>
-                        <ComboBox x:Name="CitiesComboBox" Style="{StaticResource RoundedComboBoxStyle}" FontSize="14" Margin="0,5" ToolTip="Select City" ItemsSource="{Binding Cities}" SelectedItem="{Binding City}"/>
-                        <ComboBox x:Name="LanguagesComboBox" Style="{StaticResource RoundedComboBoxStyle}" FontSize="14" Margin="0,5" ToolTip="Select Language" ItemsSource="{Binding Languages}" SelectedItem="{Binding Language}"/>
+                        <ComboBox x:Name="CountriesComboBox" Style="{StaticResource RoundedComboBoxStyle}" Background="LightGray" FontSize="14" Margin="0,5" ToolTip="Select Country" ItemsSource="{Binding Countries}" SelectedItem="{Binding Country}"/>
+                        <ComboBox x:Name="CitiesComboBox" Style="{StaticResource RoundedComboBoxStyle}" Background="LightGray" FontSize="14" Margin="0,5" ToolTip="Select City" ItemsSource="{Binding Cities}" SelectedItem="{Binding City}"/>
+                        <ComboBox x:Name="LanguagesComboBox" Style="{StaticResource RoundedComboBoxStyle}" Background="LightGray" FontSize="14" Margin="0,5" ToolTip="Select Language" ItemsSource="{Binding Languages}" SelectedItem="{Binding Language}"/>
 
                     </StackPanel>
                 </Grid>
 
                 <Border Width="300" Height="30" BorderBrush="Black" BorderThickness="2" Background="White" CornerRadius="15" Margin="0,5">
-                    <TextBox Text="{Binding MaxGuests}" FontSize="14" Padding="5" Background="Transparent" BorderThickness="0" ToolTip="Enter Max Guests"/>
+                    <TextBox Text="{Binding MaxGuests}" FontSize="14" Padding="5" BorderThickness="0" ToolTip="Enter Tour Duration" Margin="15,0,15,0">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Center" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Max Guest's" Foreground="DarkGray" HorizontalAlignment="Center" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
                 </Border>
+
                 <Border Width="300" Height="30" BorderBrush="Black" BorderThickness="2" Background="White" CornerRadius="15" Margin="0,5">
-                    <TextBox Text="{Binding TourDuration}" FontSize="14" Padding="5" Background="Transparent" BorderThickness="0" ToolTip="Enter Key Points"/>
+                    <TextBox Text="{Binding TourDuration}" FontSize="14" Padding="5" BorderThickness="0" ToolTip="Enter Key Points" Margin="15,0,15,0">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Center" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Tour Duration" Foreground="DarkGray" HorizontalAlignment="Center" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
                 </Border>
+
                 <Border Width="300" Height="30" BorderBrush="Black" BorderThickness="2" Background="White" CornerRadius="15" Margin="0,5">
                     <Grid>
-                        <TextBox Text="{Binding TourImageUrl}" FontSize="14" Padding="5" Background="Transparent" BorderThickness="0" ToolTip="Enter Date and Time"/>
-                        <Button Margin="268,2,5,2" BorderThickness="0">
+                        <TextBox Text="{Binding TourImageUrl}" FontSize="14" Padding="5" Background="Transparent" BorderThickness="0" ToolTip="Add Pictures"/>
+                        <Button Margin="236,2,3,2" BorderThickness="0">
                             <Button.Background>
-                                <ImageBrush ImageSource="C:\Users\Zlatan\Desktop\hamburher.png"/>
-                            </Button.Background>
-                        </Button>
-                    </Grid>
-                </Border>
-                <Border Width="300" Height="30" BorderBrush="Black" BorderThickness="2" Background="White" CornerRadius="15" Margin="0,5">
-                    <Grid>
-                        <TextBox Text="{Binding DateAndTime}" FontSize="14" Padding="5" Background="Transparent" BorderThickness="0" ToolTip="Enter Date and Time"/>
-                        <Button Margin="268,2,5,2" BorderThickness="0">
-                            <Button.Background>
-                                <ImageBrush ImageSource="C:\Users\Zlatan\Desktop\hamburher.png"/>
-                            </Button.Background>
-                        </Button>
-                    </Grid>
-                </Border>
-                <Border Width="300" Height="30" BorderBrush="Black" BorderThickness="2" Background="White" CornerRadius="15" Margin="0,5">
-                    <Grid>
-                        <TextBox Text="{Binding KeyPoints}" FontSize="14" Padding="5" Background="Transparent" BorderThickness="0" ToolTip="Enter Date and Time"/>
-                        <Button Margin="268,2,5,2" BorderThickness="0">
-                            <Button.Background>
-                                <ImageBrush ImageSource="C:\Users\Zlatan\Desktop\hamburher.png"/>
+                                <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\moda-removebg-preview.png"/>
                             </Button.Background>
                         </Button>
                     </Grid>
                 </Border>
                 
+                
+                <Border Width="300" Height="30" BorderBrush="Black" BorderThickness="2" Background="White" CornerRadius="15" Margin="0,5">
+                    <Grid>
+                        <TextBox Text="{Binding DateAndTime}" FontSize="14" Padding="5" Background="Transparent" BorderThickness="0" ToolTip="Enter Date and Time"/>
+                        <Button Margin="236,2,3,2" BorderThickness="0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\moda-removebg-preview.png"/>
+                            </Button.Background>
+                        </Button>
+                    </Grid>
+                </Border>
+                <Border Width="300" Height="30" BorderBrush="Black" BorderThickness="2" Background="White" CornerRadius="15" Margin="0,5">
+                    <Grid>
+                        <TextBox Text="{Binding KeyPoints}" FontSize="14" Padding="5" Background="Transparent" BorderThickness="0" ToolTip="Enter Tour Points"/>
+                        <Button Margin="236,2,3,2" BorderThickness="0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\moda-removebg-preview.png"/>
+                            </Button.Background>
+                        </Button>
+                    </Grid>
+                </Border>
+
                 <Border Width="300" Height="72" BorderBrush="Black" BorderThickness="2" Background="White" CornerRadius="15" Margin="0,5">
                     <TextBox Text="{Binding Description}" FontSize="14" Padding="5" Background="Transparent" BorderThickness="0" ToolTip="Enter Description" Margin="0,0,0,13"/>
                 </Border>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="59,535,0,10" Width="322">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="59,513,0,10" Width="322">
                 <Button Width="50" Height="50" Margin="5,0,150,0" BorderThickness="0">
                     <Button.Background>
-                        <ImageBrush ImageSource="C:\Users\Zlatan\Desktop\hamburher.png"/>
+                        <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\download.png"/>
                     </Button.Background>
                 </Button>
                 <Button Width="50" Height="50" Margin="50,0,5,0" BorderThickness="0">
                     <Button.Background>
-                        <ImageBrush ImageSource="C:\Users\Zlatan\Desktop\hamburher.png"/>
+                        <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\iconmonstr-x-mark-circle-thin.png"/>
                     </Button.Background>
                 </Button>
             </StackPanel>
