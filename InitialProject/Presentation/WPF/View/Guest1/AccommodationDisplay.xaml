@@ -91,7 +91,7 @@
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Name" Margin="0,0,0,5" Foreground="White" HorizontalAlignment="Left" />
                         <TextBox Background="#EFF2F7" HorizontalAlignment="Left" TextWrapping="Wrap" 
-                         VerticalAlignment="Top" Text="{Binding AccommodationName}"
+                         VerticalAlignment="Top" Text="{Binding AccommodationName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          Width="140" Height="25"/>
                     </StackPanel>
                     <StackPanel Margin="0,0,0,10">
@@ -104,13 +104,13 @@
                         <ComboBox Background="#EFF2F7" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" ItemsSource="{Binding Cities}"
                             Width="140" Height="25" SelectedItem="{Binding Path=SelectedCity, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,0,0,10">
+                    <StackPanel Margin="0,0,0,15">
                         <TextBlock Foreground="White"  Text="Accommodation Type" Margin="0,0,0,5" HorizontalAlignment="Left" />
                         <CheckBox Foreground="White"  Content="Appartment" Name="AppartmentCheckBox" Margin="10,0,0,5" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="{Binding IsAppartmentSelected}"/>
                         <CheckBox Foreground="White"  Content="House" Name ="HouseCheckBox" Margin="10,0,0,5" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="{Binding IsHouseSelected}"/>
                         <CheckBox Foreground="White" Content="Shack" Name ="ShackCheckBox" Margin="10,0,0,5" HorizontalAlignment="Left"  VerticalAlignment="Top" IsChecked="{Binding IsShackSelected}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,0,0,10">
+                    <StackPanel Margin="0,0,0,20">
                         <TextBlock Foreground="White" Text="Number of guests" Margin="0,0,0,5" HorizontalAlignment="Left" />
                         <TextBox Background="#EFF2F7"  HorizontalAlignment="Left" TextWrapping="Wrap" 
                          VerticalAlignment="Top" 
@@ -124,26 +124,35 @@
                             </TextBox.Text>
                             <Validation.ErrorTemplate>
                                 <ControlTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
-                                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
-                                    </Grid>
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder x:Name="textBox"/>
+                                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                                    </StackPanel>
                                 </ControlTemplate>
                             </Validation.ErrorTemplate>
                         </TextBox>
                     </StackPanel>
-                    <StackPanel Margin="0,0,0,10">
+                    <StackPanel Margin="0,0,0,20">
                         <TextBlock Foreground="White" Text="Reservation days" Margin="0,0,0,5" HorizontalAlignment="Left" />
-                        <TextBox Background="#EFF2F7" HorizontalAlignment="Left" TextWrapping="Wrap" 
-                         VerticalAlignment="Top" Text="{Binding Path=StrReservationDays, UpdateSourceTrigger=PropertyChanged}"
-                         Width="140" Height="25"/>
+                        <TextBox Background="#EFF2F7"  HorizontalAlignment="Left" TextWrapping="Wrap" 
+                         VerticalAlignment="Top" 
+                         Width="140" Height="25">
+                            <TextBox.Text>
+                                <Binding Path="StrReservationDays" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <val:NumericValidation ValidationStep="RawProposedValue"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder x:Name="textBox"/>
+                                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
                     </StackPanel>
                     <Button BorderThickness="0"
                             Content="Apply filters (F10)"
@@ -179,7 +188,7 @@
                             FontFamily="Montserrat"
                             Cursor="Hand"                           
                             Margin="0,5,0,0"
-                            Click="ApplyAdditionalSearch">
+                            Click="RestoreFilters_Click">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="#BB141A"/>

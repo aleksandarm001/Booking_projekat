@@ -342,22 +342,17 @@ namespace InitialProject.View
             Reservation founded = Reservations.ToList().Find(r => r.ReservationId == accommodationReservation.ReservationId && r.Status != ReservationStatus.Finished);
             return founded;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void RestoreFilters_Click(object sender, RoutedEventArgs e)
         {
-            OwnerRating or = new OwnerRating(_userId);
-            or.ShowDialog();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            RequestsOwerview ro = new RequestsOwerview();
-            ro.ShowDialog();
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-
+            AccommodationName = string.Empty;
+            SelectedCity = string.Empty;
+            SelectedCountry = string.Empty;
+            IsAppartmentSelected = false;
+            IsShackSelected = false;
+            IsHouseSelected = false;
+            StrNumberOfGuests = string.Empty;
+            StrReservationDays = string.Empty;
+            ApplyAdditionalSearch(sender, e);
         }
     }
 }
