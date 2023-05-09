@@ -223,14 +223,14 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         private void OpenChangeReservation(object parameter)
         {
-            RequestsOwerview requestsOwerview = new RequestsOwerview(_userId);
+            RequestsOwerview requestsOwerview = new RequestsOwerview();
             AdjustWindow(requestsOwerview);
             requestsOwerview.ShowDialog();
             InitializeReservations();
         }
         private void OpenCancelReservation(object parameter)
         {
-            RequestsOwerview requestsOwerview = new RequestsOwerview(_userId);
+            RequestsOwerview requestsOwerview = new RequestsOwerview();
             AdjustWindow(requestsOwerview);
             requestsOwerview.ShowDialog();
             InitializeReservations();

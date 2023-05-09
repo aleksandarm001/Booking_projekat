@@ -26,7 +26,7 @@ namespace InitialProject.Services
         public Dictionary<int, string> GetReservationsByUserId(int userId)
         {
             Dictionary<int, string> result = new Dictionary<int, string>();
-            List<Reservation> usersReservations = _reservationService.GetActiveReservationsByUser(userId);
+            List<Reservation> usersReservations = _reservationService.GetUpcomingReservationsByUser(userId);
             FilterReservations(usersReservations);
             if (usersReservations.Count > 0)
             {

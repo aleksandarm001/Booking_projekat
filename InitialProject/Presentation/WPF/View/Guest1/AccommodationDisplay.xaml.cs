@@ -1,5 +1,6 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.ViewModel;
 using InitialProject.Repository;
 using InitialProject.View.Guest1;
 using System;
@@ -18,17 +19,20 @@ namespace InitialProject.View
     /// </summary>
     public partial class AccommodationDisplay : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         private readonly AccommodationRepository _accommodationRepository;
         private readonly AccommodationReservationRepository _accommodationReservationRepository;
         private readonly ReservationRepository _reservationRepository;
+        private int _userId;
+        public RelayCommand ApplyFilters_Command { get; set; }
+        public RelayCommand RestoreFilters_Command { get; set; }
+        public RelayCommand FocusFilters_Command { get; set; }
+        public RelayCommand FocusTable_Command { get; set; }
         public static ObservableCollection<Reservation> Reservations { get; set; }
         public static ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<string> Countries { get; set; }
-        public string AccommodationName { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         private ObservableCollection<Accommodation> _accommodations;
         public ObservableCollection<Accommodation> Accommodations
@@ -40,7 +44,19 @@ namespace InitialProject.View
                 OnPropertyChanged(nameof(Accommodations));
             }
         }
-        private int _userId;
+        private string _accommodationName;
+        public string AccommodationName
+        {
+            get => _accommodationName;
+            set
+            {
+                if (value != _accommodationName)
+                {
+                    _accommodationName = value;
+                    OnPropertyChanged("AccommodationName");
+                }
+            }
+        }
         private string _selectedCity;
         public string SelectedCity
         {
@@ -166,20 +182,35 @@ namespace InitialProject.View
         {
             InitializeComponent();
             DataContext = this;
-            Cities = new ObservableCollection<string>();
-            Countries = new ObservableCollection<string>();
             _accommodationRepository = new AccommodationRepository();
-            Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll()); 
-            Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
             _reservationRepository = new ReservationRepository();
             _accommodationReservationRepository = new AccommodationReservationRepository();
-            Reservations = new ObservableCollection<Reservation>(_reservationRepository.GetAll());
-            AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
+            InitializeCollecitons();
+            InitializeCommands();
             InitializeReservationsByAccommodations();
             ReadCitiesAndCountries();
             AccommodationsNumber = Accommodations.Count;
             _userId = userId;
         }
+
+        private void InitializeCommands()
+        {
+            ApplyFilters_Command = new RelayCommand(ApplyFilters);
+            RestoreFilters_Command = new RelayCommand(RestoreFilters);
+            FocusFilters_Command = new RelayCommand(FocusFilters);
+            FocusTable_Command = new RelayCommand(FocusTable);
+        }
+
+        private void InitializeCollecitons()
+        {
+            Cities = new ObservableCollection<string>();
+            Countries = new ObservableCollection<string>();
+            Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
+            Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
+            Reservations = new ObservableCollection<Reservation>(_reservationRepository.GetAll());
+            AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
+        }
+
         private void InitializeNumberOfGuests(object sender, SelectionChangedEventArgs e)
         {
             ComboBox cmbx = (ComboBox)sender;
@@ -260,7 +291,7 @@ namespace InitialProject.View
                 return true;
             }
         }
-        private void ApplyAdditionalSearch(object sender, RoutedEventArgs e)
+        private void ApplyFilters(object parameter)
         {
             ICollectionView view = CollectionViewSource.GetDefaultView(Accommodations);
             view.Filter = (obj) =>
@@ -342,22 +373,29 @@ namespace InitialProject.View
             Reservation founded = Reservations.ToList().Find(r => r.ReservationId == accommodationReservation.ReservationId && r.Status != ReservationStatus.Finished);
             return founded;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void RestoreFilters(object parameter)
         {
-            OwnerRating or = new OwnerRating(_userId);
-            or.ShowDialog();
+            AccommodationName = string.Empty;
+            SelectedCity = string.Empty;
+            SelectedCountry = string.Empty;
+            IsAppartmentSelected = false;
+            IsShackSelected = false;
+            IsHouseSelected = false;
+            StrNumberOfGuests = string.Empty;
+            StrReservationDays = string.Empty;
+            ApplyFilters(parameter);
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void FocusFilters(object parameter)
         {
-            RequestsOwerview ro = new RequestsOwerview(_userId);
-            ro.ShowDialog();
+            var textBox = parameter as TextBox;
+            textBox.Focus();
         }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void FocusTable(object parameter)
         {
-
+            var dataGrid = parameter as DataGrid;
+            dataGrid.Focus();
+            dataGrid.SelectedItem = dataGrid.Items[0];
+            dataGrid.ScrollIntoView(dataGrid.SelectedItem);
         }
 
         private void accommodationsDataGrid_SelectionChanged()

@@ -1,4 +1,5 @@
 ﻿using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.ViewModel;
 using InitialProject.Presentation.WPF.ViewModel.Guest1;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -15,21 +16,16 @@ namespace InitialProject.View.Guest1
         public ReservationChange(int userId, ObservableCollection<ChangeReservationRequest> Requests)
         {
             InitializeComponent();
-            viewModel = new ReservationChangeViewModel(userId, Requests);
+            viewModel = new ReservationChangeViewModel(userId, Requests, this);
             DataContext = viewModel;
             Send_Button.IsEnabled = false;
-        }
-        private void SendRequest_Button(object sender, RoutedEventArgs e)
-        {
-            viewModel.SendRequest_Button();
-            this.Close();
         }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             viewModel.ComboBox_SelectionChanged(CheckInPicker, CheckOutPicker);
             Send_Button.IsEnabled = true;
         }
-        private void Cancel_Click(object sender, RoutedEventArgs e)
+        private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

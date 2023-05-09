@@ -40,9 +40,7 @@
             <MenuItem Header="Reservations (F6)"/>
             <MenuItem Header="Log Out" Command="{Binding LogUserOut_Commend}"/>
         </Menu>
-        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,1">
-            <Image Source="/Infrastructure/Resources/Images/homePageCommands.png" Width="1200" Height="120" VerticalAlignment="Top" Margin="0,0,0,0"/>
-        </Border>
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,1"/>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
@@ -63,7 +61,7 @@
                         <TextBlock Text="{Binding Username}" FontSize="14" Foreground="White" FontWeight="SemiBold"/>
                     </StackPanel>
 
-                    <Separator DockPanel.Dock="Top" Height="1" Background="#dae2ea" Margin="25 20 25 0"/>
+                    <Separator DockPanel.Dock="Top" Height="1" Background="#00787A" Margin="25 20 25 0"/>
 
                     <StackPanel DockPanel.Dock="Bottom" Margin="20 20 20 20">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 0 0 5">
@@ -141,7 +139,6 @@
                 <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"
                     Height="450"  HorizontalAlignment="Left" Margin="20,50,10,0"
                       ItemsSource="{Binding Path = Reservations, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding Path= SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
                       IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False"
                           FontSize="16">
                     <DataGrid.Columns>
