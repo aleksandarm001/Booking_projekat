@@ -10,7 +10,12 @@
         WindowStartupLocation ="CenterScreen"
         ResizeMode="NoResize"
         Background="#EFF2F7">
-
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding FocusFilters_Command}" CommandParameter="{Binding ElementName=nameTextBox}" />
+        <KeyBinding Key="F2" Command="{Binding FocusTable_Command}" CommandParameter="{Binding ElementName=accommodationsDataGrid}" />
+        <KeyBinding Key="F10" Command="{Binding ApplyFilters_Command}" />
+        <KeyBinding Key="F11" Command="{Binding  RestoreFilters_Command}" />
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -18,7 +23,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,1">
-            <Rectangle Width="1100" Height="110" Fill="LightGray" VerticalAlignment="Top" Margin="0,0,0,0"/>
+            <Image Source="/Infrastructure/Resources/Images/AccommodationDisplay.png" Width="1080" Height="110"  Margin="0,0,0,0"/>
         </Border>
         <Image Source="/Infrastructure/Resources/Images/BookBuddy_logo1.png" Margin="-2,4,5,4"></Image>
 
@@ -90,7 +95,7 @@
                     <TextBlock Text="Search Filters" FontSize="16" Foreground="White" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="0,5,0,10"/>
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Name" Margin="0,0,0,5" Foreground="White" HorizontalAlignment="Left" />
-                        <TextBox Background="#EFF2F7" HorizontalAlignment="Left" TextWrapping="Wrap" 
+                        <TextBox Name="nameTextBox" Background="#EFF2F7" HorizontalAlignment="Left" TextWrapping="Wrap" 
                          VerticalAlignment="Top" Text="{Binding AccommodationName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          Width="140" Height="25"/>
                     </StackPanel>
@@ -112,7 +117,7 @@
                     </StackPanel>
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Foreground="White" Text="Number of guests" Margin="0,0,0,5" HorizontalAlignment="Left" />
-                        <TextBox Background="#EFF2F7"  HorizontalAlignment="Left" TextWrapping="Wrap" 
+                        <TextBox Name="textBox1" Background="#EFF2F7"  HorizontalAlignment="Left" TextWrapping="Wrap" 
                          VerticalAlignment="Top" 
                          Width="140" Height="25">
                             <TextBox.Text>
@@ -134,7 +139,7 @@
                     </StackPanel>
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Foreground="White" Text="Reservation days" Margin="0,0,0,5" HorizontalAlignment="Left" />
-                        <TextBox Background="#EFF2F7"  HorizontalAlignment="Left" TextWrapping="Wrap" 
+                        <TextBox Name="textBox2" Background="#EFF2F7"  HorizontalAlignment="Left" TextWrapping="Wrap" 
                          VerticalAlignment="Top" 
                          Width="140" Height="25">
                             <TextBox.Text>
@@ -161,7 +166,7 @@
                             FontFamily="Montserrat"
                             Cursor="Hand"                           
                             Margin="0,20,0,0"
-                            Click="ApplyAdditionalSearch">
+                            Command="{Binding ApplyFilters_Command}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="#BB141A"/>
@@ -169,6 +174,12 @@
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Background" Value="#A61F00"/>
                                     </Trigger>
+                                    <DataTrigger Binding="{Binding ElementName=textBox1, Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=textBox2, Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
@@ -188,7 +199,7 @@
                             FontFamily="Montserrat"
                             Cursor="Hand"                           
                             Margin="0,5,0,0"
-                            Click="RestoreFilters_Click">
+                            Command="{Binding RestoreFilters_Command}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="#BB141A"/>

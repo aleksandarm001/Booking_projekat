@@ -23,6 +23,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private IReservationService _reservationService;
         private readonly IAccommodationService _accommodationService;
         private readonly IAccommodationReservationService _accommodationReservationService;
+        private readonly IUserService _userService;
         private int _userId;
         private int _ownerId;
         public ObservableCollection<KeyValuePair<int, string>> ReservationsForChange { get; set; }
@@ -54,7 +55,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             _accommodationService = Injector.CreateInstance<IAccommodationService>();
             _requestService = Injector.CreateInstance<IChangeReservationRequestService>();
             _accommodationReservationService = Injector.CreateInstance<IAccommodationReservationService>();
-            _userId = userId;
+            _userService = Injector.CreateInstance<IUserService>();
+            _userId = _userService.GetUserId();
             this.Requests = Requests;
             SendRequest_Command = new RelayCommand(SendRequest);
             Cancel_Command = new RelayCommand(Cancel);
