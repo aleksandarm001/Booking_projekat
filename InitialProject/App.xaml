@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/TourRequestCardTemplate.xaml" />
+                <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/TourPointCardTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

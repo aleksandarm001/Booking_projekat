@@ -104,7 +104,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
         private void FillterTourRequest(object obj)
         {
-           AcceptedTourRequestView T = new AcceptedTourRequestView();
+           CreatingTourView T = new CreatingTourView();
             T.Show();
         }
 
