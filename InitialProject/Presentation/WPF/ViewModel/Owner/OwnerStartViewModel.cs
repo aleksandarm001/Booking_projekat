@@ -19,13 +19,23 @@ using System.Windows;
 namespace InitialProject.Presentation.WPF.ViewModel.Owner
 { 
     
-    public class OwnerStartViewModel 
+    public class OwnerStartViewModel : INotifyPropertyChanged
     {
-    /*
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
 
         private readonly IAccommodationService _accommodationService;
         private readonly IAddAccommodationService _addAccommodationService;
         private readonly IGuestReviewService _guestReviewService;
+        private readonly IOwnerRateService _ownerRateService;
+        private readonly IChangeReservationRequestService _requestService;
+        private readonly IRenovationService _renovationService;
 
         //Za dodavanje
         // private readonly AccommodationRepository _accommodationRepository;
@@ -40,13 +50,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         //private readonly AccommodationReservationRepository _accommodationReservationRepository;
 
         //Za owner review
-        private readonly OwnerRateService _ownerRateService = new OwnerRateService();
-        public ObservableCollection<OwnerRate> _ownerRates;
+        //private readonly OwnerRateService _ownerRateService = new OwnerRateService();
 
         //Za change reserv req
-        private readonly ChangeReservationRequestService _requestService = new ChangeReservationRequestService();
+       // private readonly ChangeReservationRequestService _requestService = new ChangeReservationRequestService();
         public ObservableCollection<OwnerChangeRequests> _requests;
-        public OwnerChangeRequests SelectedRequest { get; set; }
         public ObservableCollection<OwnerChangeRequests> Requests
         {
             get { return _requests; }
@@ -57,21 +65,19 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             }
         }
 
+        public ObservableCollection<OwnerRate> _ownerRates;
+        public ObservableCollection<OwnerRate> OwnerRates
+        {
+            get { return _ownerRates; }
+            set
+            {
+                _ownerRates = value;
+                OnPropertyChanged(nameof(OwnerRates));
+
+            }
+        }
 
         public ObservableCollection<Accommodation> _accommodations;
-        public static ObservableCollection<string> Countries { get; set; }
-        public static ObservableCollection<string> Cities { get; set; }
-        public static ObservableCollection<Location> Locations { get; set; }
-        public static ObservableCollection<AccommodationImage> Images { get; set; }
-
-        public static ObservableCollection<Reservation> Reservations { get; set; }
-        public static List<GuestReview> GuestReviews { get; set; }
-        public static ObservableCollection<UserToReview> UsersToReview { get; set; }
-        public static ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
-
-        public static ObservableCollection<Accommodation> AllAccommodations { get; set; }
-
-        public UserToReview SelectedUserToReview { get; set; }
         public ObservableCollection<Accommodation> Accommodations
         {
             get { return _accommodations; }
@@ -83,16 +89,40 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             }
         }
 
-        public ObservableCollection<OwnerRate> OwnerRates
+        public ObservableCollection<Renovation> _renovations;
+
+        public ObservableCollection<Renovation> ScheduledRenovations
         {
-            get { return _ownerRates; }
+            get { return _renovations; }
             set
             {
-                _ownerRates = value;
-                OnPropertyChanged(nameof(OwnerRates));
-
+                _renovations = value;
+                OnPropertyChanged(nameof(ScheduledRenovations));
             }
         }
+
+        public ObservableCollection<Renovation> _finishedRenovations;
+
+        public ObservableCollection<Renovation> FinishedRenovations
+        {
+            get { return _finishedRenovations; }
+            set
+            {
+                _finishedRenovations = value;
+                OnPropertyChanged(nameof(FinishedRenovations));
+            }
+        }
+
+        public static ObservableCollection<string> Countries { get; set; }
+        public static ObservableCollection<string> Cities { get; set; }
+        public static ObservableCollection<Location> Locations { get; set; }
+        public static ObservableCollection<AccommodationImage> Images { get; set; }
+
+        public static ObservableCollection<Reservation> Reservations { get; set; }
+        public static List<GuestReview> GuestReviews { get; set; }
+        public static ObservableCollection<UserToReview> UsersToReview { get; set; }
+        public static ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
+
 
         int UserId;
 
@@ -157,7 +187,12 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 }
             }
         }
-        public RelayCommand AddAccommodationCommand { get; set; }
+        public UserToReview SelectedUserToReview { get; set; }
+        public OwnerChangeRequests SelectedRequest { get; set; }
+        public Accommodation SelectedAccommodation { get; set; }
+        public Renovation SelectedRenovation { get; set; }
+
+        //public RelayCommand AddAccommodationCommand { get; set; }
 
 
         public OwnerStartViewModel(int userId)
@@ -167,16 +202,10 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             _accommodationService = Injector.CreateInstance<IAccommodationService>();
             _addAccommodationService = Injector.CreateInstance<IAddAccommodationService>();
             _guestReviewService = Injector.CreateInstance<IGuestReviewService>();
+            _ownerRateService = Injector.CreateInstance<IOwnerRateService>();
+            _requestService = Injector.CreateInstance<IChangeReservationRequestService>();
+            _renovationService = Injector.CreateInstance<IRenovationService>();
 
-            //_accommodationRepository= new AccommodationRepository();
-            //_locationRepository = new LocationRepository();
-            //_accommodationImageRepository= new AccommodationImageRepository();
-            //_reservationRepository = new ReservationRepository();
-            //_guestReviewRepository = new GuestReviewRepository();
-            //_userToReviewRepository= new UserToReviewRepository();
-            //_accommodationReservationRepository = new AccommodationReservationRepository();
-
-            //AllAccommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
             Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetAccommodationsByOwnerId(userId));
             Locations = new ObservableCollection<Location>(_addAccommodationService.GetAllLocations());
             Cities = new ObservableCollection<string>(_addAccommodationService.GetCities(Locations.ToList()));
@@ -187,28 +216,33 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             //GuestReviews = new List<GuestReview>(_guestReviewRepository.GetAll());
             //AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
             UsersToReview = new ObservableCollection<UserToReview>(_guestReviewService.GetUsersByID(UserId));
-
             OwnerRates = new ObservableCollection<OwnerRate>(_ownerRateService.RatingsFromRatedGuest(UserId));
-
             Requests = new ObservableCollection<OwnerChangeRequests>(_requestService.OwnerChangeReservationRequest(UserId));
 
             AccommodationCancelationDays = "1";
 
-            AddAccommodationCommand = new RelayCommand(AddAccommodation_ButtonClick);
+            _renovationService.IsRenovationFinished();
+            ScheduledRenovations = new ObservableCollection<Renovation>(_renovationService.GetScheduledRenovationsByOwnerId(UserId));
+            FinishedRenovations = new ObservableCollection<Renovation>(_renovationService.GetFinishedRenovationsByOwnerId(UserId));
+
+            //AddAccommodationCommand = new RelayCommand(AddAccommodation_ButtonClick);
 
 
             //ReadCitiesAndCountries();
             _guestReviewService.InitializeUsersToReview();
             _guestReviewService.RateNotification(UserId);
-            showSuperOwner(UserId);
+            // showSuperOwner(UserId);
         }
-        
+
+
+        /*
         private void AddAccommodation_ButtonClick(object parameter)
         {
             OwnerAccommodations.Visibility = Visibility.Collapsed;
             AddAccommodation.Visibility = Visibility.Visible;
             GuestsToReview.Visibility = Visibility.Collapsed;
         }
+        */
 
         /*
 
@@ -535,7 +569,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         {
 
         }
-        */
+       */
     }
 }
         
