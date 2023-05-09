@@ -318,7 +318,7 @@
                                 </Style>
                             </TextBox.Style>
                         </TextBox>
-                        <Button Margin="236,2,3,2" BorderThickness="0">
+                        <Button Margin="236,2,3,2" BorderThickness="0" Command="{Binding EditDatesCommand}">
                             <Button.Background>
                                 <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\moda-removebg-preview.png"/>
                             </Button.Background>

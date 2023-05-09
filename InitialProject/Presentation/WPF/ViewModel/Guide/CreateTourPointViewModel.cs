@@ -16,6 +16,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public ObservableCollection<TourPoint> TourPoints { get; set; }
         public ICommand EditCommand { get; set; }
 
+        public ICommand DeleteCommand { get; set; }
+        public ICommand AddTourPointCommand { get; set; }
+
         TourPoint tourPoint = new TourPoint()
         {
             Name = "antonije1",
@@ -43,6 +46,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public CreateTourPointViewModel()
         {
             EditCommand = new RelayCommand(edit);
+            DeleteCommand = new RelayCommand(delete);
+            AddTourPointCommand = new RelayCommand(addTourPoint);
             TourPoints = new ObservableCollection<TourPoint>();
             TourPoints.Add(tourPoint);
             TourPoints.Add(tourPoint1);
@@ -62,10 +67,46 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             }
         }
 
+        private string _Name;
+        public string Name
+        {
+            get { return _Name; }
+            set
+            {
+                _Name = value;
+                OnPropertyChanged(nameof(_Name));
+            }
+        }
+
+        private string _Description;
+        public string Description
+        {
+            get { return _Description; }
+            set
+            {
+                _Description = value;
+                OnPropertyChanged(nameof(_Description));
+            }
+        }
+
         public void edit(object obj)
         {
             TourPoint selectedTourPoint = (TourPoint)obj;
 
+        }
+
+        public void delete(object obj)
+        {
+            TourPoint selectedTourPoint = (TourPoint)obj;
+            TourPoints.Remove(selectedTourPoint);
+        }
+
+        public void addTourPoint(object obj) 
+        {
+            TourPoint tourPoint = new TourPoint();
+            tourPoint.Name = Name;
+            tourPoint.Description = Description;
+            TourPoints.Add(tourPoint);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -13,6 +13,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
     {
         public ICommand FillterCommand { get; set; }
 
+        public ICommand EditDatesCommand { get; set; }
         public ICommand EditTourPointsCommand { get; set; }
         public ObservableCollection<string> Countries { get; set; }
         public ObservableCollection<string> Cities { get; set; }
@@ -35,6 +36,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             Languages = new ObservableCollection<Language>(_languageService.GetAll());
 
             EditTourPointsCommand = new RelayCommand(ivokeTourPoints);
+            EditDatesCommand = new RelayCommand(inovkeDates);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -59,6 +61,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             dsa.Show();
         }
 
+        public void inovkeDates(object obj)
+        {
+            EditingTimeOnTourView dsa = new EditingTimeOnTourView();
+            dsa.Show();
+        }
 
         private string _Name;
         public string Name
