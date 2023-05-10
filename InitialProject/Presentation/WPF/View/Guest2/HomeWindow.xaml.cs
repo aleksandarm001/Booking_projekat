@@ -46,6 +46,8 @@
         public string SelectedDurationFrom { get; set; }
         public string SelectedDurationTo { get; set; }
 
+        public string UserName { get; set; }
+
 
         private FinishedTourViewModel _finishedTourViewModel;
         private ReservedTourViewModel _reservedTourViewModel;
@@ -58,6 +60,7 @@
         private readonly ITourRequestService _tourRequestService;
 
         private readonly IVoucherService _voucherService;
+        private readonly IUserService _userService;
 
         private ObservableCollection<Tour> _tours { get; set; }
         public ObservableCollection<Tour> Tours
@@ -111,6 +114,8 @@
             _tourAttendanceService = Injector.CreateInstance<ITourAttendanceService>();
             _tourRequestService = Injector.CreateInstance<ITourRequestService>();
             _voucherService = Injector.CreateInstance<IVoucherService>();
+            _userService = Injector.CreateInstance<IUserService>();
+            UserName = _userService.GetUsername();
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             Tours = new ObservableCollection<Tour>(_tourService.GetAllNotStartedTours());

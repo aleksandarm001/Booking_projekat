@@ -51,6 +51,7 @@
         {
             InitializeComponent();
             DataContext = this;
+            Rezervisi.IsEnabled = false;
             Tour = tour;
             UserId = userId;
             this.NumberOfGuests = NumberOfGuests;
@@ -124,6 +125,18 @@
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void NumberOfGuestTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            int value;
+            if (int.TryParse(StrNumberOfGuests, out value) && value>=1)
+            {
+                Rezervisi.IsEnabled = true;
+            } else
+            {
+                Rezervisi.IsEnabled = false;
+            }
         }
     }
 }

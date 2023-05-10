@@ -49,6 +49,11 @@ namespace InitialProject.Presentation.WPF.View.Guest2
             GetLocationStatistic(SelectedYear);
             AverageGuestNum = AverageGuestNumber(SelectedYear).ToString("0.##");
             AcceptedTours = AcceptedToursPercent(SelectedYear).ToString("0.##") + " %";
+            var fill = new SolidColorBrush(Color.FromRgb(0, 108, 109));
+            Textbox.Foreground = fill;
+            Textbox2.Foreground = fill;
+
+
 
         }
 
@@ -81,7 +86,7 @@ namespace InitialProject.Presentation.WPF.View.Guest2
                 int year = Int32.Parse(selectedYear);
                 foreach (TourRequest t in _tourRequestService.GetAllTourRequests(UserId).Where(t => t.StartingDate.Year==year).DistinctBy(t => t.Language.Name))
                 {
-                    vrijednosti.Add(_tourRequestService.GetAllTourRequests(UserId).Count(tour => tour.Language.Name == t.Language.Name));
+                    vrijednosti.Add(_tourRequestService.GetAllTourRequests(UserId).Where(t => t.StartingDate.Year == year).Count(tour => tour.Language.Name == t.Language.Name));
                     languages.Add(t.Language);
                 }
 
@@ -97,7 +102,7 @@ namespace InitialProject.Presentation.WPF.View.Guest2
                 Rectangle rectangle1 = new Rectangle();
                 rectangle1.Height = vrijednosti[i] * mjera;
                 rectangle1.Width = sirina;
-                rectangle1.Fill = new SolidColorBrush(Color.FromRgb(0,0,0));
+                rectangle1.Fill = new SolidColorBrush(Color.FromRgb(187,14,26));
                
                 Canvas.SetLeft(rectangle1,i * sirina + i * razmak);
                 Canvas.SetBottom(rectangle1,40);
@@ -131,9 +136,9 @@ namespace InitialProject.Presentation.WPF.View.Guest2
             else
             {
                 int year = Int32.Parse(selectedYear);
-                foreach (TourRequest t in _tourRequestService.GetAllTourRequests(UserId).Where(t => t.StartingDate.Year == year).DistinctBy(t => t.Language.Name))
+                foreach (TourRequest t in _tourRequestService.GetAllTourRequests(UserId).Where(t => t.StartingDate.Year == year).DistinctBy(t => t.Location.ToString()))
                 {
-                    vrijednosti.Add(_tourRequestService.GetAllTourRequests(UserId).Count(tour => tour.Location == t.Location));
+                    vrijednosti.Add(_tourRequestService.GetAllTourRequests(UserId).Where(t => t.StartingDate.Year == year).Count(tour => tour.Location.ToString() == t.Location.ToString()));
                     locations.Add(t.Location);
                 }
 
@@ -149,7 +154,7 @@ namespace InitialProject.Presentation.WPF.View.Guest2
                 Rectangle rectangle1 = new Rectangle();
                 rectangle1.Height = vrijednosti[i] * mjera;
                 rectangle1.Width = sirina;
-                rectangle1.Fill = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                rectangle1.Fill = new SolidColorBrush(Color.FromRgb(0,116 , 76));
                 
                 
                 Canvas.SetLeft(rectangle1, i * (sirina + razmak));

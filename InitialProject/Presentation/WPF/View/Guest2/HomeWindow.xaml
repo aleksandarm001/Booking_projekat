@@ -6,6 +6,43 @@
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
          Title="TourView" Height="745" Width="1366" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Border>
+                            <Grid>
+                                <Grid>
+                                    <Border x:Name="border" 
+                                            CornerRadius="3,3,0,0"
+                                            Background="#00A76D"/>
+                                </Grid>
+                                <ContentPresenter ContentSource="Header"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter TargetName="border"
+                                        Property="Background"
+                                        Value="#006C6D" />
+                            </Trigger>
+                            <Trigger Property="IsSelected"
+                                     Value="True">
+                                <Setter TargetName="border"
+                                        Property="Background"
+                                        Value="#006C6D" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid Margin="0,0,0,0">
 
         <Grid.RowDefinitions>
@@ -22,20 +59,21 @@
         <Image Source="/Infrastructure/Resources/Images/repeat.png" Height="40" Width="40" Margin="130,8,1186,13"/>
         <Image Source="/Infrastructure/Resources/Images/home.png" Height="40" Width="40" Margin="194,8,1122,13"/>
         <TabControl Grid.Row="2">
-            <TabItem Header="Pocetna" Height="50" Margin="280,0,-400,0" >
+            <TabItem Header="Pocetna" Height="50" Margin="280,0,-400,0" Background="#00A76D">
                 <Grid Background="White">
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Ture" Height="50" Margin="400,0,-520,0" >
+            <TabItem Header="Ture" Height="50" Margin="400,0,-520,0" Background="#00A76D">
+               
                 <Grid Background="White" Margin="0,0,0,0">
                     <Grid Name="TureGrid" >
 
 
                         <DataGrid  x:Name="DataGridTure" Margin="279,8,5,10" 
-                  ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
-                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+                            ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
+                            IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Naziv" Width="150" Binding="{Binding Name}"/>
                                 <DataGridTextColumn Header="Grad" Width="150" Binding="{Binding Location.City}"/>
@@ -53,40 +91,51 @@
                                 </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <ComboBox x:Name ="CountryCmbx" Text="Drzava" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
-                  ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}"  HorizontalAlignment="Left" Margin="33,35,0,0" VerticalAlignment="Top" Width="200" SelectionChanged="Filter_Countries"/>
-                        <ComboBox x:Name="CityCmbx" Text="Grad" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
-                  ItemsSource="{Binding Cities}" SelectedItem="{Binding SelectedCity}"  HorizontalAlignment="Left" Margin="33,100,0,0" VerticalAlignment="Top" Width="200" />
-                        <ComboBox x:Name="LanguageCmbx" Text="Jezik" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
-                  ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" HorizontalAlignment="Left" Margin="33,165,0,0" VerticalAlignment="Top" Width="200" />
-                        <ComboBox x:Name="GuestNumberCmbx" Text="Broj gostiju" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
-                  ItemsSource="{Binding GuestNumber}" SelectedItem="{Binding SelectedGuestNumber}"  HorizontalAlignment="Left" Margin="33,230,0,0" VerticalAlignment="Top" Width="200" />
-                        <ComboBox x:Name ="Duration_Box_From"  SelectedItem="{Binding SelectedDurationFrom}"  IsEditable="True" IsReadOnly="False" Text="Trajanje od" ItemsSource="{Binding Duration}" HorizontalAlignment="Left" Margin="33,295,0,0" VerticalAlignment="Top" Width="90"/>
-                        <ComboBox x:Name ="Duration_Box_To"  SelectedItem="{Binding SelectedDurationTo}" IsEditable="True" IsReadOnly="True" Text="Trajanje do"  ItemsSource="{Binding Duration}" HorizontalAlignment="Left" Margin="143,295,0,0" VerticalAlignment="Top" Width="90"/>
-                        <Button Content="Pretrazi" FontSize="16" Cursor="Hand" Click="ApplyFilters_Click" HorizontalAlignment="Left" Margin="33,355,0,0" VerticalAlignment="Top" Width="200" Height="40">
-                            <Button.Style>
-                                <Style TargetType="{x:Type Button}">
-                                    <Setter Property="Background" Value="#00A76D"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#006C6D"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Width="200" Height="40"
+
+
+                        <StackPanel  Orientation="Vertical" HorizontalAlignment="Left" Background="#00A76D" Height="NaN" Margin="0,8,0,10">
+
+
+                            <ComboBox x:Name ="CountryCmbx" Text="Drzava" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                                 ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}"  HorizontalAlignment="Left" Margin="33,15,0,0" VerticalAlignment="Top" Width="200" SelectionChanged="Filter_Countries"/>
+                            <ComboBox x:Name="CityCmbx" Text="Grad" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                                 ItemsSource="{Binding Cities}" SelectedItem="{Binding SelectedCity}"  HorizontalAlignment="Left" Margin="33,50,0,0" Width="200" />
+                            <ComboBox x:Name="LanguageCmbx" Text="Jezik" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                                 ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" HorizontalAlignment="Left" Margin="33,50,0,0" VerticalAlignment="Top" Width="200" />
+                            <ComboBox x:Name="GuestNumberCmbx" Text="Broj gostiju" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                                 ItemsSource="{Binding GuestNumber}" SelectedItem="{Binding SelectedGuestNumber}"  HorizontalAlignment="Left" Margin="33,50,0,0" Width="200" />
+                                <StackPanel Orientation="Horizontal" Height="122" Width="278" HorizontalAlignment="Left">
+
+                                    <ComboBox x:Name ="Duration_Box_From"  SelectedItem="{Binding SelectedDurationFrom}"  IsEditable="True" IsReadOnly="False" Text="Trajanje od" ItemsSource="{Binding Duration}" HorizontalAlignment="Left" Margin="33,50,0,0" Height="25" VerticalAlignment="Top" Width="90"/>
+                                    <ComboBox x:Name ="Duration_Box_To"  SelectedItem="{Binding SelectedDurationTo}" IsEditable="True" IsReadOnly="True" Text="Trajanje do"  ItemsSource="{Binding Duration}" Width="90" Height="25" Margin="20,0,0,0" />
+                                </StackPanel>
+
+                            <Button Content="Pretrazi" Foreground="White" FontSize="16" Cursor="Hand" Click="ApplyFilters_Click" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Top" Width="200" Height="40">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Background" Value="#BB141A"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#951014"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Width="200" Height="40"
                                         CornerRadius="20"
                                         Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
+                                            <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                        <Rectangle  Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,8,0,0" Width="230" Height="398"/>
-                        <Rectangle Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="18,0,0,8" Width="230" Height="165"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button Height="160" Margin="0,25,0,0" Background="WhiteSmoke"/>
+                        </StackPanel>
+
+
                     </Grid>
                     <Grid x:Name="TuraGrid" Visibility="Hidden" Background="White" Margin="0,0,0,0">
                         <Image HorizontalAlignment="Left" Source="/Infrastructure/Resources/Images/BookBuddy_logo1.png" Height="270" Margin="10,36,0,0" VerticalAlignment="Top" Width="1336"/>
@@ -131,7 +180,7 @@
 
 
             </TabItem>
-            <TabItem Header="Last minut" Height="50" Margin="520,0,-640,0">
+            <TabItem Header="Last minut" Height="50" Margin="520,0,-640,0" Background="#00A76D">
                 <Grid Background="White">
                     <Grid Background="White" Margin="0,0,0,0">
 
@@ -139,40 +188,43 @@
                          ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
                          SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Naziv" Width="150" Binding="{Binding Name}"/>
-                                    <DataGridTextColumn Header="Grad" Width="150" Binding="{Binding Location.City}"/>
-                                    <DataGridTextColumn Header="Drzava" Width="150" Binding="{Binding Location.Country}"/>
-                                    <DataGridTextColumn Header="Trajanje ture" Width="120" Binding="{Binding Duration}"/>
-                                    <DataGridTextColumn Header="Jezik" Width="130" Binding="{Binding Language}"/>
-                                    <DataGridTextColumn Header="Datum i vrijeme" Width="150" Binding="{Binding StartingDateTime}"/>
-                                    <DataGridTextColumn Header="Broj ljudi" Width="100" Binding="{Binding MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <DataGridTemplateColumn Width="*">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Height="20" Cursor="Hand" Name="PrikaziTuru" Width="60" Content="Prikazi" Click="PrikaziTuru_Click"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                       </DataGrid>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Naziv" Width="150" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Grad" Width="150" Binding="{Binding Location.City}"/>
+                                <DataGridTextColumn Header="Drzava" Width="150" Binding="{Binding Location.Country}"/>
+                                <DataGridTextColumn Header="Trajanje ture" Width="120" Binding="{Binding Duration}"/>
+                                <DataGridTextColumn Header="Jezik" Width="130" Binding="{Binding Language}"/>
+                                <DataGridTextColumn Header="Datum i vrijeme" Width="150" Binding="{Binding StartingDateTime}"/>
+                                <DataGridTextColumn Header="Broj ljudi" Width="100" Binding="{Binding MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTemplateColumn Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Height="20" Cursor="Hand" Name="PrikaziTuru" Width="60" Content="Prikazi" Click="PrikaziTuru_Click"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel  Orientation="Vertical" HorizontalAlignment="Left" Background="#00A76D" Height="NaN" Margin="0,8,0,10">
                             <ComboBox x:Name ="CountryCmbxlm" Text="Drzava" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
-                            ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}"  HorizontalAlignment="Left" Margin="33,35,0,0" VerticalAlignment="Top" Width="200" SelectionChanged="Filter_Countries"/>
+                            ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}"  HorizontalAlignment="Left" Margin="33,15,0,0" VerticalAlignment="Top" Width="200" SelectionChanged="Filter_Countries"/>
                             <ComboBox x:Name="CityCmbxlm" Text="Grad" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
-                            ItemsSource="{Binding Cities}" SelectedItem="{Binding SelectedCity}"  HorizontalAlignment="Left" Margin="33,100,0,0" VerticalAlignment="Top" Width="200" />
+                            ItemsSource="{Binding Cities}" SelectedItem="{Binding SelectedCity}"  HorizontalAlignment="Left" Margin="33,50,0,0" VerticalAlignment="Top" Width="200" />
                             <ComboBox x:Name="LanguageCmbxlm" Text="Jezik" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
-                             ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" HorizontalAlignment="Left" Margin="33,165,0,0" VerticalAlignment="Top" Width="200" />
+                             ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" HorizontalAlignment="Left" Margin="33,50,0,0" VerticalAlignment="Top" Width="200" />
                             <ComboBox x:Name="GuestNumberCmbxlm" Text="Broj gostiju" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
-                             ItemsSource="{Binding GuestNumber}" SelectedItem="{Binding SelectedGuestNumber}"  HorizontalAlignment="Left" Margin="33,230,0,0" VerticalAlignment="Top" Width="200" />
-                            <ComboBox x:Name ="Duration_Box_Fromlm"  SelectedItem="{Binding SelectedDurationFrom}"  IsEditable="True" IsReadOnly="False" Text="Trajanje od" ItemsSource="{Binding Duration}" HorizontalAlignment="Left" Margin="33,295,0,0" VerticalAlignment="Top" Width="90"/>
-                            <ComboBox x:Name ="Duration_Box_Tolm"  SelectedItem="{Binding SelectedDurationTo}" IsEditable="True" IsReadOnly="True" Text="Trajanje do"  ItemsSource="{Binding Duration}" HorizontalAlignment="Left" Margin="143,295,0,0" VerticalAlignment="Top" Width="90"/>
-                            <Button Content="Pretrazi" FontSize="16" Cursor="Hand" Click="ApplyFilters_Click" HorizontalAlignment="Left" Margin="33,355,0,0" VerticalAlignment="Top" Width="200" Height="40">
+                             ItemsSource="{Binding GuestNumber}" SelectedItem="{Binding SelectedGuestNumber}"  HorizontalAlignment="Left" Margin="33,50,0,0" VerticalAlignment="Top" Width="200" />
+                            <StackPanel Orientation="Horizontal" Height="122" Width="278" HorizontalAlignment="Left">
+                                <ComboBox x:Name ="Duration_Box_Fromlm"  SelectedItem="{Binding SelectedDurationFrom}"  IsEditable="True" IsReadOnly="False" Text="Trajanje od" ItemsSource="{Binding Duration}" HorizontalAlignment="Left" Margin="33,50,0,0" VerticalAlignment="Top" Width="90" Height="25" />
+                                <ComboBox x:Name ="Duration_Box_Tolm"  SelectedItem="{Binding SelectedDurationTo}" IsEditable="True" IsReadOnly="True" Text="Trajanje do"  ItemsSource="{Binding Duration}" HorizontalAlignment="Left" Margin="20,0,0,0"  Width="90"  Height="25"/>
+                            </StackPanel>
+                            <Button Content="Pretrazi" Foreground="White" FontSize="16" Cursor="Hand" Click="ApplyFilters_Click" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Top" Width="200" Height="40">
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="#00A76D"/>
+                                        <Setter Property="Background" Value="#BB141A"/>
                                         <Style.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#006C6D"/>
+                                                <Setter Property="Background" Value="#FB141A"/>
                                             </Trigger>
                                         </Style.Triggers>
                                     </Style>
@@ -188,12 +240,13 @@
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
-                            <Rectangle Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,8,0,0" Width="230" Height="398"/>
-                            <Rectangle Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="18,0,0,8" Width="230" Height="165"/>
+                            <Button Height="160" Margin="0,25,0,0" Background="WhiteSmoke"/>
+                        </StackPanel>
+
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Korisnicko ime" Height="50" Margin="640,0,-834,0">
+            <TabItem Header="{Binding UserName}" Height="50" Margin="640,0,-834,0" Background="#00A76D">
                 <Grid Background="White">
                     <TabControl TabStripPlacement="Left"     Margin="0, 0, 0, 10">
                         <TabItem Name="RezervisaneTure" Height="50" Width="277" Header="Rezervisane ture" VerticalAlignment="Bottom" Margin="0,0,0,0">
@@ -202,13 +255,12 @@
                                  SelectedItem="{Binding ReservedTour, UpdateSourceTrigger=PropertyChanged}"
                                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Width="1064">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Naziv" Width="150" Binding="{Binding Name}"/>
-                                    <DataGridTextColumn Header="Grad" Width="150" Binding="{Binding Location.City}"/>
-                                    <DataGridTextColumn Header="Drzava" Width="150" Binding="{Binding Location.Country}"/>
-                                    <DataGridTextColumn Header="Trajanje ture" Width="120" Binding="{Binding Duration}"/>
-                                    <DataGridTextColumn Header="Jezik" Width="130" Binding="{Binding Language}"/>
-                                    <DataGridTextColumn Header="Datum i vrijeme" Width="150" Binding="{Binding StartingDateTime}"/>
-                                    <DataGridTextColumn Header="Broj ljudi" Width="100" Binding="{Binding MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <DataGridTextColumn Header="Naziv" Width="160" Binding="{Binding Name}"/>
+                                    <DataGridTextColumn Header="Grad" Width="160" Binding="{Binding Location.City}"/>
+                                    <DataGridTextColumn Header="Drzava" Width="170" Binding="{Binding Location.Country}"/>
+                                    <DataGridTextColumn Header="Trajanje ture" Width="140" Binding="{Binding Duration}"/>
+                                    <DataGridTextColumn Header="Jezik" Width="150" Binding="{Binding Language}"/>
+                                    <DataGridTextColumn Header="Datum i vrijeme" Width="170" Binding="{Binding StartingDateTime}"/>
                                     <DataGridTemplateColumn Width="*">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
