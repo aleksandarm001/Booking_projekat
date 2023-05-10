@@ -58,19 +58,20 @@
         <Image Source="/Infrastructure/Resources/Images/right-arrow.png" Height="40" Width="40" Margin="65,8,1251,13"/>
         <Image Source="/Infrastructure/Resources/Images/repeat.png" Height="40" Width="40" Margin="130,8,1186,13"/>
         <Image Source="/Infrastructure/Resources/Images/home.png" Height="40" Width="40" Margin="194,8,1122,13"/>
-        <TabControl Grid.Row="2">
-            <TabItem Header="Pocetna" Height="50" Margin="280,0,-400,0" Background="#00A76D">
+        <TabControl Grid.Row="2" FontSize="16" BorderThickness="0"  Foreground="White" FontFamily="Montserrat">
+            <TabItem Header="Pocetna" Height="50" Margin="280,0,-400,0" Background="#00A76D" Foreground="White">
                 <Grid Background="White">
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Ture" Height="50" Margin="400,0,-520,0" Background="#00A76D">
+            <TabItem Header="Ture" Height="50" Margin="400,0,-520,0" Background="#00A76D" Foreground="White">
                
                 <Grid Background="White" Margin="0,0,0,0">
                     <Grid Name="TureGrid" >
 
 
-                        <DataGrid  x:Name="DataGridTure" Margin="279,8,5,10" 
+                        <DataGrid  x:Name="DataGridTure" Margin="279,12,5,10" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}" 
+ 
                             ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
                             SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                             IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
@@ -78,14 +79,42 @@
                                 <DataGridTextColumn Header="Naziv" Width="150" Binding="{Binding Name}"/>
                                 <DataGridTextColumn Header="Grad" Width="150" Binding="{Binding Location.City}"/>
                                 <DataGridTextColumn Header="Drzava" Width="150" Binding="{Binding Location.Country}"/>
-                                <DataGridTextColumn Header="Trajanje ture" Width="120" Binding="{Binding Duration}"/>
+                                <DataGridTextColumn Header="Trajanje ture(h)" Width="120" Binding="{Binding Duration}"/>
                                 <DataGridTextColumn Header="Jezik" Width="130" Binding="{Binding Language}"/>
                                 <DataGridTextColumn Header="Datum i vrijeme" Width="150" Binding="{Binding StartingDateTime}"/>
                                 <DataGridTextColumn Header="Broj ljudi" Width="100" Binding="{Binding MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTemplateColumn Width="*">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Button Height="20" Cursor="Hand" Name="PrikaziTuru" Width="60" Content="Prikazi" Click="PrikaziTuru_Click"/>
+                                            <Button Height="20" Cursor="Hand" Name="PrikaziTuru" Width="60" Content="Prikazi" Click="PrikaziTuru_Click" BorderThickness="0"  Foreground="White" FontSize="12" FontFamily="Montserrat">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Background" Value="#00A76D"/>
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#078563"/>
+                                                            </Trigger>
+                                                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
+                                                                <Setter Property="FocusVisualStyle">
+                                                                    <Setter.Value>
+                                                                        <Style>
+                                                                            <Setter Property="Control.BorderThickness" Value="2"/>
+                                                                            <Setter Property="Control.BorderBrush" Value="#FF0000"/>
+                                                                        </Style>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Width="60" Height="20" CornerRadius="5" Background="{TemplateBinding Background}">
+                                                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -96,18 +125,18 @@
                         <StackPanel  Orientation="Vertical" HorizontalAlignment="Left" Background="#00A76D" Height="NaN" Margin="0,8,0,10">
 
 
-                            <ComboBox x:Name ="CountryCmbx" Text="Drzava" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                            <ComboBox x:Name ="CountryCmbx" FontSize="12" Text="Drzava" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
                                  ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}"  HorizontalAlignment="Left" Margin="33,15,0,0" VerticalAlignment="Top" Width="200" SelectionChanged="Filter_Countries"/>
-                            <ComboBox x:Name="CityCmbx" Text="Grad" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                            <ComboBox x:Name="CityCmbx" Text="Grad" FontSize="12" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
                                  ItemsSource="{Binding Cities}" SelectedItem="{Binding SelectedCity}"  HorizontalAlignment="Left" Margin="33,50,0,0" Width="200" />
-                            <ComboBox x:Name="LanguageCmbx" Text="Jezik" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                            <ComboBox x:Name="LanguageCmbx" FontSize="12" Text="Jezik" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
                                  ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" HorizontalAlignment="Left" Margin="33,50,0,0" VerticalAlignment="Top" Width="200" />
-                            <ComboBox x:Name="GuestNumberCmbx" Text="Broj gostiju" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                            <ComboBox x:Name="GuestNumberCmbx" FontSize="12" Text="Broj gostiju" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
                                  ItemsSource="{Binding GuestNumber}" SelectedItem="{Binding SelectedGuestNumber}"  HorizontalAlignment="Left" Margin="33,50,0,0" Width="200" />
                                 <StackPanel Orientation="Horizontal" Height="122" Width="278" HorizontalAlignment="Left">
 
-                                    <ComboBox x:Name ="Duration_Box_From"  SelectedItem="{Binding SelectedDurationFrom}"  IsEditable="True" IsReadOnly="False" Text="Trajanje od" ItemsSource="{Binding Duration}" HorizontalAlignment="Left" Margin="33,50,0,0" Height="25" VerticalAlignment="Top" Width="90"/>
-                                    <ComboBox x:Name ="Duration_Box_To"  SelectedItem="{Binding SelectedDurationTo}" IsEditable="True" IsReadOnly="True" Text="Trajanje do"  ItemsSource="{Binding Duration}" Width="90" Height="25" Margin="20,0,0,0" />
+                                <ComboBox x:Name ="Duration_Box_From" FontSize="12"  SelectedItem="{Binding SelectedDurationFrom}"  IsEditable="True" IsReadOnly="False" Text="Trajanje od" ItemsSource="{Binding Duration}" HorizontalAlignment="Left" Margin="33,50,0,0" Height="25" VerticalAlignment="Top" Width="90"/>
+                                <ComboBox x:Name ="Duration_Box_To" FontSize="12"  SelectedItem="{Binding SelectedDurationTo}" IsEditable="True" IsReadOnly="False" Text="Trajanje do"  ItemsSource="{Binding Duration}" Width="90" Height="25" Margin="20,0,0,0" />
                                 </StackPanel>
 
                             <Button Content="Pretrazi" Foreground="White" FontSize="16" Cursor="Hand" Click="ApplyFilters_Click" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Top" Width="200" Height="40">
@@ -153,7 +182,7 @@
                         <TextBlock  FontSize="15" HorizontalAlignment="Left" Margin="1252,323,0,0" Text="{Binding Path=Tour.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="98"/>
                         <TextBlock  FontSize="15"  HorizontalAlignment="Left" Margin="1152,370,0,0" Text="{Binding Path=Tour.Language, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="194"/>
                         <TextBlock  FontSize="15"  HorizontalAlignment="Left" Margin="30,451,0,0" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="1316" Height="63"/>
-                        <Button x:Name="Rezervisi" Content="Rezerviši" FontSize="16" Cursor="Hand" Click="Rezervisi_Click" HorizontalAlignment="Left" Margin="526,530,0,0" VerticalAlignment="Top" Width="314" Height="40">
+                        <Button x:Name="Rezervisi" Content="Rezerviši" FontSize="16" Cursor="Hand" Click="Rezervisi_Click" HorizontalAlignment="Left" Margin="526,530,0,0" VerticalAlignment="Top" Width="314" Height="40" Foreground="White">
                             <Button.Style>
                                 <Style TargetType="{x:Type Button}">
                                     <Setter Property="Background" Value="#00A76D"/>
@@ -180,11 +209,11 @@
 
 
             </TabItem>
-            <TabItem Header="Last minut" Height="50" Margin="520,0,-640,0" Background="#00A76D">
+            <TabItem Header="Last minut" Height="50" Margin="520,0,-640,0" Background="#00A76D" Foreground="White">
                 <Grid Background="White">
                     <Grid Background="White" Margin="0,0,0,0">
 
-                        <DataGrid  x:Name="LastMinutTure" Margin="279,8,5,10" 
+                        <DataGrid  x:Name="LastMinutTure" Margin="279,12,5,10" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}"  
                          ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
                          SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
@@ -192,31 +221,59 @@
                                 <DataGridTextColumn Header="Naziv" Width="150" Binding="{Binding Name}"/>
                                 <DataGridTextColumn Header="Grad" Width="150" Binding="{Binding Location.City}"/>
                                 <DataGridTextColumn Header="Drzava" Width="150" Binding="{Binding Location.Country}"/>
-                                <DataGridTextColumn Header="Trajanje ture" Width="120" Binding="{Binding Duration}"/>
+                                <DataGridTextColumn Header="Trajanje ture(h)" Width="120" Binding="{Binding Duration}"/>
                                 <DataGridTextColumn Header="Jezik" Width="130" Binding="{Binding Language}"/>
                                 <DataGridTextColumn Header="Datum i vrijeme" Width="150" Binding="{Binding StartingDateTime}"/>
                                 <DataGridTextColumn Header="Broj ljudi" Width="100" Binding="{Binding MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTemplateColumn Width="*">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Button Height="20" Cursor="Hand" Name="PrikaziTuru" Width="60" Content="Prikazi" Click="PrikaziTuru_Click"/>
+                                            <Button Height="20" Cursor="Hand" Name="PrikaziTuru" Width="60" Content="Prikazi" Click="PrikaziTuru_Click" BorderThickness="0"  Foreground="White" FontSize="12" FontFamily="Montserrat">
+                                                <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="#00A76D"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#078563"/>
+                                                        </Trigger>
+                                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
+                                                            <Setter Property="FocusVisualStyle">
+                                                                <Setter.Value>
+                                                                    <Style>
+                                                                        <Setter Property="Control.BorderThickness" Value="2"/>
+                                                                        <Setter Property="Control.BorderBrush" Value="#FF0000"/>
+                                                                    </Style>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Width="60" Height="20" CornerRadius="5" Background="{TemplateBinding Background}">
+                                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                            </Button>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                         <StackPanel  Orientation="Vertical" HorizontalAlignment="Left" Background="#00A76D" Height="NaN" Margin="0,8,0,10">
-                            <ComboBox x:Name ="CountryCmbxlm" Text="Drzava" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                            <ComboBox x:Name ="CountryCmbxlm" FontSize="12" Text="Drzava" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
                             ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}"  HorizontalAlignment="Left" Margin="33,15,0,0" VerticalAlignment="Top" Width="200" SelectionChanged="Filter_Countries"/>
-                            <ComboBox x:Name="CityCmbxlm" Text="Grad" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                            <ComboBox x:Name="CityCmbxlm" FontSize="12" Text="Grad" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
                             ItemsSource="{Binding Cities}" SelectedItem="{Binding SelectedCity}"  HorizontalAlignment="Left" Margin="33,50,0,0" VerticalAlignment="Top" Width="200" />
-                            <ComboBox x:Name="LanguageCmbxlm" Text="Jezik" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                            <ComboBox x:Name="LanguageCmbxlm" FontSize="12" Text="Jezik" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
                              ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" HorizontalAlignment="Left" Margin="33,50,0,0" VerticalAlignment="Top" Width="200" />
-                            <ComboBox x:Name="GuestNumberCmbxlm" Text="Broj gostiju" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                            <ComboBox x:Name="GuestNumberCmbxlm" FontSize="12" Text="Broj gostiju" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
                              ItemsSource="{Binding GuestNumber}" SelectedItem="{Binding SelectedGuestNumber}"  HorizontalAlignment="Left" Margin="33,50,0,0" VerticalAlignment="Top" Width="200" />
                             <StackPanel Orientation="Horizontal" Height="122" Width="278" HorizontalAlignment="Left">
-                                <ComboBox x:Name ="Duration_Box_Fromlm"  SelectedItem="{Binding SelectedDurationFrom}"  IsEditable="True" IsReadOnly="False" Text="Trajanje od" ItemsSource="{Binding Duration}" HorizontalAlignment="Left" Margin="33,50,0,0" VerticalAlignment="Top" Width="90" Height="25" />
-                                <ComboBox x:Name ="Duration_Box_Tolm"  SelectedItem="{Binding SelectedDurationTo}" IsEditable="True" IsReadOnly="True" Text="Trajanje do"  ItemsSource="{Binding Duration}" HorizontalAlignment="Left" Margin="20,0,0,0"  Width="90"  Height="25"/>
+                                <ComboBox x:Name ="Duration_Box_Fromlm" FontSize="12" SelectedItem="{Binding SelectedDurationFrom}"  IsEditable="True" IsReadOnly="False" Text="Trajanje od" ItemsSource="{Binding Duration}" HorizontalAlignment="Left" Margin="33,50,0,0" VerticalAlignment="Top" Width="90" Height="25" />
+                                <ComboBox x:Name ="Duration_Box_Tolm" FontSize="12" SelectedItem="{Binding SelectedDurationTo}" IsEditable="True" IsReadOnly="True" Text="Trajanje do"  ItemsSource="{Binding Duration}" HorizontalAlignment="Left" Margin="20,0,0,0"  Width="90"  Height="25"/>
                             </StackPanel>
                             <Button Content="Pretrazi" Foreground="White" FontSize="16" Cursor="Hand" Click="ApplyFilters_Click" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Top" Width="200" Height="40">
                                 <Button.Style>
@@ -246,11 +303,11 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="{Binding UserName}" Height="50" Margin="640,0,-834,0" Background="#00A76D">
+            <TabItem Header="{Binding UserName}" Height="50" Margin="640,0,-834,0" Background="#00A76D" Foreground="White">
                 <Grid Background="White">
                     <TabControl TabStripPlacement="Left"     Margin="0, 0, 0, 10">
-                        <TabItem Name="RezervisaneTure" Height="50" Width="277" Header="Rezervisane ture" VerticalAlignment="Bottom" Margin="0,0,0,0">
-                            <DataGrid Margin="0,10,0,8"
+                        <TabItem Name="RezervisaneTure" Height="50" Width="277" Header="Rezervisane ture" VerticalAlignment="Bottom" Margin="0,0,0,0" Foreground="White">
+                            <DataGrid Margin="0,12,0,8" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}"
                                 ItemsSource="{Binding ReservedTours, UpdateSourceTrigger=PropertyChanged}"
                                  SelectedItem="{Binding ReservedTour, UpdateSourceTrigger=PropertyChanged}"
                                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Width="1064">
@@ -264,7 +321,35 @@
                                     <DataGridTemplateColumn Width="*">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button Height="20" Cursor="Hand" Name="Detalji" Width="60" Content="Detalji" Click="Detalji_Click"/>
+                                                <Button Height="20" Cursor="Hand" Name="Detalji" Width="60" Content="Detalji" Click="Detalji_Click" BorderThickness="0"  Foreground="White" FontSize="12" FontFamily="Montserrat">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Background" Value="#00A76D"/>
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#078563"/>
+                                                            </Trigger>
+                                                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
+                                                                <Setter Property="FocusVisualStyle">
+                                                                    <Setter.Value>
+                                                                        <Style>
+                                                                            <Setter Property="Control.BorderThickness" Value="2"/>
+                                                                            <Setter Property="Control.BorderBrush" Value="#FF0000"/>
+                                                                        </Style>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Width="60" Height="20" CornerRadius="5" Background="{TemplateBinding Background}">
+                                                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                                </Button>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -272,8 +357,8 @@
                             </DataGrid>
                         </TabItem>
 
-                        <TabItem Name="ZavrseneTure" Header="Zavrsene ture" Height="50" Width="277" Margin="0,0,0,0">
-                            <DataGrid Margin="0,10,0,8"
+                        <TabItem Name="ZavrseneTure" Header="Zavrsene ture" Height="50" Width="277" Margin="0,0,0,0" Foreground="White">
+                            <DataGrid Margin="0,12,0,8" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}"
                                 ItemsSource="{Binding FinishedTours, UpdateSourceTrigger=PropertyChanged}"
                                  SelectedItem="{Binding FinishedTour, UpdateSourceTrigger=PropertyChanged}"
                                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Width="1064">
@@ -288,7 +373,35 @@
                                     <DataGridTemplateColumn Width="*">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button Height="20" Cursor="Hand" Name="Ocijeni" Width="60" Content="Ocijeni" Click="Ocijeni_Click"/>
+                                                <Button Height="20" Cursor="Hand" Name="Ocijeni" Width="60" Content="Ocijeni" Click="Ocijeni_Click" BorderThickness="0"  Foreground="White" FontSize="12" FontFamily="Montserrat">
+                                                    <Button.Style>
+                                                        <Style TargetType="Button">
+                                                            <Setter Property="Background" Value="#00A76D"/>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="#078563"/>
+                                                                </Trigger>
+                                                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
+                                                                    <Setter Property="FocusVisualStyle">
+                                                                        <Setter.Value>
+                                                                            <Style>
+                                                                                <Setter Property="Control.BorderThickness" Value="2"/>
+                                                                                <Setter Property="Control.BorderBrush" Value="#FF0000"/>
+                                                                            </Style>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Button.Style>
+                                                    <Button.Template>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Border Width="60" Height="20" CornerRadius="5" Background="{TemplateBinding Background}">
+                                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                </Button>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -296,39 +409,91 @@
                             </DataGrid>
                         </TabItem>
 
-                        <TabItem Name="ZahtjevaneTure" Header="Zahtjevane ture" Height="50" Width="277" VerticalAlignment="Bottom" Margin="0,0,0,0">
-                            <TabControl TabStripPlacement="Top"    Margin="0,10,0,0">
-                                <TabItem Header="Obične" Width="525" Height="30" FontSize="16">
+                        <TabItem Name="ZahtjevaneTure" Header="Zahtjevane ture" Height="50" Width="277" VerticalAlignment="Bottom" Margin="0,0,0,0" Foreground="White">
+                            <TabControl TabStripPlacement="Top" Margin="0,10,0,0" BorderThickness="0"  Foreground="White" FontSize="16" FontFamily="Montserrat">
+                                <TabItem Header="Obične" Width="525" Height="30" FontSize="16" Foreground="White">
                                     <Grid>
-
-
-
-                                        <DataGrid Margin="5,20,5,70" FontSize="12"
+                                        <DataGrid Margin="5,20,5,70" FontSize="12" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}"
                                         ItemsSource="{Binding Path = RequestedTours, UpdateSourceTrigger=PropertyChanged}"
                                         IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Grid.ColumnSpan="3">
                                             <DataGrid.Columns>
-                                                <DataGridTextColumn Header="Grad" Width="100" Binding="{Binding Location.City}"></DataGridTextColumn>
-                                                <DataGridTextColumn Header="Drzava" Width="100" Binding="{Binding Location.Country}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Grad" Width="120" Binding="{Binding Location.City}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Drzava" Width="120" Binding="{Binding Location.Country}"></DataGridTextColumn>
                                                 <DataGridTextColumn Header="Broj ljudi" Width="100" Binding="{Binding GuestNumber}"></DataGridTextColumn>
-                                                <DataGridTextColumn Header="Jezik" Width="150" Binding="{Binding Language}"></DataGridTextColumn>
-                                                <DataGridTextColumn Header="Datum od" Width="150" Binding="{Binding StartingDate}"></DataGridTextColumn>
-                                                <DataGridTextColumn Header="Datum do" Width="150" Binding="{Binding EndingDate}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Jezik" Width="170" Binding="{Binding Language}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Datum od" Width="190" Binding="{Binding StartingDate}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Datum do" Width="190" Binding="{Binding EndingDate}"></DataGridTextColumn>
                                                 <DataGridTextColumn Header="Status" Width="*" Binding="{Binding RequestStatus}"></DataGridTextColumn>
                                             </DataGrid.Columns>
                                         </DataGrid>
-                                        <Button x:Name="PrikaziStatistiku" Content="Prikazi statistiku" FontSize="16" Cursor="Hand" Click="PrikaziStatistiku_Click" HorizontalAlignment="Left" Margin="110,0,0,14" VerticalAlignment="Bottom" Width="200" Height="40">
+                                        <Button x:Name="PrikaziStatistiku" Content="Prikazi statistiku" FontSize="16" Cursor="Hand" Click="PrikaziStatistiku_Click" HorizontalAlignment="Left" Margin="110,0,0,14" VerticalAlignment="Bottom" Width="200" Height="40" BorderThickness="0"  Foreground="White" FontFamily="Montserrat">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="#00A76D"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#078563"/>
+                                                        </Trigger>
+                                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
+                                                            <Setter Property="FocusVisualStyle">
+                                                                <Setter.Value>
+                                                                    <Style>
+                                                                        <Setter Property="Control.BorderThickness" Value="2"/>
+                                                                        <Setter Property="Control.BorderBrush" Value="#FF0000"/>
+                                                                    </Style>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Width="200" Height="40" CornerRadius="5" Background="{TemplateBinding Background}">
+                                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
                                         </Button>
-                                        <Button x:Name="KreirajObicanZahtje" Content="Kreiraj zahtjev za turu" FontSize="16" Cursor="Hand" Click="KreirajObicanZahtje_Click" HorizontalAlignment="Left" Margin="636,0,0,14" VerticalAlignment="Bottom" Width="200" Height="40"/>
+                                        <Button x:Name="KreirajObicanZahtje" Content="Kreiraj zahtjev za turu" FontSize="16" Cursor="Hand" Click="KreirajObicanZahtje_Click" HorizontalAlignment="Left" Margin="636,0,0,14" VerticalAlignment="Bottom" Width="200" Height="40" BorderThickness="0"  Foreground="White"  FontFamily="Montserrat">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="#00A76D"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#078563"/>
+                                                        </Trigger>
+                                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
+                                                            <Setter Property="FocusVisualStyle">
+                                                                <Setter.Value>
+                                                                    <Style>
+                                                                        <Setter Property="Control.BorderThickness" Value="2"/>
+                                                                        <Setter Property="Control.BorderBrush" Value="#FF0000"/>
+                                                                    </Style>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Width="200" Height="40" CornerRadius="5" Background="{TemplateBinding Background}">
+                                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
                                     </Grid>
                                 </TabItem>
-                                <TabItem Header="Složene" Width="525" Height="30" FontSize="16">
+                                <TabItem Header="Složene" Width="525" Height="30" FontSize="16" Foreground="White">
 
                                 </TabItem>
                             </TabControl>
                         </TabItem>
 
-                        <TabItem Name="Vauceri" Header="Vauceri" Height="50" Width="277" VerticalAlignment="Bottom" Margin="0,0,0,0" >
-                            <DataGrid Margin="0,10,0,8"
+                        <TabItem Name="Vauceri" Header="Vauceri" Height="50" Width="277" VerticalAlignment="Bottom" Margin="0,0,0,0" Foreground="White">
+                            <DataGrid Margin="0,10,0,8" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}"
                                 ItemsSource="{Binding Vouchers, UpdateSourceTrigger=PropertyChanged}"
                                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Width="1064">
                                 <DataGrid.Columns>
