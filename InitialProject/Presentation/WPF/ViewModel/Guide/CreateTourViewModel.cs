@@ -19,7 +19,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public ICommand AddCommand { get; set; }
         public ObservableCollection<string> Countries { get; set; }
         public ObservableCollection<string> Cities { get; set; }
-        public ObservableCollection<Language> Languages { get; set; }
+        public ObservableCollection<string> Languages { get; set; }
 
         private readonly ILocationService _locationService;
 
@@ -34,7 +34,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public List<TourPoint> tourPoints;
 
         public List<DateTime> tourStartingDates;
-        public CreateTourViewModel()
+        public CreateTourViewModel(TourRequest? tourRequest)
         {
             //FillterCommand = new RelayCommand(test);
             _locationService = Injector.CreateInstance<ILocationService>();
@@ -44,7 +44,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
             Countries = new ObservableCollection<string>(_locationService.GetAllCountries());
             Cities = new ObservableCollection<string>(_locationService.GetAllCities());
-            Languages = new ObservableCollection<Language>(_languageService.GetAll());
+            Languages = new ObservableCollection<string>(_languageService.GetAllToString());
 
             EditTourPointsCommand = new RelayCommand(ivokeTourPoints);
             EditDatesCommand = new RelayCommand(inovkeDates);
@@ -55,7 +55,14 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             tourPoints = new List<TourPoint>();
             tourStartingDates = new List<DateTime>();
 
+            City = tourRequest.Location.City;
+            Country = tourRequest.Location.Country;
+            Language = tourRequest.Language.Name;
+            Description = tourRequest.Description;
+            MaxGuests = tourRequest.GuestNumber;
         }
+
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -101,6 +108,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                     Duration = TourDuratation,
                     TourStarted = false
                 };
+
                 _tourService.Save(tour);
                 _tourPointService.SaveTourPoints(tourPoints);
                 foreach(var tourPoint in tourPoints)
@@ -152,10 +160,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             set
             {
                 _language = value;
-                OnPropertyChanged(nameof(_language));
+                OnPropertyChanged(nameof(Language)); // <-- This should be the property name
             }
         }
-
 
         private int _MaxGuests;
         public int MaxGuests

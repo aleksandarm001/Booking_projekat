@@ -1,4 +1,5 @@
-﻿using InitialProject.Presentation.WPF.ViewModel.Guide;
+﻿using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.ViewModel.Guide;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,12 @@ namespace InitialProject.Presentation.WPF.View.Guide
     public partial class CreatingTourView : Window
     {
         public CreateTourViewModel tourViewModel { get; set; }
-        public CreatingTourView()
+        public CreatingTourView(TourRequest? selectedTourRequest)
         {
-            tourViewModel = new CreateTourViewModel();
+            tourViewModel = new CreateTourViewModel(selectedTourRequest);
             DataContext = tourViewModel;
             InitializeComponent();
         }
+
     }
 }

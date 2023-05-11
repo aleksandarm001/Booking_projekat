@@ -85,14 +85,15 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         private void ApproveTourRequest(object obj)
         {
             TourRequest selectedTourRequest = (TourRequest)obj;
-            IsSelected = true;
-            SelectedTourRequest = selectedTourRequest;
+            CreatingTourView creatingTourView = new CreatingTourView(selectedTourRequest);
+            creatingTourView.ShowDialog();
+            /*SelectedTourRequest = selectedTourRequest;
             //should delete and to Tours
             DeleteTourRequest(SelectedTourRequest);
             //add to Tours txt
             tourService.Save((Tour)SelectedTourRequest);
             _tourRequests.Remove(SelectedTourRequest);
-            tourRequestService.Delete(SelectedTourRequest);
+            tourRequestService.Delete(SelectedTourRequest);*/
 
 
         }
@@ -104,7 +105,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
         private void FillterTourRequest(object obj)
         {
-           CreatingTourView T = new CreatingTourView();
+           CreatingTourView T = new CreatingTourView(null);
             T.Show();
         }
 

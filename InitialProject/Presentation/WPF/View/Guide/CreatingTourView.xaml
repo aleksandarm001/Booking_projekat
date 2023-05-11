@@ -157,7 +157,7 @@
                             </ComboBox.Tag>
                         </ComboBox>
                         <!-- Languages ComboBox -->
-                        <ComboBox x:Name="LanguagesComboBox" Style="{StaticResource RoundedComboBoxStyle}" Background="LightGray" FontSize="14" Margin="0,5" ToolTip="Select Language" ItemsSource="{Binding Languages}" SelectedItem="{Binding Language}">
+                        <ComboBox x:Name="LanguagesComboBox" Style="{StaticResource RoundedComboBoxStyle}" Background="LightGray" FontSize="14" Margin="0,5" ToolTip="Select Language" ItemsSource="{Binding Languages}" SelectedItem="{Binding Language, Mode=TwoWay}">
                             <ComboBox.Tag>
                                 <sys:String>Select a language</sys:String>
                             </ComboBox.Tag>
