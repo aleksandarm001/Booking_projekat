@@ -135,5 +135,10 @@
             return _tourRepository.Save(tour);
         }
 
+        public int FindNextId()
+        {
+            return _tourRepository.NextId();
+        }
+
     }
 }

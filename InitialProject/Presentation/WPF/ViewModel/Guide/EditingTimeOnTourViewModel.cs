@@ -13,23 +13,31 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 {
     public class EditingTimeOnTourViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<DateTime> Dates { get; set; }
+        //public ObservableCollection<DateTime> Dates { get; set; }
         public ObservableCollection<Dates> ReservedDates { get; set; }
 
+        public List<DateTime> Dates;
         public ICommand DeleteCommand { get; set; }
         public ICommand AddDateCommand { get; set; }
-        public EditingTimeOnTourViewModel()
+        public EditingTimeOnTourViewModel(List<DateTime> startingDates)
         {
             AddDateCommand = new RelayCommand(AddDate);
             DeleteCommand = new RelayCommand(DeleteDate);
 
-            Dates = new ObservableCollection<DateTime>();
             Hours = new ObservableCollection<string>();
             Minutes = new ObservableCollection<string>();
             ReservedDates = new ObservableCollection<Dates>();
-            Dates dateTime = new Dates();
-            dateTime.Date = DateTime.Now.ToString();
-            ReservedDates.Add(dateTime);
+
+            Dates = startingDates;
+
+            foreach(var date in startingDates)
+            {
+                Dates dates = new Dates();
+                dates.Date = date;
+                ReservedDates.Add(dates);
+            }
+
+            List<DateTime> tourStartingDates = startingDates;
             LoadHoursAndMinutes();
         }
 
@@ -43,9 +51,10 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                                                          SelectedHour,
                                                          SelectedMinute,
                                                          0);
-                Dates dateTime = new Dates();
-                dateTime.Date = combinedDateTime.ToString();
-                ReservedDates.Add(dateTime);
+                Dates.Add(combinedDateTime);
+                Dates dates = new Dates();
+                dates.Date = combinedDateTime;
+                ReservedDates.Add(dates);
             }
             else
             {
@@ -55,9 +64,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public void DeleteDate(object obj)
         {
             Dates dateToDelete = (Dates)obj;
+            DateTime date = (DateTime)dateToDelete.Date;
             if (dateToDelete != null)
             {
                 ReservedDates.Remove(dateToDelete);
+                Dates.Remove(date);
             }
         }
 

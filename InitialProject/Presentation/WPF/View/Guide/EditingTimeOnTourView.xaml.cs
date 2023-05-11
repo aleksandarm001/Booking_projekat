@@ -27,9 +27,9 @@ namespace InitialProject.Presentation.WPF.View.Guide
     {
         
         public EditingTimeOnTourViewModel viewModel { get; set; }
-        public EditingTimeOnTourView()
+        public EditingTimeOnTourView(List<DateTime> startingDates)
         {
-            viewModel= new EditingTimeOnTourViewModel();
+            viewModel= new EditingTimeOnTourViewModel(startingDates);
             DataContext = viewModel;
             InitializeComponent();
         }

@@ -8,5 +8,8 @@ namespace InitialProject.Services.IServices
         TourPoint GetActiveTourPointOnTour(int tourId);
         List<TourPoint> GetAllTourPoints();
         bool TourStartedAndFinished(int tourId);
+        int FindNextId();
+
+        TourPoint AddTempTourPoint(TourPoint tempTourPoint);
     }
 }

@@ -1,4 +1,6 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.Aplication.Factory;
+using InitialProject.Domen.Model;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static InitialProject.Domen.Model.TourPoint;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Guide
 {
@@ -16,44 +19,39 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public ObservableCollection<TourPoint> TourPoints { get; set; }
         public ICommand EditCommand { get; set; }
 
+        public List<TourPoint> tempTourPoints { get; set; }
+
         public ICommand DeleteCommand { get; set; }
         public ICommand AddTourPointCommand { get; set; }
 
-        TourPoint tourPoint = new TourPoint()
-        {
-            Name = "antonije1",
-            Description = "opis"
-        };
+        private readonly ITourPointService tourPointService;
 
-        TourPoint tourPoint1 = new TourPoint()
-        {
-            Name = "antonije2",
-            Description = "opis"
-        };
+        public int nextTourPointId;
 
-        TourPoint tourPoint2 = new TourPoint()
-        {
-            Name = "antonije3",
-            Description = "opis"
-        };
+        public int Order = 1;
 
-        TourPoint tourPoint3 = new TourPoint()
-        {
-            Name = "antonije4",
-            Description = "opis"
-        };
+        private readonly int tourId;
+
 
         public CreateTourPointViewModel()
         {
             EditCommand = new RelayCommand(edit);
             DeleteCommand = new RelayCommand(delete);
-            AddTourPointCommand = new RelayCommand(addTourPoint);
+            AddTourPointCommand = new RelayCommand(AddTourPoint);
             TourPoints = new ObservableCollection<TourPoint>();
-            TourPoints.Add(tourPoint);
-            TourPoints.Add(tourPoint1);
-            TourPoints.Add(tourPoint2);
-            TourPoints.Add(tourPoint3);
+        }
 
+        public CreateTourPointViewModel(int tourID, List<TourPoint> tourPoints)
+        {
+            EditCommand = new RelayCommand(edit);
+            DeleteCommand = new RelayCommand(delete);
+            AddTourPointCommand = new RelayCommand(AddTourPoint);
+            TourPoints = new ObservableCollection<TourPoint>(tourPoints);
+            tourPointService = Injector.CreateInstance<ITourPointService>();
+            nextTourPointId = tourPointService.FindNextId();
+            tourId = tourID;
+            tempTourPoints = tourPoints;
+            CheckOrderId();
         }
 
         private TourPoint _selectedTourPoint;
@@ -89,23 +87,66 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             }
         }
 
+        public void CheckOrderId()
+        {
+            if (tempTourPoints.Count > 0)
+            {
+                Order = tempTourPoints.OrderByDescending(point => point.Order).FirstOrDefault().Order;
+                Order++;
+            }
+        }
+
         public void edit(object obj)
         {
             TourPoint selectedTourPoint = (TourPoint)obj;
-
         }
 
         public void delete(object obj)
         {
             TourPoint selectedTourPoint = (TourPoint)obj;
+
+            int objectOrder = selectedTourPoint.Order;
+
             TourPoints.Remove(selectedTourPoint);
+            tempTourPoints.Remove(selectedTourPoint);
+
+            foreach (TourPoint tourPoint in tempTourPoints)
+            {
+                if (tourPoint.Order > objectOrder)
+                {
+                    tourPoint.Order--;
+                }
+            }
+
+            TourPoints.Clear();
+
+            foreach(var TourPoint in tempTourPoints)
+            {
+                TourPoints.Add(TourPoint);
+            }
+
+            Order = tempTourPoints.OrderByDescending(point => point.Order).FirstOrDefault().Order;
+            Order++;
+
+
+
+
         }
 
-        public void addTourPoint(object obj) 
+        public void AddTourPoint(object obj) 
         {
-            TourPoint tourPoint = new TourPoint();
-            tourPoint.Name = Name;
-            tourPoint.Description = Description;
+            TourPoint tourPoint = new TourPoint() 
+            {
+                Id = nextTourPointId,
+                Name = Name,
+                TourId = tourId,
+                CurrentStatus = Status.NotActive,
+                Description = Description,
+                Order = Order
+            };
+            Order++;
+            nextTourPointId++;
+            tempTourPoints.Add(tourPoint);
             TourPoints.Add(tourPoint);
         }
 

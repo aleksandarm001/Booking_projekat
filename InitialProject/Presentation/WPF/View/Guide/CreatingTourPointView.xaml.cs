@@ -25,9 +25,9 @@ namespace InitialProject.Presentation.WPF.View.Guide
 
        
         public CreateTourPointViewModel tourPointViewModel { get; set; }
-        public CreatingTourPointView()
+        public CreatingTourPointView(int tourPointView, List<TourPoint> tourPoints)
         {
-            tourPointViewModel = new CreateTourPointViewModel();
+            tourPointViewModel = new CreateTourPointViewModel(tourPointView,tourPoints);
             DataContext = tourPointViewModel;
 
             InitializeComponent();

@@ -8,6 +8,6 @@ namespace InitialProject.Domen.Model
 {
     public class Dates
     {
-        public string Date { get; set; } 
+        public DateTime Date { get; set; } 
     }
 }

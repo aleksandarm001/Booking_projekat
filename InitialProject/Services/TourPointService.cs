@@ -32,5 +32,15 @@
         {
             return _tourPointRepository.GetAll().Where(t => t.TourId == tourId).Where(t => t.CurrentStatus == TourPoint.Status.Active).FirstOrDefault();
         }
+
+        public int FindNextId()
+        {
+            return _tourPointRepository.GetAll().Count() + 1;
+        }
+
+        public TourPoint AddTempTourPoint(TourPoint tempTourPoint)
+        {
+            return _tourPointRepository.SaveTemp(tempTourPoint);
+        }
     }
 }

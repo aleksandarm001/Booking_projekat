@@ -2,6 +2,7 @@
 using InitialProject.Domen.Model;
 using InitialProject.Presentation.WPF.View.Guide;
 using InitialProject.Services.IServices;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -12,24 +13,30 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
     public class CreateTourViewModel : INotifyPropertyChanged
     {
         public ICommand FillterCommand { get; set; }
-
         public ICommand EditDatesCommand { get; set; }
         public ICommand EditTourPointsCommand { get; set; }
+        public ICommand AddCommand { get; set; }
         public ObservableCollection<string> Countries { get; set; }
         public ObservableCollection<string> Cities { get; set; }
         public ObservableCollection<Language> Languages { get; set; }
 
-
-
-
         private readonly ILocationService _locationService;
 
         private readonly ILanguageService _languageService;
+
+        private readonly ITourService _tourService;
+
+        private readonly int nextTourId;
+
+        public List<TourPoint> tourPoints;
+
+        public List<DateTime> tourStartingDates;
         public CreateTourViewModel()
         {
             //FillterCommand = new RelayCommand(test);
             _locationService = Injector.CreateInstance<ILocationService>();
             _languageService = Injector.CreateInstance<ILanguageService>();
+            _tourService = Injector.CreateInstance<ITourService>();
 
             Countries = new ObservableCollection<string>(_locationService.GetAllCountries());
             Cities = new ObservableCollection<string>(_locationService.GetAllCities());
@@ -37,6 +44,13 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
             EditTourPointsCommand = new RelayCommand(ivokeTourPoints);
             EditDatesCommand = new RelayCommand(inovkeDates);
+            AddCommand = new RelayCommand(CreateTour);
+
+            nextTourId = _tourService.FindNextId();
+
+            tourPoints = new List<TourPoint>();
+            tourStartingDates = new List<DateTime>();
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -57,14 +71,25 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
         public void ivokeTourPoints(object obj)
         {
-            CreatingTourPointView dsa = new CreatingTourPointView();
+            CreatingTourPointView dsa = new CreatingTourPointView(nextTourId,tourPoints);
             dsa.Show();
         }
 
         public void inovkeDates(object obj)
         {
-            EditingTimeOnTourView dsa = new EditingTimeOnTourView();
+            EditingTimeOnTourView dsa = new EditingTimeOnTourView(tourStartingDates);
             dsa.Show();
+        }
+
+        public void CreateTour(object obj)
+        {
+            Tour tura = new Tour();
+            List<TourPoint> das;
+
+            List<DateTime> datees;
+            datees = tourStartingDates;
+            das = tourPoints;
+
         }
 
         private string _Name;
