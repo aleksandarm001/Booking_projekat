@@ -10,6 +10,7 @@ namespace InitialProject.Services.IServices
         bool TourStartedAndFinished(int tourId);
         int FindNextId();
 
+        void SaveTourPoints(List<TourPoint> tourPoints);
         TourPoint AddTempTourPoint(TourPoint tempTourPoint);
     }
 }

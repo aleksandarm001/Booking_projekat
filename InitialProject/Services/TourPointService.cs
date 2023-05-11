@@ -42,5 +42,11 @@
         {
             return _tourPointRepository.SaveTemp(tempTourPoint);
         }
+
+        public void SaveTourPoints(List<TourPoint> tourPoints)
+        {
+            foreach (TourPoint tourPoint in tourPoints)
+                _tourPointRepository.Save(tourPoint);
+        }
     }
 }

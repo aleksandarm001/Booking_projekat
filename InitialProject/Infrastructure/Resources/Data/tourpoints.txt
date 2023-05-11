@@ -1,4 +1,4 @@
-1|kt1|1|NotActive|tkt1|1
-2|kt2|1|NotActive|tkt2|2
-3|kt1|2|NotActive|kt1|1
-4|kt2|2|NotActive|kt2|2
+1|jedan|1|NotActive|jedaaan|1
+2|dva|1|NotActive|dvaaaaaa|2
+3|jedan|2|NotActive|jedaaan|1
+4|dva|2|NotActive|dvaaaaaa|2

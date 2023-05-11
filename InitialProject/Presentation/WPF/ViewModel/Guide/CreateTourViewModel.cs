@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Guide
@@ -26,6 +27,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
         private readonly ITourService _tourService;
 
+        private readonly ITourPointService _tourPointService;
+
         private readonly int nextTourId;
 
         public List<TourPoint> tourPoints;
@@ -37,6 +40,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             _locationService = Injector.CreateInstance<ILocationService>();
             _languageService = Injector.CreateInstance<ILanguageService>();
             _tourService = Injector.CreateInstance<ITourService>();
+            _tourPointService = Injector.CreateInstance<ITourPointService>();
 
             Countries = new ObservableCollection<string>(_locationService.GetAllCountries());
             Cities = new ObservableCollection<string>(_locationService.GetAllCities());
@@ -83,12 +87,27 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
         public void CreateTour(object obj)
         {
-            Tour tura = new Tour();
-            List<TourPoint> das;
-
-            List<DateTime> datees;
-            datees = tourStartingDates;
-            das = tourPoints;
+            foreach(var date in tourStartingDates)
+            {
+                Language language = new();
+                Tour tour = new Tour()
+                {
+                    Name = Name,
+                    Location = new Location { City = City, Country = Country },
+                    Description = Description,
+                    Language = language.fromStringToLanguage(Language),
+                    MaxGuestNumber = MaxGuests,
+                    StartingDateTime = date,
+                    Duration = TourDuratation,
+                    TourStarted = false
+                };
+                _tourService.Save(tour);
+                _tourPointService.SaveTourPoints(tourPoints);
+                foreach(var tourPoint in tourPoints)
+                {
+                    tourPoint.TourId++;
+                }
+            }
 
         }
 
@@ -138,8 +157,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         }
 
 
-        private string _MaxGuests;
-        public string MaxGuests
+        private int _MaxGuests;
+        public int MaxGuests
         {
             get { return _MaxGuests; }
             set
@@ -149,9 +168,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             }
         }
 
-        private string _TourDuratation;
+        private int _TourDuratation;
 
-        public string TourDuratation
+        public int TourDuratation
         {
             get { return _TourDuratation; }
             set
