@@ -11,13 +11,13 @@
     <Window.Resources>
         <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
             <Setter Property="Foreground" Value="White"  />
-            <Setter Property="Background" Value="#00A76D"/>
+            <Setter Property="Background" Value="DeepSkyBlue"/>
         </Style>
     </Window.Resources>
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Infrastructure/Resources/Images/LisceBato.jpg"/>
+            <ImageBrush ImageSource="/Infrastructure/Resources/Images/Island.Png"/>
         </Grid.Background>
         <Grid  Margin="0,0,326,0">
             <Grid.RowDefinitions>
@@ -42,10 +42,10 @@
                         Cursor="Hand">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
+                        <Setter Property="Background" Value="DeepSkyBlue"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
+                                <Setter Property="Background" Value="DarkSlateBlue"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -73,7 +73,7 @@
             </Grid.RowDefinitions>
 
             <Label FontSize="10" Foreground="White" FontStyle="Italic" FontWeight="Bold" Grid.Row="0" VerticalAlignment="Top"  Height="26" Margin="15,16,-15,0" Grid.RowSpan="2" >Available dates:</Label>
-            <DataGrid ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Background="#00A76D"  Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}"  RowStyle="{DynamicResource DataGridRowStyle2}"
+            <DataGrid ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Background="DeepSkyBlue"  Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}"  RowStyle="{DynamicResource DataGridRowStyle2}"
                       ItemsSource ="{Binding AvailableDates, UpdateSourceTrigger=PropertyChanged}" Margin="15,4,23,0" Grid.Row="1"
                       SelectedItem="{Binding SelectedDateRange, UpdateSourceTrigger=PropertyChanged}"
                       IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" VerticalAlignment="Top" Height="222">
@@ -82,16 +82,20 @@
                     <DataGridTextColumn Header="End date" Width="*" Binding="{Binding SEndDate}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBox  BorderBrush="#00A76D" Grid.Row="2" Margin="20,29,20,0" Text="{Binding Description}"/>
+            <StackPanel Grid.Row="2" Orientation="Vertical">
+                <TextBox  BorderBrush="DeepSkyBlue" Grid.Row="2" Margin="20,29,20,24" Text="{Binding NewRenovation.Description}" Height="101"/>
+                <TextBlock Text="{Binding NewRenovation.ValidationErrors[Description]}" Foreground="Red"/>
+            </StackPanel>
+           
             <Button Content="Add" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" Width="60" Command="{Binding AddCommand}"
                 FontFamily="Montserrat" Foreground="White"
                         Cursor="Hand">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
+                        <Setter Property="Background" Value="DeepSkyBlue"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
+                                <Setter Property="Background" Value="DarkSlateBlue"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -112,10 +116,10 @@
                         Cursor="Hand">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
+                        <Setter Property="Background" Value="DeepSkyBlue"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
+                                <Setter Property="Background" Value="DarkSlateBlue"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>

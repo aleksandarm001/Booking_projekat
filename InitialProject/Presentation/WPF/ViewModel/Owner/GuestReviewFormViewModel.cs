@@ -28,14 +28,12 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         public int GuestId { get; set; }
         public int AccommodationId { get; set; }
 
-        private int _hygieneGrade;
-
-        private int _ruleFollowingGrade;
+        
 
         private string _ownerComment;
 
         private bool _isReviewd;
-
+        /*
         public string OwnerComment
         {
             get => _ownerComment;
@@ -48,7 +46,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 }
             }
         }
-
+        
         public int HygieneGrade
         {
             get => _hygieneGrade;
@@ -75,6 +73,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             }
 
         }
+        */
         public bool IsReviewd
         {
             get => _isReviewd;
@@ -83,7 +82,21 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 if(value != _isReviewd)
                 {
                     _isReviewd = value;
-                    OnPropertyChanged(nameof(IsReviewd));
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private GuestReview _guestReview = new GuestReview();
+        public GuestReview NewGuestReview
+        {
+            get { return _guestReview; }
+            set
+            {
+                if (value != _guestReview)
+                {
+                    _guestReview = value;
+                    OnPropertyChanged("Accommodation");
                 }
             }
         }
@@ -106,10 +119,18 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         public void SubmitReview(object parameter)
         {
+            NewGuestReview.Validate();
+            if (NewGuestReview.IsValid)
+            {
             GuestReview newGuestReview = CreateReview();
             _guestReviewRepository.Save(newGuestReview);
             IsReviewd = true;
             //CloseWindow();
+            }
+            else
+            {
+                OnPropertyChanged(nameof(NewGuestReview));
+            }
         }
 
         private GuestReview CreateReview()
@@ -118,9 +139,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             {
                 GuestId = GuestId,
                 AccommodationId = AccommodationId,
-                Hygiene = HygieneGrade,
-                RuleFollowing = RuleFollowingGrade,
-                Comment = OwnerComment
+                Hygiene = NewGuestReview.HygieneGrade,
+                RuleFollowing = NewGuestReview.RuleFollowingGrade,
+                Comment = NewGuestReview.Comment,
             };
         }
 
