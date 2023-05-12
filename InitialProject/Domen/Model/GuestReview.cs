@@ -1,9 +1,8 @@
-﻿using InitialProject.Validation;
-using System;
+﻿using System;
 
 namespace InitialProject.Domen.Model
 {
-    public class GuestReview :ValidationBase, ISerializable
+    public class GuestReview : ISerializable
     {
         public int GuestId { get; set; }
         public int AccommodationId { get; set; }
@@ -56,63 +55,5 @@ namespace InitialProject.Domen.Model
             Comment = values[4];
             //LeavingDay = Convert.ToDateTime(values[5]);
         }
-
-
-        public int HygieneGrade
-        {
-            get => Hygiene;
-            set
-            {
-                if (value != Hygiene)
-                {
-                    Hygiene = value;
-                    OnPropertyChanged("HygieneGrade");
-                }
-            }
-        }
-
-        public int RuleFollowingGrade
-        {
-            get => RuleFollowing;
-            set
-            {
-                if (value != RuleFollowing)
-                {
-                    RuleFollowing = value;
-                    OnPropertyChanged("RuleFollowingGrade");
-                }
-            }
-        }
-
-        public string OwnerComment
-        {
-            get => Comment;
-            set
-            {
-                if (value != Comment)
-                {
-                    Comment = value;
-                    OnPropertyChanged("OwnerComment");
-                }
-            }
-        }
-        protected override void ValidateSelf()
-        {
-            if (this.RuleFollowing == 0)
-            {
-                this.ValidationErrors["RuleFollowingGrade"] = "Please enter a number";
-            }
-            if(this.Hygiene == 0)
-            {
-                this.ValidationErrors["HygieneGrade"] = "Please enter a number";
-            }
-            if (string.IsNullOrWhiteSpace(this.Comment))
-            {
-                this.ValidationErrors["OwnerComment"] = "Please enter a comment";
-            }
-        }
-
     }
-
-
 }

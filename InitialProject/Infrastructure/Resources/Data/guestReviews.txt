@@ -4,5 +4,3 @@
 1|2|5|5|Bosanac
 1|6|5|5|dobar
 1|10|5|5|Hajde molim te
-1|8|0|0|Nesto
-1|6|0|3|NestoNovo

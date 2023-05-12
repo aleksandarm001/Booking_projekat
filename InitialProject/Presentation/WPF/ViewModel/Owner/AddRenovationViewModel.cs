@@ -2,7 +2,6 @@
 using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Services.IServices;
-using InitialProject.Validation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,7 +16,7 @@ using System.Windows.Controls;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Owner
 {
-    public class AddRenovationViewModel : BindableBase,INotifyPropertyChanged
+    public class AddRenovationViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -27,7 +26,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         public DateRange SelectedDateRange { get; set; }
 
-        
         private Accommodation _selectedAccommodation;
         public Accommodation SelectedAccommodation
         {
@@ -41,18 +39,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 }
             }
         }
-        
-        public Renovation _renovation = new Renovation();
-
-        public Renovation NewRenovation
-        {
-            get { return _renovation; }
-            set
-            {
-                _renovation = value;
-                OnPropertyChanged(nameof(NewRenovation));
-            }
-        }
 
         public ObservableCollection<DateRange> _availableDates;
         public ObservableCollection<DateRange> AvailableDates
@@ -64,7 +50,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 OnPropertyChanged(nameof(AvailableDates));
             }
         }
-
 
         private DateTime _startDay;
         public DateTime StartDay
@@ -100,7 +85,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 }
             }
         }
-        /*
+
         private int _days;
 
         public int Days
@@ -109,7 +94,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             set
             {
                 _days = value;
-                OnPropertyChanged("Days");
+                OnPropertyChanged("NumberOfGuests");
             }
         }
 
@@ -124,7 +109,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 OnPropertyChanged("Description");
             }
         }
-        */
+
         public RelayCommand AddCommand { get; set; }
         public RelayCommand SearchCommand { get; set; }
 
@@ -151,21 +136,13 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         public void SearchDates_ButtonClick(object parameter)
         {
             AvailableDates.Clear();
-            AvailableDates = _renovationService.GetAvailableDates(_selectedAccommodation, StartDay, EndDay, NewRenovation.Days);
+            AvailableDates = _renovationService.GetAvailableDates(_selectedAccommodation, StartDay, EndDay, Days);
         }
 
         public void AddRenovation_ButtonClick(object parameter)
         {
-            NewRenovation.Validate();
-            if (NewRenovation.IsValid)
-            {
-            Renovation renovation = _renovationService.CreateNewRenovation(_selectedAccommodation.Name, _accommodationId, SelectedDateRange, NewRenovation.Description);
+            Renovation renovation = _renovationService.CreateNewRenovation(_selectedAccommodation.Name, _accommodationId, SelectedDateRange, Description);
             _renovationService.SaveRenovation(renovation);
-            }
-            else
-            {
-                OnPropertyChanged(nameof(NewRenovation));  
-            }
 
         }
         

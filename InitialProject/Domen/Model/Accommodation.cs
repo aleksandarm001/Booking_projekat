@@ -1,12 +1,10 @@
-﻿using InitialProject.Validation;
-using Microsoft.VisualStudio.Services.Profile;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace InitialProject.Domen.Model
 {
     public enum AccommodationType { Apartment = 0, House = 1, Shack = 2 }
-    public class Accommodation : ValidationBase,ISerializable
+    public class Accommodation : ISerializable
     {
         public int UserId { get; set; } //ID Vlasnika smestaja
         public string Name { get; set; }
@@ -73,132 +71,5 @@ namespace InitialProject.Domen.Model
             DaysBeforeCancelling = Convert.ToInt32(values[7]);
             //Images = values[7].Split(";").ToList<string>();
         }
-
-
-        public string AccommodationName
-        {
-            get => Name;
-            set
-            {
-                if (value != Name)
-                {
-                    Name = value;
-                    OnPropertyChanged("AccommodationName");
-                }
-            }
-        }
-        public string AccommodationCountry
-        {
-            get { return Location.Country; }
-            set
-            {
-                if (value != Location.Country)
-                {
-                    Location.Country = value;
-                    OnPropertyChanged("AccommodationCountry");
-                }
-            }
-        }
-
-        public string AccommodationCity
-        {
-            get { return Location.City; }
-            set
-            {
-                if (value != Location.City)
-                {
-                    Location.City = value;
-                    OnPropertyChanged("AccommodationCity");
-                }
-            }
-        }
-
-
-
-        public int AccommodationMaxGuests
-        {
-            get => MaxGuestNumber;
-            set
-            {
-                if (value != MaxGuestNumber)
-                {
-                    MaxGuestNumber = value;
-                    OnPropertyChanged("AccommodationMaxGuests");
-                }
-            }
-        }
-
-        public int AccommodationReservationMinDays
-        {
-            get => MinReservationDays;
-            set
-            {
-                if (value != MinReservationDays)
-                {
-
-                    MinReservationDays = value;
-                    OnPropertyChanged("AccommodationReservationMinDays");
-                }
-            }
-        }
-
-        public int AccommodationCancelationDays
-        {
-            get => DaysBeforeCancelling;
-            set
-            {
-                if (value != DaysBeforeCancelling)
-                {
-                    DaysBeforeCancelling = value;
-                    OnPropertyChanged("AccommodationCancelationDays");
-                }
-            }
-        }
-
-        public AccommodationType AccommodationType
-        {
-            get { return TypeOfAccommodation; }
-            set
-            {
-                if (value != TypeOfAccommodation)
-                {
-                    TypeOfAccommodation = value;
-                    OnPropertyChanged("AccommodationType");
-                }
-            }
-        }
-
-        protected override void ValidateSelf()
-        {
-            if (string.IsNullOrWhiteSpace(this.Name))
-            {
-                this.ValidationErrors["AccommodationName"] = "Name cannot be empty.";
-            }
-            if (string.IsNullOrWhiteSpace(this.Location.Country))
-            {
-                this.ValidationErrors["AccommodationCountry"] = "Country must be selected";
-            }
-            if (string.IsNullOrWhiteSpace(this.Location.City))
-            {
-                this.ValidationErrors["AccommodationCity"] = "City must be selected";
-            }
-            if(this.MaxGuestNumber == 0)
-            {
-                this.ValidationErrors["AccommodationMaxGuests"] = "Please enter a number";
-            }
-            if(this.DaysBeforeCancelling == 0)
-            {
-                this.ValidationErrors["AccommodationCancelationDays"] = "Please enter a number";
-            }
-            if(this.MinReservationDays== 0)
-            {
-                this.ValidationErrors["AccommodationReservationMinDays"] = "Please enter a number";
-            }
-            if (this.AccommodationType.ToString() != "Appartment" && this.AccommodationType.ToString() !="Shack" && this.AccommodationType.ToString() != "House")
-            {
-                this.ValidationErrors["AccommodationType"] = "Invalid type";
-            }
-        }
-
     }
 }

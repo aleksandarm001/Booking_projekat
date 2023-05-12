@@ -12,7 +12,7 @@ namespace InitialProject.Services.IServices
         List<Location> GetAllLocations();
         List<string> GetCities(List<Location> locations);
         List<string> GetCountries(List<Location> locations);
-        Accommodation CreateNewAccommodation(int _userId, string accommodationName, int accommodationMaxGuests, int accommodationCancelationDays, int accommodationMinDays, string country, string city, string type);
+        Accommodation CreateNewAccommodation(int _userId, string accommodationName, string accommodationMaxGuests, string accommodationCancelationDays, string accommodationMinDays, string country, string city, string type);
         AccommodationType GetAccommodationType(string type);
         void SaveAccommodation(Accommodation accommodation);
         void SaveAccommodationImages(List<AccommodationImage> images);
