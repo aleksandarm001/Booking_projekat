@@ -60,6 +60,8 @@ namespace InitialProject.Presentation.WPF.View
         {
             HomeWindow homeWindow = new HomeWindow(1);
             homeWindow.Show();
+/*            MainWindow main = new MainWindow();
+            main.Show();*/
         }
         private void Owner_ButtonClick(object sender, RoutedEventArgs e)
         {

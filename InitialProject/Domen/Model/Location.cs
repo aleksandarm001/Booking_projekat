@@ -32,6 +32,10 @@ namespace InitialProject.Domen.Model
         }
         public Location fromStringToLocation(string s)
         {
+            if (s.Equals(String.Empty))
+            {
+                return new Location(string.Empty, string.Empty);
+            }
             string[] locations = new string[2];
             locations = s.Split(';');
             return new Location(locations[0], locations[1]);

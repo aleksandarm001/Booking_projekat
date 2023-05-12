@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest2"
         mc:Ignorable="d"
-               Title="Ocjenjivanje ture" Height="400" Width="300" WindowStartupLocation="CenterScreen">
+               Title="Kreiranje običnog zahtjeva" Height="400" Width="300" WindowStartupLocation="CenterScreen">
     <Grid>
 
 
