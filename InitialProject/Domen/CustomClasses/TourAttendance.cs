@@ -12,6 +12,7 @@ namespace InitialProject.CustomClasses
         public int UserId { get; set; }
         public string Username { get; set; }
         public AttendanceStatus UserAttended { get; set; }
+        public DateTime TourDate { get; set; }
         public bool CanGiveReview { get; set; }
 
         public TourAttendance(int tourAttendanceId, int tourId, int tourPointId, int userId, string username, AttendanceStatus status)
@@ -42,6 +43,7 @@ namespace InitialProject.CustomClasses
                 UserId.ToString(),
                 Username,
                 UserAttended.ToString(),
+                TourDate.ToString(),
                 CanGiveReview.ToString()
 
             };
@@ -55,7 +57,8 @@ namespace InitialProject.CustomClasses
             UserId = Convert.ToInt32(values[3]);
             Username = values[4];
             UserAttended = (AttendanceStatus)Enum.Parse(typeof(AttendanceStatus), values[5]);
-            CanGiveReview = Convert.ToBoolean(values[6]);
+            TourDate = DateTime.Parse(values[6]);
+            CanGiveReview = Convert.ToBoolean(values[7]);
         }
     }
 }

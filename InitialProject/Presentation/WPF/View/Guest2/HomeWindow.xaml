@@ -434,16 +434,6 @@
                                                         <Trigger Property="IsMouseOver" Value="True">
                                                             <Setter Property="Background" Value="#078563"/>
                                                         </Trigger>
-                                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
-                                                            <Setter Property="FocusVisualStyle">
-                                                                <Setter.Value>
-                                                                    <Style>
-                                                                        <Setter Property="Control.BorderThickness" Value="2"/>
-                                                                        <Setter Property="Control.BorderBrush" Value="#FF0000"/>
-                                                                    </Style>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
                                             </Button.Style>
@@ -463,16 +453,6 @@
                                                         <Trigger Property="IsMouseOver" Value="True">
                                                             <Setter Property="Background" Value="#078563"/>
                                                         </Trigger>
-                                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
-                                                            <Setter Property="FocusVisualStyle">
-                                                                <Setter.Value>
-                                                                    <Style>
-                                                                        <Setter Property="Control.BorderThickness" Value="2"/>
-                                                                        <Setter Property="Control.BorderBrush" Value="#FF0000"/>
-                                                                    </Style>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
                                             </Button.Style>
@@ -487,7 +467,91 @@
                                     </Grid>
                                 </TabItem>
                                 <TabItem Header="Složene" Width="525" Height="30" FontSize="16" Foreground="White">
-
+                                    <Grid>
+                                        <DataGrid Margin="5,20,5,70" FontSize="12" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}"
+                                        ItemsSource="{Binding Path = ComplexTours, UpdateSourceTrigger=PropertyChanged}"
+                                        SelectedItem="{Binding ComplexTour, UpdateSourceTrigger=PropertyChanged}"
+                                        IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Grid.ColumnSpan="3">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Naziv ture" Width="250" Binding="{Binding Name}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Datum pocetka" Width="250" Binding="{Binding StartingDateTime}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Status" Width="200" Binding="{Binding Status}"></DataGridTextColumn>
+                                                <DataGridTemplateColumn Width="*">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button Height="20" Cursor="Hand" Name="PrikaziSlozenuTuru" Width="60" Content="Prikazi" Click="PrikaziSlozenuTuru_Click" BorderThickness="0"  Foreground="White" FontSize="12" FontFamily="Montserrat">
+                                                                <Button.Style>
+                                                                    <Style TargetType="Button">
+                                                                        <Setter Property="Background" Value="#00A76D"/>
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="Background" Value="#078563"/>
+                                                                            </Trigger>
+                                                                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
+                                                                                <Setter Property="FocusVisualStyle">
+                                                                                    <Setter.Value>
+                                                                                        <Style>
+                                                                                            <Setter Property="Control.BorderThickness" Value="2"/>
+                                                                                            <Setter Property="Control.BorderBrush" Value="#FF0000"/>
+                                                                                        </Style>
+                                                                                    </Setter.Value>
+                                                                                </Setter>
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </Button.Style>
+                                                                <Button.Template>
+                                                                    <ControlTemplate TargetType="Button">
+                                                                        <Border Width="60" Height="20" CornerRadius="5" Background="{TemplateBinding Background}">
+                                                                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                                        </Border>
+                                                                    </ControlTemplate>
+                                                                </Button.Template>
+                                                            </Button>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                        <Button x:Name="PrikaziStatistikuSlozene" Content="Prikazi statistiku" FontSize="16" Cursor="Hand" IsEnabled="False" HorizontalAlignment="Left" Margin="110,0,0,14" VerticalAlignment="Bottom" Width="200" Height="40" BorderThickness="0"  Foreground="White" FontFamily="Montserrat">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="#00A76D"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#078563"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Width="200" Height="40" CornerRadius="5" Background="{TemplateBinding Background}">
+                                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                        <Button x:Name="KreirajSlozeniZahtjev" Content="Kreiraj zahtjev za turu" FontSize="16" Cursor="Hand" Click="KreirajSlozeniZahtjev_Click" HorizontalAlignment="Left" Margin="636,0,0,14" VerticalAlignment="Bottom" Width="200" Height="40" BorderThickness="0"  Foreground="White"  FontFamily="Montserrat">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="#00A76D"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#078563"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Width="200" Height="40" CornerRadius="5" Background="{TemplateBinding Background}">
+                                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </Grid>
                                 </TabItem>
                             </TabControl>
                         </TabItem>

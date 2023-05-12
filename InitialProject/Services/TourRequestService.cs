@@ -18,6 +18,7 @@
         public TourRequestService()
         {
             _repository = Injector.CreateInstance<ITourRequestRepository>();
+            CheckRequests();
         }
 
         public void CheckRequests()

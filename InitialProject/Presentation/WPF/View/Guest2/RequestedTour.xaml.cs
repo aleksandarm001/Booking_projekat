@@ -34,7 +34,6 @@
             UserId = userId;
             DataContext = this;
             _tourRequestService = new TourRequestService();
-            _tourRequestService.CheckRequests();
             RequestedTours = new ObservableCollection<TourRequest>(_tourRequestService.GetAllTourRequests(UserId));
 
         }

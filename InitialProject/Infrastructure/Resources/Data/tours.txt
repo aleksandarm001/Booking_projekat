@@ -8,3 +8,6 @@
 8|Tura test8|Belgrade;Serbia|Duga tura|Greek|13|5/11/2023 7:00:13 AM|10|False
 9|Tura test9|Belgrade;Serbia|Nova tura|Spanish|10|5/29/2023 7:00:13 AM|10|False
 10|Tura test10|Belgrade;Serbia|Najnovija tura|Italian|12|5/26/2023 7:00:13 AM|10|False
+11|tura 22|Mexico City;Mexico|1asdf|Armenian|20|5/12/2023 9:00:11 PM|2|True
+12|turaaaa|Shanghai;China|asdf|Arabic|20|5/12/2023 9:00:33 PM|2|True
+13|asdfkljsaldfk|Mexico City;Mexico|fasd|Armenian|221|5/12/2023 9:00:28 PM|2|False

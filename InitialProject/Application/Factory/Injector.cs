@@ -63,6 +63,9 @@ namespace InitialProject.Aplication.Factory
             { typeof(IAddAccommodationService), new Lazy<object>(() => new AddAccommodationService()) },
             { typeof(IGuestReviewService), new Lazy<object>(() => new GuestReviewService()) },
             { typeof(IRenovationService), new Lazy<object>(() => new RenovationService()) },
+            { typeof(IComplexTourRequestService), new Lazy<object>(() => new ComplexTourRequestService()) },
+            { typeof(IComplexTourRequestRepository), new Lazy<object>(() => new ComplexTourRequestRepository()) },            
+            { typeof(ITourRateRepository), new Lazy<object>(() => new TourRateRepository()) },            
         };
 
         public static T CreateInstance<T>()

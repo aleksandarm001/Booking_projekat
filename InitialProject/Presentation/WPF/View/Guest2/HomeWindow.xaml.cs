@@ -2,18 +2,22 @@
 {
     using InitialProject.Aplication.Factory;
     using InitialProject.CustomClasses;
+    using InitialProject.Domen.CustomClasses;
     using InitialProject.Domen.Model;
     using InitialProject.Presentation.WPF.Constants;
     using InitialProject.Presentation.WPF.ViewModel.Guest2;
     using InitialProject.Services.IServices;
     using InitialProject.View.Guest2;
     using Microsoft.TeamFoundation.Common;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
+    using System.Numerics;
     using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
 
 
     /// <summary>
@@ -33,12 +37,16 @@
         public static ObservableCollection<Voucher> Vouchers { get; set; }
 
         public static ObservableCollection<TourAttendance> TourAttendances { get; set; }
+
+        public static ObservableCollection<ComplexTourRequestDTO> ComplexTours { get; set; }
         private int UserId { get; }
 
         public Tour Tour { get; set; }
         public Tour SelectedTour { get; set; }
         public Tour FinishedTour { get; set; }
         public Tour ReservedTour { get; set; }
+
+        public ComplexTourRequestDTO ComplexTour { get; set; }
         public int NumberOfGuests { get; set; }
         public string SelectedLanguage { get; set; }
         public string SelectedCity { get; set; }
@@ -61,6 +69,8 @@
 
         private readonly IVoucherService _voucherService;
         private readonly IUserService _userService;
+
+        private readonly IComplexTourRequestService _complexTourRequestService;
 
         private ObservableCollection<Tour> _tours { get; set; }
         public ObservableCollection<Tour> Tours
@@ -115,6 +125,7 @@
             _tourRequestService = Injector.CreateInstance<ITourRequestService>();
             _voucherService = Injector.CreateInstance<IVoucherService>();
             _userService = Injector.CreateInstance<IUserService>();
+            _complexTourRequestService = Injector.CreateInstance<IComplexTourRequestService>();
             UserName = _userService.GetUsername();
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
@@ -125,6 +136,7 @@
             ReservedTours = new ObservableCollection<Tour>(_tourReservationService.GetAllReservedAndNotFinishedTour(UserId));
             FinishedTours = new ObservableCollection<Tour>(_tourService.GetAllFinished(UserId));
             RequestedTours = new ObservableCollection<TourRequest>(_tourRequestService.GetAllTourRequests(UserId));
+            ComplexTours = new ObservableCollection<ComplexTourRequestDTO>();
 
             InitializeLanguages();
             InitializeLocations();
@@ -133,6 +145,7 @@
             InitializeLocalization();
             ReadCitiesAndCountries();
             CheckTourAttendance();
+            GetComplexTourRequests();
         }
 
         private string _selectedCountry;
@@ -316,6 +329,37 @@
                 }
             }
         }
+
+        private void GetComplexTourRequests()
+        {
+            List<ComplexTourRequest> _tourRequests = new List<ComplexTourRequest>(_complexTourRequestService.GetAllTourRequestsByUser(UserId));
+            var ture = _tourRequests.GroupBy(tour => tour.TourId);
+            foreach(var t in ture)
+            {
+                List<ComplexTourRequest> lista = new List<ComplexTourRequest>();
+                foreach (ComplexTourRequest complex in t)
+                {
+                    lista.Add(complex);
+                }
+                ComplexTourRequestDTO _complexTourRequestDTO;
+                if (lista.Where(complex => complex.RequestStatus == ComplexTourRequest.Status.Accepted).Count() == lista.Count)
+                {
+                    _complexTourRequestDTO = new ComplexTourRequestDTO(t.ElementAt(0).TourId,t.ElementAt(0).TourName, ComplexTourRequest.Status.Accepted, lista.Min(complex => complex.StartingDate));
+                }
+                else if (lista.Where(complex => complex.RequestStatus == ComplexTourRequest.Status.Rejected).Count() != 0)
+                {
+                    _complexTourRequestDTO = new ComplexTourRequestDTO(t.ElementAt(0).TourId, t.ElementAt(0).TourName, ComplexTourRequest.Status.Rejected, lista.Min(complex => complex.StartingDate));
+                }
+                else
+                {
+                    _complexTourRequestDTO = new ComplexTourRequestDTO(t.ElementAt(0).TourId, t.ElementAt(0).TourName, ComplexTourRequest.Status.OnHold, lista.Min(complex => complex.StartingDate));
+                }
+
+                ComplexTours.Add(_complexTourRequestDTO);
+            }
+        }
+        
+       
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -351,9 +395,16 @@
             simpleRequest.ShowDialog();
         }
 
-        private void TabItem_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void KreirajSlozeniZahtjev_Click(object sender, RoutedEventArgs e)
         {
-            
+            ComplexRequest complexRequest = new ComplexRequest(UserId);
+            complexRequest.ShowDialog();
+        }
+
+        private void PrikaziSlozenuTuru_Click(object sender, RoutedEventArgs e)
+        {
+            ComplexTourReview complexTourReview = new ComplexTourReview(ComplexTour.TourId);
+            complexTourReview.ShowDialog();
         }
     }
 }
