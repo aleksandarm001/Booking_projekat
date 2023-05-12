@@ -26,6 +26,9 @@
             _repository.Delete(voucher);
         }
 
-
+        public void CreateVoucher(int userId)
+        {
+            _repository.GiveLoyalityVoucher(userId);
+        }
     }
 }

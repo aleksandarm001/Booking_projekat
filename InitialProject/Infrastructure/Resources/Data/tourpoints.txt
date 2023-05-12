@@ -8,3 +8,11 @@
 8|kt2|12|Finished|sdfsdf|2
 9|kt1|13|NotActive|asdf|1
 10|kt2|13|NotActive|asdf|2
+11|kt1|14|Finished|sdagf|1
+12|kt2|14|Finished|sdagf|2
+13|kt1|15|Finished|asdf|1
+14|kt2|15|Finished|asdf|2
+15|kt1|16|Finished|kt1|1
+16|kt2|16|Finished|kt2|2
+17|fa|17|Finished|fas|1
+18|faas|17|Finished|fasa|2

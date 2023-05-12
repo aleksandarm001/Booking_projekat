@@ -12,5 +12,7 @@ namespace InitialProject.Services.IServices
         void UpdateReservationCounter(int userId);
         void InitializeReservationCounter(int userId);
         UserReservationCounter GetReservationCounterByUserId(int userId);
+
+        void CountTourReservations(int userId, int number);
     }
 }

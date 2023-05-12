@@ -10,5 +10,7 @@ namespace InitialProject.Aplication.Contracts.Repository
         List<Voucher> GetAll();
         int NextId();
         Voucher Save(Voucher voucher);
+
+        void GiveLoyalityVoucher(int userId);
     }
 }
