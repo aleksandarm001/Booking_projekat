@@ -71,6 +71,7 @@
         private readonly IUserService _userService;
 
         private readonly IComplexTourRequestService _complexTourRequestService;
+        private readonly IUserReservationCounterService _userReservationCounterService;
 
         private ObservableCollection<Tour> _tours { get; set; }
         public ObservableCollection<Tour> Tours
@@ -126,6 +127,7 @@
             _voucherService = Injector.CreateInstance<IVoucherService>();
             _userService = Injector.CreateInstance<IUserService>();
             _complexTourRequestService = Injector.CreateInstance<IComplexTourRequestService>();
+            _userReservationCounterService = Injector.CreateInstance<IUserReservationCounterService>();
             UserName = _userService.GetUsername();
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
@@ -327,6 +329,10 @@
                     CheckingTour checkingTour = new CheckingTour(t);
                     checkingTour.ShowDialog();
                 }
+
+                int number = TourAttendances.GroupBy(t => t.TourId).Count();
+                _userReservationCounterService.CountTourReservations(UserId,number);
+
             }
         }
 

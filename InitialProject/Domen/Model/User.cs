@@ -1,5 +1,4 @@
-﻿using InitialProject.Domen;
-using System;
+﻿using System;
 
 namespace InitialProject.Domen.Model
 {
@@ -44,7 +43,7 @@ namespace InitialProject.Domen.Model
                 TypeOfUser.ToString(),
                 Age.ToString(),
                 IsSuperGuest.ToString(),
-                Points.ToString(),  
+                Points.ToString(),
             };
             return csvValues;
         }

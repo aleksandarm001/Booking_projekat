@@ -10,4 +10,8 @@
 10|Tura test10|Belgrade;Serbia|Najnovija tura|Italian|12|5/26/2023 7:00:13 AM|10|False
 11|tura 22|Mexico City;Mexico|1asdf|Armenian|20|5/12/2023 9:00:11 PM|2|True
 12|turaaaa|Shanghai;China|asdf|Arabic|20|5/12/2023 9:00:33 PM|2|True
-13|asdfkljsaldfk|Mexico City;Mexico|fasd|Armenian|221|5/12/2023 9:00:28 PM|2|False
+13|asdfkljsaldfk|Mexico City;Mexico|fasd|Armenian|221|5/12/2023 9:00:28 PM|2|True
+14|fasdsadf|Mexico City;Mexico|asdf|Belarusian|29|5/12/2023 9:00:31 PM|2|True
+15|dosada|Cairo;Egypt|asdf|Assamese|20|5/12/2023 11:00:04 PM|3|True
+16|dosada2|Buenos Aires;A|fasd|Amharic|20|5/12/2023 11:00:13 PM|3|True
+17|dosada3|Tokyo;Japan||Arabic|30|5/12/2023 11:00:15 PM|2|True

@@ -67,5 +67,11 @@
 
             }
         }
+
+        public void GiveLoyalityVoucher(int userId)
+        {
+            Voucher voucher = new Voucher(0,-1, userId, "Lojalni vaucer", DateTime.Now, DateTime.Now.AddMonths(6));
+            Save(voucher);
+        }
     }
 }

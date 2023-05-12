@@ -16,10 +16,12 @@ namespace InitialProject.Services
     {
         private readonly IUserReservationCounterRepository _userReservationCounterRepository;
         private readonly IUserService _userService;
+        private readonly IVoucherService _voucherService;
         public UserReservationCounterService()
         {
             _userReservationCounterRepository = Injector.CreateInstance<IUserReservationCounterRepository>();
             _userService = Injector.CreateInstance<IUserService>();
+            _voucherService = Injector.CreateInstance<IVoucherService>();
         }
         public void UpdateReservationCounter(int userId)
         {
@@ -74,6 +76,39 @@ namespace InitialProject.Services
             user.ReservationCount = 0;
             _userReservationCounterRepository.Update(user);
         }
+
+        private void CheckUsersForVoucher(int userId)
+        {
+            UserReservationCounter user = _userReservationCounterRepository.GetAll().Find(u => u.UserId == userId);
+            if (user != null)
+            { 
+                if (user.ReservationCount >= 5)
+                {
+                    _voucherService.CreateVoucher(userId);
+                    user.ReservationCount = 0;
+                    _userReservationCounterRepository.Update(user);
+                }
+            }
+            
+        }
+
+        public void CountTourReservations(int userId, int number)
+        {  
+            UserReservationCounter user = _userReservationCounterRepository.GetAll().Find(u => u.UserId == userId);
+            if (user != null)
+            {
+                user.ReservationCount +=number;
+                _userReservationCounterRepository.Update(user);
+                CheckUsersForVoucher(userId);
+            }
+            else
+            {
+                UserReservationCounter newUser = new UserReservationCounter(userId, number, new DateTime(DateTime.Now.Year, 1, 1));
+                _userReservationCounterRepository.Save(newUser);
+            }
+
+        }
+
     }
 
 }

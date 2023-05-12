@@ -1,1 +1,2 @@
-1|1|1|Novogodisnji vaucer|03/03/2023|03/03/2024
+1|1|1|Novogodisnji vaucer|3/3/2023 12:00:00 AM|3/3/2024 12:00:00 AM
+2|-1|1|Lojalni vaucer|5/12/2023 11:00:15 PM|11/12/2023 11:00:15 PM

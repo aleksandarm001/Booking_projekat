@@ -11,5 +11,7 @@
     {
         public List<Voucher> GetAllForUser(int userId);
         public void Delete(Voucher voucher);
+
+        public void CreateVoucher(int userId);
     }
 }
