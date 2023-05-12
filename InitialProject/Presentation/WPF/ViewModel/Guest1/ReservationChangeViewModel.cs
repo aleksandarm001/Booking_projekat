@@ -21,9 +21,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         public event PropertyChangedEventHandler? PropertyChanged;
         private IChangeReservationRequestService _requestService;
         private IReservationService _reservationService;
-        private readonly IAccommodationService _accommodationService;
-        private readonly IAccommodationReservationService _accommodationReservationService;
-        private readonly IUserService _userService;
+        private IAccommodationService _accommodationService;
+        private IAccommodationReservationService _accommodationReservationService;
+        private IUserService _userService;
         private int _userId;
         private int _ownerId;
         public ObservableCollection<KeyValuePair<int, string>> ReservationsForChange { get; set; }
@@ -51,18 +51,29 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         public ReservationChangeViewModel(int userId, ObservableCollection<ChangeReservationRequest> Requests, Window window)
         {
+            InitializeServices();
+            _userId = _userService.GetUserId();
+            this.Requests = Requests;
+            InitializeCommands();
+            InitializeReservationsForChange();
+            this_window = window;
+        }
+
+        private void InitializeCommands()
+        {
+            SendRequest_Command = new RelayCommand(SendRequest);
+            Cancel_Command = new RelayCommand(Cancel);
+        }
+
+        private void InitializeServices()
+        {
             _reservationService = Injector.CreateInstance<IReservationService>();
             _accommodationService = Injector.CreateInstance<IAccommodationService>();
             _requestService = Injector.CreateInstance<IChangeReservationRequestService>();
             _accommodationReservationService = Injector.CreateInstance<IAccommodationReservationService>();
             _userService = Injector.CreateInstance<IUserService>();
-            _userId = _userService.GetUserId();
-            this.Requests = Requests;
-            SendRequest_Command = new RelayCommand(SendRequest);
-            Cancel_Command = new RelayCommand(Cancel);
-            InitializeReservationsForChange();
-            this_window = window;
         }
+
         private void InitializeReservationsForChange()
         {
             ReservationsForChange = new ObservableCollection<KeyValuePair<int, string>>(_accommodationReservationService.GetReservationsByUserId(_userId));
