@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guide"
+        xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guide.ResourceDictionary"
         mc:Ignorable="d"
         Title="Creating Tour Point" Height="750" Width="430"
         ResizeMode="NoResize"
@@ -87,7 +87,12 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <DatePicker Width="270" Height="29" FontSize="14" Padding="5" SelectedDate="{Binding SelectedDate}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <DatePicker DisplayDateStart="{Binding StartDate}"
+            DisplayDateEnd="{Binding EndDate}"
+            SelectedDate="{Binding SelectedDate}" 
+            local:DatePickerExtensions.BlackoutDates="{Binding AvailableDates}"
+            HorizontalAlignment="Center" VerticalAlignment="Center" />
+
                         </Grid>
                     </Border>
                 </StackPanel>

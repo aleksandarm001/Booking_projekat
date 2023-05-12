@@ -5,6 +5,7 @@ using InitialProject.Services;
 using InitialProject.Services.IServices;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -30,11 +31,12 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             tourService = Injector.CreateInstance<ITourService>();
 
             _tourRequests = new ObservableCollection<TourRequest>();
+
             var tourRequestsList = tourRequestService.GetAllRequests();
+
             foreach (var tourRequest in tourRequestsList)
-            {
-                _tourRequests.Add(tourRequest);
-            }
+                if(tourRequest.RequestStatus == TourRequest.Status.OnHold)
+                    _tourRequests.Add(tourRequest);
         }
 
         private ObservableCollection<TourRequest> _tourRequests { get; set; }
@@ -86,16 +88,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         {
             TourRequest selectedTourRequest = (TourRequest)obj;
             CreatingTourView creatingTourView = new CreatingTourView(selectedTourRequest);
+            _tourRequests.Remove(selectedTourRequest);
             creatingTourView.ShowDialog();
-            /*SelectedTourRequest = selectedTourRequest;
-            //should delete and to Tours
-            DeleteTourRequest(SelectedTourRequest);
-            //add to Tours txt
-            tourService.Save((Tour)SelectedTourRequest);
-            _tourRequests.Remove(SelectedTourRequest);
-            tourRequestService.Delete(SelectedTourRequest);*/
-
-
         }
 
         private void DeleteTourRequest(TourRequest tourReq)
@@ -112,11 +106,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         private void DeclineTourRequest(object obj)
         {
             TourRequest selectedTourRequest = (TourRequest)obj;
-            IsSelected = true;
-            SelectedTourRequest = selectedTourRequest;
-            DeleteTourRequest(selectedTourRequest);
-            _tourRequests.Remove(SelectedTourRequest);
-            tourRequestService.Delete(SelectedTourRequest);
+            selectedTourRequest.RequestStatus = TourRequest.Status.Rejected;
+            tourRequestService.Update(selectedTourRequest);
+            _tourRequests.Remove(selectedTourRequest);
         }
 
     }

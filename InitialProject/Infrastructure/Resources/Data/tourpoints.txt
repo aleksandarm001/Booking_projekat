@@ -2,3 +2,7 @@
 2|dva|1|NotActive|dvaaaaaa|2
 3|jedan|2|NotActive|jedaaan|1
 4|dva|2|NotActive|dvaaaaaa|2
+5|das|3|NotActive|asd|1
+6|dasasd|3|NotActive|asd|2
+7|das|4|NotActive|asd|1
+8|dasasd|4|NotActive|asd|2

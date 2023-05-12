@@ -17,9 +17,12 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public ObservableCollection<Dates> ReservedDates { get; set; }
 
         public List<DateTime> Dates;
+
+
+        public List<DateTime> AvailableDatesForReservation;
         public ICommand DeleteCommand { get; set; }
         public ICommand AddDateCommand { get; set; }
-        public EditingTimeOnTourViewModel(List<DateTime> startingDates)
+        public EditingTimeOnTourViewModel(List<DateTime> startingDates, List<DateTime> availableDates)
         {
             AddDateCommand = new RelayCommand(AddDate);
             DeleteCommand = new RelayCommand(DeleteDate);
@@ -29,6 +32,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             ReservedDates = new ObservableCollection<Dates>();
 
             Dates = startingDates;
+            AvailableDatesForReservation = availableDates;
 
             foreach(var date in startingDates)
             {
@@ -39,6 +43,19 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
             List<DateTime> tourStartingDates = startingDates;
             LoadHoursAndMinutes();
+
+            if (availableDates != null)
+                RestrictDates();
+
+        }
+
+        public void RestrictDates()
+        {
+            AvailableDates = new();
+            foreach (var date in AvailableDatesForReservation)
+            {
+                AvailableDates.Add(date);
+            }
         }
 
         public void AddDate(object obj)
@@ -170,6 +187,43 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                 OnPropertyChanged();
             }
         }
+
+        private ObservableCollection<DateTime> _AvailableDates;
+        public ObservableCollection<DateTime> AvailableDates
+        {
+            get { return _AvailableDates; }
+            set
+            {
+                _AvailableDates = value;
+                OnPropertyChanged(nameof(_AvailableDates)); // Notify UI to update
+            }
+        }
+
+     
+        private DateTime _startDate = DateTime.Today;
+        public DateTime StartDate
+        {
+            get { return _startDate; }
+            set
+            {
+                _startDate = value;
+                OnPropertyChanged("StartDate");
+            }
+        }
+
+        private DateTime _endDate = DateTime.Today.AddYears(1);
+        public DateTime EndDate
+        {
+            get { return _endDate; }
+            set
+            {
+                _endDate = value;
+                OnPropertyChanged("EndDate");
+            }
+        }
+
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

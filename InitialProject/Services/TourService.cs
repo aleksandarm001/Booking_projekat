@@ -140,5 +140,27 @@
             return _tourRepository.NextId();
         }
 
+        public List<DateTime> GetAvailableDates(DateTime startingDate, DateTime endDate)
+        {
+
+            List<DateTime> allDates = new();
+
+            for (DateTime date = startingDate; date <= endDate; date = date.AddDays(1))
+            {
+                allDates.Add(date);
+            }
+
+            List<DateTime> occupiedDates = new();
+            foreach (var tour in _tourRepository.GetAll())
+            {
+                occupiedDates.Add(tour.StartingDateTime.Date);  // Only use the date part
+            }
+
+
+            allDates.RemoveAll(date => occupiedDates.Contains(date.Date));
+
+            return allDates;
+        }
+
     }
 }

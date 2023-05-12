@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 
@@ -29,18 +30,23 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
         private readonly ITourPointService _tourPointService;
 
+        private readonly ITourRequestService _tourRequestService;
+
         private readonly int nextTourId;
 
         public List<TourPoint> tourPoints;
 
         public List<DateTime> tourStartingDates;
+
+        public TourRequest TourRequest;
+        public List<DateTime> availableDates { get; set; }
         public CreateTourViewModel(TourRequest? tourRequest)
         {
-            //FillterCommand = new RelayCommand(test);
             _locationService = Injector.CreateInstance<ILocationService>();
             _languageService = Injector.CreateInstance<ILanguageService>();
             _tourService = Injector.CreateInstance<ITourService>();
             _tourPointService = Injector.CreateInstance<ITourPointService>();
+            _tourRequestService = Injector.CreateInstance<ITourRequestService>();
 
             Countries = new ObservableCollection<string>(_locationService.GetAllCountries());
             Cities = new ObservableCollection<string>(_locationService.GetAllCities());
@@ -51,15 +57,32 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             AddCommand = new RelayCommand(CreateTour);
 
             nextTourId = _tourService.FindNextId();
-
             tourPoints = new List<TourPoint>();
             tourStartingDates = new List<DateTime>();
 
+
+            if (tourRequest != null)
+            {
+                TourRequest = tourRequest;
+                SetValues(tourRequest);
+            }
+
+        }
+
+        public void SetValues(TourRequest tourRequest)
+        {
             City = tourRequest.Location.City;
             Country = tourRequest.Location.Country;
             Language = tourRequest.Language.Name;
             Description = tourRequest.Description;
             MaxGuests = tourRequest.GuestNumber;
+            GetAvailableDates(tourRequest);
+        }
+
+        public void GetAvailableDates(TourRequest tourRequest)
+        {
+            availableDates = new();
+            availableDates = _tourService.GetAvailableDates(tourRequest.StartingDate, tourRequest.EndingDate);
         }
 
         
@@ -88,7 +111,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
         public void inovkeDates(object obj)
         {
-            EditingTimeOnTourView dsa = new EditingTimeOnTourView(tourStartingDates);
+            EditingTimeOnTourView dsa = new EditingTimeOnTourView(tourStartingDates, availableDates);
             dsa.Show();
         }
 
@@ -109,7 +132,14 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                     TourStarted = false
                 };
 
+                if(TourRequest != null)
+                {
+                    TourRequest.RequestStatus = TourRequest.Status.Accepted;
+                    _tourRequestService.Update(TourRequest);
+                }
+
                 _tourService.Save(tour);
+
                 _tourPointService.SaveTourPoints(tourPoints);
                 foreach(var tourPoint in tourPoints)
                 {
@@ -216,11 +246,5 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                 }
             }
         }
-
-
-
-        
-
-        
     }
 }
