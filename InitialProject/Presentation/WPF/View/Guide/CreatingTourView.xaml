@@ -51,7 +51,11 @@
         <!-- Content Area -->
         <!-- Content Area -->
         <Grid Grid.Row="1">
-            <TextBlock Text="Create Tour" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" Margin="0,14,0,534"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10">
+                <Button Margin="10" Command="{Binding SuggestedLanguageCommand}" Content="Suggested Language"></Button>
+                <Button Margin="10" Command="{Binding SuggestedLocationCommand}" Content="Suggested Location"></Button>
+            </StackPanel>
+
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="439">
                 <Border Width="300" Height="30" BorderBrush="Black" BorderThickness="2" Background="White" CornerRadius="15" Margin="0,5">
                     <Grid>
@@ -268,6 +272,11 @@
                                 <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\moda-removebg-preview.png"/>
                             </Button.Background>
                         </Button>
+                        <Button Margin="236,2,3,2" BorderThickness="0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\moda-removebg-preview.png"/>
+                            </Button.Background>
+                        </Button>
                     </Grid>
                 </Border>
 
@@ -405,6 +414,7 @@
                         </TextBox.Style>
                     </TextBox>
                 </Border>
+                
 
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="59,513,0,10" Width="322">

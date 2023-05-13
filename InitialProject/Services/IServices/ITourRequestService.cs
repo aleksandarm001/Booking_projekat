@@ -1,5 +1,6 @@
 ﻿namespace InitialProject.Services.IServices
 {
+    using InitialProject.Domen.CustomClasses;
     using InitialProject.Domen.Model;
     using System;
     using System.Collections.Generic;
@@ -19,6 +20,8 @@
 
         void CheckRequests();
 
+        List<string> GetAllYearsOfTourReqeusts();
+        List<TourRequest> FilterRequests(FilterRequests dataToFilter);
         TourRequest Delete(TourRequest tourRequest);
     }
 }

@@ -113,10 +113,6 @@ namespace InitialProject.Domen.Model
             return Name;
         }
 
-        public static explicit operator Tour(TourRequest v)
-        {
-            throw new NotImplementedException();
-        }
     }
 
 

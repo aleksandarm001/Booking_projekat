@@ -3,6 +3,7 @@ using InitialProject.Aplication.Factory;
 using InitialProject.Domen.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Services.IServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,12 +15,14 @@ namespace InitialProject.Services
         private readonly IUserService userService;
         private readonly ITourReservationService tourReservationService;
         private readonly ITourReservationRepository tourReservationRepository;
+        private readonly ITourRequestService tourRequestService;
         public TourStatisticsService()
         {
             _tourRepository = Injector.CreateInstance<ITourRepository>();
             tourReservationRepository = Injector.CreateInstance<ITourReservationRepository>();
             userService = Injector.CreateInstance<IUserService>();
             tourReservationService = Injector.CreateInstance<ITourReservationService>();
+            tourRequestService = Injector.CreateInstance<ITourRequestService>();
         }
 
         public List<string> GetAllYears()
@@ -44,7 +47,7 @@ namespace InitialProject.Services
         public Tour GetMostVisitedTour(string year)
         {
             Dictionary<int, int> tourVisits = new Dictionary<int, int>();
-            List<TourReservation> reservations = tourReservationRepository.GetAll().Where(c=> c.TourId > 0).ToList();
+            List<TourReservation> reservations = tourReservationRepository.GetAll().Where(c => c.TourId > 0).ToList();
 
             foreach (TourReservation reservation in reservations)
             {
@@ -67,7 +70,7 @@ namespace InitialProject.Services
 
             int tourId = tourVisits.FirstOrDefault(x => x.Value == tourVisits.Values.Max()).Key;
             return _tourRepository.GetById(tourId);
-            
+
         }
 
         // body of foreach loop in GetSpecificStatistic method
@@ -117,7 +120,7 @@ namespace InitialProject.Services
 
 
         //made AgeStatistic class to make code more readable and to avoid passing 3 parameters to calculateStatistic method
-        private static Statistic calculateStatistic(int numberOfPeople,int numberOfPeopleWithVoucher,AgeStatistics ageStatistics)
+        private static Statistic calculateStatistic(int numberOfPeople, int numberOfPeopleWithVoucher, AgeStatistics ageStatistics)
         {
             int numberOfPeopleWithAgeUnder18 = ageStatistics.NumberOfPeopleWithAgeUnder18;
             int numberOfPeopleWithAgeBetween18And50 = ageStatistics.NumberOfPeopleWithAgeBetween18And50;
@@ -136,7 +139,120 @@ namespace InitialProject.Services
             return statistic;
         }
 
-        
+        public List<FilteredTourRequestStatistics> FilterData(FilterStatisticDTO selectedData)
+        {
+            var filteredRequests = FilterRequests(selectedData);
+            List<FilteredTourRequestStatistics> statistic = new();
+
+            if (string.IsNullOrEmpty(selectedData.Year))
+            {
+                var yearlyStatistics = GetYearlyStatistics(filteredRequests, selectedData);
+
+                foreach (var data in yearlyStatistics)
+                {
+                    var filtered = new FilteredTourRequestStatistics();
+                    filtered.Year = data.Year;
+
+                    var values = new List<int> { data.NumberOfRequestsCity, data.NumberOfRequestsCountry, data.NumberOfRequestsLanguage };
+                    values.RemoveAll(item => item == 0);
+                    filtered.NumberOfTourRequests = values.Any() ? values.Min() : 0;
+
+                    filtered.Month = data.Month;
+                    statistic.Add(filtered);
+                }
+            }
+            else if (int.TryParse(selectedData.Year, out int selectedYear))
+            {
+                var monthlyStatistics = GetMonthlyStatistics(filteredRequests, selectedData, selectedYear);
+
+                foreach (var data in monthlyStatistics)
+                {
+                    var filtered = new FilteredTourRequestStatistics();
+                    filtered.Year = data.Year;
+                    filtered.Month = data.Month;
+
+                    var values = new List<int> { data.NumberOfRequestsCity, data.NumberOfRequestsCountry, data.NumberOfRequestsLanguage };
+                    values.RemoveAll(item => item == 0);
+                    filtered.NumberOfTourRequests = values.Any() ? values.Min() : 0;
+
+                    statistic.Add(filtered);
+                }
+            }
+
+            return statistic;
+        }
+
+
+        private List<TourRequest> FilterRequests(FilterStatisticDTO selectedData)
+        {
+            var allRequests = tourRequestService.GetAllRequests();
+
+            return allRequests.Where(r => (string.IsNullOrEmpty(selectedData.Country) || r.Location.Country == selectedData.Country)
+                                            && (string.IsNullOrEmpty(selectedData.City) || r.Location.City == selectedData.City)
+                                            && (string.IsNullOrEmpty(selectedData.Language) || r.Language.Name == selectedData.Language)).ToList();
+        }
+
+        private List<TourRequestPerYear> GetYearlyStatistics(List<TourRequest> requests, FilterStatisticDTO selectedData)
+        {
+            var yearlyStatistics = new List<TourRequestPerYear>();
+
+            var groupedByYear = requests.GroupBy(r => r.StartingDate.Year);
+            foreach (var yearGroup in groupedByYear)
+            {
+                yearlyStatistics.Add(new TourRequestPerYear
+                {
+                    Year = yearGroup.Key,
+                    NumberOfRequestsLanguage = yearGroup.Count(r => r.Language.Name == selectedData.Language),
+                    NumberOfRequestsCity = yearGroup.Count(r => r.Location.City == selectedData.City),
+                    NumberOfRequestsCountry = yearGroup.Count(r => r.Location.Country == selectedData.Country)
+                });
+            }
+
+            return yearlyStatistics;
+        }
+
+
+        private List<TourRequestPerYear> GetMonthlyStatistics(List<TourRequest> requests, FilterStatisticDTO selectedData, int selectedYear)
+        {
+            var monthlyStatistics = new List<TourRequestPerYear>();
+
+            var selectedYearGroup = requests.Where(r => r.StartingDate.Year == selectedYear);
+
+            var groupedByMonth = selectedYearGroup.GroupBy(r => r.StartingDate.Month);
+            foreach (var monthGroup in groupedByMonth)
+            {
+                monthlyStatistics.Add(new TourRequestPerYear
+                {
+                    Year = selectedYear,
+                    Month = monthGroup.Key,
+                    NumberOfRequestsLanguage = monthGroup.Count(r => r.Language.Name == selectedData.Language),
+                    NumberOfRequestsCity = monthGroup.Count(r => r.Location.City == selectedData.City),
+                    NumberOfRequestsCountry = monthGroup.Count(r => r.Location.Country == selectedData.Country)
+                });
+            }
+
+            return monthlyStatistics;
+        }
+
+        public Location GetMostPopularLocation()
+        {
+            List<TourRequest> AllTourRequests = tourRequestService.GetAllRequests();
+
+            return AllTourRequests.GroupBy(r => r.Location)
+                                  .OrderByDescending(g => g.Count())
+                                  .FirstOrDefault()?.Key;
+        }
+
+        public Language GetMostPopularLanguage()
+        {
+            List<TourRequest> AllTourRequests = tourRequestService.GetAllRequests();
+
+            return AllTourRequests.GroupBy(r => r.Language)
+                                  .OrderByDescending(g => g.Count())
+                                  .FirstOrDefault()?.Key;
+        }
+
+
     }
 }
 

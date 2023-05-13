@@ -73,9 +73,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                 dates.Date = combinedDateTime;
                 ReservedDates.Add(dates);
             }
-            else
-            {
-            }
         }
 
         public void DeleteDate(object obj)
@@ -108,7 +105,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             {
                 Minutes.Add(minute);
             }
-
         }
 
         public List<string> HourCounter()
@@ -221,9 +217,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                 OnPropertyChanged("EndDate");
             }
         }
-
-
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

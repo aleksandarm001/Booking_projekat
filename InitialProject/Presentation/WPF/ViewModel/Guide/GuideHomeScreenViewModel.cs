@@ -1,27 +1,22 @@
 ﻿using InitialProject.Presentation.WPF.View.Guide;
-using InitialProject.View;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-
 namespace InitialProject.Presentation.WPF.ViewModel.Guide
 {
-    public class GuideHomeScreenViewModel : INotifyPropertyChanged
+    public class GuideHomeScreenViewModel : ViewModelBase, INotifyPropertyChanged
     {
         public RelayCommand CheckBoxCommand { get; }
         public RelayCommand FirstQuestionCommand { get; }
         public RelayCommand SecondQuestionCommand { get; }
         public RelayCommand ThirdQuestionCommand { get; }
         public RelayCommand CreateTourCommand { get; set; }
-
         public RelayCommand TourRequestCommand { get; set; }
+        public RelayCommand HamburgerCommand { get; set; }
+        public RelayCommand TourStatisticsCommand { get; set; }
+
 
         private System.Timers.Timer popupTimer;
 
@@ -34,7 +29,30 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             ThirdQuestionCommand = new RelayCommand(ThirdAnswer);
             CreateTourCommand = new RelayCommand(CreateTourView);
             TourRequestCommand = new RelayCommand(CreateTourRequestView);
+            HamburgerCommand = new RelayCommand(ShowHamburgerMenu);
+            TourStatisticsCommand = new RelayCommand(ShowStatistics);
             _window = window;
+        }
+
+        public void ShowStatistics(object ob)
+        {
+            var statisticsView = new TourRequestStatisticsView();
+            statisticsView.Show();
+        }
+
+        public void ShowHamburgerMenu(object ob)
+        {
+            if (GridVisibility != Visibility.Collapsed)
+            {
+                GridVisibility = Visibility.Collapsed;
+                BurgerMenuVisibility = Visibility.Visible;
+            }
+            else
+            {
+                GridVisibility = Visibility.Visible;
+                BurgerMenuVisibility = Visibility.Collapsed;
+
+            }
         }
 
         private Visibility _buttonsVisibility = Visibility.Collapsed;
@@ -45,6 +63,30 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             {
                 _buttonsVisibility = value;
                 OnPropertyChanged(nameof(ButtonsVisibility));
+            }
+        }
+
+        private Visibility _gridVisibility = Visibility.Visible;
+        public Visibility GridVisibility
+        {
+            get => _gridVisibility;
+            set
+            {
+                _gridVisibility = value;
+                OnPropertyChanged(nameof(GridVisibility));
+            }
+        }
+
+        
+
+        private Visibility _burgerMenuVisibility = Visibility.Collapsed;
+        public Visibility BurgerMenuVisibility
+        {
+            get => _burgerMenuVisibility;
+            set
+            {
+                _burgerMenuVisibility = value;
+                OnPropertyChanged(nameof(BurgerMenuVisibility));
             }
         }
 
@@ -132,6 +174,16 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        
+
+        private bool _isMenuVisible;
+        public bool IsMenuVisible
+        {
+            get { return _isMenuVisible; }
+            set
+            {
+                _isMenuVisible = value;
+                OnPropertyChanged(nameof(IsMenuVisible));
+            }
+        }
     }
 }

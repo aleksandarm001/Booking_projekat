@@ -16,7 +16,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
     {
         public ICommand ApproveCommand { get; set; }
         public ICommand DeclineCommand { get; set; }
-
         public ICommand FillterCommand { get; set; }
 
         private readonly ITourRequestService tourRequestService;
@@ -99,7 +98,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
         private void FillterTourRequest(object obj)
         {
-           CreatingTourView T = new CreatingTourView(null);
+            FilterTourRequestView T = new FilterTourRequestView(_tourRequests);
             T.Show();
         }
 

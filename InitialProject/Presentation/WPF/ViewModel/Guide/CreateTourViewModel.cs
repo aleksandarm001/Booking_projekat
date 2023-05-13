@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Guide
@@ -18,6 +19,10 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public ICommand EditDatesCommand { get; set; }
         public ICommand EditTourPointsCommand { get; set; }
         public ICommand AddCommand { get; set; }
+
+        public ICommand SuggestedLanguageCommand { get; set; }
+
+        public ICommand SuggestedLocationCommand { get; set; }
         public ObservableCollection<string> Countries { get; set; }
         public ObservableCollection<string> Cities { get; set; }
         public ObservableCollection<string> Languages { get; set; }
@@ -31,6 +36,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         private readonly ITourPointService _tourPointService;
 
         private readonly ITourRequestService _tourRequestService;
+
+        private readonly ITourStatisticsService _tourStatisticsService;
 
         private readonly int nextTourId;
 
@@ -47,6 +54,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             _tourService = Injector.CreateInstance<ITourService>();
             _tourPointService = Injector.CreateInstance<ITourPointService>();
             _tourRequestService = Injector.CreateInstance<ITourRequestService>();
+            _tourStatisticsService = Injector.CreateInstance<ITourStatisticsService>();
 
             Countries = new ObservableCollection<string>(_locationService.GetAllCountries());
             Cities = new ObservableCollection<string>(_locationService.GetAllCities());
@@ -55,6 +63,10 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             EditTourPointsCommand = new RelayCommand(ivokeTourPoints);
             EditDatesCommand = new RelayCommand(inovkeDates);
             AddCommand = new RelayCommand(CreateTour);
+
+            SuggestedLanguageCommand = new RelayCommand(SuggestedLanguage);
+            SuggestedLocationCommand = new RelayCommand(SuggestedLocation);
+
 
             nextTourId = _tourService.FindNextId();
             tourPoints = new List<TourPoint>();
@@ -68,6 +80,21 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             }
 
         }
+
+        public void SuggestedLanguage(object ob)
+        {
+            Language language = _tourStatisticsService.GetMostPopularLanguage();
+            Language = language.Name;
+        }
+
+        public void SuggestedLocation(object ob)
+        {
+            Location location = _tourStatisticsService.GetMostPopularLocation();
+            Country = location.Country;
+            City = location.City;
+        }
+
+
 
         public void SetValues(TourRequest tourRequest)
         {
@@ -167,7 +194,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             set
             {
                 _Country = value;
-                OnPropertyChanged(nameof(_Country));
+                OnPropertyChanged(nameof(Country));
                 FilterCities();
             }
         }
@@ -179,7 +206,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             set
             {
                 _City = value;
-                OnPropertyChanged(nameof(_City));
+                OnPropertyChanged(nameof(City));
             }
         }
 
