@@ -8,12 +8,18 @@
 
     <Application.Resources>
         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/TourRequestCardTemplate.xaml" />
                 <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/TourPointCardTemplate.xaml" />
                 <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/TourDateTimeCardTemplate.xaml" />
                 <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/TourStatisticsCardTemplate.xaml" />
 
-            
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
+        
+        <!--
         <Style x:Key="topButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="#6e7783" />
@@ -390,6 +396,8 @@
 
             </Style.Triggers>
         </Style>
+        -->
+        
     </Application.Resources>
 
 </Application>
