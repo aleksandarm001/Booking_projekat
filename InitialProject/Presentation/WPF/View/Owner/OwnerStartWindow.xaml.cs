@@ -59,5 +59,7 @@ namespace InitialProject.Presentation.WPF.View.Owner
             AllAccommodations.Visibility = Visibility.Visible;
             AddAccommodation.Visibility = Visibility.Collapsed;
         }
+
+        
     }
 }

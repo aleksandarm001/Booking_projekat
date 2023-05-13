@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InitialProject.Domen.Model
+namespace InitialProject.Domen.CustomClasses
 {
-    public class AccommodationMonthlyStatistics
+    public  class StatisticsByMonthDTO
     {
-        //yearID
 
-        private string _month;
+        private int _accommodationId;
+
+        private int _year;
+
+        private int _month;
 
         private int _numberOfReservations;
 
@@ -19,21 +22,25 @@ namespace InitialProject.Domen.Model
         private int _numbeOfRescheduledReservations;
 
         private int _reccommendationForRenovations;
+        private int _daysOccupied;
 
-        public AccommodationMonthlyStatistics()
-        {
-        }
+        public StatisticsByMonthDTO() { }
 
-        public AccommodationMonthlyStatistics(string month, int numberOfReservations, int numberOfCanceledReservations, int numbeOfRescheduledReservations, int reccommendationForRenovations)
+        public StatisticsByMonthDTO( int accommodationId,int year,int month, int numberOfReservations, int numberOfCanceledReservations, int numbeOfRescheduledReservations, int reccommendationForRenovations)
         {
+            _accommodationId= accommodationId;
             _month = month;
+            _year = year;
             _numberOfReservations = numberOfReservations;
             _numberOfCanceledReservations = numberOfCanceledReservations;
             _numbeOfRescheduledReservations = numbeOfRescheduledReservations;
             _reccommendationForRenovations = reccommendationForRenovations;
         }
 
-        public string Month { get => _month; set => _month = value; }
+        public int AccommodationId { get => _accommodationId; set => _accommodationId= value; }
+
+        public int Year { get => _year; set => _year = value; }
+        public int Month { get => _month; set => _month = value; }
 
         public int NumberOfReservations { get => _numberOfReservations; set => _numberOfReservations = value; }
 
@@ -43,7 +50,6 @@ namespace InitialProject.Domen.Model
 
         public int ReccommendationForRenovations { get => _reccommendationForRenovations; set => _reccommendationForRenovations = value; }
 
-
-
+        public int DaysOccupied { get => _daysOccupied; set => _daysOccupied = value; }
     }
 }

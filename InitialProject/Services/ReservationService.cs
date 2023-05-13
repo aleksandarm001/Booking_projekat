@@ -1,5 +1,6 @@
 ﻿using InitialProject.Aplication.Contracts.Repository;
 using InitialProject.Aplication.Factory;
+using InitialProject.Domen.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Repository;
 using InitialProject.Services.IServices;
@@ -85,5 +86,7 @@ namespace InitialProject.Services
         {
             return _repository.GetAll().Find(r => r.ReservationId == reservationId);
         }
+        
+        
     }
 }

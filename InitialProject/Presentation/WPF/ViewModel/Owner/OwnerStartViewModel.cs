@@ -261,14 +261,16 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         public UserToReview SelectedUserToReview { get; set; }
         public OwnerChangeRequests SelectedRequest { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
+        public Accommodation StartSelectedAccommodation { get; set; }
         public Renovation SelectedRenovation { get; set; }
 
 
         public RelayCommand AddUrl { get; set; }
         public RelayCommand SaveNewAccommodation { get; set; }
         public RelayCommand AddRenovation { get; set; }
-    
         public RelayCommand ReviewGuest { get; set; }
+
+        public RelayCommand AccommodationStatistics { get; set; }
 
         public OwnerStartViewModel(int userId)
         {
@@ -313,6 +315,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             SaveNewAccommodation = new RelayCommand(SaveNewAccommodation_ButtonClick);
             AddRenovation = new RelayCommand(AddRenovation_ButtonClick);
             ReviewGuest = new RelayCommand(Review_ButtonClick);
+            AccommodationStatistics = new RelayCommand(Statistics_ButtonClick);
         }
 
         private void AllAccommodations_ButtonClick(object sender, RoutedEventArgs e)
@@ -522,6 +525,19 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                     }
 
                 }
+            }
+        }
+        //Statistics
+        private void Statistics_ButtonClick(object parameter)
+        {
+            if (StartSelectedAccommodation == null)
+            {
+                MessageBox.Show("Please select accommodation!");
+            }
+            else
+            {
+                Statistics statistics = new Statistics(StartSelectedAccommodation.AccommodationID);
+                statistics.Show();
             }
         }
 

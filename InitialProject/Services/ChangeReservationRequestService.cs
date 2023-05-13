@@ -26,6 +26,24 @@ namespace InitialProject.Services
             
         }
 
+
+        public List<ChangeReservationRequest> GetRequestsByAccommodationId(int accommodationId)
+        {
+            List<ChangeReservationRequest> request = new List<ChangeReservationRequest>();
+            foreach (ChangeReservationRequest c in _requestRepository.GetAll())
+            {
+                Reservation reservation = _reservationService.GetReservationById(c.ReservationId);
+                foreach (int reservationId in _accommodationReservationService.GetReservationsIdsByAccommodationId(accommodationId))
+                {
+                    if (reservation.ReservationId == reservationId)
+                    {
+                        request.Add(c);
+                    }
+                }
+            }
+            return request;
+        }
+
         public List<ChangeReservationRequest> GetRequests(int userId)
         {
             UpdateRequests(userId);
