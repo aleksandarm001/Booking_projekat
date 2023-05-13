@@ -22,5 +22,15 @@
         {
             return _repository.GetAll();
         }
+
+        public List<string> GetAllToString()
+        {
+            List<string> listOfLanguages = new List<string>();
+            foreach(var language in _repository.GetAll())
+            {
+                listOfLanguages.Add(language.Name);
+            }
+            return listOfLanguages;
+        }
     }
 }

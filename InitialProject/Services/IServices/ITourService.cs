@@ -1,4 +1,5 @@
 ﻿using InitialProject.Domen.Model;
+using System;
 using System.Collections.Generic;
 
 namespace InitialProject.Services.IServices
@@ -11,10 +12,12 @@ namespace InitialProject.Services.IServices
         List<Tour> GetAllNotStartedTours();
         List<Tour> GetSimilarAsTourHasFullCapacity(string country, string city);
         Tour GetTourById(int id);
-
+        Tour Save(Tour tour);
+        public int FindNextId();
         List<Tour> GetAllFinishedTours();
         void ReduceMaxGuestNumber(int tourId, int guestNumber);
 
+        List<DateTime> GetAvailableDates(DateTime startingDate, DateTime endDate);
         public List<Tour> GetAllNotFinishedTour();
     }
 }

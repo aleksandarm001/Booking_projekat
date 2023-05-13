@@ -6,5 +6,7 @@
     public interface ILanguageService
     {
         public List<Language> GetAll();
+
+        List<string> GetAllToString();
     }
 }

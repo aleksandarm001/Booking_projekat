@@ -1,5 +1,6 @@
 ﻿namespace InitialProject.Services.IServices
 {
+    using InitialProject.Domen.CustomClasses;
     using InitialProject.Domen.Model;
     using System;
     using System.Collections.Generic;
@@ -10,10 +11,17 @@
     public interface ITourRequestService
     {
         List<TourRequest> GetAllTourRequests(int userId);
+
+        List<TourRequest> GetAllRequests();
+
         void MakeTourRequest(TourRequest tourRequest);
 
         void Update(TourRequest tourRequest);
 
         void CheckRequests();
+
+        List<string> GetAllYearsOfTourReqeusts();
+        List<TourRequest> FilterRequests(FilterRequests dataToFilter);
+        TourRequest Delete(TourRequest tourRequest);
     }
 }
