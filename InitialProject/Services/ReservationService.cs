@@ -52,24 +52,7 @@ namespace InitialProject.Services
         }
         public List<Reservation> GetAllWithoutFinished()
         {
-            return _repository.GetAll().Where(r => r.Status != ReservationStatus.Finished).ToList();
-        }
-        public void HandleCheckingIn()
-        {
-            List<Reservation> reservations = GetAllWithoutFinished();
-            foreach(Reservation reservation in reservations)
-            {
-                if (HasCheckedIn(reservation))
-                {
-                    reservation.Status = ReservationStatus.CheckedIn;
-                    _repository.Update(reservation);
-                }
-            }
-
-        }
-        private bool HasCheckedIn(Reservation reservation)
-        {
-            return reservation.ReservationDateRange.StartDate <= DateTime.Now && reservation.ReservationDateRange.EndDate > DateTime.Now;
+            return _repository.GetAll().Where(r => r.Status != ReservationStatus.Finished && r.Status != ReservationStatus.CheckedIn).ToList();
         }
         public void Save(Reservation reservation)
         {
@@ -84,6 +67,16 @@ namespace InitialProject.Services
         public Reservation GetReservationById(int reservationId)
         {
             return _repository.GetAll().Find(r => r.ReservationId == reservationId);
+        }
+
+        public List<Reservation> GetFinishedReservationsByUser(int userId)
+        {
+            return _repository.GetAll().Where(r => r.UserId == userId && r.Status == ReservationStatus.Finished).ToList();
+        }
+
+        public void Update(Reservation reservation)
+        {
+            _repository.Update(reservation);
         }
     }
 }

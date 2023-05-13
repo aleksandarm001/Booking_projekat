@@ -44,7 +44,6 @@ namespace InitialProject.Services
                 _ownerToRateService.Save(ownerToRate);
                 _reservationService.DeleteLogical(reservationId); //ODRADI LOGICKO BRISANJE
                 _userReservationCounterService.UpdateReservationCounter(userId);
-                _userService.UsePoints(userId);
 
                 // Add user to UserToReview
                 // UserToReview userToReview = new UserToReview(reservation.UserId, accommodationId, reservation.ReservationDateRange.EndDate);
