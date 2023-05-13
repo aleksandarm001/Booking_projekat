@@ -14,7 +14,7 @@ namespace InitialProject.Domen.Model
         public int OwnerId { get; set; }
         public int AccommodationId { get; set; }
         public int UserId { get; set; }
-        public int CleanlinessRate { get; set; }
+        public int HygieneRate { get; set; }
         public int CorrectnessRate { get; set; }
         public string? Comment { get; set; }
         public List<string>? Images { get; set; }
@@ -23,7 +23,7 @@ namespace InitialProject.Domen.Model
             this.UserId = userId;
             this.OwnerId = ownerId;
             AccommodationId = accommodationId;
-            CleanlinessRate = cleanlinessRate;
+            HygieneRate = cleanlinessRate;
             CorrectnessRate = correctnessRate;
             Comment = comment;
             Images = images;
@@ -33,7 +33,7 @@ namespace InitialProject.Domen.Model
             UserId = -1;
             OwnerId = -1;
             AccommodationId = -1;
-            CleanlinessRate = 1;
+            HygieneRate = 1;
             CorrectnessRate = 1;
             Comment = "";
             Images = new List<string>();
@@ -46,7 +46,7 @@ namespace InitialProject.Domen.Model
                 OwnerId.ToString(),
                 UserId.ToString(),
                 AccommodationId.ToString(),
-                CleanlinessRate.ToString(),
+                HygieneRate.ToString(),
                 CorrectnessRate.ToString(),
                 Comment,
                 ImagesListToString()
@@ -59,7 +59,7 @@ namespace InitialProject.Domen.Model
             OwnerId = Convert.ToInt32(values[1]);
             UserId = Convert.ToInt32(values[2]);
             AccommodationId = Convert.ToInt32(values[3]);
-            CleanlinessRate = Convert.ToInt32(values[4]);
+            HygieneRate = Convert.ToInt32(values[4]);
             CorrectnessRate = Convert.ToInt32(values[5]);
             Comment = values[6];
             Images = StringToImagesList(values[7]);

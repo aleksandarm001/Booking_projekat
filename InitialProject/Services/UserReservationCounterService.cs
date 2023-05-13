@@ -60,14 +60,13 @@ namespace InitialProject.Services
             {
                 user.Points = 5;
                 user.IsSuperGuest = true;
-                _userService.Update(user);
             }
             else
             {
                 user.Points = 0;
                 user.IsSuperGuest = false;
-                _userService.Update(user);
             }
+            _userService.Update(user);
         }
         private void ResetData(int userId, List<UserReservationCounter> users)
         {

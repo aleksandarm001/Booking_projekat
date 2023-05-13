@@ -12,7 +12,7 @@ namespace InitialProject.Services.IServices
         List<RenovationRecommendation> GetAll();
         RenovationRecommendation Save(RenovationRecommendation recommendation);
         List<RenovationRecommendation> GetAllRecommendationByOwnerId(int ownerId);
-        public List<RenovationRecommendation> GetAllRecommendationsByAccommodationId(int accommodationId);
+        List<RenovationRecommendation> GetAllRecommendationsByAccommodationId(int accommodationId);
         void Delete(RenovationRecommendation recommendation);
     }
 }

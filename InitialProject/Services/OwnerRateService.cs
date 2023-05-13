@@ -86,7 +86,7 @@ namespace InitialProject.Services
             if(ownerRates.Count < 5)
                 return false;
 
-            double rateAverage = ownerRates.Average(o => (o.CleanlinessRate + o.CorrectnessRate) / 2);
+            double rateAverage = ownerRates.Average(o => (o.HygieneRate + o.CorrectnessRate) / 2);
             return rateAverage > 4.5;
         }
 

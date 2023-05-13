@@ -21,7 +21,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 
     public class Guest1HomeWindowViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<ReservationDTO> _reservations;
+        private ObservableCollection<ReservationDTO> _upcomingReservations;
+        private ObservableCollection<ReservationDTO> _previousReservation;
         private int _userId;
         private string _superguest;
         private string _username;
@@ -31,7 +32,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private IUserReservationCounterService _userReservationCounterService;
         private IOwnerToRateService _ownerToRateService;
         private IReservationService _reservationService;
-        private IAccommodationService _accommodationService;
+        private IReservationDTOService _reservationDTOService;
+        private ICheckingInService _checkingInService;
         public event PropertyChangedEventHandler? PropertyChanged;
         public RelayCommand OpenAccommodationDisplay_Command { get; set; }
         public RelayCommand OpenForums_Command { get; set; }
@@ -42,16 +44,28 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         public RelayCommand OpenAnywhereAnytime_Command { get; set; }
         public RelayCommand OpenForumCreate_Command { get; set; }
         public RelayCommand LogUserOut_Commend { get; set; }
-        public ObservableCollection<ReservationDTO> Reservations
+        public ObservableCollection<ReservationDTO> UpcomingReservations
         {
             get
             {
-                return _reservations;
+                return _upcomingReservations;
             }
             set
             {
-                _reservations = value;
-                OnPropertyChanged(nameof(Reservations));
+                _upcomingReservations = value;
+                OnPropertyChanged(nameof(UpcomingReservations));
+            }
+        }
+        public ObservableCollection<ReservationDTO> PreviousReservations
+        {
+            get
+            {
+                return _previousReservation;
+            }
+            set
+            {
+                _previousReservation = value;
+                OnPropertyChanged(nameof(PreviousReservations));
             }
         }
         public string Username
@@ -96,9 +110,14 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             InitializeServices();
             _userId = _userService.GetUserId();
             InitializeCommands();
+            InitializeCollections();
             SetupReservationSystem();
         }
-
+        private void InitializeCollections()
+        {
+            UpcomingReservations = new ObservableCollection<ReservationDTO>();
+            PreviousReservations = new ObservableCollection<ReservationDTO>();
+        }
         private void InitializeServices()
         {
             _userService = Injector.CreateInstance<IUserService>();
@@ -106,9 +125,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             _userReservationCounterService = Injector.CreateInstance<IUserReservationCounterService>();
             _ownerToRateService = Injector.CreateInstance<IOwnerToRateService>();
             _reservationService = Injector.CreateInstance<IReservationService>();
-            _accommodationService = Injector.CreateInstance<IAccommodationService>();
+            _reservationDTOService = Injector.CreateInstance<IReservationDTOService>();
+            _checkingInService = Injector.CreateInstance<ICheckingInService>();
         }
-
         private void InitializeCommands()
         {
             OpenAccommodationDisplay_Command = new RelayCommand(OpenAccommodationDisplay);
@@ -120,9 +139,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             OpenAnywhereAnytime_Command = new RelayCommand(OpenAnywhereAnytime);
             OpenForumCreate_Command = new RelayCommand(OpenForumCreate);
             LogUserOut_Commend = new RelayCommand(LogUserOut);
-            Reservations = new ObservableCollection<ReservationDTO>();
         }
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -146,21 +163,19 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 Superguest = "No";
             }
         }
-        private void InitializeReservations()
+        private void InitializeUpcomingReservations()
         {
-            Reservations.Clear();
-            List<Reservation> reservations = _reservationService.GetUpcomingReservationsByUser(_userId);
-            foreach(Reservation reservation in reservations)
-            {
-                Accommodation accommodation = _accommodationService.GetAccommodationByReservationId(reservation.ReservationId);
-                ReservationDTO reservationDTO = new ReservationDTO(accommodation.Name, accommodation.Location, reservation.ReservationDateRange);
-                Reservations.Add(reservationDTO);
-            }
-            Reservations = new ObservableCollection<ReservationDTO>(Reservations.OrderBy(r => r.DateTimeCheckIn).ToList());
+            UpcomingReservations.Clear();
+            UpcomingReservations = new ObservableCollection<ReservationDTO>(_reservationDTOService.GetUpcomingReservationsByUser());
+        }
+        private void InitializePastReservations()
+        {
+            PreviousReservations.Clear();
+            PreviousReservations = new ObservableCollection<ReservationDTO>(_reservationDTOService.GetPastReservationsByUser());
         }
         private void HandleCheckingIn() //HENDLUJ
         {
-            _reservationService.HandleCheckingIn();
+            _checkingInService.HandleCheckingIn();
         }
         private void HandleReservationCompletion()
         {
@@ -182,18 +197,19 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             InitializeReservationCounter();
             HandleReservationCompletion();
             UpdateOwnerToRate();
-            InitializeReservations();
+            InitializeUpcomingReservations();
+            InitializePastReservations();
             InitializeUsername();
-            InitializeSuperGuest();
+            InitializeSuperGuest(); 
             InitializePoints();
-            //HandleCheckingIn();
+            HandleCheckingIn();
         }
         private void OpenAccommodationDisplay(object parameter)
         {
             AccommodationDisplay accommodationDisplay = new AccommodationDisplay(_userService.GetUserId());
             AdjustWindow(accommodationDisplay);
             accommodationDisplay.ShowDialog();
-            InitializeReservations();
+            InitializeUpcomingReservations();
             InitializePoints();
         }
         private void LogUserOut(object parameter)
@@ -226,21 +242,21 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             RequestsOwerview requestsOwerview = new RequestsOwerview();
             AdjustWindow(requestsOwerview);
             requestsOwerview.ShowDialog();
-            InitializeReservations();
+            InitializeUpcomingReservations();
         }
         private void OpenCancelReservation(object parameter)
         {
             RequestsOwerview requestsOwerview = new RequestsOwerview();
             AdjustWindow(requestsOwerview);
             requestsOwerview.ShowDialog();
-            InitializeReservations();
+            InitializeUpcomingReservations();
         }
         private void OpenAnywhereAnytime(object parameter)
         {
             AnywhereAnytimeWindow anywhereAnytimeWindow = new AnywhereAnytimeWindow();
             AdjustWindow(anywhereAnytimeWindow);
             anywhereAnytimeWindow.ShowDialog();
-            InitializeReservations();
+            InitializeUpcomingReservations();
         }
         private void OpenForumCreate(object parameter)
         {
