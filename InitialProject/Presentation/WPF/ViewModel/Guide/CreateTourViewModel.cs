@@ -101,6 +101,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         {
             Language language = _tourStatisticsService.GetMostPopularLanguage();
             Language = language.Name;
+            Type = CreationTourType.CreatedByStatistics;
+
         }
 
         public void SuggestedLocation(object ob)
@@ -108,6 +110,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             Location location = _tourStatisticsService.GetMostPopularLocation();
             Country = location.Country;
             City = location.City;
+            Type = CreationTourType.CreatedByStatistics;
         }
 
 
