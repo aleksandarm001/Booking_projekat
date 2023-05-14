@@ -15,15 +15,14 @@ namespace InitialProject.Services
         public ComplexTourRequestService()
         {
             _repository = Injector.CreateInstance<IComplexTourRequestRepository>();
-            //CheckRequests();
+            CheckRequests();
         }
 
         public void CheckRequests()
         {
-            int i = 0;
             foreach (var t in GetAllTourRequests().GroupBy(t => t.TourId))
             {
-                if (t.Min(t=> t.StartingDate).AddDays(2)>=DateTime.Now && t.Where(t=> t.RequestStatus==ComplexTourRequest.Status.Accepted).Count() != t.Count())
+                if (t.Min(t=> t.StartingDate)<=DateTime.Now.AddDays(2) && t.Where(t=> t.RequestStatus==ComplexTourRequest.Status.Accepted).Count() != t.Count())
                 {
                     foreach(ComplexTourRequest complexTourRequest in t)
                     {

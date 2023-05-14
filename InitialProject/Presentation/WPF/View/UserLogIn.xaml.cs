@@ -14,6 +14,7 @@ using InitialProject.Presentation.WPF.View;
 using InitialProject.Presentation.WPF.View.Guest1;
 using InitialProject.Presentation.WPF.View.Owner;
 using InitialProject.Presentation.WPF.View.Guide;
+using InitialProject.Presentation.WPF.View.Guest2;
 
 namespace InitialProject
 {
@@ -91,6 +92,11 @@ namespace InitialProject
                 case (UserType.Guide):
                     GuideHomeScreen guideHomeScreen = new GuideHomeScreen(user.Id);
                     guideHomeScreen.Show();
+                    this.Close();
+                    break;
+                case (UserType.Guest2):
+                    HomeWindow homeWindow = new HomeWindow(user.Id);
+                    homeWindow.Show();
                     this.Close();
                     break;
 

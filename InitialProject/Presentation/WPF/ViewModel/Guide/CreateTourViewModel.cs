@@ -175,7 +175,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
                     if (TourRequest != null)
                     {
-                        TourRequest.RequestStatus = TourRequest.Status.Accepted;
+                        TourRequest.RequestStatus = ComplexTourRequest.Status.Accepted;
                         _tourRequestService.Update(TourRequest);
                     }
 

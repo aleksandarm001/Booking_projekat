@@ -75,7 +75,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                 GuideId = GuideId,
                 StartingDate = complexTourRequest.StartingDate,
                 EndingDate = complexTourRequest.EndingDate,
-                RequestStatus = TourRequest.Status.Accepted,
+                RequestStatus = ComplexTourRequest.Status.Accepted,
                 Location = complexTourRequest.Location,
                 Language = complexTourRequest.Language,
                 Description= complexTourRequest.Description,
