@@ -1,0 +1,6 @@
+1|4|Employeed
+2|5|Employeed
+3|6|SuperGuide
+4|7|SuperGuide
+5|8|Unemployed
+6|13|Unemployed
