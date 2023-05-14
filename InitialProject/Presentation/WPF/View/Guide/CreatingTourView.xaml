@@ -450,7 +450,7 @@
                     <CheckBox.Template>
                         <ControlTemplate TargetType="CheckBox">
                             <Grid Background="Transparent">
-                                <Image x:Name="BackgroundImage" Source="C:\Users\Zlatan\Downloads\qmark.png" Stretch="UniformToFill"/>
+                                <Image x:Name="BackgroundImage" Source="/InitialProject;component/Infrastructure/Resources/Images/qmark.png" Stretch="UniformToFill"/>
                                 <Ellipse x:Name="BackgroundEllipse" Fill="#E0E0E0" Stroke="Black" StrokeThickness="2"/>
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
