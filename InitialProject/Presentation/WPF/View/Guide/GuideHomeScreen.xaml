@@ -36,7 +36,7 @@
 
             <!-- Burger Menu Button -->
             <Button x:Name="BurgerMenuButton" Grid.Column="1" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding HamburgerCommand}">
-                <Image Source="C:\Users\Zlatan\Desktop\hamburher.png" Height="60" VerticalAlignment="Center"/>
+                <Image Source="/InitialProject;component/Infrastructure/Resources/Images/hamburher.png" Height="60" VerticalAlignment="Center"/>
             </Button>
         </Grid>
         <ContentControl Content="{Binding CurrentViewModel}" />

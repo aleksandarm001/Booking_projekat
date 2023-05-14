@@ -15,16 +15,22 @@
     <None Remove="Infrastructure/Resources\Images\search.png" />
     <None Remove="Infrastructure/Resources\Images\view.png" />
     <None Remove="Infrastructure/Resources\Images\Zvjezda.png" />
+    <None Remove="Infrastructure\Resources\Images\262038.png" />
     <None Remove="Infrastructure\Resources\Images\AccommodationDisplay.png" />
     <None Remove="Infrastructure\Resources\Images\arrow.png" />
     <None Remove="Infrastructure\Resources\Images\chat.png" />
+    <None Remove="Infrastructure\Resources\Images\download.png" />
     <None Remove="Infrastructure\Resources\Images\female_profile.jpg" />
     <None Remove="Infrastructure\Resources\Images\female_profile.png" />
+    <None Remove="Infrastructure\Resources\Images\hamburher.png" />
     <None Remove="Infrastructure\Resources\Images\home.png" />
     <None Remove="Infrastructure\Resources\Images\homePageCommands.png" />
+    <None Remove="Infrastructure\Resources\Images\iconmonstr-x-mark-circle-thin.png" />
+    <None Remove="Infrastructure\Resources\Images\moda-removebg-preview.png" />
     <None Remove="Infrastructure\Resources\Images\pin1.png" />
     <None Remove="Infrastructure\Resources\Images\pin2.png" />
     <None Remove="Infrastructure\Resources\Images\pin3.png" />
+    <None Remove="Infrastructure\Resources\Images\qmark.png" />
     <None Remove="Infrastructure\Resources\Images\repeat.png" />
     <None Remove="Infrastructure\Resources\Images\right-arrow.png" />
   </ItemGroup>
@@ -54,6 +60,9 @@
     <Content Include="Infrastructure/Resources\Images\Zvjezda.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Infrastructure\Resources\Images\262038.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Infrastructure\Resources\Images\AccommodationDisplay.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -63,10 +72,22 @@
     <Content Include="Infrastructure\Resources\Images\chat.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Infrastructure\Resources\Images\download.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Infrastructure\Resources\Images\female_profile.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Infrastructure\Resources\Images\hamburher.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Infrastructure\Resources\Images\home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Infrastructure\Resources\Images\iconmonstr-x-mark-circle-thin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Infrastructure\Resources\Images\moda-removebg-preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure\Resources\Images\pin1.png">
@@ -76,6 +97,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure\Resources\Images\pin3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Infrastructure\Resources\Images\qmark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure\Resources\Images\repeat.png">
