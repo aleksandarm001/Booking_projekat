@@ -1,6 +1,4 @@
-﻿using InitialProject.Domen.CustomClasses;
-using InitialProject.Domen.Model;
-using InitialProject.Presentation.WPF.ViewModel.Guide;
+﻿using InitialProject.Presentation.WPF.ViewModel.Guide;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +16,16 @@ using System.Windows.Shapes;
 namespace InitialProject.Presentation.WPF.View.Guide
 {
     /// <summary>
-    /// Interaction logic for CreatingTourView.xaml
+    /// Interaction logic for ComplexTourRequestsView.xaml
     /// </summary>
-    public partial class CreatingTourView : Window
+    public partial class ComplexTourRequestsView : Window
     {
-        public CreateTourViewModel tourViewModel { get; set; }
-        public CreatingTourView(TourRequest? selectedTourRequest, CreationType? type)
+        private readonly ComplexTourRequestsViewModel _complexTourRequestsViewModel;
+        public ComplexTourRequestsView()
         {
-            tourViewModel = new CreateTourViewModel(selectedTourRequest,type);
-            DataContext = tourViewModel;
+            _complexTourRequestsViewModel = new ComplexTourRequestsViewModel();
+            DataContext = _complexTourRequestsViewModel;
             InitializeComponent();
         }
-
     }
 }

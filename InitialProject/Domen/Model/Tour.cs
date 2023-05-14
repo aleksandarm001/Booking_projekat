@@ -1,13 +1,16 @@
-﻿using System;
+﻿using InitialProject.Domen.CustomClasses;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static InitialProject.Domen.CustomClasses.CreationType;
 
 namespace InitialProject.Domen.Model
 {
     public class Tour : ISerializable, INotifyPropertyChanged
     {
+
         public int TourId { get; set; }
         public string Name { get; set; }
         public Location Location { get; set; }
@@ -33,6 +36,7 @@ namespace InitialProject.Domen.Model
         public DateTime StartingDateTime { get; set; }
         public int Duration { get; set; }
         public bool TourStarted { get; set; }
+        public CreationTourType CreatedType { get; set; } = CreationType.CreationTourType.CreatedByGuide;
 
         //public List<String> Images { get; set; }
 
@@ -49,19 +53,6 @@ namespace InitialProject.Domen.Model
             //Images = new List<String>();
         }
 
-        public Tour(string name, Location location, string description, Language language, int maxGuestNumber, DateTime startingDateTimes, int duration, bool started)
-        {
-            Name = name;
-            Location = location;
-            Description = description;
-            Language = language;
-            MaxGuestNumber = maxGuestNumber;
-            StartingDateTime = startingDateTimes;
-            Duration = duration;
-            TourStarted = started;
-            //Images = images;
-        }
-
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public void FromCSV(string[] values)
@@ -75,6 +66,7 @@ namespace InitialProject.Domen.Model
             StartingDateTime = DateTime.Parse(values[6]);
             Duration = Convert.ToInt32(values[7]);
             TourStarted = bool.Parse(values[8]);
+            CreatedType = (CreationTourType)Enum.Parse(typeof(CreationTourType), values[9]);
             //Images = values[9].Split(";").ToList<string>();
 
         }
@@ -93,7 +85,7 @@ namespace InitialProject.Domen.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { TourId.ToString(), Name, Location.ToString(), Description, Language.ToString(), MaxGuestNumber.ToString(), StartingDateTime.ToString(), Duration.ToString(), TourStarted.ToString() };
+            string[] csvValues = { TourId.ToString(), Name, Location.ToString(), Description, Language.ToString(), MaxGuestNumber.ToString(), StartingDateTime.ToString(), Duration.ToString(), TourStarted.ToString(), CreatedType.ToString() };
             return csvValues;
         }
 

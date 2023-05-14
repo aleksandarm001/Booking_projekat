@@ -137,7 +137,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         }
         private void CreateTourView(object isChecked)
         {
-            CreatingTourView tourForm = new CreatingTourView(null);
+            CreatingTourView tourForm = new CreatingTourView(null,null);
             tourForm.Show();
             _window.Close();
         }

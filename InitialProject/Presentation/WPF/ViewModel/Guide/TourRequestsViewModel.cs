@@ -1,4 +1,5 @@
 ﻿using InitialProject.Aplication.Factory;
+using InitialProject.Domen.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Presentation.WPF.View.Guide;
 using InitialProject.Services;
@@ -18,6 +19,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public ICommand DeclineCommand { get; set; }
         public ICommand FillterCommand { get; set; }
 
+        public ICommand ComplexRequestCommand { get; set; }
+
         private readonly ITourRequestService tourRequestService;
         private readonly ITourService tourService;
 
@@ -26,6 +29,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             ApproveCommand = new RelayCommand(ApproveTourRequest);
             DeclineCommand = new RelayCommand(DeclineTourRequest);
             FillterCommand = new RelayCommand(FillterTourRequest);
+            ComplexRequestCommand = new RelayCommand(ComplexRequest);
             tourRequestService = Injector.CreateInstance<ITourRequestService>();
             tourService = Injector.CreateInstance<ITourService>();
 
@@ -86,7 +90,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         private void ApproveTourRequest(object obj)
         {
             TourRequest selectedTourRequest = (TourRequest)obj;
-            CreatingTourView creatingTourView = new CreatingTourView(selectedTourRequest);
+            CreationType creationType = new();
+
+            creationType.Type = CreationType.CreationTourType.CreatedByRequest;
+
+            CreatingTourView creatingTourView = new CreatingTourView(selectedTourRequest, creationType);
             _tourRequests.Remove(selectedTourRequest);
             creatingTourView.ShowDialog();
         }
@@ -108,6 +116,12 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             selectedTourRequest.RequestStatus = TourRequest.Status.Rejected;
             tourRequestService.Update(selectedTourRequest);
             _tourRequests.Remove(selectedTourRequest);
+        }
+
+        public void ComplexRequest(object obj)
+        {
+            ComplexTourRequestsView T = new ComplexTourRequestsView();
+            T.Show();
         }
 
     }

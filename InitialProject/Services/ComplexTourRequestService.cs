@@ -62,6 +62,23 @@ namespace InitialProject.Services
             return _repository.GetAll();
         }
 
+        public List<ComplexTourRequest> GetAllUniqueTourRequests()
+        {
+            List<int> uniqueIds = GetAllTourRequests().Select(t => t.Id)
+                                                      .Distinct()
+                                                      .ToList();
+
+            List<ComplexTourRequest> uniqueTourRequests = new();
+
+            foreach(var id in uniqueIds)
+            {
+                uniqueTourRequests.Add(GetAllTourRequests().FirstOrDefault(t => t.TourId == id));
+            }
+
+            return uniqueTourRequests;
+           
+        }
+
         public List<ComplexTourRequest> GetAllTourRequestsByUser(int userId)
         {
             return _repository.GetAll().Where(complexTourRequest => complexTourRequest.UserId == userId).ToList();

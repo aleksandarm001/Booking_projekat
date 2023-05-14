@@ -18,5 +18,7 @@ namespace InitialProject.Services.IServices
         void CheckRequests();
 
         List<ComplexTourRequest> GetTourRequest(int tourId);
+
+        List<ComplexTourRequest> GetAllUniqueTourRequests();
     }
 }

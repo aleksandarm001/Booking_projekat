@@ -1,4 +1,5 @@
 ﻿using InitialProject.Aplication.Factory;
+using InitialProject.Domen.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Presentation.WPF.View.Guide;
 using InitialProject.Services.IServices;
@@ -10,6 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static InitialProject.Domen.CustomClasses.CreationType;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Guide
 {
@@ -47,7 +49,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
         public TourRequest TourRequest;
         public List<DateTime> availableDates { get; set; }
-        public CreateTourViewModel(TourRequest? tourRequest)
+
+        public CreationTourType Type { get; set; }
+        public CreateTourViewModel(TourRequest? tourRequest, CreationType type)
         {
             _locationService = Injector.CreateInstance<ILocationService>();
             _languageService = Injector.CreateInstance<ILanguageService>();
@@ -71,6 +75,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             nextTourId = _tourService.FindNextId();
             tourPoints = new List<TourPoint>();
             tourStartingDates = new List<DateTime>();
+            Type = type.Type;
 
 
             if (tourRequest != null)
@@ -156,7 +161,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                     MaxGuestNumber = MaxGuests,
                     StartingDateTime = date,
                     Duration = TourDuratation,
-                    TourStarted = false
+                    TourStarted = false,
+                    CreatedType = Type
                 };
 
                 if(TourRequest != null)
