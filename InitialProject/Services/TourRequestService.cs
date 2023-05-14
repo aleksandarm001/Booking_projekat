@@ -17,6 +17,7 @@
     public class TourRequestService : ITourRequestService
     {
         private readonly ITourRequestRepository _repository;
+        private readonly ITourNotificationService _tourNotificationService;
 
         public TourRequestService()
         {
@@ -87,6 +88,27 @@
         public TourRequest GetTourRequestById(int id)
         {
             return _repository.GetById(id);
+        }
+
+        public void MakeNotificationsForGuests(Tour tour)
+        {
+            var lista = _repository.GetAll().Where(t => t.Language.Name == tour.Language.Name).ToList().GroupBy(t => t.UserId);
+            foreach (var item in lista)
+            {
+                if (item.Where(t => t.RequestStatus == ComplexTourRequest.Status.Rejected).Count() == item.Count())
+                {
+                    _tourNotificationService.MakeNotification(item.Key, tour.TourId, TourNotification.NotificationType.StatisticTour);
+                }
+            }
+
+            var pista = _repository.GetAll().Where(t => t.Location.Country.ToString() == tour.Location.Country.ToString() && t.Location.City.ToString() == tour.Location.City.ToString()).ToList().GroupBy(t => t.UserId);
+            foreach (var item in pista)
+            {
+                if (item.Where(t => t.RequestStatus == ComplexTourRequest.Status.Rejected).Count() == item.Count())
+                {
+                    _tourNotificationService.MakeNotification(item.Key, tour.TourId, TourNotification.NotificationType.StatisticTour);
+                }
+            }
         }
     }
 }

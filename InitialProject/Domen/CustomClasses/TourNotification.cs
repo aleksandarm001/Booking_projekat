@@ -8,20 +8,24 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using static InitialProject.Domen.CustomClasses.CreationType;
 
     public class TourNotification : ISerializable
     {
+        public enum NotificationType { TourRequest, StatisticTour}
         public int TourId { get; set; }
         public int UserId { get; set; }
+        public NotificationType Type { get; set; }
 
         public TourNotification()
         {
         }
 
-        public TourNotification(int tourId, int userId)
+        public TourNotification(int tourId, int userId, NotificationType type)
         {
             TourId = tourId;
             UserId = userId;
+            Type = type;
         }
 
         public string[] ToCSV()
@@ -29,7 +33,8 @@
             string[] cssValues =
             {
                 UserId.ToString(),
-                TourId.ToString()
+                TourId.ToString(),
+                Type.ToString(),
               
             };
             return cssValues;
@@ -38,7 +43,8 @@
         {
             UserId = Convert.ToInt32(values[0]);
             TourId = Convert.ToInt32(values[1]);
-            
+            Type = (NotificationType)Enum.Parse(typeof(NotificationType), values[2]);
+
         }
     }
 }

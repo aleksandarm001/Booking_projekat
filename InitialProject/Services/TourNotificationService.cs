@@ -31,5 +31,11 @@
                 
             }
         }
+
+        public void MakeNotification(int userId, int tourId, Domen.CustomClasses.TourNotification.NotificationType type)
+        {
+            Domen.CustomClasses.TourNotification notification = new Domen.CustomClasses.TourNotification(userId, tourId, type);
+            _repository.Save(notification);
+        }
     }
 }

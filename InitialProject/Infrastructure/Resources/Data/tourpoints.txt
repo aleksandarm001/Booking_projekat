@@ -24,3 +24,7 @@
 24|sad|23|NotActive|asd|1
 25|asd|24|NotActive|asd|1
 26|asd|25|NotActive|asd|1
+27|kt1|26|NotActive|safd|1
+28|kt2|26|NotActive|safdsfd|2
+29|kt1|27|NotActive|safd|1
+30|kt2|27|NotActive|safdsfd|2

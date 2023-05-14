@@ -139,7 +139,7 @@
                         </ControlTemplate>
                     </Button.Template>
                     <Button.Background>
-                        <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\262038.png" />
+                        <ImageBrush ImageSource="/InitialProject;component/Infrastructure/Resources/Images/262038.png" />
                     </Button.Background>
                 </Button>
 
