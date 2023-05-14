@@ -18,10 +18,10 @@
         <TextBlock HorizontalAlignment="Left" Margin="27,139,0,0" TextWrapping="Wrap" Text="Broj gostiju:" VerticalAlignment="Top" Width="104"/>
         <TextBlock HorizontalAlignment="Left" Margin="27,174,0,0" TextWrapping="Wrap" Text="Datum izvodjenja:" VerticalAlignment="Top" Width="99"/>
         <TextBox HorizontalAlignment="Left" Margin="131,139,0,0" TextWrapping="Wrap" Text="{Binding Path=TourRequest.GuestNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="131,172,0,0" TextWrapping="Wrap" Text="{Binding Path=TourRequest.GuestNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="131,109,0,0" TextWrapping="Wrap" Text="{Binding Path=TourRequest.GuestNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="131,79,0,0" TextWrapping="Wrap" Text="{Binding Path=TourRequest.GuestNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="131,49,0,0" TextWrapping="Wrap" Text="{Binding Path=TourRequest.GuestNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Margin="131,172,0,0" TextWrapping="Wrap" Text="{Binding Path=TourRequest.StartingDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Margin="131,109,0,0" TextWrapping="Wrap" Text="{Binding Path=TourRequest.Language.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Margin="131,79,0,0" TextWrapping="Wrap" Text="{Binding Path=TourRequest.Location.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Margin="131,49,0,0" TextWrapping="Wrap" Text="{Binding Path=TourRequest.Location.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
 
 
 

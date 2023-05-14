@@ -103,10 +103,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             creatingTourView.ShowDialog();
         }
 
-        private void DeleteTourRequest(TourRequest tourReq)
-        {
-            tourRequestService.Delete(tourReq);
-        }
 
         private void FillterTourRequest(object obj)
         {

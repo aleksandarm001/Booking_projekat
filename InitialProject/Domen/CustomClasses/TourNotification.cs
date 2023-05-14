@@ -28,15 +28,16 @@
         {
             string[] cssValues =
             {
-                TourId.ToString(),
-                UserId.ToString()
+                UserId.ToString(),
+                TourId.ToString()
+              
             };
             return cssValues;
         }
         public void FromCSV(string[] values)
         {
-            TourId= Convert.ToInt32(values[0]);
-            UserId = Convert.ToInt32(values[1]);
+            UserId = Convert.ToInt32(values[0]);
+            TourId = Convert.ToInt32(values[1]);
             
         }
     }

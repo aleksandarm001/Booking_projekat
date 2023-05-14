@@ -70,16 +70,6 @@
         }
 
 
-        public void DeleteTourRequest(TourRequest tourRequst)
-        {
-
-        }
-
-        public TourRequest Delete(TourRequest tourRequest)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<TourRequest> FilterRequests(FilterRequests dataToFilter)
         {
             List<TourRequest> allTourRequests = new List<TourRequest>(_repository.GetAll());
@@ -92,6 +82,11 @@
                                       (dataToFilter.EndingDate == null || c.EndingDate <= dataToFilter.EndingDate)).ToList();
             return FilteredData;
 
+        }
+
+        public TourRequest GetTourRequestById(int id)
+        {
+            return _repository.GetById(id);
         }
     }
 }

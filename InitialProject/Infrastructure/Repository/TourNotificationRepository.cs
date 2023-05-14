@@ -43,7 +43,7 @@
         public void Delete(TourNotification tourNotification)
         {
             _tourNotifications = _serializer.FromCSV(FilePath);
-            TourNotification founded = _tourNotifications.Find(t => t.UserId == tourNotification.UserId && t.TourId == tourNotification.UserId);
+            TourNotification founded = _tourNotifications.Find(t => t.UserId == tourNotification.UserId && t.TourId == tourNotification.TourId);
             _tourNotifications.Remove(founded);
             _serializer.ToCSV(FilePath, _tourNotifications);
         }

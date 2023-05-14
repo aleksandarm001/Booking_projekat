@@ -5,6 +5,7 @@
     using InitialProject.Domen.Model;
     using InitialProject.Presentation.WPF.Constants;
     using InitialProject.Presentation.WPF.ViewModel.Guest2;
+    using InitialProject.Services;
     using InitialProject.Services.IServices;
     using InitialProject.View.Guest2;
     using Microsoft.TeamFoundation.Common;
@@ -63,6 +64,7 @@
         private readonly ITourAttendanceService _tourAttendanceService;
 
         private readonly ITourReservationService _tourReservationService;
+        private readonly ITourNotificationService _tourNotificationService;
 
         private readonly ITourRequestService _tourRequestService;
 
@@ -127,6 +129,7 @@
             _userService = Injector.CreateInstance<IUserService>();
             _complexTourRequestService = Injector.CreateInstance<IComplexTourRequestService>();
             _userReservationCounterService = Injector.CreateInstance<IUserReservationCounterService>();
+            _tourNotificationService = Injector.CreateInstance<ITourNotificationService>();
             UserName = _userService.GetUsername();
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
@@ -138,6 +141,9 @@
             FinishedTours = new ObservableCollection<Tour>(_tourService.GetAllFinished(UserId));
             RequestedTours = new ObservableCollection<TourRequest>(_tourRequestService.GetAllTourRequests(UserId));
             ComplexTours = new ObservableCollection<ComplexTourRequestDTO>();
+            //TourNotification tourNotification = new TourNotification();
+            //tourNotification.ShowDialog();
+            _tourNotificationService.NotifyGuest(userId);
 
             InitializeLanguages();
             InitializeLocations();
