@@ -48,11 +48,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
         public List<DateTime> tourStartingDates;
 
-        public TourRequest TourRequest;
+        public TourRequest? TourRequest;
         public List<DateTime> availableDates { get; set; }
-        public CreationTourType Type { get; set; }
+        public CreationTourType? Type { get; set; }
 
-        public int ComplexTourId { get; set; }
+        public int? ComplexTourId { get; set; }
         public Window window { get; set; }
         public CreateTourViewModel(Window _window,TourRequest? tourRequest, CreationType? type, int? ComplexId)
         {
@@ -80,9 +80,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             tourPoints = new List<TourPoint>();
             tourStartingDates = new List<DateTime>();
             window = _window;
-            ComplexTourId = (int)ComplexId;
 
-            Type = type.Type;
+            if(ComplexId != null)
+                ComplexTourId = (int)ComplexId;
+            if(type != null)
+                Type = type.Type;
 
 
             if (tourRequest != null)
@@ -156,7 +158,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
         public void CreateTour(object obj)
         {
-            if (Type != CreationTourType.CreatedByComplexRequest)
+            if (Type != CreationTourType.CreatedByComplexRequest && Type != null)
                 foreach (var date in tourStartingDates)
                 {
                     Language language = new();
@@ -170,7 +172,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                         StartingDateTime = date,
                         Duration = TourDuratation,
                         TourStarted = false,
-                        CreatedType = Type
+                        CreatedType = (CreationTourType)Type
                     };
 
                     if (TourRequest != null)
@@ -187,7 +189,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                         tourPoint.TourId++;
                     }
                 }
-            else
+            else if(TourRequest != null)
             {
                 foreach (var date in tourStartingDates)
                 {
@@ -203,20 +205,53 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                         StartingDateTime = date,
                         Duration = TourDuratation,
                         TourStarted = false,
-                        CreatedType = Type
+                        CreatedType = (CreationTourType)Type
                     };
                     //sada je potrebno da onobovimo ComplexTourId sa tim tourid
                     //u kompleksnim postaviti na true i staviti id vodica na true
 
                     _tourService.Save(tour);
                     _tourPointService.SaveTourPoints(tourPoints);
-                    _complexTourRequestService.UpdateSpecificRequest(ComplexTourId, TourRequest.Id, TourRequest.GuideId, tour.StartingDateTime);
+                    _complexTourRequestService.UpdateSpecificRequest((int)ComplexTourId, TourRequest.Id, TourRequest.GuideId, tour.StartingDateTime);
                     foreach (var tourPoint in tourPoints)
                     {
                         tourPoint.TourId++;
                     }
                 }
                 window.Close();
+            }
+            else
+            {
+                foreach (var date in tourStartingDates)
+                {
+                    Language language = new();
+                    Tour tour = new Tour()
+                    {
+                        Name = Name,
+                        Location = new Location { City = City, Country = Country },
+                        Description = Description,
+                        Language = language.fromStringToLanguage(Language),
+                        MaxGuestNumber = MaxGuests,
+                        StartingDateTime = date,
+                        Duration = TourDuratation,
+                        TourStarted = false,
+                    };
+
+                    if (TourRequest != null)
+                    {
+                        TourRequest.RequestStatus = ComplexTourRequest.Status.Accepted;
+                        _tourRequestService.Update(TourRequest);
+                    }
+
+                    _tourService.Save(tour);
+
+                    _tourPointService.SaveTourPoints(tourPoints);
+                    foreach (var tourPoint in tourPoints)
+                    {
+                        tourPoint.TourId++;
+                    }
+                }
+
             }
 
 
