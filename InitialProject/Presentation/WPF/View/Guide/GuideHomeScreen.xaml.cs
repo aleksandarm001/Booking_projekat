@@ -12,29 +12,12 @@ namespace InitialProject.Presentation.WPF.View.Guide
     public partial class GuideHomeScreen : Window
     {
         private readonly GuideHomeScreenViewModel guideHomeScreenViewModel;
-        public GuideHomeScreen()
+        public GuideHomeScreen(int? guideId)
         {
-            guideHomeScreenViewModel = new GuideHomeScreenViewModel(this);
+            guideHomeScreenViewModel = new GuideHomeScreenViewModel(this, guideId);
             DataContext = guideHomeScreenViewModel;
             InitializeComponent();
         }
-
-        private void CreateTourButton(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void ToggleButton_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void BurgerMenuButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
 
 
     }

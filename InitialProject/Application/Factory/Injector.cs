@@ -68,6 +68,10 @@ namespace InitialProject.Aplication.Factory
             { typeof(ITourRateRepository), new Lazy<object>(() => new TourRateRepository()) },            
             { typeof(IReservationDTOService), new Lazy<object>(() => new ReservationDTOService()) },
             { typeof(ICheckingInService), new Lazy<object>(() => new CheckingInService()) },
+            { typeof(IGuideStatusRepository), new Lazy<object>(() => new GuideStatusRepository()) },
+            { typeof(IGuideStatusService), new Lazy<object>(() => new GuideStatusService()) },
+
+
         };
 
         public static T CreateInstance<T>()

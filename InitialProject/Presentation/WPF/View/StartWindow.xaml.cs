@@ -79,7 +79,7 @@ namespace InitialProject.Presentation.WPF.View
         private void Guide_ButtonClick(object sender, RoutedEventArgs e)
         {
 
-            GuideHomeScreen guideHomeScreen = new GuideHomeScreen();
+            GuideHomeScreen guideHomeScreen = new GuideHomeScreen(null);
             guideHomeScreen.Show();
         }
         private void OpenRegistrationForm(object sender, RoutedEventArgs e)

@@ -14,7 +14,8 @@
                 <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/TourPointCardTemplate.xaml" />
                 <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/TourDateTimeCardTemplate.xaml" />
                 <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/TourStatisticsCardTemplate.xaml" />
-
+                <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/ComplexTourCardTemplate.xaml" />
+                <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/PartOfComplexTourCardTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
         
         

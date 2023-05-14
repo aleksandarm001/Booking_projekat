@@ -16,12 +16,14 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public RelayCommand TourRequestCommand { get; set; }
         public RelayCommand HamburgerCommand { get; set; }
         public RelayCommand TourStatisticsCommand { get; set; }
+        public RelayCommand ProfileCommand { get; set; }//GuideProfileView
 
+        public int GuideId { get; private set; }
 
         private System.Timers.Timer popupTimer;
 
         public Window _window { get; set; }
-        public GuideHomeScreenViewModel(Window window)
+        public GuideHomeScreenViewModel(Window window, int? guideId)
         {
             CheckBoxCommand = new RelayCommand(CheckBoxChanged);
             FirstQuestionCommand = new RelayCommand(FirstAnswer);
@@ -31,7 +33,15 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             TourRequestCommand = new RelayCommand(CreateTourRequestView);
             HamburgerCommand = new RelayCommand(ShowHamburgerMenu);
             TourStatisticsCommand = new RelayCommand(ShowStatistics);
+            ProfileCommand = new RelayCommand(ShowProfile);
             _window = window;
+            GuideId = (int)guideId;
+        }
+
+        public void ShowProfile(object ob)
+        {
+            var profileView = new GuideProfileView(GuideId);
+            profileView.Show();
         }
 
         public void ShowStatistics(object ob)
@@ -137,14 +147,14 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         }
         private void CreateTourView(object isChecked)
         {
-            CreatingTourView tourForm = new CreatingTourView(null);
+            CreatingTourView tourForm = new CreatingTourView(null,null,null);
             tourForm.Show();
             _window.Close();
         }
 
         private void CreateTourRequestView(object isChecked)
         {
-            TourRequestsView tourRequestForm = new TourRequestsView();
+            TourRequestsView tourRequestForm = new TourRequestsView(GuideId);
             tourRequestForm.Show();
             _window.Close();
         }

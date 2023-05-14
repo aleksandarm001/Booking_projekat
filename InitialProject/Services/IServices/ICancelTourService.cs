@@ -7,6 +7,9 @@ namespace InitialProject.Services.IServices
     {
         List<Tour> GetAll();
         List<Tour> GetAllTwoDaysFromNow();
-        void CancelTour(string tourToCancel);
+
+        void CancelTour(string? tourToCancel, int? tourToCancelId);
+        void CancelAllTours(List<Tour> toursToCancel);
+        void FindAndCancelAllToursByGuide(int GuideId);
     }
 }

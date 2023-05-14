@@ -41,10 +41,40 @@ namespace InitialProject.Services
             return toursToCancel;
         }
 
-        //Cancel tour and give Voucher to user
-        public void CancelTour(string tourToCancel)
+
+        public void FindAndCancelAllToursByGuide(int GuideId)
         {
-            int tourId = int.Parse(tourToCancel.Split(' ')[0]);
+            List<Tour> allTours = _tourRepository.GetAll();
+            List<Tour> toursWithGuide = new();
+
+            foreach(Tour tour in allTours)
+            {
+                if(tour.GuideId == GuideId)
+                {
+                    toursWithGuide.Add(tour);
+                }
+            }
+
+            CancelAllTours(toursWithGuide);
+        }
+
+
+        public void CancelAllTours(List<Tour> toursToCancel)
+        {
+            foreach(var tour in toursToCancel)
+            {
+                CancelTour(null, tour.TourId);
+            }
+        }
+
+        public void CancelTour(string? tourToCancel, int? tourToCancelId)
+        {
+            int tourId;
+            if (tourToCancel != null)
+                tourId = int.Parse(tourToCancel.Split(' ')[0]);
+            else
+                tourId = (int)tourToCancelId;
+
             _tourRepository.Delete(_tourRepository.GetById(tourId));
             List<TourReservation> reservations = _tourReservationRepository.GetAll();
             foreach (TourReservation reservation in reservations)

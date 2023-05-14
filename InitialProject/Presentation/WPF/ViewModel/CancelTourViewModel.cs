@@ -73,7 +73,7 @@ namespace InitialProject.Presentation.WPF.ViewModel
 
         public void CancelTour(object obj)
         {
-            _cancelTourService.CancelTour(SelectedTour);
+            _cancelTourService.CancelTour(SelectedTour, null);
         }
 
 

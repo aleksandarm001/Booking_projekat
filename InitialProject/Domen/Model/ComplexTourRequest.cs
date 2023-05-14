@@ -20,6 +20,7 @@ namespace InitialProject.Domen.Model
         public DateTime StartingDate { get; set; }
         public DateTime EndingDate { get; set; }
         public Status RequestStatus { get; set; } = Status.OnHold;
+        public int GuideId { get; set; } = -1;
 
 
         public ComplexTourRequest()
@@ -41,7 +42,8 @@ namespace InitialProject.Domen.Model
                 GuestNumber.ToString(),
                 StartingDate.ToString(),
                 EndingDate.ToString(),
-                RequestStatus.ToString() };
+                RequestStatus.ToString(), 
+                GuideId.ToString()};
             return csvValues;
         }
 
@@ -58,6 +60,7 @@ namespace InitialProject.Domen.Model
             StartingDate = DateTime.Parse(values[8]);
             EndingDate = DateTime.Parse(values[9]);
             RequestStatus = (Status)Enum.Parse(typeof(Status), values[10]);
+            GuideId= Convert.ToInt32(values[11]);
         }
     }
 }
