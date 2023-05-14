@@ -1,18 +1,16 @@
+using InitialProject.Aplication.Factory;
+using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.View.Guest1;
+using InitialProject.Presentation.WPF.View.Guest2;
+using InitialProject.Presentation.WPF.View.Owner;
+using InitialProject.Repository;
+using InitialProject.Services.IServices;
 using InitialProject.View;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Collections.ObjectModel;
-using InitialProject.View.Guest1;
-using InitialProject.Repository;
-using InitialProject.Domen.Model;
-using InitialProject.Services;
-using InitialProject.Aplication.Factory;
-using InitialProject.Services.IServices;
-using InitialProject.Presentation.WPF.View;
-using InitialProject.Presentation.WPF.View.Guest1;
-using InitialProject.Presentation.WPF.View.Owner;
 
 namespace InitialProject
 {
@@ -46,9 +44,9 @@ namespace InitialProject
         {
             List<User> users = _userRepository.GetAllUsers();
             bool match = false;
-            foreach(User user in users)
+            foreach (User user in users)
             {
-                if(user.Email == Email && user.Password == Password)
+                if (user.Email == Email && user.Password == Password)
                 {
                     match = true;
                     //StartWindow startWindow = new StartWindow(user.Id); 
@@ -82,18 +80,23 @@ namespace InitialProject
                     window.Show();
                     this.Close();
                     break;
-                case(UserType.Owner):
+                case (UserType.Owner):
                     OwnerStartWindow start = new OwnerStartWindow(user.Id);
                     start.Show();
                     this.Close();
                     break;
-             
-                default:
-                    StartWindow startWindow = new StartWindow(user.Id);
-                    startWindow.Show();
+
+                case (UserType.Guest2):
+                    HomeWindow homeWindow = new HomeWindow(user.Id);
+                    homeWindow.Show();
                     this.Close();
                     break;
-                
+                case (UserType.Guide):
+                    TourForm tour = new TourForm();
+                    tour.Show();
+                    this.Close();
+                    break;
+
             }
         }
     }

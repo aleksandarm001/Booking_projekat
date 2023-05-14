@@ -180,7 +180,7 @@ namespace InitialProject.Presentation.WPF.View.Guest2
 
             if (selectedYear=="Sve godine")
             {
-                foreach (TourRequest t in _tourRequestService.GetAllTourRequests(UserId).Where(t => t.RequestStatus == TourRequest.Status.Accepted))
+                foreach (TourRequest t in _tourRequestService.GetAllTourRequests(UserId).Where(t => t.RequestStatus == ComplexTourRequest.Status.Accepted))
                 {
                     guestNumber += t.GuestNumber;
                     numberOfAcceptedTours++;
@@ -189,7 +189,7 @@ namespace InitialProject.Presentation.WPF.View.Guest2
             else
             {
                 int year = Int32.Parse(selectedYear);
-                foreach (TourRequest t in _tourRequestService.GetAllTourRequests(UserId).Where(t => t.RequestStatus == TourRequest.Status.Accepted && t.StartingDate.Year==year))
+                foreach (TourRequest t in _tourRequestService.GetAllTourRequests(UserId).Where(t => t.RequestStatus == ComplexTourRequest.Status.Accepted && t.StartingDate.Year==year))
                 {
                     guestNumber += t.GuestNumber;
                     numberOfAcceptedTours++;
@@ -214,7 +214,7 @@ namespace InitialProject.Presentation.WPF.View.Guest2
 
             if (selectedYear == "Sve godine")
             {
-                foreach (TourRequest t in _tourRequestService.GetAllTourRequests(UserId).Where(t => t.RequestStatus == TourRequest.Status.Accepted))
+                foreach (TourRequest t in _tourRequestService.GetAllTourRequests(UserId).Where(t => t.RequestStatus == ComplexTourRequest.Status.Accepted))
                 {
                     numberOfAcceptedTours++;
                 }
@@ -222,7 +222,7 @@ namespace InitialProject.Presentation.WPF.View.Guest2
             else
             {
                 int year = Int32.Parse(selectedYear);
-                foreach (TourRequest t in _tourRequestService.GetAllTourRequests(UserId).Where(t => t.RequestStatus == TourRequest.Status.Accepted && t.StartingDate.Year==year))
+                foreach (TourRequest t in _tourRequestService.GetAllTourRequests(UserId).Where(t => t.RequestStatus == ComplexTourRequest.Status.Accepted && t.StartingDate.Year==year))
                 {
                     numberOfAcceptedTours++;
                 }

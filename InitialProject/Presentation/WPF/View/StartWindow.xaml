@@ -17,7 +17,6 @@
             <Button Content="Guest1" HorizontalAlignment="Center" Height="46" Width="200" Margin="0,10,0,0" Click="Guest1_ButtonClick"/>
             <Button Content="Guide" HorizontalAlignment="Center" Height="47" Width="200" Margin="0,10,0,0" Click="Guide_ButtonClick"/>
             <Button Content="Guest2" HorizontalAlignment="Center" Height="48" Width="200" Margin="0,10,0,0" Click="Guest2_ButtonClick"/>
-            <Button Content="Button" Height="18" Width="142" Click="Button_Click"/>
         </StackPanel>
     </Grid>
 </Window>

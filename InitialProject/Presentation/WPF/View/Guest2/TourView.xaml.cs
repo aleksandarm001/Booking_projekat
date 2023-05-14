@@ -1,7 +1,6 @@
 ﻿namespace InitialProject.Presentation.WPF.View.Guest2
 {
     using InitialProject.Aplication.Factory;
-    using InitialProject.CustomClasses;
     using InitialProject.Domen.Model;
     using InitialProject.Presentation.WPF.Constants;
     using InitialProject.Presentation.WPF.View.Guest2;

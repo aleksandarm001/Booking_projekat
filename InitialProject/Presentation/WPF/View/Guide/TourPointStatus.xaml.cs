@@ -1,5 +1,4 @@
-﻿using InitialProject.CustomClasses;
-using InitialProject.Domen.Model;
+﻿using InitialProject.Domen.Model;
 using InitialProject.Repository;
 using InitialProject.View.Guide;
 using System;

@@ -1,7 +1,7 @@
 ﻿namespace InitialProject.Presentation.WPF.ViewModel.Guest2
 {
     using InitialProject.Aplication.Factory;
-    using InitialProject.CustomClasses;
+    using InitialProject.Domen.Model;
     using InitialProject.Services.IServices;
 
     public class CheckingTourViewModel

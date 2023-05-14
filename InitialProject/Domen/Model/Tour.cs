@@ -34,7 +34,6 @@ namespace InitialProject.Domen.Model
         public int Duration { get; set; }
         public bool TourStarted { get; set; }
 
-        //public List<String> Images { get; set; }
 
         public Tour()
         {

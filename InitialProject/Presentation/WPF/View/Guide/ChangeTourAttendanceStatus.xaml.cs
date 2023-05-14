@@ -1,4 +1,4 @@
-﻿using InitialProject.CustomClasses;
+﻿using InitialProject.Domen.Model;
 using InitialProject.Repository;
 using System.Collections.ObjectModel;
 using System.Windows;
