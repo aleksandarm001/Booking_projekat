@@ -2,6 +2,7 @@ using InitialProject.Aplication.Factory;
 using InitialProject.Domen.Model;
 using InitialProject.Presentation.WPF.View.Guest1;
 using InitialProject.Presentation.WPF.View.Guest2;
+using InitialProject.Presentation.WPF.View.Guide;
 using InitialProject.Presentation.WPF.View.Owner;
 using InitialProject.Repository;
 using InitialProject.Services.IServices;
@@ -92,8 +93,8 @@ namespace InitialProject
                     this.Close();
                     break;
                 case (UserType.Guide):
-                    TourForm tour = new TourForm();
-                    tour.Show();
+                    GuideHomeScreen homeScreen = new GuideHomeScreen();
+                    homeScreen.Show();
                     this.Close();
                     break;
 

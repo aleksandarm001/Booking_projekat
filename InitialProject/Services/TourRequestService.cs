@@ -28,9 +28,9 @@
         {
             foreach (TourRequest tourRequest in  _repository.GetAll()) 
             { 
-                if (tourRequest.StartingDate < DateTime.Now.AddDays(2) && tourRequest.RequestStatus == TourRequest.Status.OnHold)
+                if (tourRequest.StartingDate < DateTime.Now.AddDays(2) && tourRequest.RequestStatus == ComplexTourRequest.Status.OnHold)
                 {
-                    tourRequest.RequestStatus = TourRequest.Status.Rejected;
+                    tourRequest.RequestStatus = ComplexTourRequest.Status.Rejected;
                     _repository.Update(tourRequest);
                 }
             }
