@@ -1,4 +1,4 @@
-﻿using InitialProject.Repository;
+using InitialProject.Repository;
 using InitialProject.Services;
 using InitialProject.Services.IServices;
 using System.Collections.Generic;
@@ -66,6 +66,8 @@ namespace InitialProject.Aplication.Factory
             { typeof(IComplexTourRequestService), new Lazy<object>(() => new ComplexTourRequestService()) },
             { typeof(IComplexTourRequestRepository), new Lazy<object>(() => new ComplexTourRequestRepository()) },            
             { typeof(ITourRateRepository), new Lazy<object>(() => new TourRateRepository()) },            
+            { typeof(IReservationDTOService), new Lazy<object>(() => new ReservationDTOService()) },
+            { typeof(ICheckingInService), new Lazy<object>(() => new CheckingInService()) },
         };
 
         public static T CreateInstance<T>()

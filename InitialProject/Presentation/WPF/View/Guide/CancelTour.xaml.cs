@@ -10,27 +10,8 @@ namespace InitialProject.View.Guide
         public CancelTour()
         {
             InitializeComponent();
-            viewModel = new CancelTourViewModel();
+            viewModel = new CancelTourViewModel(this);
             DataContext = viewModel;
-            Cancelbutton.IsEnabled = false;
-        }
-
-        //create click 
-        private void QuitButton(object sender, RoutedEventArgs e)
-        {
-            //viewModel.CancelTour();
-            this.Close();
-        }
-
-        private void CancelButton(object sender, RoutedEventArgs e)
-        {
-            viewModel.CancelTour();
-            this.Close();
-        }
-
-        private void EnableButton(object sender, SelectionChangedEventArgs e)
-        {
-            Cancelbutton.IsEnabled = true;
         }
     }
 }

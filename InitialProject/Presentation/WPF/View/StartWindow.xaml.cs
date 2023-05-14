@@ -1,6 +1,7 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Presentation.WPF.View.Guest2;
+using InitialProject.Presentation.WPF.View.Guide;
 using InitialProject.Repository;
 using InitialProject.View;
 using InitialProject.View.Guest1;
@@ -77,8 +78,9 @@ namespace InitialProject.Presentation.WPF.View
         }
         private void Guide_ButtonClick(object sender, RoutedEventArgs e)
         {
-            TourForm tour = new TourForm();
-            tour.Show();
+
+            GuideHomeScreen guideHomeScreen = new GuideHomeScreen();
+            guideHomeScreen.Show();
         }
         private void OpenRegistrationForm(object sender, RoutedEventArgs e)
         {

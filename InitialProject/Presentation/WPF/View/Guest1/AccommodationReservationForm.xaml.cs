@@ -1,5 +1,6 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.ViewModel;
 using InitialProject.Repository;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace InitialProject.View
         private readonly ReservationRepository _reservationRepository;
         private readonly AccommodationReservationRepository _accommodationReservationRepository;
         private int _userId;
+        public RelayCommand ApplyCommand { get; private set; }
+        public RelayCommand CloseCommand { get; private set; }
         public DateRange SelectedDateRange { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public string AccommodationName { get; set; }
@@ -66,8 +69,6 @@ namespace InitialProject.View
                 }
             }
         }
-
-        private int _reservationDays;
         public int ReservationDays { get; set; }
 
         private string _strReservationDays;
@@ -81,7 +82,7 @@ namespace InitialProject.View
                     try
                     {
                         int _reservationDays;
-                        int.TryParse(value, out _reservationDays);
+                        IsEnabled = int.TryParse(value, out _reservationDays);
                         ReservationDays = _reservationDays;
                     }
                     catch (Exception) { }
@@ -100,6 +101,19 @@ namespace InitialProject.View
                 OnPropertyChanged("NumberOfGuests");
             }
         }
+        private bool _isEnabled;
+        public bool IsEnabled
+        {
+            get 
+            { 
+                return _isEnabled; 
+            }
+            set 
+            { 
+                _isEnabled = value; 
+                OnPropertyChanged(nameof(IsEnabled)); 
+            }
+        }
         protected virtual void OnPropertyChanged(string name)
         {
             if (PropertyChanged != null)
@@ -107,6 +121,7 @@ namespace InitialProject.View
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
+        public NumericValidation validation { get; set; }
         public AccommodationReservationForm(Accommodation accommodation, int userId)
         {
             InitializeComponent();
@@ -117,11 +132,34 @@ namespace InitialProject.View
             Reservations = accommodation.Reservations;
             _reservationRepository = new ReservationRepository();
             _accommodationReservationRepository = new AccommodationReservationRepository();
+            InitializeDatePickers();
+            DateRanges = new ObservableCollection<DateRange>();
+            IsEnabled = false;
+            ApplyCommand = new RelayCommand(ApplyFilters_Command);
+            CloseCommand = new RelayCommand(CloseWindow_Command);
+            validation = new NumericValidation();
+        }
+
+        private void InitializeDatePickers()
+        {
             StartDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
             EndDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
-            DateRanges = new ObservableCollection<DateRange>();
         }
-        
+        private void ApplyFilters_Command(object parameter)
+        {
+            ApplyFilters();
+            var dataGrid = parameter as DataGrid;
+            if(dataGrid != null && dataGrid.Items.Count > 0)
+            {
+                dataGrid.Focus();
+                dataGrid.SelectedItem = dataGrid.Items[0];
+                dataGrid.ScrollIntoView(dataGrid.SelectedItem);
+            }
+        }
+        private void CloseWindow_Command(object parameter)
+        {
+            this.Close();
+        }
         private List<DateRange> ExtractFreeDates(DateTime StartDay, DateTime EndDay)
         {
             List<DateRange> allDates = GetAllPossibleDates(StartDay, EndDay);
@@ -162,17 +200,16 @@ namespace InitialProject.View
         }
         private void ApplyFiltersButton(object sender, RoutedEventArgs e)
         {
-            NoFreeReservation.Visibility = Visibility.Hidden;
-            if (ReservationDays < SelectedAccommodation.MinReservationDays)
-            {
-                MessageBox.Show("Minimum number of days to reserve " + AccommodationName + " is " + SelectedAccommodation.MinReservationDays);
-            }
-            else
-            {
-                DateRanges.Clear();
-                ShowFreeDatesForReservation();
-            }
+            ApplyFilters();
         }
+
+        private void ApplyFilters()
+        {
+            NoFreeReservation.Visibility = Visibility.Hidden;
+            DateRanges.Clear();
+            ShowFreeDatesForReservation();
+        }
+
         private void ShowFreeDatesForReservation()
         {
             List<DateRange> freeDates = ExtractFreeDates(StartDay, EndDay);
