@@ -13,6 +13,7 @@ using InitialProject.Services.IServices;
 using InitialProject.Presentation.WPF.View;
 using InitialProject.Presentation.WPF.View.Guest1;
 using InitialProject.Presentation.WPF.View.Owner;
+using InitialProject.Presentation.WPF.View.Guide;
 
 namespace InitialProject
 {
@@ -87,7 +88,12 @@ namespace InitialProject
                     start.Show();
                     this.Close();
                     break;
-             
+                case (UserType.Guide):
+                    GuideHomeScreen guideHomeScreen = new GuideHomeScreen(user.Id);
+                    guideHomeScreen.Show();
+                    this.Close();
+                    break;
+
                 default:
                     StartWindow startWindow = new StartWindow(user.Id);
                     startWindow.Show();

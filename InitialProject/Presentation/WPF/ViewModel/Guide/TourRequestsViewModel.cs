@@ -24,7 +24,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         private readonly ITourRequestService tourRequestService;
         private readonly ITourService tourService;
 
-        public TourRequestsViewModel()
+        private readonly int GuideId;
+
+        public TourRequestsViewModel(int? guideId)
         {
             ApproveCommand = new RelayCommand(ApproveTourRequest);
             DeclineCommand = new RelayCommand(DeclineTourRequest);
@@ -36,6 +38,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             _tourRequests = new ObservableCollection<TourRequest>();
 
             var tourRequestsList = tourRequestService.GetAllRequests();
+
+            GuideId = (int)guideId;
 
             foreach (var tourRequest in tourRequestsList)
                 if(tourRequest.RequestStatus == TourRequest.Status.OnHold)
@@ -94,7 +98,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
             creationType.Type = CreationType.CreationTourType.CreatedByRequest;
 
-            CreatingTourView creatingTourView = new CreatingTourView(selectedTourRequest, creationType);
+            CreatingTourView creatingTourView = new CreatingTourView(selectedTourRequest, creationType, null);
             _tourRequests.Remove(selectedTourRequest);
             creatingTourView.ShowDialog();
         }
@@ -120,7 +124,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
         public void ComplexRequest(object obj)
         {
-            ComplexTourRequestsView T = new ComplexTourRequestsView();
+            ComplexTourRequestsView T = new ComplexTourRequestsView(GuideId);
             T.Show();
         }
 

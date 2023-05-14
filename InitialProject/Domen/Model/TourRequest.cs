@@ -14,6 +14,7 @@
         public DateTime StartingDate { get; set; }
         public DateTime EndingDate { get; set; }
         public Status RequestStatus { get; set; } = Status.OnHold;
+        public int GuideId { get; set; } = -1;
 
 
         public TourRequest()   
@@ -33,7 +34,9 @@
                 GuestNumber.ToString(),
                 StartingDate.ToString(),
                 EndingDate.ToString(),
-                RequestStatus.ToString() };
+                RequestStatus.ToString(),
+                GuideId.ToString()
+                };
             return csvValues;
         }
 
@@ -48,6 +51,7 @@
             StartingDate = DateTime.Parse(values[6]);
             EndingDate = DateTime.Parse(values[7]);
             RequestStatus = (Status)Enum.Parse(typeof(Status), values[8]);
+            GuideId = Convert.ToInt32(values[9]);
         }
     }
 }

@@ -21,9 +21,9 @@ namespace InitialProject.Presentation.WPF.View.Guide
     public partial class ComplexTourRequestsView : Window
     {
         private readonly ComplexTourRequestsViewModel _complexTourRequestsViewModel;
-        public ComplexTourRequestsView()
+        public ComplexTourRequestsView(int? GuideId)
         {
-            _complexTourRequestsViewModel = new ComplexTourRequestsViewModel();
+            _complexTourRequestsViewModel = new ComplexTourRequestsViewModel(GuideId);
             DataContext = _complexTourRequestsViewModel;
             InitializeComponent();
         }

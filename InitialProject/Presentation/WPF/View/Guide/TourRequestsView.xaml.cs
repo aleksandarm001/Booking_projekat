@@ -9,9 +9,9 @@ namespace InitialProject.Presentation.WPF.View.Guide
     public partial class TourRequestsView : Window
     {
         public TourRequestsViewModel ViewModel { get; set; }
-        public TourRequestsView()
+        public TourRequestsView(int? GuideId)
         {
-            ViewModel = new TourRequestsViewModel();
+            ViewModel = new TourRequestsViewModel(GuideId);
             DataContext = ViewModel;
             InitializeComponent();
         }

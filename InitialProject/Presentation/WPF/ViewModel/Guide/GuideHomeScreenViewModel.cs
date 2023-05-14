@@ -17,11 +17,12 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public RelayCommand HamburgerCommand { get; set; }
         public RelayCommand TourStatisticsCommand { get; set; }
 
+        public int GuideId { get; private set; }
 
         private System.Timers.Timer popupTimer;
 
         public Window _window { get; set; }
-        public GuideHomeScreenViewModel(Window window)
+        public GuideHomeScreenViewModel(Window window, int? guideId)
         {
             CheckBoxCommand = new RelayCommand(CheckBoxChanged);
             FirstQuestionCommand = new RelayCommand(FirstAnswer);
@@ -32,6 +33,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             HamburgerCommand = new RelayCommand(ShowHamburgerMenu);
             TourStatisticsCommand = new RelayCommand(ShowStatistics);
             _window = window;
+            GuideId = (int)guideId;
         }
 
         public void ShowStatistics(object ob)
@@ -137,14 +139,14 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         }
         private void CreateTourView(object isChecked)
         {
-            CreatingTourView tourForm = new CreatingTourView(null,null);
+            CreatingTourView tourForm = new CreatingTourView(null,null,null);
             tourForm.Show();
             _window.Close();
         }
 
         private void CreateTourRequestView(object isChecked)
         {
-            TourRequestsView tourRequestForm = new TourRequestsView();
+            TourRequestsView tourRequestForm = new TourRequestsView(GuideId);
             tourRequestForm.Show();
             _window.Close();
         }

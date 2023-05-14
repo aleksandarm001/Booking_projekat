@@ -23,9 +23,9 @@ namespace InitialProject.Presentation.WPF.View.Guide
     public partial class CreatingTourView : Window
     {
         public CreateTourViewModel tourViewModel { get; set; }
-        public CreatingTourView(TourRequest? selectedTourRequest, CreationType? type)
+        public CreatingTourView(TourRequest? selectedTourRequest, CreationType? type, int? complexTourId)
         {
-            tourViewModel = new CreateTourViewModel(selectedTourRequest,type);
+            tourViewModel = new CreateTourViewModel(this,selectedTourRequest,type, complexTourId);
             DataContext = tourViewModel;
             InitializeComponent();
         }

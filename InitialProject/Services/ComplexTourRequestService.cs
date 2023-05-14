@@ -15,7 +15,7 @@ namespace InitialProject.Services
         public ComplexTourRequestService()
         {
             _repository = Injector.CreateInstance<IComplexTourRequestRepository>();
-            CheckRequests();
+            //CheckRequests();
         }
 
         public void CheckRequests()
@@ -82,6 +82,15 @@ namespace InitialProject.Services
         public List<ComplexTourRequest> GetAllTourRequestsByUser(int userId)
         {
             return _repository.GetAll().Where(complexTourRequest => complexTourRequest.UserId == userId).ToList();
+        }
+
+        public void UpdateSpecificRequest (int complexId, int tourId, int GuideId, DateTime startingDate)
+        {
+            ComplexTourRequest tour = GetAllTourRequests().FirstOrDefault(t => t.TourId == complexId && t.Id == tourId);
+            tour.RequestStatus = ComplexTourRequest.Status.Accepted;
+            tour.GuideId = GuideId;
+            tour.StartingDate = startingDate;
+            Update(tour);
         }
 
 

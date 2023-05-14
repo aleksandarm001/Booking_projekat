@@ -38,6 +38,8 @@ namespace InitialProject.Domen.Model
         public bool TourStarted { get; set; }
         public CreationTourType CreatedType { get; set; } = CreationType.CreationTourType.CreatedByGuide;
 
+        public int GuideId { get; set; } = -1;
+
         //public List<String> Images { get; set; }
 
         public Tour()
@@ -67,6 +69,7 @@ namespace InitialProject.Domen.Model
             Duration = Convert.ToInt32(values[7]);
             TourStarted = bool.Parse(values[8]);
             CreatedType = (CreationTourType)Enum.Parse(typeof(CreationTourType), values[9]);
+            GuideId = Convert.ToInt32(values[10]);
             //Images = values[9].Split(";").ToList<string>();
 
         }
@@ -85,7 +88,7 @@ namespace InitialProject.Domen.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { TourId.ToString(), Name, Location.ToString(), Description, Language.ToString(), MaxGuestNumber.ToString(), StartingDateTime.ToString(), Duration.ToString(), TourStarted.ToString(), CreatedType.ToString() };
+            string[] csvValues = { TourId.ToString(), Name, Location.ToString(), Description, Language.ToString(), MaxGuestNumber.ToString(), StartingDateTime.ToString(), Duration.ToString(), TourStarted.ToString(), CreatedType.ToString(),GuideId.ToString() };
             return csvValues;
         }
 
