@@ -92,7 +92,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
             creationType.Type = CreationType.CreationTourType.CreatedByComplexRequest;
 
-            CreatingTourView creatingTourView = new CreatingTourView(tourRequest, creationType, complexTourRequest.TourId);
+            CreatingTourView creatingTourView = new CreatingTourView(tourRequest, creationType, complexTourRequest.TourId, GuideId);
             creatingTourView.ShowDialog();
             TourOfComplexRequests.Remove(complexTourRequest);
             //mora da napravi turu na osnovu ovog complexTourRequest-a i da postavi CreationType By ComplexRequest
