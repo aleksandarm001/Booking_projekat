@@ -51,10 +51,10 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public TourRequest? TourRequest;
         public List<DateTime> availableDates { get; set; }
         public CreationTourType? Type { get; set; }
-
         public int? ComplexTourId { get; set; }
         public Window window { get; set; }
-        public CreateTourViewModel(Window _window,TourRequest? tourRequest, CreationType? type, int? ComplexId)
+        public int? GuideId { get; set; }
+        public CreateTourViewModel(Window _window,TourRequest? tourRequest, CreationType? type, int? ComplexId, int? GuideId)
         {
             _locationService = Injector.CreateInstance<ILocationService>();
             _languageService = Injector.CreateInstance<ILanguageService>();
@@ -85,6 +85,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                 ComplexTourId = (int)ComplexId;
             if(type != null)
                 Type = type.Type;
+            if(GuideId != null)
+                this.GuideId = (int)GuideId;
 
 
             if (tourRequest != null)
@@ -172,7 +174,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                         StartingDateTime = date,
                         Duration = TourDuratation,
                         TourStarted = false,
-                        CreatedType = (CreationTourType)Type
+                        CreatedType = (CreationTourType)Type,
+                        GuideId = (int)GuideId
                     };
 
                     if (TourRequest != null)
@@ -235,6 +238,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                         StartingDateTime = date,
                         Duration = TourDuratation,
                         TourStarted = false,
+                        GuideId = (int)GuideId
                     };
 
                     if (TourRequest != null)

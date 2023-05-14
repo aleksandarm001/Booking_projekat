@@ -98,7 +98,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
             creationType.Type = CreationType.CreationTourType.CreatedByRequest;
 
-            CreatingTourView creatingTourView = new CreatingTourView(selectedTourRequest, creationType, null);
+            CreatingTourView creatingTourView = new CreatingTourView(selectedTourRequest, creationType, null, GuideId);
             _tourRequests.Remove(selectedTourRequest);
             creatingTourView.ShowDialog();
         }
