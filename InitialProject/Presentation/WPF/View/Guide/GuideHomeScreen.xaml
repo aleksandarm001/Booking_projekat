@@ -29,10 +29,10 @@
             </Grid.ColumnDefinitions>
 
             <!-- Logo Image -->
-            <Image Source="C:\Users\Zlatan\source\repos\SIMS-BookingBuddies\InitialProject\InitialProject\Infrastructure\Resources\Images\BookBuddy_logo1.png" Height="40" VerticalAlignment="Center" Margin="10"/>
+            <Image Source="/InitialProject;component/Infrastructure/Resources/Images/BookBuddy_logo1.png" Height="40" VerticalAlignment="Center" Margin="10"/>
 
             <!-- Hamburger Image -->
-            <Image Source="C:\Users\Zlatan\Desktop\hamburher.png" Height="60" VerticalAlignment="Center" Margin="124,0,1,0" Grid.Column="1"/>
+            <Image Source="/InitialProject;component/Infrastructure/Resources/Images/hamburher.png" Height="60" VerticalAlignment="Center" Margin="124,0,1,0" Grid.Column="1"/>
 
             <!-- Burger Menu Button -->
             <Button x:Name="BurgerMenuButton" Grid.Column="1" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding HamburgerCommand}">
@@ -65,7 +65,7 @@
                                 <Grid Background="Transparent">
                                     <Ellipse x:Name="BackgroundEllipse" Stroke="Black" StrokeThickness="2">
                                         <Ellipse.Fill>
-                                            <ImageBrush x:Name="BackgroundImage" ImageSource="C:\Users\Zlatan\Downloads\qmark.png" Stretch="UniformToFill"/>
+                                            <ImageBrush x:Name="BackgroundImage" ImageSource="/InitialProject;component/Infrastructure/Resources/Images/qmark.png" Stretch="UniformToFill"/>
                                         </Ellipse.Fill>
                                     </Ellipse>
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -74,7 +74,7 @@
                                     <Trigger Property="IsChecked" Value="True">
                                         <Setter TargetName="BackgroundEllipse" Property="Fill">
                                             <Setter.Value>
-                                                <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\qmark.png" Stretch="UniformToFill"/>
+                                                <ImageBrush ImageSource="/InitialProject;component/Infrastructure/Resources/Images/qmark.png" Stretch="UniformToFill"/>
                                             </Setter.Value>
                                         </Setter>
                                     </Trigger>
@@ -107,7 +107,7 @@
                                 <Grid Background="Transparent">
                                     <Ellipse x:Name="BackgroundEllipse" Stroke="Black" StrokeThickness="2">
                                         <Ellipse.Fill>
-                                            <ImageBrush x:Name="BackgroundImage" ImageSource="C:\Users\Zlatan\Downloads\qmark.png" Stretch="UniformToFill"/>
+                                            <ImageBrush x:Name="BackgroundImage" ImageSource="/InitialProject;component/Infrastructure/Resources/Images/qmark.png" Stretch="UniformToFill"/>
                                         </Ellipse.Fill>
                                     </Ellipse>
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -116,7 +116,7 @@
                                     <Trigger Property="IsChecked" Value="True">
                                         <Setter TargetName="BackgroundEllipse" Property="Fill">
                                             <Setter.Value>
-                                                <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\qmark.png" Stretch="UniformToFill"/>
+                                                <ImageBrush ImageSource="/InitialProject;component/Infrastructure/Resources/Images/qmark.png" Stretch="UniformToFill"/>
                                             </Setter.Value>
                                         </Setter>
                                     </Trigger>
@@ -149,7 +149,7 @@
                                 <Grid Background="Transparent">
                                     <Ellipse x:Name="BackgroundEllipse" Stroke="Black" StrokeThickness="2">
                                         <Ellipse.Fill>
-                                            <ImageBrush x:Name="BackgroundImage" ImageSource="C:\Users\Zlatan\Downloads\qmark.png" Stretch="UniformToFill"/>
+                                            <ImageBrush x:Name="BackgroundImage" ImageSource="/InitialProject;component/Infrastructure/Resources/Images/qmark.png" Stretch="UniformToFill"/>
                                         </Ellipse.Fill>
                                     </Ellipse>
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -158,7 +158,7 @@
                                     <Trigger Property="IsChecked" Value="True">
                                         <Setter TargetName="BackgroundEllipse" Property="Fill">
                                             <Setter.Value>
-                                                <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\qmark.png" Stretch="UniformToFill"/>
+                                                <ImageBrush ImageSource="/InitialProject;component/Infrastructure/Resources/Images/qmark.png" Stretch="UniformToFill"/>
                                             </Setter.Value>
                                         </Setter>
                                     </Trigger>
@@ -203,7 +203,7 @@
                     <CheckBox.Template>
                         <ControlTemplate TargetType="CheckBox">
                             <Grid Background="Transparent">
-                                <Image x:Name="BackgroundImage" Source="C:\Users\Zlatan\Downloads\qmark.png" Stretch="UniformToFill"/>
+                                <Image x:Name="BackgroundImage" Source="/InitialProject;component/Infrastructure/Resources/Images/qmark.png" Stretch="UniformToFill"/>
                                 <Ellipse x:Name="BackgroundEllipse" Fill="#E0E0E0" Stroke="Black" StrokeThickness="2"/>
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
