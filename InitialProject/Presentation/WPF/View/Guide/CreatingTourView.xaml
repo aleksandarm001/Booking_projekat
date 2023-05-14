@@ -31,10 +31,10 @@
 
 
             <!-- Logo Image -->
-            <Image Source="C:\Users\Zlatan\source\repos\SIMS-BookingBuddies\InitialProject\InitialProject\Infrastructure\Resources\Images\BookBuddy_logo1.png" Height="40" VerticalAlignment="Center" Margin="10"/>
+            <Image Source="/InitialProject;component/Infrastructure/Resources/Images/BookBuddy_logo1.png" Height="40" VerticalAlignment="Center" Margin="10"/>
 
             <!-- Hamburger Image -->
-            <Image Source="C:\Users\Zlatan\Desktop\hamburher.png" Height="60" VerticalAlignment="Center" Margin="124,0,1,0" Grid.Column="1"/>
+            <Image Source="/InitialProject;component/Infrastructure/Resources/Images/hamburher.png" Height="60" VerticalAlignment="Center" Margin="124,0,1,0" Grid.Column="1"/>
 
             <!-- Burger Menu Button -->
             <Button x:Name="BurgerMenuButton" Grid.Column="1" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding CreateTourCommand}">
@@ -269,12 +269,12 @@
                         </TextBox>
                         <Button Margin="236,2,3,2" BorderThickness="0">
                             <Button.Background>
-                                <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\moda-removebg-preview.png"/>
+                                <ImageBrush ImageSource="/InitialProject;component/Infrastructure/Resources/Images/moda-removebg-preview.png"/>
                             </Button.Background>
                         </Button>
                         <Button Margin="236,2,3,2" BorderThickness="0">
                             <Button.Background>
-                                <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\moda-removebg-preview.png"/>
+                                <ImageBrush ImageSource="/InitialProject;component/Infrastructure/Resources/Images/moda-removebg-preview.png"/>
                             </Button.Background>
                         </Button>
                     </Grid>
@@ -329,7 +329,7 @@
                         </TextBox>
                         <Button Margin="236,2,3,2" BorderThickness="0" Command="{Binding EditDatesCommand}">
                             <Button.Background>
-                                <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\moda-removebg-preview.png"/>
+                                <ImageBrush ImageSource="/InitialProject;component/Infrastructure/Resources/Images/moda-removebg-preview.png"/>
                             </Button.Background>
                         </Button>
                     </Grid>
@@ -381,7 +381,7 @@
                         </TextBox>
                         <Button Margin="236,2,3,2" BorderThickness="0" Command="{Binding EditTourPointsCommand}">
                             <Button.Background>
-                                <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\moda-removebg-preview.png"/>
+                                <ImageBrush ImageSource="/InitialProject;component/Infrastructure/Resources/Images/moda-removebg-preview.png"/>
                             </Button.Background>
                         </Button>
                     </Grid>
@@ -420,12 +420,12 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="59,513,0,10" Width="322">
                 <Button Width="50" Height="50" Margin="5,0,150,0" BorderThickness="0" Command="{Binding AddCommand}">
                     <Button.Background>
-                        <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\download.png"/>
+                        <ImageBrush ImageSource="/InitialProject;component/Infrastructure/Resources/Images/download.png"/>
                     </Button.Background>
                 </Button>
                 <Button Width="50" Height="50" Margin="50,0,5,0" BorderThickness="0">
                     <Button.Background>
-                        <ImageBrush ImageSource="C:\Users\Zlatan\Downloads\iconmonstr-x-mark-circle-thin.png"/>
+                        <ImageBrush ImageSource="/InitialProject;component/Infrastructure/Resources/Images/iconmonstr-x-mark-circle-thin.png"/>
                     </Button.Background>
                 </Button>
             </StackPanel>
