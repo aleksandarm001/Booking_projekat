@@ -24,6 +24,8 @@
 
         List<string> GetAllYearsOfTourReqeusts();
         List<TourRequest> FilterRequests(FilterRequests dataToFilter);
-        
+        void MakeNotificationsForGuests(Tour tour, int userId);
+
+
     }
 }

@@ -13,18 +13,18 @@
     public class TourNotification : ISerializable
     {
         public enum NotificationType { TourRequest, StatisticTour}
-        public int TourId { get; set; }
         public int UserId { get; set; }
+        public int TourId { get; set; }
         public NotificationType Type { get; set; }
 
         public TourNotification()
         {
         }
 
-        public TourNotification(int tourId, int userId, NotificationType type)
+        public TourNotification(int userId, int tourId, NotificationType type)
         {
-            TourId = tourId;
             UserId = userId;
+            TourId = tourId;
             Type = type;
         }
 

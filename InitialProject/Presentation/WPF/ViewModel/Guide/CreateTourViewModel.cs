@@ -188,6 +188,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                     }
 
                     _tourService.Save(tour);
+                    _tourRequestService.MakeNotificationsForGuests(tour, TourRequest.UserId);
 
                     _tourPointService.SaveTourPoints(tourPoints);
                     foreach (var tourPoint in tourPoints)

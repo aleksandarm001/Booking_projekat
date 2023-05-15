@@ -13,6 +13,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
     public class TourRequestService : ITourRequestService
     {
@@ -22,6 +23,7 @@
         public TourRequestService()
         {
             _repository = Injector.CreateInstance<ITourRequestRepository>();
+            _tourNotificationService = Injector.CreateInstance<ITourNotificationService>();
             CheckRequests();
         }
 
@@ -90,23 +92,30 @@
             return _repository.GetById(id);
         }
 
-        public void MakeNotificationsForGuests(Tour tour)
+        public void MakeNotificationsForGuests(Tour tour, int userId)
         {
-            var lista = _repository.GetAll().Where(t => t.Language.Name == tour.Language.Name).ToList().GroupBy(t => t.UserId);
-            foreach (var item in lista)
+            if (tour.CreatedType == CreationType.CreationTourType.CreatedByRequest)
             {
-                if (item.Where(t => t.RequestStatus == ComplexTourRequest.Status.Rejected).Count() == item.Count())
-                {
-                    _tourNotificationService.MakeNotification(item.Key, tour.TourId, TourNotification.NotificationType.StatisticTour);
-                }
+                _tourNotificationService.MakeNotification( userId, tour.TourId, TourNotification.NotificationType.StatisticTour);
             }
-
-            var pista = _repository.GetAll().Where(t => t.Location.Country.ToString() == tour.Location.Country.ToString() && t.Location.City.ToString() == tour.Location.City.ToString()).ToList().GroupBy(t => t.UserId);
-            foreach (var item in pista)
+            else if (tour.CreatedType == CreationType.CreationTourType.CreatedByStatistics)
             {
-                if (item.Where(t => t.RequestStatus == ComplexTourRequest.Status.Rejected).Count() == item.Count())
+                var lista = _repository.GetAll().Where(t => t.Language.Name == tour.Language.Name).ToList().GroupBy(t => t.UserId);
+                foreach (var item in lista)
                 {
-                    _tourNotificationService.MakeNotification(item.Key, tour.TourId, TourNotification.NotificationType.StatisticTour);
+                    if (item.Where(t => t.RequestStatus == ComplexTourRequest.Status.Rejected).Count() == item.Count())
+                    {
+                        _tourNotificationService.MakeNotification(item.ElementAt(0).UserId, tour.TourId, TourNotification.NotificationType.StatisticTour);
+                    }
+                }
+
+                var pista = _repository.GetAll().Where(t => t.Location.Country.ToString() == tour.Location.Country.ToString() && t.Location.City.ToString() == tour.Location.City.ToString()).ToList().GroupBy(t => t.UserId);
+                foreach (var item in pista)
+                {
+                    if (item.Where(t => t.RequestStatus == ComplexTourRequest.Status.Rejected).Count() == item.Count())
+                    {
+                        _tourNotificationService.MakeNotification(item.ElementAt(0).UserId, tour.TourId, TourNotification.NotificationType.StatisticTour);
+                    }
                 }
             }
         }

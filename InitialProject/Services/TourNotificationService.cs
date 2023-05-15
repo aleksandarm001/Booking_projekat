@@ -3,6 +3,7 @@
     using InitialProject.Aplication.Contracts.Repository;
     using InitialProject.Aplication.Factory;
     using InitialProject.Application.Contracts.Repository;
+    using InitialProject.Domen.CustomClasses;
     using InitialProject.Presentation.WPF.View.Guest2;
     using InitialProject.Services.IServices;
     using System;
@@ -23,18 +24,26 @@
         public void NotifyGuest(int userId)
         {
             var lista = _repository.GetAllForUser(userId);
-            foreach(var notification in lista) 
+            foreach (var notification in lista)
             {
-                TourNotification tourNotification = new TourNotification(notification.TourId);
-                _repository.Delete(notification);
-                tourNotification.ShowDialog();
+                if (notification.Type == TourNotification.NotificationType.StatisticTour) { 
+                    TourNotificationView tourNotification = new TourNotificationView(notification);
+                    _repository.Delete(notification);
+                    tourNotification.ShowDialog();
+                } 
+                else
+                {
+                    TourRequestNotificationView tourNotification = new TourRequestNotificationView(notification);
+                    _repository.Delete(notification);
+                    tourNotification.ShowDialog();
+                }
                 
             }
         }
 
-        public void MakeNotification(int userId, int tourId, Domen.CustomClasses.TourNotification.NotificationType type)
+        public void MakeNotification(int userId, int tourId, TourNotification.NotificationType type)
         {
-            Domen.CustomClasses.TourNotification notification = new Domen.CustomClasses.TourNotification(userId, tourId, type);
+            Domen.CustomClasses.TourNotification notification = new TourNotification(userId, tourId, type);
             _repository.Save(notification);
         }
     }
