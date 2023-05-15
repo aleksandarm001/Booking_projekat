@@ -26,6 +26,7 @@ namespace InitialProject.Services.IServices
         void Save(AccommodationReservation accommodationReservation);
         bool HasAccommodationOnLocation(int userId, Location location);
         List<Accommodation> GetAccommodationsByOwnerId(int ownerId);
+        public void AccommodationUpdate(Accommodation accommodation);
 
     }
 }

@@ -18,9 +18,10 @@ namespace InitialProject.Domen.Model
         public List<AccommodationImage> Images { get; set; }
         public List<Reservation> Reservations { get; set; }
         public int AccommodationID { get; set; }
+        public bool RecentlyRenovated { get; set; }
         public Accommodation(int userId, string name, Location location, AccommodationType type, int maxGuestNumber,
             int minReservationDays, int daysBeforeCancelling, List<AccommodationImage> images,
-            List<Reservation> reservations)
+            List<Reservation> reservations, bool recentlyRenovated)
         {
             UserId = userId;
             Name = name;
@@ -31,6 +32,7 @@ namespace InitialProject.Domen.Model
             DaysBeforeCancelling = daysBeforeCancelling;
             Images = images;
             Reservations = reservations;
+            RecentlyRenovated = recentlyRenovated;
         }
         public Accommodation()
         {
@@ -44,6 +46,7 @@ namespace InitialProject.Domen.Model
             DaysBeforeCancelling = 0;
             Images = new List<AccommodationImage>();
             Reservations = new List<Reservation>();
+            RecentlyRenovated = false;
         }
         public string[] ToCSV()
         {
@@ -57,6 +60,7 @@ namespace InitialProject.Domen.Model
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
                 DaysBeforeCancelling.ToString(),
+                RecentlyRenovated.ToString(),
 
             };
             return csvValues;
@@ -71,7 +75,7 @@ namespace InitialProject.Domen.Model
             MaxGuestNumber = Convert.ToInt32(values[5]);
             MinReservationDays = Convert.ToInt32(values[6]);
             DaysBeforeCancelling = Convert.ToInt32(values[7]);
-            //Images = values[7].Split(";").ToList<string>();
+            RecentlyRenovated = Convert.ToBoolean(values[8]);
         }
 
 

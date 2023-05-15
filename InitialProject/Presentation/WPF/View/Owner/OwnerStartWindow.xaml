@@ -379,7 +379,7 @@
             <Grid.Background>
                 <ImageBrush ImageSource="/Infrastructure/Resources/Images/Island.png"/>
             </Grid.Background>
-            <Grid Visibility="Visible">
+            <Grid Visibility="Collapsed">
                 <Label  FontSize="20" Foreground="GhostWhite" FontStyle="Italic"  Padding="10"  FontWeight="Bold" Height="55" VerticalAlignment="Top" Margin="2,12,-2,0">Your accommodations:</Label>
                 <DataGrid ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Background="DeepSkyBlue"  Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}"  RowStyle="{DynamicResource DataGridRowStyle2}"  x:Name="OwnerAccommodations"  ItemsSource="{Binding Path = Accommodations, UpdateSourceTrigger=PropertyChanged}"  Margin="0,79,0,0"
                     IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" VerticalAlignment="Top" HorizontalAlignment="Center" Width="1030" Height="476" SelectedItem="{Binding StartSelectedAccommodation}">
@@ -612,14 +612,13 @@
                 </DataGrid>
                 <DockPanel DockPanel.Dock="Bottom">
                     <Grid>
-                        <Button Content="Decline" Width="130" Height="30" HorizontalAlignment="Left" Margin="404,2,0,22" />
-                        <Button Content="Accept" Width="130"  Height ="30" HorizontalAlignment="Left" Margin="191,2,0,22" />
+                        <Button Content="Decline" Width="130" Height="30" HorizontalAlignment="Left" Margin="404,2,0,22"  Command="{Binding DeclineChangeReservation}"/>
+                        <Button Content="Accept" Width="130"  Height ="30" HorizontalAlignment="Left" Margin="191,2,0,22" Command="{Binding AcceptChangeReservation}" />
                     </Grid>
                 </DockPanel>
             </DockPanel>
 
-            <Grid Grid.Row="2" Grid.Column="1" Visibility="Collapsed
-">
+            <Grid Grid.Row="2" Grid.Column="1" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="70*"></RowDefinition>
                     <RowDefinition Height="441*"></RowDefinition>
@@ -690,7 +689,8 @@
                     </Button>
                     <Button Content="Cancel renovation" HorizontalAlignment="Left" Margin="545,0,0,26" Width="100" Height="26" VerticalAlignment="Bottom" 
                         FontFamily="Montserrat" Foreground="White"
-                        Cursor="Hand">
+                        Cursor="Hand"
+                        Command ="{Binding CancelRenovation}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="DeepSkyBlue"/>

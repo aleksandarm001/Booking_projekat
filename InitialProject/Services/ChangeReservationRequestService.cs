@@ -107,7 +107,6 @@ namespace InitialProject.Services
 
             List<OwnerChangeRequests> ownerChangeRequests = new List<OwnerChangeRequests>();
             
-
             foreach(ChangeReservationRequest crr in changeReservationRequests)
             {
 
@@ -117,7 +116,7 @@ namespace InitialProject.Services
             return ownerChangeRequests;
         }
 
-        public OwnerChangeRequests NewChangeReservationRequest(ChangeReservationRequest crr)
+        private OwnerChangeRequests NewChangeReservationRequest(ChangeReservationRequest crr)
         {
             return new OwnerChangeRequests
             {
@@ -132,17 +131,16 @@ namespace InitialProject.Services
             };
         }
 
-        public bool isDateRangeAvailable(DateTime newStartDate, DateTime newEndDate,string accommodationName,int reservationId) 
+        private bool isDateRangeAvailable(DateTime newStartDate, DateTime newEndDate,string accommodationName,int reservationId) 
         {
 
             int accommodationId = _accommodationService.GetAccommodationIdByAccommodationName(accommodationName);
             List<int> reservationsIds = _accommodationReservationService.GetReservationsIdsByAccommodationId(accommodationId);
-
             List<Reservation> reservations = GetReservationsByIds(reservationsIds);
 
             foreach (Reservation reservation in reservations)
             {
-                if(reservation.ReservationId != reservationId)
+                if (reservation.Status != ReservationStatus.Finished && reservation.ReservationId != reservationId ) 
                 {
                     if (DoRangesIntersect(newStartDate, newEndDate, reservation.ReservationDateRange.StartDate, reservation.ReservationDateRange.EndDate))
                         return false;
@@ -167,18 +165,7 @@ namespace InitialProject.Services
         {
             return ((start1 >= start2 && start1 <= end2) || (end1 >= start2 && end1 <= end2)
                 || (start2 >= start1 && start2 <= end1) || (end2 >= start1 && end2 <= end1));
-            /*
-            if ((start1 >= start2 && start1 <= end2) || (end1 >= start2 && end1 <= end2)
-                || (start2 >= start1 && start2 <= end1) || (end2 >= start1 && end2 <= end1))
-           
-            {
-                return true; // If ranges intersect, return true
-            }
-            else
-            {
-                return false; // If ranges do not intersect, return false
-            }
-            */
+            
         }
 
 

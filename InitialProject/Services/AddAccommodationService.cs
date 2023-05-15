@@ -68,6 +68,7 @@ namespace InitialProject.Services
                 MinReservationDays = accommodationMinDays,
                 Location = new Location(country, city),
                 TypeOfAccommodation = GetAccommodationType(type)
+                
             };
         }
 

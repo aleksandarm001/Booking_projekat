@@ -110,85 +110,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         int UserId;
 
-        //private string _accommodationName;
-
-       // private string _maxGuests;
-
-        //private string _minDays;
-
-        //private string _cancelationDays;
+        
 
         private string _url;
 
-        //private string _country;
-
-        //private string _city;
-
-        //private string _type;
-
-        /*
-        public string AccommodationName
-        {
-            get => _accommodationName;
-            set
-            {
-                if (value != _accommodationName)
-                {
-                    _accommodationName = value;
-                    OnPropertyChanged("AccommodationName");
-                }
-            }
-        }
-        */
-
-       /*
-        public string AccommodationMaxGuests
-        {
-            get => _maxGuests;
-            set
-            {
-                if (value != _maxGuests)
-                {
-                    _maxGuests = value;
-                    OnPropertyChanged("AccommodationMaxGuests");
-                }
-            }
-        }
-
         
-        */
-
-        /*
-        public string AccommodationReservationMinDays
-        {
-            get => _minDays;
-            set
-            {
-                if (value != _minDays)
-                {
-
-                    _minDays = value;
-                    OnPropertyChanged("AccommodationReservationMinDays");
-                }
-            }
-        }
-
-        */
-
-        /*
-        public string AccommodationCancelationDays
-        {
-            get => _cancelationDays;
-            set
-            {
-                if (value != _cancelationDays)
-                {
-                    _cancelationDays = value;
-                    OnPropertyChanged("AccommodationCancelationDays");
-                }
-            }
-        }
-        */
         public string AccommodationUrl
         {
             get  { return _url; }
@@ -201,48 +127,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 }
             }
         }
-        /*
-        public string AccommodationCountry
-        {
-            get { return _country; }
-            set
-            {
-                if (value != _country)
-                {
-                    _country = value;
-                    OnPropertyChanged("AccommodationCountry");
-                }
-            }
-        }
-
-        public string AccommodationCity
-        {
-            get { return _city; }
-            set
-            {
-                if (value != _city)
-                {
-                    _city = value;
-                    OnPropertyChanged("AccommodationCity");
-                }
-            }
-        }
-
-        */
-        /*
-        public string AccommodationType
-        {
-            get { return _type; }
-            set
-            {
-                if (value != _type)
-                {
-                    _type = value;
-                    OnPropertyChanged("AccommodationType");
-                }
-            }
-        }
-        */
+       
 
         private Accommodation _accommodation = new Accommodation();
         public Accommodation NewAccommodation
@@ -268,7 +153,10 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         public RelayCommand AddUrl { get; set; }
         public RelayCommand SaveNewAccommodation { get; set; }
         public RelayCommand AddRenovation { get; set; }
+        public RelayCommand CancelRenovation { get; set; }
         public RelayCommand ReviewGuest { get; set; }
+        public RelayCommand AcceptChangeReservation { get; set; }
+        public RelayCommand DeclineChangeReservation { get; set; }
 
         public RelayCommand AccommodationStatistics { get; set; }
 
@@ -301,7 +189,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             _renovationService.IsRenovationFinished();
             ScheduledRenovations = new ObservableCollection<Renovation>(_renovationService.GetScheduledRenovationsByOwnerId(UserId));
             FinishedRenovations = new ObservableCollection<Renovation>(_renovationService.GetFinishedRenovationsByOwnerId(UserId));
-
+            _renovationService.RecentlyRenovated();
 
 
 
@@ -312,10 +200,15 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
 
             AddUrl = new RelayCommand(AddUrl_ButtonClick);
+            ReviewGuest = new RelayCommand(Review_ButtonClick);
+            AcceptChangeReservation = new RelayCommand(AcceptChangeReservation_Button_Click);
+            DeclineChangeReservation = new RelayCommand(DeclineChangeReservation_Button_Click);
             SaveNewAccommodation = new RelayCommand(SaveNewAccommodation_ButtonClick);
             AddRenovation = new RelayCommand(AddRenovation_ButtonClick);
-            ReviewGuest = new RelayCommand(Review_ButtonClick);
+            CancelRenovation = new RelayCommand(CancelRenovation_ButtonClick);
+            
             AccommodationStatistics = new RelayCommand(Statistics_ButtonClick);
+
         }
 
         private void AllAccommodations_ButtonClick(object sender, RoutedEventArgs e)
@@ -462,7 +355,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         }
 
         //Za ChangereservationRequest
-        private void AcceptChangeReservation_Button_Click(object sender, RoutedEventArgs e)
+        public void AcceptChangeReservation_Button_Click(object parameter)
         {
             if (SelectedRequest == null)
             {
@@ -476,7 +369,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             }
         }
 
-        private void DeclineChangeReservation_Button_Click(object sender, RoutedEventArgs e)
+        private void DeclineChangeReservation_Button_Click(object parameter)
         {
             if (SelectedRequest == null)
             {
@@ -503,7 +396,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             }
         }
 
-        private void CancelRenovation_ButtonClick(object sender, RoutedEventArgs e)
+        private void CancelRenovation_ButtonClick(object parameter)
         {
             if (SelectedRenovation == null)
             {
