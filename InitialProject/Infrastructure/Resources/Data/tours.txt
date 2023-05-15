@@ -1,23 +1,24 @@
-1|Tura test|Buenos Aires;Argentina|Kratka tura|Azerbaijani|0|5/28/2023 6:00:33 AM|2|False|CreatedByGuide|-1
-2|Tura test2|Buenos Aires;Argentina|Brza tura|Slovenian|8|6/28/2023 6:00:33 AM|2|False|CreatedByGuide|-1
-3|Tura test3|Buenos Aires;Argentina|Zanimljiva tura|Macedonian|10|6/28/2023 6:00:33 AM|2|False|CreatedByGuide|-1
-4|Tura test4|Novi Sad;Serbia|Brza tura|Serbian|15|5/27/2023 9:00:06 AM|2|False|CreatedByGuide|-1
-5|Tura test5|Belgrade;Serbia|Laka tura|Spanish|10|5/26/2023 7:00:13 AM|10|False|CreatedByGuide|-1
-6|Tura test6|Belgrade;Serbia|Kratka tura|Serbian|20|5/16/2023 7:00:13 AM|10|False|CreatedByGuide|-1
-7|Tura test7|Belgrade;Serbia|Dosadna tura|Estonian|7|4/26/2023 7:00:13 AM|10|False|CreatedByGuide|-1
-8|Tura test8|Belgrade;Serbia|Duga tura|Greek|13|5/11/2023 7:00:13 AM|10|False|CreatedByGuide|-1
-9|Tura test9|Belgrade;Serbia|Nova tura|Spanish|10|5/29/2023 7:00:13 AM|10|False|CreatedByGuide|-1
-10|Tura test10|Belgrade;Serbia|Najnovija tura|Italian|12|5/26/2023 7:00:13 AM|10|False|CreatedByGuide|-1
-11|tura 22|Mexico City;Mexico|1asdf|Armenian|20|5/12/2023 9:00:11 PM|2|True|CreatedByGuide|-1
-12|turaaaa|Shanghai;China|asdf|Arabic|20|5/12/2023 9:00:33 PM|2|True|CreatedByGuide|-1
-13|asdfkljsaldfk|Mexico City;Mexico|fasd|Armenian|221|5/12/2023 9:00:28 PM|2|True|CreatedByGuide|-1
-14|fasdsadf|Mexico City;Mexico|asdf|Belarusian|29|5/12/2023 9:00:31 PM|2|True|CreatedByGuide|-1
-15|dosada|Cairo;Egypt|asdf|Assamese|20|5/12/2023 11:00:04 PM|3|True|CreatedByGuide|-1
-16|dosada2|Buenos Aires;A|fasd|Amharic|20|5/12/2023 11:00:13 PM|3|True|CreatedByGuide|-1
-17|dosada3|Tokyo;Japan||Arabic|30|5/12/2023 11:00:15 PM|2|True|CreatedByGuide|-1
-18|das|Delhi;India|dsfds|Afrikaans|1|5/18/2023 3:04:00 AM|0|False|CreatedByRequest|-1
-19|asd|Tokyo;Japan|asd|Albanian|123|5/15/2023 4:03:00 AM|0|False|CreatedByGuide|-1
-20|asd|Dhaka;Bangladesh|asdfas|Arabic|123|5/23/2023 2:02:00 AM|0|False|CreatedByRequest|-1
-21|asd|Delhi;India|asd|Amharic|1|5/25/2023 5:06:00 AM|0|False|CreatedByRequest|-1
-22|asd|Delhi;India|asd|Amharic|1|5/25/2023 5:06:00 AM|0|False|CreatedByRequest|-1
-23|asd|Delhi;India|asd|Amharic|1|5/21/2023 3:05:00 AM|0|False|CreatedByRequest|-1
+1|Tura test|Buenos Aires;Argentina|Kratka tura|Serbian|0|5/28/2023 6:00:33 AM|2|True|CreatedByGuide|13|True
+2|Tura test2|Buenos Aires;Argentina|Brza tura|Serbian|8|6/28/2023 6:00:33 AM|2|True|CreatedByGuide|13|True
+3|Tura test3|Buenos Aires;Argentina|Zanimljiva tura|Serbian|10|6/28/2023 6:00:33 AM|2|True|CreatedByGuide|13|True
+4|Tura test4|Novi Sad;Serbia|Brza tura|Serbian|15|5/27/2023 9:00:06 AM|2|True|CreatedByGuide|13|True
+5|Tura test5|Belgrade;Serbia|Laka tura|Serbian|10|5/26/2023 7:00:13 AM|10|True|CreatedByGuide|13|True
+6|Tura test6|Belgrade;Serbia|Kratka tura|Serbian|20|5/16/2023 7:00:13 AM|10|True|CreatedByGuide|13|True
+7|Tura test7|Belgrade;Serbia|Dosadna tura|Serbian|7|4/26/2023 7:00:13 AM|10|True|CreatedByGuide|13|True
+8|Tura test8|Belgrade;Serbia|Duga tura|Serbian|13|5/11/2023 7:00:13 AM|10|True|CreatedByGuide|13|True
+9|Tura test9|Belgrade;Serbia|Nova tura|Serbian|10|5/29/2023 7:00:13 AM|10|True|CreatedByGuide|13|True
+10|Tura test10|Belgrade;Serbia|Najnovija tura|Serbian|12|5/26/2023 7:00:13 AM|10|True|CreatedByGuide|13|True
+11|tura 22|Mexico City;Mexico|1asdf|Serbian|20|5/12/2023 9:00:11 PM|2|True|CreatedByGuide|13|True
+12|turaaaa|Shanghai;China|asdf|Serbian|20|5/12/2023 9:00:33 PM|2|True|CreatedByGuide|13|True
+13|asdfkljsaldfk|Mexico City;Mexico|fasd|Serbian|221|5/12/2023 9:00:28 PM|2|True|CreatedByGuide|13|True
+14|fasdsadf|Mexico City;Mexico|asdf|Serbian|29|5/12/2023 9:00:31 PM|2|True|CreatedByGuide|13|True
+15|dosada|Cairo;Egypt|asdf|Serbian|20|5/12/2023 11:00:04 PM|3|True|CreatedByGuide|13|True
+16|dosada2|Buenos Aires;|fasd|Serbian|20|5/12/2023 11:00:13 PM|3|True|CreatedByGuide|13|True
+17|dosada3|Tokyo;Japan|asds|Serbian|30|5/12/2023 11:00:15 PM|2|True|CreatedByGuide|13|True
+18|das|Delhi;India|dsfds|Serbian|1|5/18/2023 3:04:00 AM|0|True|CreatedByRequest|13|True
+19|asd|Tokyo;Japan|asd|Serbian|123|5/15/2023 4:03:00 AM|0|True|CreatedByGuide|13|True
+20|asd|Dhaka;Bangladesh|asdfas|Serbian|123|5/23/2023 2:02:00 AM|0|True|CreatedByRequest|13|True
+21|asd|Delhi;India|asd|Serbian|1|5/25/2023 5:06:00 AM|0|True|CreatedByRequest|13|True
+22|asd|Delhi;India|asd|English|1|5/25/2023 5:06:00 AM|0|True|CreatedByRequest|13|True
+23|asd|Delhi;India|asd|English|1|5/21/2023 3:05:00 AM|0|True|CreatedByRequest|13|True
+24|asd|Delhi;India|asd|Afrikaans|1230|5/16/2023 4:04:00 AM|0|False|CreatedByGuide|13|True

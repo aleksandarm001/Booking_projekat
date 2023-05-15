@@ -16,9 +16,10 @@ namespace InitialProject.Domen.Model
             Unemployed
         }
         public int Id { get; set; }
-
         public int EmployeeId { get; set; }
-        public Status EmploymentStatus { get; set; } 
+        public Status EmploymentStatus { get; set; }
+
+        public DateTime? DateOfPromotion { get; set; } = DateTime.Now;
 
         public string[] ToCSV()
         {
@@ -27,6 +28,7 @@ namespace InitialProject.Domen.Model
                 Id.ToString(),
                 EmployeeId.ToString(),
                 EmploymentStatus.ToString(),
+                DateOfPromotion.ToString()
             };
             return csvValues;
         }
@@ -35,6 +37,7 @@ namespace InitialProject.Domen.Model
             Id= Convert.ToInt32(values[0]);
             EmployeeId = Convert.ToInt32(values[1]);
             EmploymentStatus = (Status)Enum.Parse(typeof(Status), values[2]);
+            DateOfPromotion = DateTime.Parse(values[3]);
         }
     }
 }

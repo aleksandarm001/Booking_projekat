@@ -1,6 +1,7 @@
 ﻿using InitialProject.Aplication.Contracts.Repository;
 using InitialProject.Aplication.Factory;
 using InitialProject.Domen.Model;
+using InitialProject.Repository;
 using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
@@ -75,7 +76,10 @@ namespace InitialProject.Services
             else
                 tourId = (int)tourToCancelId;
 
-            _tourRepository.Delete(_tourRepository.GetById(tourId));
+            Tour tour = _tourRepository.GetById(tourId);
+            tour.TourDeleted = true;
+            _tourRepository.Update(tour);
+
             List<TourReservation> reservations = _tourReservationRepository.GetAll();
             foreach (TourReservation reservation in reservations)
             {

@@ -41,13 +41,22 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
             guideStatusService = Injector.CreateInstance<IGuideStatusService>();
 
-
-
-
             _window = window;
             GuideId = (int)guideId;
+
             if (guideStatusService.GetStatusByUserId(GuideId).EmploymentStatus == Domen.Model.GuideStatus.Status.Unemployed)
                 IsGuideEmployed = false;
+            else
+                IsGuideEmployed = true;
+
+
+            CheckIfGuideIsSuper();
+
+        }
+
+        private void CheckIfGuideIsSuper()
+        {
+            guideStatusService.CheckIfGuideIsSuper(GuideId);
         }
 
         public void ShowProfile(object ob)
