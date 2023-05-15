@@ -8,7 +8,7 @@ namespace InitialProject.Domen.CustomClasses
 {
     public class CreationType
     {
-        public enum CreationTourType { CreatedByGuide, CreatedByRequest, CreatedByStatistics, CreatedByComplexRequest }
+        public enum CreationTourType { CreatedByGuide, CreatedByRequest, CreatedByStatistics, CreatedByComplexRequest, SuperGuide }
 
         public CreationTourType Type { get; set; }
 

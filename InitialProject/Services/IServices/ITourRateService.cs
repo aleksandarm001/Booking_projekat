@@ -8,6 +8,7 @@ namespace InitialProject.Services.IServices
         List<TourRate> GetAllRates();
         void MakeTourRate(TourRate tourRate);
 
+        double GetAverageRateForGuideInPastYearWithSpecificLanguage(int guideId, Language language);
         void Update(TourRate tourRate);
     }
 }

@@ -161,5 +161,44 @@
             return allDates;
         }
 
+        private List<Tour> GetAllFinishedToursInYear()
+        {
+            List<Tour> allFinishedTours = GetAllFinishedTours();
+            DateTime oneYearAgo = DateTime.Now.AddYears(-1);
+
+            foreach (var tour in allFinishedTours.ToList())
+            {
+                if (tour.StartingDateTime < oneYearAgo)
+                {
+                    allFinishedTours.Remove(tour);
+                }
+            }
+
+            return allFinishedTours;
+
+        }
+
+        public List<Tour> GetAllFinishedInOneYearByGuide(int guideId)
+        {
+            List<Tour> tours = new List<Tour>();
+
+            foreach (var tour in GetAllFinishedToursInYear())
+                if(tour.GuideId == guideId)
+                    tours.Add(tour);
+
+            return tours;
+        }
+
+        public int GetGuideIdByTourId(int tourId)
+        {
+            try
+            {
+                return _tourRepository.GetAll().FirstOrDefault(t => t.TourId == tourId).GuideId;
+            }catch(Exception ex)
+            {
+                return -1;
+            }
+        }
+
     }
 }
