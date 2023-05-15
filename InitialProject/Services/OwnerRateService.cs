@@ -31,30 +31,13 @@ namespace InitialProject.Services
         public List<OwnerRate> RatingsFromRatedGuest(int ownerId)
         {
             List<OwnerRate> ratingsFromRatedGuests = new List<OwnerRate>();
-            /*
-            foreach(OwnerRate ownerRate in _ownerRateRepository.GetAllRatesByOwner(ownerId))
-            {
-                foreach(GuestReview guestReview in _guestReviewRepository.GetAll())
-                {
-                    if(ownerRate.UserId == guestReview.GuestId && ownerRate.AccommodationId == guestReview.AccommodationId)
-                    {
-                        ratingsFromRatedGuest.Add(ownerRate);
-                        break;
-                    }
-                }
-            }
-            return ratingsFromRatedGuest;
-
-            */
             List<OwnerRate> allRatesByOwner = _ownerRateRepository.GetAllRatesByOwner(ownerId);
             List<GuestReview> allGuestReviews = _guestReviewRepository.GetAll();
 
             foreach (OwnerRate ownerRate in allRatesByOwner)
             {
-                bool isRatedByGuest = allGuestReviews.Any(guestReview =>
-                    ownerRate.UserId == guestReview.GuestId && ownerRate.AccommodationId == guestReview.AccommodationId);
 
-                if (isRatedByGuest)
+                if (IsRatedByGuests(ownerRate,allGuestReviews))
                 {
                     ratingsFromRatedGuests.Add(ownerRate);
                 }
@@ -62,27 +45,16 @@ namespace InitialProject.Services
             return ratingsFromRatedGuests;
         }
 
+        private bool IsRatedByGuests(OwnerRate ownerRate, List<GuestReview> guestReviews)
+        {
+            return guestReviews.Any(guestReviews => ownerRate.UserId == guestReviews.GuestId && ownerRate.AccommodationId == guestReviews.AccommodationId);
+        }
+
         
 
         public bool IsSuperOwner(int ownerId)
         {
             List<OwnerRate> ownerRates = _ownerRateRepository.GetAllRatesByOwner(ownerId);
-            /*
-            if(ownerRates.Count < 5)
-            {
-                return false;
-            }
-            else
-            {
-                
-                double rateAverage = ownerRates.Average(o => (o.CleanlinessRate + o.CorrectnessRate) / 2);
-                if(rateAverage > 4.5)
-                {
-                    return true;
-                }
-            }
-            return false;
-            */
             if(ownerRates.Count < 5)
                 return false;
 
