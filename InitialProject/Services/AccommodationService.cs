@@ -132,5 +132,10 @@ namespace InitialProject.Services
         {
             return accommodation.Location.Country == location.Country && accommodation.Location.City == location.City;
         }
+        
+        public void AccommodationUpdate(Accommodation accommodation)
+        {
+            _accommodationRepository.Update(accommodation);
+        }
     }
 }

@@ -3,6 +3,7 @@ using InitialProject.Aplication.Factory;
 using InitialProject.CustomClasses;
 using InitialProject.Repository;
 using InitialProject.Services.IServices;
+using System.Linq;
 
 namespace InitialProject.Services
 {
@@ -18,6 +19,19 @@ namespace InitialProject.Services
         public Notification SaveNotification(Notification notificiation)
         {
             return _notificationRespository.Save(notificiation);
+        }
+
+        public bool IsReservationCanceled(int reservationId)
+        {
+            Notification notification = _notificationRespository.GetAll().Find(r => r.ReservationId == reservationId);
+            if(notification != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
