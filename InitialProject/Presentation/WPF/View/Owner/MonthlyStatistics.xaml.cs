@@ -1,12 +1,7 @@
-﻿using InitialProject.Domen.Model;
-using InitialProject.Presentation.WPF.ViewModel.Owner;
-using InitialProject.Services;
+﻿using InitialProject.Presentation.WPF.ViewModel.Owner;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,16 +16,15 @@ using System.Windows.Shapes;
 namespace InitialProject.Presentation.WPF.View.Owner
 {
     /// <summary>
-    /// Interaction logic for DeclineRequest.xaml
+    /// Interaction logic for MonthlyStatistics.xaml
     /// </summary>
-    public partial class DeclineRequest : Window
+    public partial class MonthlyStatistics : Window
     {
-        private DeclineRequestViewModel viewModel;
-
-        public DeclineRequest(int requestId)
+        private MonthlyStatisticsViewModel viewModel;
+        public MonthlyStatistics(int accommodationId, int year)
         {
             InitializeComponent();
-            viewModel = new DeclineRequestViewModel(requestId);
+            viewModel = new MonthlyStatisticsViewModel(accommodationId,year);
             DataContext= viewModel;
         }
     }

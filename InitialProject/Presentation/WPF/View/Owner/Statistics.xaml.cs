@@ -1,4 +1,5 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.Domen.CustomClasses;
+using InitialProject.Domen.Model;
 using InitialProject.Presentation.WPF.ViewModel.Owner;
 using InitialProject.Services;
 using System;
@@ -21,17 +22,17 @@ using System.Windows.Shapes;
 namespace InitialProject.Presentation.WPF.View.Owner
 {
     /// <summary>
-    /// Interaction logic for DeclineRequest.xaml
+    /// Interaction logic for Statistics.xaml
     /// </summary>
-    public partial class DeclineRequest : Window
+    public partial class Statistics : Window
     {
-        private DeclineRequestViewModel viewModel;
-
-        public DeclineRequest(int requestId)
-        {
+        private AccommodationStatisticsViewModel viewModel;
+        public Statistics(int accommodationId)
+        { 
             InitializeComponent();
-            viewModel = new DeclineRequestViewModel(requestId);
+            viewModel = new AccommodationStatisticsViewModel(accommodationId);
             DataContext= viewModel;
         }
+
     }
 }
