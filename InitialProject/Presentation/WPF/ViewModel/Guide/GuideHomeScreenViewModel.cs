@@ -1,4 +1,6 @@
-﻿using InitialProject.Presentation.WPF.View.Guide;
+﻿using InitialProject.Aplication.Factory;
+using InitialProject.Presentation.WPF.View.Guide;
+using InitialProject.Services;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +20,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         public RelayCommand TourStatisticsCommand { get; set; }
         public RelayCommand ProfileCommand { get; set; }//GuideProfileView
 
+        public IGuideStatusService guideStatusService;
+
         public int GuideId { get; private set; }
 
         private System.Timers.Timer popupTimer;
@@ -34,8 +38,16 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             HamburgerCommand = new RelayCommand(ShowHamburgerMenu);
             TourStatisticsCommand = new RelayCommand(ShowStatistics);
             ProfileCommand = new RelayCommand(ShowProfile);
+
+            guideStatusService = Injector.CreateInstance<IGuideStatusService>();
+
+
+
+
             _window = window;
             GuideId = (int)guideId;
+            if (guideStatusService.GetStatusByUserId(GuideId).EmploymentStatus == Domen.Model.GuideStatus.Status.Unemployed)
+                IsGuideEmployed = false;
         }
 
         public void ShowProfile(object ob)
@@ -195,5 +207,17 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                 OnPropertyChanged(nameof(IsMenuVisible));
             }
         }
+
+        private bool _IsGuideEmployed;
+        public bool IsGuideEmployed
+        {
+            get { return _IsGuideEmployed; }
+            set
+            {
+                _IsGuideEmployed = value;
+                OnPropertyChanged(nameof(IsGuideEmployed));
+            }
+        }
+
     }
 }
