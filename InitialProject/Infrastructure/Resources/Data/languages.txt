@@ -1,4 +1,5 @@
-﻿Afrikaans
+﻿
+Afrikaans
 Albanian
 Amharic
 Arabic
