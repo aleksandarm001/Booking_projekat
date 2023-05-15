@@ -39,7 +39,7 @@
                     <TextBlock Text="Accommodation(s) Match Filter Criteria" FontSize="22" FontWeight="DemiBold"/>
                 </StackPanel>
                 
-                <!--
+               
                 
                 <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}" 
                           Width="880" Height="440" Margin="10,30,0,0" HorizontalAlignment="Left" x:Name="accommodationsDataGrid"
@@ -91,7 +91,7 @@
                         </DataGridTemplateColumn>
 
                     </DataGrid.Columns>
-                </DataGrid> -->
+                </DataGrid> 
             </StackPanel>
             <Border Grid.Row="1" CornerRadius="0 50 0 0" Background="#00734B">
                 <StackPanel Grid.Row="1" Width="140" Margin="0, 20, 0, 0">
