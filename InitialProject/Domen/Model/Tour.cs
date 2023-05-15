@@ -40,7 +40,6 @@ namespace InitialProject.Domen.Model
 
         public int GuideId { get; set; } = -1;
 
-        //public List<String> Images { get; set; }
 
         public Tour()
         {

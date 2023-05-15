@@ -36,7 +36,7 @@
 
             <!-- Burger Menu Button -->
             <Button x:Name="BurgerMenuButton" Grid.Column="1" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding HamburgerCommand}">
-                <Image Source="C:\Users\Zlatan\Desktop\hamburher.png" Height="60" VerticalAlignment="Center"/>
+                <Image Source="/InitialProject;component/Infrastructure/Resources/Images/hamburher.png" Height="60" VerticalAlignment="Center"/>
             </Button>
         </Grid>
         <ContentControl Content="{Binding CurrentViewModel}" />
@@ -45,7 +45,7 @@
             <Border BorderBrush="Black" BorderThickness="0,2,0,0"/>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Grid>
-                    <Button Content="Create Tour" Margin="0,10" Width="200" Height="60" BorderBrush="Black" BorderThickness="2" FontWeight="Bold" Command="{Binding CreateTourCommand}">
+                    <Button Content="Create Tour" IsEnabled="{Binding IsGuideEmployed}" Margin="0,10" Width="200" Height="60" BorderBrush="Black" BorderThickness="2" FontWeight="Bold" Command="{Binding CreateTourCommand}">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="createTour" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="30">
@@ -87,7 +87,7 @@
                     </CheckBox>
                 </Grid>
                 <Grid>
-                    <Button Content="Tour Tracking" Margin="0,10" Width="200" Height="60" BorderBrush="Black" BorderThickness="2" FontWeight="Bold">
+                    <Button Content="Tour Tracking" IsEnabled="{Binding IsGuideEmployed}" Margin="0,10" Width="200" Height="60" BorderBrush="Black" BorderThickness="2" FontWeight="Bold">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="tourTrack" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="30">
@@ -129,7 +129,7 @@
                     </CheckBox>
                 </Grid>
                 <Grid>
-                    <Button Content="Tour Request's" Margin="0,10" Width="200" Height="60" BorderBrush="Black" BorderThickness="2" FontWeight="Bold" Command="{Binding TourRequestCommand}">
+                    <Button Content="Tour Request's" IsEnabled="{Binding IsGuideEmployed}" Margin="0,10" Width="200" Height="60" BorderBrush="Black" BorderThickness="2" FontWeight="Bold" Command="{Binding TourRequestCommand}">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="tourreq" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="30">
@@ -176,16 +176,16 @@
 
         <Grid Grid.Row="1" Visibility="{Binding BurgerMenuVisibility}">
             <StackPanel>
-                <Button Command="{Binding Command1}" Content="TextBlock 1" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
-                <Button Command="{Binding Command2}" Content="TextBlock 2" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
-                <Button Command="{Binding Command3}" Content="TextBlock 3" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
-                <Button Command="{Binding Command4}" Content="TextBlock 4" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
-                <Button Command="{Binding Command5}" Content="TextBlock 5" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
-                <Button Command="{Binding Command6}" Content="TextBlock 6" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                <Button Command="{Binding Command1}" IsEnabled="{Binding IsGuideEmployed}" Content="TextBlock 1" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                <Button Command="{Binding Command2}" IsEnabled="{Binding IsGuideEmployed}" Content="TextBlock 2" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                <Button Command="{Binding Command3}" IsEnabled="{Binding IsGuideEmployed}" Content="TextBlock 3" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                <Button Command="{Binding Command4}" IsEnabled="{Binding IsGuideEmployed}" Content="TextBlock 4" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                <Button Command="{Binding Command5}" IsEnabled="{Binding IsGuideEmployed}" Content="TextBlock 5" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                <Button Command="{Binding Command6}" IsEnabled="{Binding IsGuideEmployed}" Content="TextBlock 6" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
                 <Button Command="{Binding ProfileCommand}" Content="Profile" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
-                <Button Command="{Binding TourStatisticsCommand}" Content="Tour Statistics" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
-                <Button Command="{Binding Command9}" Content="TextBlock 9" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
-                <Button Command="{Binding Command10}" Content="TextBlock 10" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                <Button Command="{Binding TourStatisticsCommand}" IsEnabled="{Binding IsGuideEmployed}" Content="Tour Statistics" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                <Button Command="{Binding Command9}" IsEnabled="{Binding IsGuideEmployed}" Content="TextBlock 9" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                <Button Command="{Binding Command10}" IsEnabled="{Binding IsGuideEmployed}" Content="TextBlock 10" Padding="5" BorderBrush="Black" BorderThickness="1" Background="White" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="50" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
 
                 <!-- Add other buttons as needed -->
             </StackPanel>

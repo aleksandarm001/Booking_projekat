@@ -1,10 +1,10 @@
 ﻿using InitialProject.Aplication.Factory;
 using InitialProject.Aplication.Contracts.Repository;
-using InitialProject.CustomClasses;
 using InitialProject.Repository;
 using InitialProject.Services.IServices;
 using System.Collections.Generic;
 using System.Linq;
+using InitialProject.Domen.Model;
 
 namespace InitialProject.Services
 {

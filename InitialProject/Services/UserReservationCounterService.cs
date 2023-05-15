@@ -84,7 +84,7 @@ namespace InitialProject.Services
                 if (user.ReservationCount >= 5)
                 {
                     _voucherService.CreateVoucher(userId);
-                    user.ReservationCount = 0;
+                    user.ReservationCount = user.ReservationCount-5;
                     _userReservationCounterRepository.Update(user);
                 }
             }

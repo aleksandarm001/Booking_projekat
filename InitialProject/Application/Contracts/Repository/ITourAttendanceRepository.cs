@@ -1,6 +1,6 @@
 ﻿namespace InitialProject.Aplication.Contracts.Repository
 {
-    using InitialProject.CustomClasses;
+    using InitialProject.Domen.Model;
     using System;
     using System.Collections.Generic;
     using System.Linq;

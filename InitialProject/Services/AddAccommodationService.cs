@@ -57,17 +57,18 @@ namespace InitialProject.Services
             return countries;
         }
 
-        public Accommodation CreateNewAccommodation(int _userId, string accommodationName, string accommodationMaxGuests, string accommodationCancelationDays, string accommodationMinDays, string country, string city, string type)
+        public Accommodation CreateNewAccommodation(int _userId, string accommodationName, int accommodationMaxGuests, int accommodationCancelationDays, int accommodationMinDays, string country, string city, string type)
         {
             return new Accommodation
             {
                 UserId = _userId,
                 Name = accommodationName,
-                MaxGuestNumber = Convert.ToInt32(accommodationMaxGuests),
-                DaysBeforeCancelling = Convert.ToInt32(accommodationCancelationDays),
-                MinReservationDays = Convert.ToInt32(accommodationMinDays),
+                MaxGuestNumber = accommodationMaxGuests,
+                DaysBeforeCancelling = accommodationCancelationDays,
+                MinReservationDays = accommodationMinDays,
                 Location = new Location(country, city),
                 TypeOfAccommodation = GetAccommodationType(type)
+                
             };
         }
 

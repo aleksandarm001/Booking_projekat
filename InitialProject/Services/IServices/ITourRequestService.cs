@@ -14,6 +14,8 @@
 
         List<TourRequest> GetAllRequests();
 
+        TourRequest GetTourRequestById(int id);
+
         void MakeTourRequest(TourRequest tourRequest);
 
         void Update(TourRequest tourRequest);
@@ -22,6 +24,8 @@
 
         List<string> GetAllYearsOfTourReqeusts();
         List<TourRequest> FilterRequests(FilterRequests dataToFilter);
-        TourRequest Delete(TourRequest tourRequest);
+        void MakeNotificationsForGuests(Tour tour, int userId);
+
+
     }
 }

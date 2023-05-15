@@ -69,7 +69,9 @@ namespace InitialProject.Aplication.Factory
             { typeof(IReservationDTOService), new Lazy<object>(() => new ReservationDTOService()) },
             { typeof(ICheckingInService), new Lazy<object>(() => new CheckingInService()) },
             { typeof(IGuideStatusRepository), new Lazy<object>(() => new GuideStatusRepository()) },
-            { typeof(IGuideStatusService), new Lazy<object>(() => new GuideStatusService()) },
+            { typeof(IGuideStatusService), new Lazy<object>(() => new GuideStatusService()) },            
+            { typeof(ITourNotificationRepository), new Lazy<object>(() => new TourNotificationRepository()) },
+            { typeof(ITourNotificationService), new Lazy<object>(() => new TourNotificationService()) },
 
 
         };

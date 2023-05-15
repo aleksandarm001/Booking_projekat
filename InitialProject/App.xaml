@@ -17,10 +17,10 @@
                 <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/ComplexTourCardTemplate.xaml" />
                 <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/PartOfComplexTourCardTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
         
         
-        <!--
+        
+        
         <Style x:Key="topButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="#6e7783" />
@@ -397,7 +397,7 @@
 
             </Style.Triggers>
         </Style>
-        -->
+        </ResourceDictionary>
         
     </Application.Resources>
 

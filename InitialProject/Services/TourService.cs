@@ -2,7 +2,6 @@
 {
     using InitialProject.Aplication.Contracts.Repository;
     using InitialProject.Aplication.Factory;
-    using InitialProject.CustomClasses;
     using InitialProject.Domen.Model;
     using InitialProject.Services.IServices;
     using System;

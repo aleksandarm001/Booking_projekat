@@ -1,10 +1,10 @@
 ﻿namespace InitialProject.Domen.Model
 {
     using System;
+    using static InitialProject.Domen.Model.ComplexTourRequest;
 
     public class TourRequest : ISerializable
     {
-        public enum Status { OnHold, Accepted, Rejected }
         public int Id { get; set; }
         public int UserId { get; set; }
         public Location Location { get; set; }

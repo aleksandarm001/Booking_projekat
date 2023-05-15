@@ -1,13 +1,13 @@
 ﻿using InitialProject.Domen;
 using System;
 
-namespace InitialProject.CustomClasses
+namespace InitialProject.Domen.Model
 {
     public class TourAttendance : ISerializable
     {
         public enum AttendanceStatus { Present = 1, OnHold = 2, NotPresent = 3 }
         public int TourAttendanceId { get; set; }
-        public int TourId { get; set; } 
+        public int TourId { get; set; }
         public int TourPointId { get; set; }
         public int UserId { get; set; }
         public string Username { get; set; }
@@ -32,7 +32,7 @@ namespace InitialProject.CustomClasses
 
         }
 
-       
+
         public string[] ToCSV()
         {
 

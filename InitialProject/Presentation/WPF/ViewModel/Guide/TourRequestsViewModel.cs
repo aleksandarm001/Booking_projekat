@@ -42,7 +42,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             GuideId = (int)guideId;
 
             foreach (var tourRequest in tourRequestsList)
-                if(tourRequest.RequestStatus == TourRequest.Status.OnHold)
+                if(tourRequest.RequestStatus == ComplexTourRequest.Status.OnHold)
                     _tourRequests.Add(tourRequest);
         }
 
@@ -98,15 +98,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
             creationType.Type = CreationType.CreationTourType.CreatedByRequest;
 
-            CreatingTourView creatingTourView = new CreatingTourView(selectedTourRequest, creationType, null);
+            CreatingTourView creatingTourView = new CreatingTourView(selectedTourRequest, creationType, null, GuideId);
             _tourRequests.Remove(selectedTourRequest);
             creatingTourView.ShowDialog();
         }
 
-        private void DeleteTourRequest(TourRequest tourReq)
-        {
-            tourRequestService.Delete(tourReq);
-        }
 
         private void FillterTourRequest(object obj)
         {
@@ -117,7 +113,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         private void DeclineTourRequest(object obj)
         {
             TourRequest selectedTourRequest = (TourRequest)obj;
-            selectedTourRequest.RequestStatus = TourRequest.Status.Rejected;
+            selectedTourRequest.RequestStatus = ComplexTourRequest.Status.Rejected;
             tourRequestService.Update(selectedTourRequest);
             _tourRequests.Remove(selectedTourRequest);
         }

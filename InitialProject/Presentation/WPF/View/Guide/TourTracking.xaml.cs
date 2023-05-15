@@ -123,9 +123,9 @@ namespace InitialProject.View
             }
 
             TourPoints = new ObservableCollection<TourPoint>(_tourPointRepository.GetTourPointsByTourId(SelectedTour.TourId));
-            if (TourPoints.Count > 0 && TourPoints[0].CurrentStatus != Status.Finished)
+            if (TourPoints.Count > 0 && TourPoints[0].CurrentStatus != TourPoint.Status.Finished)
             {
-                TourPoints[0].CurrentStatus = Status.Active;
+                TourPoints[0].CurrentStatus = TourPoint.Status.Active;
             }
             TourPointGrid.IsEnabled = true;
 
