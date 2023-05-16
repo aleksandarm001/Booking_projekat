@@ -39,6 +39,7 @@ namespace InitialProject.Services
         {
             GuideStatus guideStatus = guideStatusRepository.getAll().Where(c => c.EmployeeId == id).FirstOrDefault();
             guideStatus.EmploymentStatus = GuideStatus.Status.SuperGuide;
+            guideStatus.DateOfPromotion = DateTime.Now;
             guideStatusRepository.Update(guideStatus);
         }
 

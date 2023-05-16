@@ -19,7 +19,7 @@ namespace InitialProject.Domen.Model
         public int EmployeeId { get; set; }
         public Status EmploymentStatus { get; set; }
 
-        public DateTime? DateOfPromotion { get; set; } = DateTime.Now;
+        public DateTime? DateOfPromotion { get; set; } = DateTime.MinValue;
 
         public string[] ToCSV()
         {
