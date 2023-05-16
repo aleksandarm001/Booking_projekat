@@ -15,40 +15,42 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 {
     public class GuideProfileViewModel : INotifyPropertyChanged
     {
-        private readonly int GuideId;
 
         private readonly IUserService userService;
         private readonly IGuideStatusService guideStatusService;
         public RelayCommand QuitJobCommand { get; set; }
 
-        private readonly ICancelTourService cancelTourService;
+        private readonly int GuideId;
         public GuideProfileViewModel(int? guideId)
         {
-            GuideId = (int)guideId;
             userService = Injector.CreateInstance<IUserService>();
             guideStatusService = Injector.CreateInstance<IGuideStatusService>();
-            cancelTourService = Injector.CreateInstance<ICancelTourService>();
 
+            QuitJobCommand = new RelayCommand(QuitJob);
+
+            GuideId = (int)guideId;
+
+
+            LoadProfile();
+        }
+
+        private void LoadProfile()
+        {
             User user = userService.GetById(GuideId);
             GuideStatus guideStatus = guideStatusService.GetStatusByUserId(GuideId);
 
-            QuitJobCommand = new RelayCommand(QuitJob);
 
             Name = user.Name;
             Lastname = user.Username;
             Email = user.Email;
             Type = guideStatus.EmploymentStatus.ToString();
-
         }
 
         private void QuitJob(object parametar)
         {
-            cancelTourService.FindAndCancelAllToursByGuide(GuideId);
-            guideStatusService.UpdateToUnemployed(GuideId);
+            guideStatusService.QuitJob(GuideId);
             Type = GuideStatus.Status.Unemployed.ToString();
         }
-
-
 
         private string _Name;
         public string Name
@@ -90,7 +92,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             set
             {
                 _Type = value;
-                OnPropertyChanged(nameof(Type)); // <-- This should be the property name
+                OnPropertyChanged(nameof(Type)); 
             }
         }
 

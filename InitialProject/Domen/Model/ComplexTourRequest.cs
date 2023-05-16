@@ -54,7 +54,7 @@ namespace InitialProject.Domen.Model
             UserId = Convert.ToInt32(values[2]);
             TourName = values[3];
             Location = Location.fromStringToLocation(values[4]);
-            Language = Language.fromStringToLanguage(values[5]);
+            Language = Language.FromStringToLanguage(values[5]);
             Description = values[6];
             GuestNumber = Convert.ToInt32(values[7]);
             StartingDate = DateTime.Parse(values[8]);

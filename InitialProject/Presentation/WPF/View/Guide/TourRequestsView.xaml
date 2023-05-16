@@ -70,7 +70,7 @@
                         </Button.Template>
                     </Button>
 
-                    <Button Content="Filters" Command="{Binding FillterCommand}" Width="180" Height="60" BorderBrush="Black" BorderThickness="2" FontWeight="Bold">
+                    <Button Content="Filters" Command="{Binding FilterCommand}" Width="180" Height="60" BorderBrush="Black" BorderThickness="2" FontWeight="Bold">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="filters" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="30">

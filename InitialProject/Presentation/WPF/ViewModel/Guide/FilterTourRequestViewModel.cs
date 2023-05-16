@@ -64,15 +64,19 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                 EndingDate = EndDate
             };
 
-            List<TourRequest> FiltereData = new();
+            List<TourRequest> FilteredData = new();
 
-            FiltereData = tourRequestService.FilterRequests(dataToFilter);
+            FilteredData = tourRequestService.FilterRequests(dataToFilter);
+            UpdateTourRequestList(FilteredData);
+        }
+
+        private void UpdateTourRequestList(List<TourRequest> filtereData)
+        {
             tourRequests.Clear();
-            foreach(var request in FiltereData)
+            foreach (var request in filtereData)
             {
                 tourRequests.Add(request);
             }
-
         }
 
         public void Back(object obj)

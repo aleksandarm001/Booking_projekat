@@ -163,107 +163,62 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 
         public void CreateTour(object obj)
         {
-            if (Type != CreationTourType.CreatedByComplexRequest && Type != null)
-                foreach (var date in tourStartingDates)
+            foreach (var date in tourStartingDates)
+            {
+                Language language = new Language();
+                Tour tour = new Tour()
                 {
-                    Language language = new();
-                    Tour tour = new Tour()
-                    {
-                        Name = Name,
-                        Location = new Location { City = City, Country = Country },
-                        Description = Description,
-                        Language = language.fromStringToLanguage(Language),
-                        MaxGuestNumber = MaxGuests,
-                        StartingDateTime = date,
-                        Duration = TourDuratation,
-                        TourStarted = false,
-                        CreatedType = (CreationTourType)Type,
-                        GuideId = (int)GuideId
-                    };
+                    Name = Name,
+                    Location = new Location { City = City, Country = Country },
+                    Description = Description,
+                    Language = language.FromStringToLanguage(Language),
+                    MaxGuestNumber = MaxGuests,
+                    StartingDateTime = date,
+                    Duration = TourDuratation,
+                    TourStarted = false
+                };
+
+                if (Type != CreationTourType.CreatedByComplexRequest && Type != null)
+                {
+                    tour.CreatedType = (CreationTourType)Type;
+                    tour.GuideId = (int)GuideId;
 
                     if (TourRequest != null)
                     {
                         TourRequest.RequestStatus = ComplexTourRequest.Status.Accepted;
                         _tourRequestService.Update(TourRequest);
                     }
-
-                    _tourService.Save(tour);
-                    _tourRequestService.MakeNotificationsForGuests(tour, TourRequest.UserId);
-
-                    _tourPointService.SaveTourPoints(tourPoints);
-                    foreach (var tourPoint in tourPoints)
-                    {
-                        tourPoint.TourId++;
-                    }
                 }
-            else if(TourRequest != null)
-            {
-                foreach (var date in tourStartingDates)
+                else if (TourRequest != null)
                 {
-                    Language language = new();
-                    Tour tour = new Tour()
-                    {
-                        GuideId = TourRequest.GuideId,
-                        Name = Name,
-                        Location = new Location { City = City, Country = Country },
-                        Description = Description,
-                        Language = language.fromStringToLanguage(Language),
-                        MaxGuestNumber = MaxGuests,
-                        StartingDateTime = date,
-                        Duration = TourDuratation,
-                        TourStarted = false,
-                        CreatedType = (CreationTourType)Type
-                    };
-                    //sada je potrebno da onobovimo ComplexTourId sa tim tourid
-                    //u kompleksnim postaviti na true i staviti id vodica na true
+                    tour.CreatedType = (CreationTourType)Type;
+                    tour.GuideId = TourRequest.GuideId;
 
-                    _tourService.Save(tour);
-                    _tourPointService.SaveTourPoints(tourPoints);
                     _complexTourRequestService.UpdateSpecificRequest((int)ComplexTourId, TourRequest.Id, TourRequest.GuideId, tour.StartingDateTime);
-                    foreach (var tourPoint in tourPoints)
-                    {
-                        tourPoint.TourId++;
-                    }
+
+                    window.Close();
                 }
-                window.Close();
-            }
-            else
-            {
-                foreach (var date in tourStartingDates)
+                else
                 {
-                    Language language = new();
-                    Tour tour = new Tour()
-                    {
-                        Name = Name,
-                        Location = new Location { City = City, Country = Country },
-                        Description = Description,
-                        Language = language.fromStringToLanguage(Language),
-                        MaxGuestNumber = MaxGuests,
-                        StartingDateTime = date,
-                        Duration = TourDuratation,
-                        TourStarted = false,
-                        GuideId = (int)GuideId
-                    };
-
-                    if (TourRequest != null)
-                    {
-                        TourRequest.RequestStatus = ComplexTourRequest.Status.Accepted;
-                        _tourRequestService.Update(TourRequest);
-                    }
-
-                    _tourService.Save(tour);
-
-                    _tourPointService.SaveTourPoints(tourPoints);
-                    foreach (var tourPoint in tourPoints)
-                    {
-                        tourPoint.TourId++;
-                    }
+                    tour.GuideId = (int)GuideId;
                 }
 
+                _tourService.Save(tour);
+
+                if (tour.CreatedType == CreationTourType.CreatedByRequest)
+                {
+                    _tourRequestService.MakeNotificationsForGuests(tour, (int)(TourRequest?.UserId));
+                }
+
+                _tourPointService.SaveTourPoints(tourPoints);
+                foreach (var tourPoint in tourPoints)
+                {
+                    tourPoint.TourId++;
+                }
             }
-
-
         }
+
+
 
         private string _Name;
         public string Name

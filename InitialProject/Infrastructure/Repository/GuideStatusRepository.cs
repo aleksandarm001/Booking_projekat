@@ -23,7 +23,7 @@ namespace InitialProject.Infrastructure.Repository
             _statuses = new List<GuideStatus>();
         }
 
-        public List<GuideStatus> getAll()
+        public List<GuideStatus> GetAll()
         {
             return _serializer.FromCSV(FilePath);
         }
@@ -70,6 +70,11 @@ namespace InitialProject.Infrastructure.Repository
             _statuses.Insert(index, status);       // keep ascending order of ids in file 
             _serializer.ToCSV(FilePath, _statuses);
             return status;
+        }
+
+        public GuideStatus GetGuideStatusByEmployeeId(int GuideId)
+        {
+            return GetAll().Where(c => c.EmployeeId == GuideId).FirstOrDefault();
         }
     }
 }

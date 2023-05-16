@@ -45,7 +45,7 @@
             Id = Convert.ToInt32(values[0]);
             UserId = Convert.ToInt32(values[1]);
             Location = Location.fromStringToLocation(values[2]);
-            Language = Language.fromStringToLanguage(values[3]);
+            Language = Language.FromStringToLanguage(values[3]);
             Description = values[4];
             GuestNumber = Convert.ToInt32(values[5]);
             StartingDate = DateTime.Parse(values[6]);

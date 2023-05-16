@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xceed.Wpf.Toolkit;
 using static InitialProject.Domen.Model.GuideStatus;
 
 namespace InitialProject.Services
@@ -16,34 +17,36 @@ namespace InitialProject.Services
         private readonly IGuideStatusRepository guideStatusRepository;
         private readonly ITourService tourService;
         private readonly ITourRateService tourRateService;
+        private readonly ICancelTourService cancelTourService;
         public GuideStatusService()
         {
             guideStatusRepository = Injector.CreateInstance<IGuideStatusRepository>();
             tourService = Injector.CreateInstance<ITourService>();
             tourRateService = Injector.CreateInstance<ITourRateService>();
+            cancelTourService = Injector.CreateInstance<ICancelTourService>();
         }
 
         public GuideStatus GetStatusByUserId(int id)
         {
-            return guideStatusRepository.getAll().Where(c=>c.EmployeeId== id).FirstOrDefault();
+            return guideStatusRepository.GetAll().Where(c=>c.EmployeeId== id).FirstOrDefault();
         }
 
         public void UpdateToUnemployed(int id)
         {
-            GuideStatus guideStatus = guideStatusRepository.getAll().Where(c => c.EmployeeId == id).FirstOrDefault();
+            GuideStatus guideStatus = guideStatusRepository.GetAll().Where(c => c.EmployeeId == id).FirstOrDefault();
             guideStatus.EmploymentStatus = GuideStatus.Status.Unemployed;
             guideStatusRepository.Update(guideStatus);
         }
 
         private void UpdateToSuper(int id)
         {
-            GuideStatus guideStatus = guideStatusRepository.getAll().Where(c => c.EmployeeId == id).FirstOrDefault();
+            GuideStatus guideStatus = guideStatusRepository.GetAll().Where(c => c.EmployeeId == id).FirstOrDefault();
             guideStatus.EmploymentStatus = GuideStatus.Status.SuperGuide;
             guideStatus.DateOfPromotion = DateTime.Now;
             guideStatusRepository.Update(guideStatus);
         }
 
-        private string CheckGroupLanguage(List<Tour> allFinishedToursByGuide)
+        private string GetMostFrequentLanguage(List<Tour> allFinishedToursByGuide)
         {
             var toursGroupedByLanguage = allFinishedToursByGuide
                 .GroupBy(tour => tour.Language.ToString());
@@ -64,27 +67,30 @@ namespace InitialProject.Services
 
         private Status GetStatus(int GuideId) 
         {
-            return guideStatusRepository.getAll().Where(c => c.EmployeeId == GuideId).FirstOrDefault().EmploymentStatus;
+            return guideStatusRepository.GetAll().Where(c => c.EmployeeId == GuideId).FirstOrDefault().EmploymentStatus;
         }
 
-        private void CheckIsPromotionStillActive(int GuideId)
+        private void CheckIsPromotionStillActive(int guideId)
         {
-            GuideStatus guideStatus = guideStatusRepository.getAll().Where(c => c.EmployeeId == GuideId).FirstOrDefault();
-            if (guideStatus.DateOfPromotion <= DateTime.Now.AddYears(-1))
+            GuideStatus guideStatus = guideStatusRepository.GetGuideStatusByEmployeeId(guideId);
+
+            if (IsPromotionExpired(guideStatus))
             {
                 guideStatus.EmploymentStatus = Status.Employeed;
                 guideStatusRepository.Update(guideStatus);
             }
-
         }
 
-
-        public void CheckIfGuideIsSuper(int guideId)
+        private bool IsPromotionExpired(GuideStatus guideStatus)
         {
-            List<Tour> allFinishedToursByGuide = tourService.GetAllFinishedInOneYearByGuide(guideId);
+            DateTime promotionExpirationDate = DateTime.Now.AddYears(-1);
+            return guideStatus.DateOfPromotion <= promotionExpirationDate;
+        }
 
-            Language? language = new Language(CheckGroupLanguage(allFinishedToursByGuide));
-            if (language == null)
+        public void EvaluateGuideForSuperStatus(int guideId)
+        {
+
+            if(GetStatus(guideId) == Status.Unemployed)
                 return;
 
             if(GetStatus(guideId) == Status.SuperGuide)
@@ -93,8 +99,28 @@ namespace InitialProject.Services
                 return;
             }
 
+            List<Tour> allFinishedToursByGuide = tourService.GetAllFinishedInOneYearByGuide(guideId);
+
+            Language? language = new Language(GetMostFrequentLanguage(allFinishedToursByGuide));
+            if (language == null)
+                return;
+
             if (tourRateService.GetAverageRateForGuideInPastYearWithSpecificLanguage(guideId, language) > 9)
                 UpdateToSuper(guideId);
+        }
+
+        public void QuitJob(int guideId)
+        {
+            try
+            {
+                cancelTourService.FindAndCancelAllToursByGuide(guideId);
+                UpdateToUnemployed(guideId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
     }

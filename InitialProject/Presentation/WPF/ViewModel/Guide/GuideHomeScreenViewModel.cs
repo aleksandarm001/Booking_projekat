@@ -8,85 +8,49 @@ using System.Windows.Input;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Guide
 {
-    public class GuideHomeScreenViewModel : ViewModelBase, INotifyPropertyChanged
+    public class GuideHomeScreenViewModel : INotifyPropertyChanged
     {
+        private readonly IGuideStatusService guideStatusService;
+        private readonly Window _window;
+        private bool _isGuideEmployed;
+        private bool _isMenuVisible;
+        private Visibility _buttonsVisibility = Visibility.Collapsed;
+        private Visibility _gridVisibility = Visibility.Visible;
+        private Visibility _burgerMenuVisibility = Visibility.Collapsed;
+        private bool _isPopupVisible;
+        private string _popupMessage;
+        private readonly int GuideId;
+
         public RelayCommand CheckBoxCommand { get; }
         public RelayCommand FirstQuestionCommand { get; }
         public RelayCommand SecondQuestionCommand { get; }
         public RelayCommand ThirdQuestionCommand { get; }
-        public RelayCommand CreateTourCommand { get; set; }
-        public RelayCommand TourRequestCommand { get; set; }
-        public RelayCommand HamburgerCommand { get; set; }
-        public RelayCommand TourStatisticsCommand { get; set; }
-        public RelayCommand ProfileCommand { get; set; }//GuideProfileView
+        public RelayCommand CreateTourCommand { get; }
+        public RelayCommand TourRequestCommand { get; }
+        public RelayCommand HamburgerCommand { get; }
+        public RelayCommand TourStatisticsCommand { get; }
+        public RelayCommand ProfileCommand { get; }
 
-        public IGuideStatusService guideStatusService;
-
-        public int GuideId { get; private set; }
-
-        private System.Timers.Timer popupTimer;
-
-        public Window _window { get; set; }
-        public GuideHomeScreenViewModel(Window window, int? guideId)
+        public bool IsGuideEmployed
         {
-            CheckBoxCommand = new RelayCommand(CheckBoxChanged);
-            FirstQuestionCommand = new RelayCommand(FirstAnswer);
-            SecondQuestionCommand = new RelayCommand(SecondAnswer);
-            ThirdQuestionCommand = new RelayCommand(ThirdAnswer);
-            CreateTourCommand = new RelayCommand(CreateTourView);
-            TourRequestCommand = new RelayCommand(CreateTourRequestView);
-            HamburgerCommand = new RelayCommand(ShowHamburgerMenu);
-            TourStatisticsCommand = new RelayCommand(ShowStatistics);
-            ProfileCommand = new RelayCommand(ShowProfile);
-
-            guideStatusService = Injector.CreateInstance<IGuideStatusService>();
-
-            _window = window;
-            GuideId = (int)guideId;
-
-            if (guideStatusService.GetStatusByUserId(GuideId).EmploymentStatus == Domen.Model.GuideStatus.Status.Unemployed)
-                IsGuideEmployed = false;
-            else
-                IsGuideEmployed = true;
-
-
-            CheckIfGuideIsSuper();
-
-        }
-
-        private void CheckIfGuideIsSuper()
-        {
-            guideStatusService.CheckIfGuideIsSuper(GuideId);
-        }
-
-        public void ShowProfile(object ob)
-        {
-            var profileView = new GuideProfileView(GuideId);
-            profileView.Show();
-        }
-
-        public void ShowStatistics(object ob)
-        {
-            var statisticsView = new TourRequestStatisticsView();
-            statisticsView.Show();
-        }
-
-        public void ShowHamburgerMenu(object ob)
-        {
-            if (GridVisibility != Visibility.Collapsed)
+            get => _isGuideEmployed;
+            set
             {
-                GridVisibility = Visibility.Collapsed;
-                BurgerMenuVisibility = Visibility.Visible;
-            }
-            else
-            {
-                GridVisibility = Visibility.Visible;
-                BurgerMenuVisibility = Visibility.Collapsed;
-
+                _isGuideEmployed = value;
+                OnPropertyChanged(nameof(IsGuideEmployed));
             }
         }
 
-        private Visibility _buttonsVisibility = Visibility.Collapsed;
+        public bool IsMenuVisible
+        {
+            get => _isMenuVisible;
+            set
+            {
+                _isMenuVisible = value;
+                OnPropertyChanged(nameof(IsMenuVisible));
+            }
+        }
+
         public Visibility ButtonsVisibility
         {
             get => _buttonsVisibility;
@@ -97,7 +61,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             }
         }
 
-        private Visibility _gridVisibility = Visibility.Visible;
         public Visibility GridVisibility
         {
             get => _gridVisibility;
@@ -108,9 +71,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             }
         }
 
-        
-
-        private Visibility _burgerMenuVisibility = Visibility.Collapsed;
         public Visibility BurgerMenuVisibility
         {
             get => _burgerMenuVisibility;
@@ -121,54 +81,92 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             }
         }
 
-        private bool isPopupVisible;
         public bool IsPopupVisible
         {
-            get { return isPopupVisible; }
+            get => _isPopupVisible;
             set
             {
-                isPopupVisible = value;
+                _isPopupVisible = value;
                 OnPropertyChanged(nameof(IsPopupVisible));
             }
         }
 
-        private string popupMessage;
         public string PopupMessage
         {
-            get { return popupMessage; }
+            get => _popupMessage;
             set
             {
-                popupMessage = value;
+                _popupMessage = value;
                 OnPropertyChanged(nameof(PopupMessage));
             }
         }
 
 
-        private void ShowInfoPopup(string message)
+        public GuideHomeScreenViewModel(Window window, int? guideId)
         {
-            IsPopupVisible = true;
+            _window = window;
+            guideStatusService = Injector.CreateInstance<IGuideStatusService>();
 
-            // Close the Popup after a certain duration (e.g., 3 seconds)
-            var timer = new System.Timers.Timer(3000);
-            timer.Elapsed += (sender, e) =>
-            {
-                IsPopupVisible = false;
-                timer.Stop();
-                timer.Dispose();
-            };
-            timer.Start();
+            CheckBoxCommand = new RelayCommand(CheckBoxChanged);
+            FirstQuestionCommand = new RelayCommand(FirstAnswer);
+            SecondQuestionCommand = new RelayCommand(SecondAnswer);
+            ThirdQuestionCommand = new RelayCommand(ThirdAnswer);
+            CreateTourCommand = new RelayCommand(CreateTourView);
+            TourRequestCommand = new RelayCommand(CreateTourRequestView);
+            HamburgerCommand = new RelayCommand(ShowHamburgerMenu);
+            TourStatisticsCommand = new RelayCommand(ShowStatistics);
+            ProfileCommand = new RelayCommand(ShowProfile);
+
+            GuideId = guideId.GetValueOrDefault();
+
+            if (guideStatusService.GetStatusByUserId(GuideId).EmploymentStatus == Domen.Model.GuideStatus.Status.Unemployed)
+                IsGuideEmployed = false;
+            else
+                IsGuideEmployed = true;
+
+            CheckIfGuideIsSuper();
         }
 
+        private void CheckIfGuideIsSuper()
+        {
+            guideStatusService.EvaluateGuideForSuperStatus(GuideId);
+        }
+
+        private void ShowProfile(object ob)
+        {
+            var profileView = new GuideProfileView(GuideId);
+            profileView.Show();
+        }
+
+        private void ShowStatistics(object ob)
+        {
+            var statisticsView = new TourRequestStatisticsView();
+            statisticsView.Show();
+        }
+
+        private void ShowHamburgerMenu(object ob)
+        {
+            if (GridVisibility != Visibility.Collapsed)
+            {
+                GridVisibility = Visibility.Collapsed;
+                BurgerMenuVisibility = Visibility.Visible;
+            }
+            else
+            {
+                GridVisibility = Visibility.Visible;
+                BurgerMenuVisibility = Visibility.Collapsed;
+            }
+        }
 
         private void CheckBoxChanged(object isChecked)
         {
             bool IsChecked = (bool)isChecked;
-            // Update the visibility of the buttons based on the CheckBox's state
             ButtonsVisibility = IsChecked ? Visibility.Visible : Visibility.Collapsed;
         }
+
         private void CreateTourView(object isChecked)
         {
-            CreatingTourView tourForm = new CreatingTourView(null,null,null, GuideId);
+            CreatingTourView tourForm = new CreatingTourView(null, null, null, GuideId);
             tourForm.Show();
             _window.Close();
         }
@@ -180,7 +178,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             _window.Close();
         }
 
-
         private void FirstAnswer(object isChecked)
         {
             PopupMessage = "Temporary information 1";
@@ -189,44 +186,32 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         private void SecondAnswer(object isChecked)
         {
             ShowInfoPopup("Temporary information 2");
-
         }
 
         private void ThirdAnswer(object isChecked)
         {
             ShowInfoPopup("Temporary information 3");
-
         }
+
+        private void ShowInfoPopup(string message)
+        {
+            IsPopupVisible = true;
+
+            var timer = new System.Timers.Timer(3000);
+            timer.Elapsed += (sender, e) =>
+            {
+                IsPopupVisible = false;
+                timer.Stop();
+                timer.Dispose();
+            };
+            timer.Start();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-
-        private bool _isMenuVisible;
-        public bool IsMenuVisible
-        {
-            get { return _isMenuVisible; }
-            set
-            {
-                _isMenuVisible = value;
-                OnPropertyChanged(nameof(IsMenuVisible));
-            }
-        }
-
-        private bool _IsGuideEmployed;
-        public bool IsGuideEmployed
-        {
-            get { return _IsGuideEmployed; }
-            set
-            {
-                _IsGuideEmployed = value;
-                OnPropertyChanged(nameof(IsGuideEmployed));
-            }
-        }
-
     }
 }

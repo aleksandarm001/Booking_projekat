@@ -27,7 +27,7 @@
             return csvValues;
         }
 
-        public Language fromStringToLanguage(string s)
+        public Language FromStringToLanguage(string s)
         {
             return new Language(s);
         }

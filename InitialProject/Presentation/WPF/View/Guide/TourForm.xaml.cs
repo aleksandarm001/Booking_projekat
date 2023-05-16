@@ -193,7 +193,7 @@ namespace InitialProject.View
         public Tour GetInputValues()
         {
             Language language = new();
-            Language languageForTour = language.fromStringToLanguage(LanguageComboBox.Text);
+            Language languageForTour = language.FromStringToLanguage(LanguageComboBox.Text);
             Location location = new Location { Country = CountriesComboBox.Text, City = CityComboBox.Text };
 
             Tour tourToSave = new Tour

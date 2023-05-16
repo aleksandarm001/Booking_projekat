@@ -45,6 +45,11 @@
             List<TourRate> tourRates = GetRatesByGuideId(guideId);
             List<TourRate> tourRatesByLanguage = new();
 
+            if(tourRates.Count == 0)
+            {
+                return 0;
+            }
+
             foreach (var rate in tourRates)
             {
                 if (_tourService.GetTourById(rate.TourId).Language.ToString() == language.ToString())

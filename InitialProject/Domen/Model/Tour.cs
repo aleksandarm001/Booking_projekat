@@ -62,7 +62,7 @@ namespace InitialProject.Domen.Model
             Name = values[1];
             Location = Location.fromStringToLocation(values[2]);
             Description = values[3];
-            Language = Language.fromStringToLanguage(values[4]);
+            Language = Language.FromStringToLanguage(values[4]);
             MaxGuestNumber = Convert.ToInt32(values[5]);
             StartingDateTime = DateTime.Parse(values[6]);
             Duration = Convert.ToInt32(values[7]);

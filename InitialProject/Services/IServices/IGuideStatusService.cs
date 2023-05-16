@@ -6,7 +6,9 @@ namespace InitialProject.Services
     {
         GuideStatus GetStatusByUserId(int id);
 
-        void CheckIfGuideIsSuper(int guideId);
+        void EvaluateGuideForSuperStatus(int guideId);
         void UpdateToUnemployed(int id);
+
+        void QuitJob(int guideId);
     }
 }

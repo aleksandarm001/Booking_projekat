@@ -15,76 +15,40 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
 {
     public class TourRequestsViewModel : INotifyPropertyChanged
     {
+        private readonly ITourRequestService tourRequestService;
+        private readonly int guideId;
+
         public ICommand ApproveCommand { get; set; }
         public ICommand DeclineCommand { get; set; }
-        public ICommand FillterCommand { get; set; }
-
+        public ICommand FilterCommand { get; set; }
         public ICommand ComplexRequestCommand { get; set; }
 
-        private readonly ITourRequestService tourRequestService;
-        private readonly ITourService tourService;
+        public ObservableCollection<TourRequest> TourRequests { get; set; }
+        public TourRequest SelectedTourRequest { get; set; }
+        public bool IsSelected { get; set; }
 
-        private readonly int GuideId;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public TourRequestsViewModel(int? guideId)
         {
             ApproveCommand = new RelayCommand(ApproveTourRequest);
             DeclineCommand = new RelayCommand(DeclineTourRequest);
-            FillterCommand = new RelayCommand(FillterTourRequest);
+            FilterCommand = new RelayCommand(FilterTourRequest);
             ComplexRequestCommand = new RelayCommand(ComplexRequest);
-            tourRequestService = Injector.CreateInstance<ITourRequestService>();
-            tourService = Injector.CreateInstance<ITourService>();
 
-            _tourRequests = new ObservableCollection<TourRequest>();
+            tourRequestService = Injector.CreateInstance<ITourRequestService>();
+
+            TourRequests = new ObservableCollection<TourRequest>();
 
             var tourRequestsList = tourRequestService.GetAllRequests();
 
-            GuideId = (int)guideId;
+            this.guideId = guideId ?? 0;
 
-            foreach (var tourRequest in tourRequestsList)
-                if(tourRequest.RequestStatus == ComplexTourRequest.Status.OnHold)
-                    _tourRequests.Add(tourRequest);
-        }
-
-        private ObservableCollection<TourRequest> _tourRequests { get; set; }
-        public ObservableCollection<TourRequest> TourRequests
-        {
-            get { return _tourRequests; }
-            set
+            foreach (var tourRequest in tourRequestsList.Where(tr => tr.RequestStatus == ComplexTourRequest.Status.OnHold))
             {
-                _tourRequests = value;
-                OnPropertyChanged();
+                TourRequests.Add(tourRequest);
             }
         }
-
-        private TourRequest _selectedTourRequest;
-        public TourRequest SelectedTourRequest
-        {
-            get { return _selectedTourRequest; }
-            set
-            {
-                _selectedTourRequest = value;
-                OnPropertyChanged(nameof(SelectedTourRequest));
-            }
-        }
-
-        private bool isSelected;
-
-        public bool IsSelected
-        {
-            get { return isSelected; }
-            set
-            {
-                if (isSelected != value)
-                {
-                    isSelected = value;
-                    OnPropertyChanged(nameof(IsSelected));
-                }
-            }
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -94,19 +58,19 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
         private void ApproveTourRequest(object obj)
         {
             TourRequest selectedTourRequest = (TourRequest)obj;
-            CreationType creationType = new();
+            CreationType creationType = new CreationType
+            {
+                Type = CreationType.CreationTourType.CreatedByRequest
+            };
 
-            creationType.Type = CreationType.CreationTourType.CreatedByRequest;
-
-            CreatingTourView creatingTourView = new CreatingTourView(selectedTourRequest, creationType, null, GuideId);
-            _tourRequests.Remove(selectedTourRequest);
+            CreatingTourView creatingTourView = new CreatingTourView(selectedTourRequest, creationType, null, guideId);
+            TourRequests.Remove(selectedTourRequest);
             creatingTourView.ShowDialog();
         }
 
-
-        private void FillterTourRequest(object obj)
+        private void FilterTourRequest(object obj)
         {
-            FilterTourRequestView T = new FilterTourRequestView(_tourRequests);
+            FilterTourRequestView T = new FilterTourRequestView(TourRequests);
             T.Show();
         }
 
@@ -115,14 +79,13 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
             TourRequest selectedTourRequest = (TourRequest)obj;
             selectedTourRequest.RequestStatus = ComplexTourRequest.Status.Rejected;
             tourRequestService.Update(selectedTourRequest);
-            _tourRequests.Remove(selectedTourRequest);
+            TourRequests.Remove(selectedTourRequest);
         }
 
-        public void ComplexRequest(object obj)
+        private void ComplexRequest(object obj)
         {
-            ComplexTourRequestsView T = new ComplexTourRequestsView(GuideId);
+            ComplexTourRequestsView T = new ComplexTourRequestsView(guideId);
             T.Show();
         }
-
     }
 }
