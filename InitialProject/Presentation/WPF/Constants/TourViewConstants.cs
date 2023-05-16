@@ -6,7 +6,7 @@
     {
         public static readonly string Caption = "Rezervacija ture";
         public static readonly string MustSelectTour = "Morate prvo izabrati turu";
-        public static readonly string MaxGuestNumberIsZero = "Izabrana tura je popunjena, da li želite da vidite slične ture na istoj lokaciji?";
+        public static readonly string MaxGuestNumberIsZero = "Zao nam je, izabrana tura je popunjena, pokusajte pronaci drugu turu.";
         public static readonly string ViewOtherTours = "Trenutno ne postoji tura na istoj lokaciji, pogledajte ostale ponudjene ture!";
         public static readonly string TourReviewed = "Vec ste ocijenili izabranu turu!";
         public static readonly string TourNotStarted = "Izabrana tura jos uvijek nije pocela!";

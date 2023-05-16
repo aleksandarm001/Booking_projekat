@@ -31,13 +31,13 @@
             VoucherId = voucherId;
         }
 
-        public TourReservation(DateRange dateRange, int guestNumber, int userId)
+      /*  public TourReservation(DateRange dateRange, int guestNumber, int userId)
         {
             TourId = -1;
             UserId = userId;
             ReservationDateRange = dateRange;
             NumberOfGuests = guestNumber;
-        }
+        }*/
         public string[] ToCSV()
         {
             string[] csvValues = {

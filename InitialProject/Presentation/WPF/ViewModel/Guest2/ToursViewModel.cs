@@ -1,43 +1,36 @@
-﻿namespace InitialProject.Presentation.WPF.View.Guest2
+﻿namespace InitialProject.Presentation.WPF.ViewModel.Guest2
 {
     using InitialProject.Aplication.Factory;
+    using InitialProject.Domen.CustomClasses;
     using InitialProject.Domen.Model;
-    using InitialProject.Presentation.WPF.Constants;
     using InitialProject.Presentation.WPF.View.Guest2;
     using InitialProject.Services.IServices;
     using InitialProject.View.Guest2;
-    using Microsoft.TeamFoundation.Common;
+    using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
     using System.Runtime.CompilerServices;
+    using System.Text;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
 
-    public partial class TourView : Window, INotifyPropertyChanged
+    public class ToursViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private readonly ITourService _tourService;
+        public RelayCommand PreviewTourCommand { get; set; }
+        public RelayCommand ApplyFiltersCommand { get; set; }
         public static ObservableCollection<string> Duration { get; set; }
         public static ObservableCollection<int> GuestNumber { get; set; }
         public static ObservableCollection<string> Languages { get; set; }
         public static ObservableCollection<Location> Locations { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<string> Countries { get; set; }
-
-        public static ObservableCollection<TourAttendance> TourAttendances { get; set; }
-        private int UserId { get; }
         public Tour SelectedTour { get; set; }
-        public int NumberOfGuests { get; set; }
-        public string SelectedLanguage { get; set; }
-        public string SelectedCity { get; set; }
-        public string SelectedGuestNumber { get; set; }
-        public string SelectedDurationFrom { get; set; }
-        public string SelectedDurationTo { get; set; }
-
-        private readonly ITourService _tourService;
-
-        private readonly ITourAttendanceService _tourAttendanceService;
-
         private ObservableCollection<Tour> _tours { get; set; }
         public ObservableCollection<Tour> Tours
         {
@@ -49,25 +42,39 @@
             }
         }
 
-        public TourView(int userId)
+        public int NumberOfGuests { get; set; }
+        public string SelectedLanguage { get; set; }
+        public string SelectedCity { get; set; }
+        public string SelectedGuestNumber { get; set; }
+        public string SelectedDurationFrom { get; set; }
+        public string SelectedDurationTo { get; set; }
+
+
+        public ToursViewModel() 
         {
-            InitializeComponent();
-            DataContext = this;
-            UserId = userId;
             _tourService = Injector.CreateInstance<ITourService>();
-            _tourAttendanceService = Injector.CreateInstance<ITourAttendanceService>();
             Cities = new ObservableCollection<string>();
             Countries = new ObservableCollection<string>();
             Tours = new ObservableCollection<Tour>(_tourService.GetAllNotStartedTours());
+            ApplyFiltersCommand = new RelayCommand(ApplyFilters);
+            PreviewTourCommand = new RelayCommand(PreviewTour);
 
             InitializeLanguages();
             InitializeLocations();
             InitializeGuestNumber();
             InitializeDuration();
             ReadCitiesAndCountries();
-            CheckTourAttendance();
         }
 
+        public void ApplyFilters(object parameter)
+        {
+            Tours = new ObservableCollection<Tour>(_tourService.GetAllFiltered(SelectedCity, SelectedCountry, SelectedDurationFrom, SelectedDurationTo, SelectedLanguage, SelectedGuestNumber));
+        } 
+        
+        public void PreviewTour(object parameter)
+        {
+            
+        }
         private string _selectedCountry;
         public string SelectedCountry
         {
@@ -110,7 +117,6 @@
             }
         }
 
-
         private void InitializeGuestNumber()
         {
             GuestNumber = new ObservableCollection<int>();
@@ -144,32 +150,6 @@
                 Duration.Add(i.ToString());
             }
             Duration.Insert(0, string.Empty);
-        }
-        private void Rezervisi_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedTour == null)
-            {
-                MessageBox.Show(TourViewConstants.MustSelectTour, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Yes);
-            }
-            else
-            {
-                if (SelectedTour.MaxGuestNumber == 0)
-                {
-                    HandleFullTourCapacity();
-                }
-                else
-                {
-                    Presentation.WPF.View.Guest2.TourReservation tourReservation = new Presentation.WPF.View.Guest2.TourReservation(UserId, SelectedTour);
-                    tourReservation.ShowDialog();
-                    //SelectedTour.ReduceGuestNumber(tourReservation.NumberOfGuests);
-                }
-            }
-        }
-
-
-        private void ApplyFilters_Click(object sender, RoutedEventArgs e)
-        {
-            Tours = new ObservableCollection<Tour>(_tourService.GetAllFiltered(SelectedCity, SelectedCountry, SelectedDurationFrom, SelectedDurationTo, SelectedLanguage, SelectedGuestNumber));
         }
 
         private void ReadCitiesAndCountries()
@@ -218,57 +198,9 @@
             }
         }
 
-        private void HandleFullTourCapacity()
-        {
-            MessageBoxResult result;
-            result = MessageBox.Show(TourViewConstants.MaxGuestNumberIsZero, TourViewConstants.Caption, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes);
-            if (result == MessageBoxResult.Yes)
-            {
-                Tours = new ObservableCollection<Tour>(_tourService.GetSimilarAsTourHasFullCapacity(SelectedTour.Location.Country, SelectedTour.Location.City));
-
-                if (Tours.Count == 0)
-                {
-                    MessageBox.Show(TourViewConstants.ViewOtherTours, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
-                    Tours = new ObservableCollection<Tour>(_tourService.GetAllNotStartedTours());
-                }
-
-            }
-        }
-
-        private void CheckTourAttendance()
-        {
-            TourAttendances = new ObservableCollection<TourAttendance>(_tourAttendanceService.GetAllToCheckByUser(UserId));
-            if (!TourAttendances.IsNullOrEmpty())
-            {
-                foreach (var t in TourAttendances)
-                {
-                    CheckingTour checkingTour = new CheckingTour(t);
-                    checkingTour.ShowDialog();
-                }
-            }
-        }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
-        private void ZavrseneTure_Click(object sender, RoutedEventArgs e)
-        {
-            FinishedTours finishedTours = new FinishedTours(UserId);
-            finishedTours.ShowDialog();
-        }
-
-        private void RezervisaneTure_Click(object sender, RoutedEventArgs e)
-        {
-            ReservedTours reservedTours = new ReservedTours(UserId);
-            reservedTours.ShowDialog();
-        }
-
-        private void ZahtjevaneTure_Click(object sender, RoutedEventArgs e)
-        {
-            RequestedTour requestedTour = new RequestedTour(UserId);
-            requestedTour.ShowDialog();
         }
     }
 }

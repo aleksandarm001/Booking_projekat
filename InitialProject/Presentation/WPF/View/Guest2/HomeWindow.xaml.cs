@@ -248,7 +248,7 @@
             }
             else
             {
-                Presentation.WPF.View.Guest2.TourReservation tourReservation = new TourReservation(UserId, Tour, NumberOfGuests);
+                Presentation.WPF.View.Guest2.TourReservation tourReservation = new TourReservation(UserId, Tour);
                 tourReservation.ShowDialog();
                 //SelectedTour.ReduceGuestNumber(tourReservation.NumberOfGuests);
             }

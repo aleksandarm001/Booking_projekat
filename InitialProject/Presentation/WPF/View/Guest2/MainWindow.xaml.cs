@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InitialProject.Presentation.WPF.ViewModel.Guest2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,12 @@ namespace InitialProject.Presentation.WPF.View.Guest2
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindowViewModel _ViewModel { get; set; }
+        public MainWindow(int userId)
         {
             InitializeComponent();
+            this._ViewModel = new MainWindowViewModel(this.frame.NavigationService, userId);
+            this.DataContext = this._ViewModel;
         }
     }
 }

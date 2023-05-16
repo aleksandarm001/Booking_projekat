@@ -10,8 +10,8 @@
         <TextBlock Text="{Binding Path=First}" HorizontalAlignment="Left" Height="36" Margin="10,24,0,0" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="414"/>
         <TextBlock Text="{Binding Path=Second}" HorizontalAlignment="Left" Height="36" Margin="10,60,0,0" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="412"/>
         <TextBlock Text="{Binding Path=Third}" HorizontalAlignment="Left" Height="36" Margin="10,96,0,0" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="412"/>
-        <TextBox Name="NumberOfGuestTextBox"  HorizontalAlignment="Left" Text="{Binding Path=StrNumberOfGuests, UpdateSourceTrigger=PropertyChanged}" TextChanged="NumberOfGuestTextBox_TextChanged" Height="22" Margin="264,203,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="53"/>
-        <Button Name="Rezervisi" Content="Rezerviši" HorizontalAlignment="Left" Margin="89,275,0,0" VerticalAlignment="Top"  Click="Potvrdi_Click">
+        <TextBox Name="NumberOfGuestTextBox"  HorizontalAlignment="Left" Text="{Binding Path=StrNumberOfGuests, UpdateSourceTrigger=PropertyChanged}" Height="22" Margin="264,203,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="53"/>
+        <Button Name="Rezervisi" Content="Rezerviši" HorizontalAlignment="Left" Margin="89,275,0,0" VerticalAlignment="Top"  Command="{Binding ReserveCommand}" CommandParameter="{Binding ElementName=Vaucer, Path=SelectedIndex}">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="#00A76D"/>
@@ -36,7 +36,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button Content="Odustani" HorizontalAlignment="Left"  Margin="264,275,0,0" VerticalAlignment="Top" Click="Odustani_Click">
+        <Button Content="Odustani" HorizontalAlignment="Left"  Margin="264,275,0,0" VerticalAlignment="Top" Command="{Binding DeclineCommand}">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="#BB141A"/>

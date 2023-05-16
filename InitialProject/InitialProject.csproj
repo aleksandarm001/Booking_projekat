@@ -124,4 +124,11 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="Presentation\WPF\View\Guest2\Views\ToursView.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+  </ItemGroup>
+
 </Project>
