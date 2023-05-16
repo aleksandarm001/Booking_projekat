@@ -14,12 +14,10 @@ namespace InitialProject.Services
         private readonly ITourRepository _tourRepository;
         private readonly IUserService userService;
         private readonly ITourReservationService tourReservationService;
-        private readonly ITourReservationRepository tourReservationRepository;
         private readonly ITourRequestService tourRequestService;
         public TourStatisticsService()
         {
             _tourRepository = Injector.CreateInstance<ITourRepository>();
-            tourReservationRepository = Injector.CreateInstance<ITourReservationRepository>();
             userService = Injector.CreateInstance<IUserService>();
             tourReservationService = Injector.CreateInstance<ITourReservationService>();
             tourRequestService = Injector.CreateInstance<ITourRequestService>();
@@ -47,7 +45,7 @@ namespace InitialProject.Services
         public Tour GetMostVisitedTour(string year)
         {
             Dictionary<int, int> tourVisits = new Dictionary<int, int>();
-            List<TourReservation> reservations = tourReservationRepository.GetAll().Where(c => c.TourId > 0).ToList();
+            List<TourReservation> reservations = tourReservationService.GetAllReservations().Where(c => c.TourId > 0).ToList();
 
             foreach (TourReservation reservation in reservations)
             {
@@ -73,7 +71,6 @@ namespace InitialProject.Services
 
         }
 
-        // body of foreach loop in GetSpecificStatistic method
 
         private void UpdateAgeStatistics(TourReservation reservation, ref AgeStatistics ageStatistics)
         {
@@ -144,43 +141,60 @@ namespace InitialProject.Services
             var filteredRequests = FilterRequests(selectedData);
             List<FilteredTourRequestStatistics> statistic = new();
 
-            if (string.IsNullOrEmpty(selectedData.Year))
+            if (string.IsNullOrEmpty(selectedData.Year)) // if year is not selected
             {
-                var yearlyStatistics = GetYearlyStatistics(filteredRequests, selectedData);
-
-                foreach (var data in yearlyStatistics)
-                {
-                    var filtered = new FilteredTourRequestStatistics();
-                    filtered.Year = data.Year;
-
-                    var values = new List<int> { data.NumberOfRequestsCity, data.NumberOfRequestsCountry, data.NumberOfRequestsLanguage };
-                    values.RemoveAll(item => item == 0);
-                    filtered.NumberOfTourRequests = values.Any() ? values.Min() : 0;
-
-                    filtered.Month = data.Month;
-                    statistic.Add(filtered);
-                }
+                statistic = GetYearlyFilteredStatistics(filteredRequests, selectedData);
             }
             else if (int.TryParse(selectedData.Year, out int selectedYear))
             {
-                var monthlyStatistics = GetMonthlyStatistics(filteredRequests, selectedData, selectedYear);
-
-                foreach (var data in monthlyStatistics)
-                {
-                    var filtered = new FilteredTourRequestStatistics();
-                    filtered.Year = data.Year;
-                    filtered.Month = data.Month;
-
-                    var values = new List<int> { data.NumberOfRequestsCity, data.NumberOfRequestsCountry, data.NumberOfRequestsLanguage };
-                    values.RemoveAll(item => item == 0);
-                    filtered.NumberOfTourRequests = values.Any() ? values.Min() : 0;
-
-                    statistic.Add(filtered);
-                }
+                statistic = GetMonthlyFilteredStatistics(filteredRequests, selectedData, selectedYear);
             }
 
             return statistic;
         }
+
+        private List<FilteredTourRequestStatistics> GetYearlyFilteredStatistics(List<TourRequest> filteredRequests, FilterStatisticDTO selectedData)
+        {
+            var yearlyStatistics = GetYearlyStatistics(filteredRequests, selectedData);
+            List<FilteredTourRequestStatistics> statistic = new();
+
+            foreach (var data in yearlyStatistics)
+            {
+                var filtered = new FilteredTourRequestStatistics();
+                filtered.Year = data.Year;
+
+                var values = new List<int> { data.NumberOfRequestsCity, data.NumberOfRequestsCountry, data.NumberOfRequestsLanguage };
+                values.RemoveAll(item => item == 0);
+                filtered.NumberOfTourRequests = values.Any() ? values.Min() : 0;
+
+                filtered.Month = data.Month;
+                statistic.Add(filtered);
+            }
+
+            return statistic;
+        }
+
+        private List<FilteredTourRequestStatistics> GetMonthlyFilteredStatistics(List<TourRequest> filteredRequests, FilterStatisticDTO selectedData, int selectedYear)
+        {
+            var monthlyStatistics = GetMonthlyStatistics(filteredRequests, selectedData, selectedYear);
+            List<FilteredTourRequestStatistics> statistic = new();
+
+            foreach (var data in monthlyStatistics)
+            {
+                var filtered = new FilteredTourRequestStatistics();
+                filtered.Year = data.Year;
+                filtered.Month = data.Month;
+
+                var values = new List<int> { data.NumberOfRequestsCity, data.NumberOfRequestsCountry, data.NumberOfRequestsLanguage };
+                values.RemoveAll(item => item == 0);
+                filtered.NumberOfTourRequests = values.Any() ? values.Min() : 0;
+
+                statistic.Add(filtered);
+            }
+
+            return statistic;
+        }
+
 
 
         private List<TourRequest> FilterRequests(FilterStatisticDTO selectedData)

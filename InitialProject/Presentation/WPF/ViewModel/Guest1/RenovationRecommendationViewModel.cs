@@ -3,14 +3,9 @@ using InitialProject.Domen.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Presentation.WPF.View.Guest1;
 using InitialProject.Services.IServices;
-using InitialProject.View.Guest1;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Guest1
