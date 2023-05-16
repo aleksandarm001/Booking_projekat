@@ -20,6 +20,7 @@
 
         void Update(TourRequest tourRequest);
 
+        List<TourRequest> GetAllTourRequestsInPastYear();
         void CheckRequests();
 
         List<string> GetAllYearsOfTourReqeusts();

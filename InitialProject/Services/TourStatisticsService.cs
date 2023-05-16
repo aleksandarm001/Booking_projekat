@@ -42,7 +42,7 @@ namespace InitialProject.Services
             return years;
         }
 
-        public Tour GetMostVisitedTour(string year)
+        public Tour GetMostVisitedTourByYear(string year)
         {
             Dictionary<int, int> tourVisits = new Dictionary<int, int>();
             List<TourReservation> reservations = tourReservationService.GetAllReservations().Where(c => c.TourId > 0).ToList();
@@ -250,7 +250,7 @@ namespace InitialProject.Services
 
         public Location GetMostPopularLocation()
         {
-            List<TourRequest> AllTourRequests = tourRequestService.GetAllRequests();
+            List<TourRequest> AllTourRequests = tourRequestService.GetAllTourRequestsInPastYear();
 
             return AllTourRequests.GroupBy(r => r.Location)
                                   .OrderByDescending(g => g.Count())
@@ -259,7 +259,7 @@ namespace InitialProject.Services
 
         public Language GetMostPopularLanguage()
         {
-            List<TourRequest> AllTourRequests = tourRequestService.GetAllRequests();
+            List<TourRequest> AllTourRequests = tourRequestService.GetAllTourRequestsInPastYear();
 
             return AllTourRequests.GroupBy(r => r.Language)
                                   .OrderByDescending(g => g.Count())

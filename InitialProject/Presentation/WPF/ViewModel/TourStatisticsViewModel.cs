@@ -68,7 +68,7 @@ namespace InitialProject.Presentation.WPF.ViewModel
 
         public Tour GetMostVisitedTour(string year)
         {
-            return _tourStatisticsService.GetMostVisitedTour(Year);
+            return _tourStatisticsService.GetMostVisitedTourByYear(Year);
         }
 
         public void GenerateStatistic()

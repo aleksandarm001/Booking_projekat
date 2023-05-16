@@ -7,13 +7,10 @@ namespace InitialProject.Services.IServices
     public interface ITourStatisticsService
     {
         List<string> GetAllYears();
-
         List<FilteredTourRequestStatistics> FilterData(FilterStatisticDTO selectedData);
-
         Location GetMostPopularLocation();
-
         Language GetMostPopularLanguage();
         Statistic GetSpecificStatistic(string tour);
-        Tour GetMostVisitedTour(string year);
+        Tour GetMostVisitedTourByYear(string year);
     }
 }

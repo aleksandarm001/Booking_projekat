@@ -50,6 +50,16 @@
             return _repository.GetAll().Where(tourRequest => tourRequest.UserId == userId).ToList();
         }
 
+        public List<TourRequest> GetAllTourRequestsInPastYear()
+        {
+            DateTime oneYearAgo = DateTime.Now.AddYears(-1);
+
+            return _repository.GetAll()
+                .Where(tourRequest => tourRequest.StartingDate >= oneYearAgo && tourRequest.StartingDate <= DateTime.Now)
+                .ToList();
+
+        }
+
         public List<string> GetAllYearsOfTourReqeusts()
         {
             List<TourRequest> tours = _repository.GetAll();
