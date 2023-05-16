@@ -1,5 +1,7 @@
-﻿using InitialProject.Domen.CustomClasses;
+﻿using InitialProject.Aplication.Factory;
+using InitialProject.Domen.CustomClasses;
 using InitialProject.Services;
+using InitialProject.Services.IServices;
 using InitialProject.Validation;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private AccommodationStatisticsService _accommodationStatisticsService;
+        private IAccommodationStatisticService _accommodationStatisticsService;
         private int AccommodationId;
         private int Year;
 
@@ -35,7 +37,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         public MonthlyStatisticsViewModel(int accommodationId,int year) 
         {
-            _accommodationStatisticsService = new AccommodationStatisticsService();
+            _accommodationStatisticsService =Injector.CreateInstance<IAccommodationStatisticService>();
             AccommodationId= accommodationId;
             Year= year;
 

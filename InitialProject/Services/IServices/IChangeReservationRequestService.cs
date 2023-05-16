@@ -13,6 +13,8 @@ namespace InitialProject.Services.IServices
         void SaveRequest(ChangeReservationRequest request);
         void DeleteRequestByReservationId(int reservationId);
         ChangeReservationRequest FindRequestByReservationId(int reservationId);
+
+        List<ChangeReservationRequest> GetRequestsByAccommodationId(int accommodationId);
         ChangeReservationRequest GetRequestByRequestId(int requestId);
         List<ChangeReservationRequest> GetRequestsByOwnerId(int userId);
         List<OwnerChangeRequests> OwnerChangeReservationRequest(int ownerId);

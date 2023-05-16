@@ -10,5 +10,7 @@ namespace InitialProject.Services.IServices
     public interface INotificationService
     {
         Notification SaveNotification(Notification notification);
+
+        bool IsReservationCanceled(int reservationId);
     }
 }

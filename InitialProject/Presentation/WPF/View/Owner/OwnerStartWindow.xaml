@@ -599,7 +599,7 @@
                 </Grid>
             </DockPanel>
 
-            <DockPanel x:Name="ChangeReservationRequests" Grid.Column="1" Grid.Row="2" Visibility="Collapsed">
+            <DockPanel x:Name="ChangeReservationRequests" Grid.Column="1" Grid.Row="2" Visibility="Visible">
                 <DataGrid DockPanel.Dock="Top" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Height="289" Width="776" Margin="0,20,0,0"
                       ItemsSource="{Binding Requests}"
                       SelectedItem="{Binding Path= SelectedRequest, UpdateSourceTrigger=PropertyChanged}">
@@ -618,7 +618,7 @@
                 </DockPanel>
             </DockPanel>
 
-            <Grid Grid.Row="2" Grid.Column="1" Visibility="Visible">
+            <Grid Grid.Row="2" Grid.Column="1" Visibility="Collapsed">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="70*"></RowDefinition>
                     <RowDefinition Height="441*"></RowDefinition>

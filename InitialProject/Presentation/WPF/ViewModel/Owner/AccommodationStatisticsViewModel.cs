@@ -1,6 +1,8 @@
-﻿using InitialProject.Domen.CustomClasses;
+﻿using InitialProject.Aplication.Factory;
+using InitialProject.Domen.CustomClasses;
 using InitialProject.Presentation.WPF.View.Owner;
 using InitialProject.Services;
+using InitialProject.Services.IServices;
 using InitialProject.Validation;
 using Microsoft.VisualStudio.Services.Profile;
 using System;
@@ -21,7 +23,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         public event PropertyChangedEventHandler? PropertyChanged;
 
 
-        private readonly AccommodationStatisticsService _accommodationStatisticsService;
+        private readonly IAccommodationStatisticService _accommodationStatisticsService;
 
 
         public ObservableCollection<StatisticsByYearDTO> _statisticsByYear;
@@ -44,7 +46,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         public AccommodationStatisticsViewModel(int accommodationId)
         {
-            _accommodationStatisticsService = new AccommodationStatisticsService();
+            _accommodationStatisticsService = Injector.CreateInstance<IAccommodationStatisticService>();
             AccommodationId= accommodationId;
 
             StatisticsByYearDTOs = new ObservableCollection<StatisticsByYearDTO>(_accommodationStatisticsService.YearStatisticsForAccommodation(AccommodationId));

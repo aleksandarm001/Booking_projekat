@@ -1,17 +1,18 @@
 ﻿using InitialProject.Domen.CustomClasses;
 using InitialProject.Domen.Model;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 
 namespace InitialProject.Services
 {
-    public class AccommodationStatisticsService
+    public class AccommodationStatisticsService : IAccommodationStatisticService
     {
-        private readonly ReservationService _reservationService;
-        private readonly AccommodationReservationService _accommodationReservationService;
-        private readonly NotificationService _notificationService;
-        private readonly RenovationRecommendationService _renovationRecommendationService;
-        private readonly ChangeReservationRequestService _changeReservationRequestService;
+        private readonly IReservationService _reservationService;
+        private readonly IAccommodationReservationService _accommodationReservationService;
+        private readonly INotificationService _notificationService;
+        private readonly IRenovationRecommendationService _renovationRecommendationService;
+        private readonly IChangeReservationRequestService _changeReservationRequestService;
 
         public AccommodationStatisticsService()
         {

@@ -121,7 +121,7 @@ namespace InitialProject.Services
             List<Accommodation> accommodations = _accommodationService.GetAccommodationsByOwnerId(ownerId);
             List<Renovation> renovations = GetFinishedRenovations();
 
-            List<Renovation> scheduledRenovations = new List<Renovation>();
+            List<Renovation> finishedRenovations = new List<Renovation>();
 
             foreach (Accommodation accommodation in accommodations)
             {
@@ -129,11 +129,11 @@ namespace InitialProject.Services
                 {
                     if (accommodation.AccommodationID == renovation.AccommodationId)
                     {
-                        scheduledRenovations.Add(renovation);
+                        finishedRenovations.Add(renovation);
                     }
                 }
             }
-            return scheduledRenovations;
+            return finishedRenovations;
         }
 
         public List<Renovation> GetFinishedRenovations()
