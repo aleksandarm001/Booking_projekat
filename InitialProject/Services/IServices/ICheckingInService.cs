@@ -8,6 +8,6 @@ namespace InitialProject.Services.IServices
 {
     public interface ICheckingInService
     {
-        void HandleCheckingIn();
+        int HandleCheckingIn();
     }
 }

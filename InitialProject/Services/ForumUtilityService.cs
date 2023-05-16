@@ -44,7 +44,7 @@ namespace InitialProject.Services
                     ownerCommentCounter++;
                 }
             }
-            if (guestCommentCounter >= 20 && ownerCommentCounter >= 10)
+            if (guestCommentCounter >= 5) // za potrebe testiranja (5 umjesto 20) "&& ownerCommentCounter >= 10"
             {
                 return "Yes";
             }

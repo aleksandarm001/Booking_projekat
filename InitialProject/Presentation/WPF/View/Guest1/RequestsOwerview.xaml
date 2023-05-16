@@ -27,13 +27,13 @@
                     <Separator Height="0.8" Background="#E0F8E0" Width="180"/>
                     <Button HorizontalAlignment="Left" Style="{StaticResource menuButton}" Width="200" Command="{Binding ChangeReservation_Command}">
                         <StackPanel Orientation="Horizontal">
-                            <!-- <Icon:PackIconMaterial Kind="CalendarEdit" Width="20" Height="20" Margin="0 0 10 0"/> -->
+                            <Icon:PackIconMaterial Kind="CalendarEdit" Width="20" Height="20" Margin="0 0 10 0"/>
                             <TextBlock Text="Change reservation (F10)"/>
                         </StackPanel>
                     </Button>
                     <Button HorizontalAlignment="Left" Style="{StaticResource menuButton}" Width="200" Command="{Binding CancelReservation_Command}">
                         <StackPanel Orientation="Horizontal">
-                            <!-- <Icon:PackIconMaterial Kind="CalendarRemove" Width="20" Height="20" Margin="0 0 10 0"/>-->
+                            <Icon:PackIconMaterial Kind="CalendarRemove" Width="20" Height="20" Margin="0 0 10 0"/>
                             <TextBlock Text="Cancel reservation (F11)"/>
                         </StackPanel>
                     </Button>

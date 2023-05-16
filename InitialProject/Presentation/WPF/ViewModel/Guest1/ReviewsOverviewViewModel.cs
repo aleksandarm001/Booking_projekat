@@ -17,7 +17,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private ObservableCollection<ReviewInfoDTO> reviews;
         private string strAverageRate;
         private int reviewsNumber;
-
         public ObservableCollection<ReviewInfoDTO> Reviews
         {
             get { return reviews; }
@@ -43,7 +42,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 }
             }
         }
-
         public int ReviewsNumber
         {
             get { return reviewsNumber; }
@@ -56,7 +54,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 }
             }
         }
-
         public ReviewsOverviewViewModel(int userId)
         {
             reviewInfoService = new ReviewInfoService();

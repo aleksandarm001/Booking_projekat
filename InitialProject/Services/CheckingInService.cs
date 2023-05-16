@@ -18,18 +18,20 @@ namespace InitialProject.Services
             _reservationService = Injector.CreateInstance<IReservationService>();
             _userService = Injector.CreateInstance<IUserService>();
         }
-        public void HandleCheckingIn()
+        public int HandleCheckingIn()
         {
+            int _pointsTemp = 0;
             List<Reservation> reservations = _reservationService.GetUpcomingReservationsByUser(_userService.GetUserId());
             foreach (Reservation reservation in reservations)
             {
                 if (HasCheckedIn(reservation))
                 {
                     reservation.Status = ReservationStatus.CheckedIn;
-                    _userService.UsePoints(_userService.GetUserId());
+                    _pointsTemp = _userService.UsePoints(_userService.GetUserId());
                     _reservationService.Update(reservation);
                 }
             }
+            return _pointsTemp;
         }
         private bool HasCheckedIn(Reservation reservation)
         {

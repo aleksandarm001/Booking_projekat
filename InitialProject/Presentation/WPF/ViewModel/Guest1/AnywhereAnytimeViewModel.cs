@@ -25,7 +25,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private readonly IAccommodationReservationService _accommodationReservationService;
         private readonly IReservationService _reservationService;
         private readonly IUserService _userService;
-        
         public AccommodationReservationDTO SelectedAccommodation { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
         public RelayCommand ApplyFiltersCommand { get; set; }

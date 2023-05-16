@@ -41,14 +41,15 @@ namespace InitialProject.Services
             _userRepository.Update(user);
         }
 
-        public void UsePoints(int userId)
+        public int UsePoints(int userId)
         {
             var user = _userRepository.GetById(userId);
             if(user.Points > 0)
             {
-                user.Points = user.Points - 1;
+                user.Points--;
                 Update(user);
             }
+            return user.Points;
         }
 
         public int GetUserId()

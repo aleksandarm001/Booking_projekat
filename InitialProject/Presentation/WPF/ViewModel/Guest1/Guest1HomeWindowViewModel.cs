@@ -173,9 +173,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             PreviousReservations.Clear();
             PreviousReservations = new ObservableCollection<ReservationDTO>(_reservationDTOService.GetPastReservationsByUser());
         }
-        private void HandleCheckingIn() //HENDLUJ
+        private void HandleCheckingIn() 
         {
-            _checkingInService.HandleCheckingIn();
+            Points = _checkingInService.HandleCheckingIn();
         }
         private void HandleReservationCompletion()
         {

@@ -73,9 +73,15 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             int ownerId = _accommodationService.GetOwnerIdByAccommodationId(_accommodationId);
             RenovationRecommendation renovationRecommendation = new RenovationRecommendation(ownerId, _accommodationId, userId, SelectedLevel, Comment);
             _renovationService.Save(renovationRecommendation);
-            Window window = App.Current.MainWindow;
-            window.Close();
+            CloseWindow();
         }
+
+        private void CloseWindow()
+        {
+            App.Current.MainWindow = App.Current.Windows.OfType<RenovationRecommendationForm>().FirstOrDefault();
+            App.Current.MainWindow.Close();
+        }
+
         public void CloseWindow(object parameter)
         {
             if (parameter is Window window)
