@@ -23,7 +23,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
 
         private void Close(object parameter)
         {
-            App.Current.MainWindow = App.Current.Windows.OfType<TourNotificationView>().FirstOrDefault();
+            App.Current.MainWindow = App.Current.Windows.OfType<TourRequestNotificationView>().FirstOrDefault();
             App.Current.MainWindow.Close();
         }
     }

@@ -18,7 +18,7 @@
  
                             ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
                             SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
-                            IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+                            IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Naziv" Width="150" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Grad" Width="150" Binding="{Binding Location.City}"/>

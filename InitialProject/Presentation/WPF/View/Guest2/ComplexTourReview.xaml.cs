@@ -1,10 +1,5 @@
 ﻿namespace InitialProject.Presentation.WPF.View.Guest2
 {
-    using InitialProject.Aplication.Factory;
-    using InitialProject.Domen.Model;
-    using InitialProject.Presentation.WPF.ViewModel.Guide;
-    using InitialProject.Services.IServices;
-    using System.Collections.ObjectModel;
     using System.Windows;
 
     /// <summary>
@@ -14,7 +9,7 @@
     {
         public ComplexTourReview(int tourId)
         {
-            ComplexTourRequestsViewModel viewModel = new ComplexTourRequestsViewModel(tourId);
+            ViewModel.Guest2.ComplexTourRequestsViewModel viewModel = new ViewModel.Guest2.ComplexTourRequestsViewModel(tourId);
             InitializeComponent();
             DataContext = viewModel;
         }

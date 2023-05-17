@@ -14,6 +14,7 @@
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly ITourService _tourService;
+
         public RelayCommand PreviewTourCommand { get; set; }
         public RelayCommand ApplyFiltersCommand { get; set; }
         public static ObservableCollection<string> Duration { get; set; }
@@ -56,6 +57,8 @@
             InitializeGuestNumber();
             InitializeDuration();
             ReadCitiesAndCountries();
+
+            
         }
 
         public void ApplyFilters(object parameter)

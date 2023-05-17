@@ -185,10 +185,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guide
                     {
                         TourRequest.RequestStatus = ComplexTourRequest.Status.Accepted;
                         _tourRequestService.Update(TourRequest);
+                        _tourRequestService.MakeNotificationsForGuests(tour, TourRequest.UserId);
                     }
 
                     _tourService.Save(tour);
-                    _tourRequestService.MakeNotificationsForGuests(tour, TourRequest.UserId);
+                    //_tourRequestService.MakeNotificationsForGuests(tour, TourRequest.UserId);
 
                     _tourPointService.SaveTourPoints(tourPoints);
                     foreach (var tourPoint in tourPoints)

@@ -9,9 +9,9 @@
     <Grid>
 
 
-        <Button x:Name="Potvrdi"  Content="Potvrdi" HorizontalAlignment="Left" Margin="45,240,0,0" VerticalAlignment="Top" Click="Potvrdi_Click"  Height="30" Width="80"/>
-        <Button x:Name="Dodaj"  Content="Dodaj" HorizontalAlignment="Left" Margin="253,190,0,0" VerticalAlignment="Top" Click="Dodaj_Click" FontSize="10" Height="18" Width="40"/>
-        <Button x:Name="Odustani"  Content="Odbij" HorizontalAlignment="Left" Margin="164,240,0,0" VerticalAlignment="Top" Click="Odustani_Click"  Height="30" Width="80"/>
+        <Button x:Name="Potvrdi"  Content="Potvrdi" HorizontalAlignment="Left" Margin="45,240,0,0" VerticalAlignment="Top" Command="{Binding ConfirmCommand}" Height="30" Width="80"/>
+        <Button x:Name="Dodaj"  Content="Dodaj" HorizontalAlignment="Left" Margin="253,190,0,0" VerticalAlignment="Top" Command="{Binding AddCommand}" FontSize="10" Height="18" Width="40"/>
+        <Button x:Name="Odustani"  Content="Odbij" HorizontalAlignment="Left" Margin="164,240,0,0" VerticalAlignment="Top" Command="{Binding RejectCommand}"  Height="30" Width="80"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,22,0,0" TextWrapping="Wrap" Text="Ocijenite izabranu turu:" VerticalAlignment="Top" Width="128"/>
         <TextBlock HorizontalAlignment="Left" Margin="26,70,0,0" TextWrapping="Wrap"  Text="Znanje vodica:" VerticalAlignment="Top" Width="99"/>
         <TextBlock HorizontalAlignment="Left" Margin="26,100,0,0" TextWrapping="Wrap" Text="Jezik vodica:" VerticalAlignment="Top" Width="99"/>

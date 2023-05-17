@@ -15,7 +15,7 @@
         public string? Comment { get; set; }
         public List<string>? Images { get; set; }
 
-        public bool? IsValid { get; set; }
+        public bool? IsValid { get; set; } = true;
 
         public TourRate(int guestId, int tourId, int guideKnowledge, int guideLanguage, int tourInterest, bool isValid, string? comment, List<string>? images)
         {
