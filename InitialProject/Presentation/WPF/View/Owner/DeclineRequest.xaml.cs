@@ -1,4 +1,5 @@
 ﻿using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.ViewModel.Owner;
 using InitialProject.Services;
 using System;
 using System.Collections.Generic;
@@ -22,47 +23,15 @@ namespace InitialProject.Presentation.WPF.View.Owner
     /// <summary>
     /// Interaction logic for DeclineRequest.xaml
     /// </summary>
-    public partial class DeclineRequest : Window,INotifyPropertyChanged
+    public partial class DeclineRequest : Window
     {
-        private readonly ChangeReservationRequestService _requestService = new ChangeReservationRequestService();
+        private DeclineRequestViewModel viewModel;
 
-       // public ChangeReservationRequest _request;
-/*
-        public ChangeReservationRequest Request
-        {
-            get { return _request; }
-            set
-            {
-                _request = value;
-                OnPropertyChanged(nameof(Request));
-            }
-        }
-
-*/
-       
-        public int RequestId { get; set; }
-        public string OwnerComment { get; set; }
-        
         public DeclineRequest(int requestId)
         {
             InitializeComponent();
-            RequestId= requestId;
-            OwnerComment= string.Empty;
-            
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            OwnerComment= CommentBox.Text;
-            _requestService.DeclineRequest(RequestId, OwnerComment);
-            Close();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            viewModel = new DeclineRequestViewModel(requestId);
+            DataContext= viewModel;
         }
     }
 }

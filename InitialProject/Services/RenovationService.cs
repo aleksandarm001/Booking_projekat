@@ -66,10 +66,12 @@ namespace InitialProject.Services
         {
             foreach (Reservation reservation in reservations)
             {
-                if (DoRangesIntersect(reservation.ReservationDateRange.StartDate, reservation.ReservationDateRange.EndDate, dateRange.StartDate, dateRange.EndDate))
-                {
-                    return false;
-                }
+                if( reservation.Status != ReservationStatus.Finished)
+
+                    if (DoRangesIntersect(reservation.ReservationDateRange.StartDate, reservation.ReservationDateRange.EndDate, dateRange.StartDate, dateRange.EndDate))
+                    {
+                        return false;
+                    }
             }
             return true;
         }
@@ -87,28 +89,13 @@ namespace InitialProject.Services
                 return false; // If ranges do not intersect, return false
             }
         }
-
-        public Renovation CreateNewRenovation(string AccommodationName, int AccommodationId, DateRange dateRange, string Description)
-        {
-            return new Renovation
-            {
-                AccommodationName = AccommodationName,
-                AccommodationId = AccommodationId,
-                DateRange = dateRange,
-                Description = Description
-            };
-        }
-
-        public void SaveRenovation(Renovation renovation)
-        {
-            _renovationRepository.Save(renovation);
-        }
-
+        
+        //List of scheduled renovations
 
         public List<Renovation> GetScheduledRenovationsByOwnerId(int ownerId)
         {
             List<Accommodation> accommodations = _accommodationService.GetAccommodationsByOwnerId(ownerId);
-            List<Renovation> renovations = GetScheduledRenovation();
+            List<Renovation> renovations = GetScheduledRenovations();
 
             List<Renovation> scheduledRenovations = new List<Renovation>();
 
@@ -124,7 +111,11 @@ namespace InitialProject.Services
             }
             return scheduledRenovations;
         }
-
+        public List<Renovation> GetScheduledRenovations()
+        {
+            return _renovationRepository.GetAll().Where(r => r.IsFinished == false).ToList();
+        }
+        //List of finished renovations
         public List<Renovation> GetFinishedRenovationsByOwnerId(int ownerId)
         {
             List<Accommodation> accommodations = _accommodationService.GetAccommodationsByOwnerId(ownerId);
@@ -144,15 +135,12 @@ namespace InitialProject.Services
             }
             return scheduledRenovations;
         }
-        public List<Renovation> GetScheduledRenovation()
-        {
-            return _renovationRepository.GetAll().Where(r => r.IsFinished == false).ToList();
-        }
 
         public List<Renovation> GetFinishedRenovations()
         {
             return _renovationRepository.GetAll().Where(r => r.IsFinished == true).ToList();
         }
+
         public void IsRenovationFinished()
         {
             List<Renovation> renovations = _renovationRepository.GetAll();
@@ -165,15 +153,47 @@ namespace InitialProject.Services
                 }
             }
         }
+        //Adding renovation
+        public Renovation CreateNewRenovation(string AccommodationName, int AccommodationId, DateRange dateRange, string Description)
+        {
+            return new Renovation
+            {
+                AccommodationName = AccommodationName,
+                AccommodationId = AccommodationId,
+                DateRange = dateRange,
+                Description = Description
+            };
+        }
+        //Cancel renovation
+        public void SaveRenovation(Renovation renovation)
+        {
+            _renovationRepository.Save(renovation);
+        }
+        public bool isCancelationPeriodExpired(Renovation renovation)
+        {
+            return renovation.DateRange.StartDate < DateTime.Now.AddDays(-5);
+        }
         public void DeleteRenovation(Renovation renovation)
         {
             _renovationRepository.Delete(renovation);
         }
 
-        public bool isCancelationPeriodExpired(Renovation renovation)
+        public void RecentlyRenovated()
         {
-            return renovation.DateRange.StartDate < DateTime.Now.AddDays(-5);
+            List<Renovation> finishedRenovations = GetFinishedRenovations();
+            foreach(Renovation r in finishedRenovations)
+            {
+                if(r.DateRange.EndDate <= r.DateRange.EndDate.AddDays(365))
+                { 
+                    Accommodation accommodation = _accommodationService.GetAccommodationById(r.AccommodationId);
+                    if(accommodation.RecentlyRenovated == false)
+                    {
+                        accommodation.RecentlyRenovated = true;
+                        _accommodationService.AccommodationUpdate(accommodation);
+                    }
+                   
+                }
+            }
         }
-    
     }
 }

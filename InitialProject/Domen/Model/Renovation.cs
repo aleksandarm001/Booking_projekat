@@ -1,4 +1,6 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Validation;
+using Syncfusion.UI.Xaml.Charts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InitialProject.Domen.Model
 {
-    public class Renovation : ISerializable
+    public class Renovation :ValidationBase, ISerializable
     {
         private int _renovationId;
         private int _accommodationId;
@@ -15,6 +17,7 @@ namespace InitialProject.Domen.Model
         private DateRange _dateRange;
         private string _description;
         private bool _isFinished;
+        private int _days;
 
         public Renovation()
         {
@@ -37,7 +40,7 @@ namespace InitialProject.Domen.Model
 
         public string AccommodationName { get => _accommodationName; set => _accommodationName = value; }
         public DateRange DateRange { get => _dateRange; set => _dateRange = value; }
-        public string Description { get => _description; set => _description = value; }
+        //public string Description { get => _description; set => _description = value; }
         public bool IsFinished { get => _isFinished; set => _isFinished = value; }
 
         public string[] ToCSV()
@@ -61,6 +64,40 @@ namespace InitialProject.Domen.Model
             DateRange = DateRange.fromStringToDateRange(values[3]);
             Description = values[4];
             IsFinished = Convert.ToBoolean(values[5]);
+        }
+
+        public string Description
+        {
+            get { return _description; }
+            set
+            {
+                _description = value;
+                OnPropertyChanged("Description");
+            }
+        }
+
+        public int Days
+        {
+            get { return _days; }
+            set
+            {
+                _days = value;
+                OnPropertyChanged("Days");
+            }
+        }
+
+
+
+        protected override void ValidateSelf()
+        {
+            if (this._days == 0)
+            {
+                this.ValidationErrors["Days"] = "Please enter a number";
+            }
+            if (string.IsNullOrWhiteSpace(this._description))
+            {
+                this.ValidationErrors["Description"] = "Write description please";
+            }
         }
     }
 }

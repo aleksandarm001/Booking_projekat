@@ -38,14 +38,14 @@
                     <TextBlock Margin="0 0 10 0" Text="{Binding AccommodationsNumber, UpdateSourceTrigger=PropertyChanged}" FontSize="22" FontWeight="DemiBold"/>
                     <TextBlock Text="Accommodation(s) Match Filter Criteria" FontSize="22" FontWeight="DemiBold"/>
                 </StackPanel>
-                
-                
-                
+
+
+
                 <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}" 
                           Width="880" Height="440" Margin="10,30,0,0" HorizontalAlignment="Left" x:Name="accommodationsDataGrid"
                   ItemsSource="{Binding Path = Accommodations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path= SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
-                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Width="0.75*" Binding="{Binding Name}" IsReadOnly="True"></DataGridTextColumn>
                         <DataGridTextColumn Header="Country" Width="0.7*" Binding="{Binding Location.Country}" IsReadOnly="True"></DataGridTextColumn>
@@ -91,7 +91,7 @@
                         </DataGridTemplateColumn>
 
                     </DataGrid.Columns>
-                </DataGrid> 
+                </DataGrid>
             </StackPanel>
             <Border Grid.Row="1" CornerRadius="0 50 0 0" Background="#00734B">
                 <StackPanel Grid.Row="1" Width="140" Margin="0, 20, 0, 0">
@@ -126,7 +126,7 @@
                             <TextBox.Text>
                                 <Binding Path="StrNumberOfGuests" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
-                                        <!-- <val:NumericValidation ValidationStep="RawProposedValue"/>-->
+                                        <val:NumericValidation ValidationStep="RawProposedValue"/>
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
@@ -147,9 +147,9 @@
                          Width="140" Height="25">
                             <TextBox.Text>
                                 <Binding Path="StrReservationDays" UpdateSourceTrigger="PropertyChanged">
-                                    <!--<Binding.ValidationRules>
-                                        "<val:NumericValidation ValidationStep="RawProposedValue"/>
-                                    </Binding.ValidationRules> -->
+                                    <Binding.ValidationRules>
+                                        <val:NumericValidation ValidationStep="RawProposedValue"/>
+                                    </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                             <Validation.ErrorTemplate>

@@ -15,7 +15,9 @@
         public string? Comment { get; set; }
         public List<string>? Images { get; set; }
 
-        public bool? IsValid { get; set; } = true;
+        public DateTime? Date { get; set; }
+
+        public bool? IsValid { get; set; }
 
         public TourRate(int guestId, int tourId, int guideKnowledge, int guideLanguage, int tourInterest, bool isValid, string? comment, List<string>? images)
         {
@@ -40,7 +42,8 @@
                 TourInterest.ToString(),
                 IsValid.ToString(),
                 Comment,
-                ImagesListToString()
+                ImagesListToString(),
+                Date.ToString()
             };
             return csvValues;
         }
@@ -54,6 +57,7 @@
             IsValid = Convert.ToBoolean(values[5]);
             Comment = values[6];
             Images = StringToImagesList(values[7]);
+            Date = DateTime.Parse(values[8]);
         }
 
         private string ImagesListToString()

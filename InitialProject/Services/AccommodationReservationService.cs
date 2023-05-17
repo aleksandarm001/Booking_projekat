@@ -71,6 +71,21 @@ namespace InitialProject.Services
             return reservationIds;
         }
 
+        
+        public List<int> GetAccommodationIdByReservationIds(int reservationIds)
+        {
+            List<int> accommodationIds = new List<int>();
+            List<AccommodationReservation> reservations = _accommodationReservationRepository.GetAll();
+            foreach(AccommodationReservation ar in reservations)
+            {
+                if (ar.ReservationId == reservationIds)
+                {
+                    accommodationIds.Add(ar.ReservationId);
+                }
+            }
+            return accommodationIds;
+        
+        }
 
         public bool WasOnLocation(int userId, Location location)
         {
@@ -146,5 +161,7 @@ namespace InitialProject.Services
                 allDates.Remove(dateRange);
             }
         }
+
+        
     }
 }

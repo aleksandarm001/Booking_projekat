@@ -397,5 +397,10 @@ namespace InitialProject.View
             dataGrid.SelectedItem = dataGrid.Items[0];
             dataGrid.ScrollIntoView(dataGrid.SelectedItem);
         }
+
+        private void accommodationsDataGrid_SelectionChanged()
+        {
+
+        }
     }
 }

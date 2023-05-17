@@ -19,5 +19,9 @@ namespace InitialProject.Services.IServices
 
         List<DateTime> GetAvailableDates(DateTime startingDate, DateTime endDate);
         public List<Tour> GetAllNotFinishedTour();
+
+        List<Tour> GetAllFinishedInOneYearByGuide(int guideId);
+
+        int GetGuideIdByTourId(int tourId);
     }
 }
