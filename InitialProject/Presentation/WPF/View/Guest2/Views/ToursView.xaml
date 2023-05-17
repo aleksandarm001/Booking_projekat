@@ -66,7 +66,7 @@
             </DataGrid>
 
 
-            <StackPanel  Orientation="Vertical" HorizontalAlignment="Left" Background="#00A76D" Height="NaN" Margin="0,0,0,10">
+            <StackPanel  Orientation="Vertical" HorizontalAlignment="Left" Background="#00A76D"  Height="NaN" Margin="0,0,0,0">
 
 
                 <ComboBox x:Name ="CountryCmbx" FontSize="12" Text="Drzava" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
@@ -105,7 +105,7 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <Button Height="287" Margin="0,25,0,0" Background="WhiteSmoke"/>
+                <Button Height="306" Margin="0,25,0,0" Background="WhiteSmoke"/>
             </StackPanel>
 
                
