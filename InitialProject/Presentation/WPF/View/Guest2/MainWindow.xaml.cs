@@ -20,12 +20,12 @@ namespace InitialProject.Presentation.WPF.View.Guest2
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindowViewModel _ViewModel { get; set; }
+        public MainWindowViewModel _viewModel { get; set; }
         public MainWindow(int userId)
         {
             InitializeComponent();
-            this._ViewModel = new MainWindowViewModel(this.frame.NavigationService, userId);
-            this.DataContext = this._ViewModel;
+            this._viewModel = new MainWindowViewModel(this.frame.NavigationService, userId);
+            this.DataContext = this._viewModel;
         }
     }
 }

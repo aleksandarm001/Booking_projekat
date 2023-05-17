@@ -20,7 +20,7 @@
             </DataGrid.Columns>
 
         </DataGrid>
-        <Button x:Name="Dodaj"  Content="Dodaj" HorizontalAlignment="Left" Margin="140,306,0,0" VerticalAlignment="Top" Click="Dodaj_Click"  Height="30" Width="80"/>
+        <Button x:Name="Dodaj"  Content="Dodaj" HorizontalAlignment="Left" Margin="140,306,0,0" VerticalAlignment="Top" Command="{Binding AddCommand}"  Height="30" Width="80"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,7,0,0" TextWrapping="Wrap" Text="Kreiranje zahtjeva za složenu turu" VerticalAlignment="Top" Width="280"/>
         <TextBlock HorizontalAlignment="Left" Margin="36,70,0,0" TextWrapping="Wrap"  Text="Drzava:" VerticalAlignment="Top" Width="99"/>
         <TextBlock HorizontalAlignment="Left" Margin="36,100,0,0" TextWrapping="Wrap" Text="Grad:" VerticalAlignment="Top" Width="99"/>
@@ -37,8 +37,8 @@
         <TextBlock HorizontalAlignment="Left" Margin="36,241,0,0" TextWrapping="Wrap" Text="Datum do:" VerticalAlignment="Top" Width="99"/>
         <DatePicker Name="DatePickerEnd" HorizontalAlignment="Left" Margin="140,235,0,0" VerticalAlignment="Top" Width="114" SelectedDate="{Binding Path=ComplexTourRequest.EndingDate, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Button x:Name="Potvrdi"  Content="Potvrdi" HorizontalAlignment="Left" Margin="300,344,0,0" Click="Potvrdi_Click" VerticalAlignment="Top" Height="30" Width="80" />
-        <Button x:Name="Odustani"  Content="Odustani" HorizontalAlignment="Left" Margin="400,344,0,0" Click="Odustani_Click" VerticalAlignment="Top"   Height="30" Width="80" />
+        <Button x:Name="Potvrdi"  Content="Potvrdi" HorizontalAlignment="Left" Margin="300,344,0,0" Command="{Binding ConfirmCommand}" VerticalAlignment="Top" Height="30" Width="80" />
+        <Button x:Name="Odustani"  Content="Odustani" HorizontalAlignment="Left" Margin="400,344,0,0" Command="{Binding RejectCommand}" VerticalAlignment="Top"   Height="30" Width="80" />
         <TextBlock HorizontalAlignment="Left" Margin="36,43,0,0" TextWrapping="Wrap" Text="Naziv ture:" VerticalAlignment="Top" Width="99"/>
         <TextBox x:Name="TourName" HorizontalAlignment="Left" Margin="140,41,0,0" TextWrapping="Wrap" Text="{Binding ComplexTourRequest.TourName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
 

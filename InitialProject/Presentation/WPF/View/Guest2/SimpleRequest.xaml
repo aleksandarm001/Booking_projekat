@@ -23,7 +23,7 @@
         <ComboBox Name="LangugageComboBox" HorizontalAlignment="Left" Margin="130,130,0,0" SelectedItem="{Binding Path=TourRequest.Language }" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Languages}"  VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Margin="130,160,0,0" TextWrapping="Wrap" Text="{Binding Path=TourRequest.GuestNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Margin="130,254,0,0" TextWrapping="Wrap" Text="{Binding Path=TourRequest.Description, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
-        <DatePicker Name="DatePickerStart" HorizontalAlignment="Left" Margin="130,190,0,0" VerticalAlignment="Top" Width="114" IsTodayHighlighted="True" SelectedDate="{Binding Path=TourRequest.StartingDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="DatePickerStart_SelectedDateChanged"/>
+        <DatePicker Name="DatePickerStart" HorizontalAlignment="Left" Margin="130,190,0,0" VerticalAlignment="Top" Width="114" IsTodayHighlighted="True" SelectedDate="{Binding Path=TourRequest.StartingDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="DatePickerStart_SelectedDateChanged" />
         <TextBlock HorizontalAlignment="Left" Margin="26,230,0,0" TextWrapping="Wrap" Text="Datum do:" VerticalAlignment="Top" Width="99"/>
         <DatePicker Name="DatePickerEnd" HorizontalAlignment="Left" Margin="130,224,0,0" VerticalAlignment="Top" Width="114" SelectedDate="{Binding Path=TourRequest.EndingDate, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
        

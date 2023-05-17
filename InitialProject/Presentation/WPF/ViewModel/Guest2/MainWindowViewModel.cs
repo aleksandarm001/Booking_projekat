@@ -24,7 +24,7 @@
         
         private void Execute_NavigateToUserPageCommand(object obj)
         {
-            Page usersView = new UserView();
+            Page usersView = new UserView(1);
             this.NavService.Navigate(usersView);
         }
       

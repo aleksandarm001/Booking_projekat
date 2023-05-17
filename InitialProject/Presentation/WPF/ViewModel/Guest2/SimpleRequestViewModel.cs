@@ -1,18 +1,17 @@
-﻿namespace InitialProject.Presentation.WPF.View.Guest2
-{
-    using InitialProject.Aplication.Factory;
-    using InitialProject.Domen.Model;
-    using InitialProject.Services.IServices;
-    using System;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Windows;
-    using System.Windows.Controls;
+﻿using InitialProject.Aplication.Factory;
+using InitialProject.Domen.Model;
+using InitialProject.Services.IServices;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
 
-    /// <summary>
-    /// Interaction logic for SimpleRequest.xaml
-    /// </summary>
-    public partial class SimpleRequest : Window
+namespace InitialProject.Presentation.WPF.ViewModel.Guest2
+{
+    public class SimpleRequestViewModel
     {
         public TourRequest TourRequest { get; set; }
         public static ObservableCollection<string> Countries { get; set; }
@@ -22,13 +21,12 @@
         private readonly ILanguageService _languageService;
         private readonly ITourRequestService _tourRequestService;
         private readonly Services.IServices.ILocationService _locationService;
-        public SimpleRequest(int userId)
+
+        public SimpleRequestViewModel(int userId)
         {
-            InitializeComponent();
             TourRequest = new TourRequest();
             TourRequest.StartingDate = DateTime.Today.AddDays(2);
             TourRequest.EndingDate = DateTime.Today.AddDays(2);
-            DataContext = this;
             TourRequest.UserId = userId;
             _tourRequestService = Injector.CreateInstance<ITourRequestService>();
             _languageService = Injector.CreateInstance<ILanguageService>();
@@ -38,20 +36,8 @@
             Locations = new ObservableCollection<Location>(_locationService.GetAll());
             Languages = new ObservableCollection<Language>(_languageService.GetAll());
             ReadCitiesAndCountries();
-            DatePickerStart.DisplayDateStart = DateTime.Today.AddDays(2);
-            DatePickerEnd.DisplayDateStart = DateTime.Today.AddDays(2);
-        }
-
-        private void Potvrdi_Click(object sender, RoutedEventArgs e)
-        {
-            TourRequest.Location = new Location { Country = CountryComboBox.Text, City = CityComboBox.Text };
-            _tourRequestService.MakeTourRequest(TourRequest);
-            this.Close();
-        }
-
-        private void Odustani_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
+            //DatePickerStart.DisplayDateStart = DateTime.Today.AddDays(2);                      Provjeriti kako se binduje preko viewmodela
+            //DatePickerEnd.DisplayDateStart = DateTime.Today.AddDays(2);
         }
 
         private void ReadCitiesAndCountries()
@@ -86,7 +72,7 @@
                 Cities.Add(city);
             }
 
-            CityComboBox.SelectedIndex = 1;
+            //CityComboBox.SelectedIndex = 1;                                                  Provjeriti kako se binduje preko viewmodela
         }
 
         private void FilterCities(object sender, SelectionChangedEventArgs e)
@@ -103,11 +89,11 @@
             }
         }
 
-        private void DatePickerStart_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            TourRequest.EndingDate = (DateTime)DatePickerStart.SelectedDate;
-            DatePickerEnd.SelectedDate = TourRequest.EndingDate;
-            DatePickerEnd.DisplayDateStart = TourRequest.EndingDate;
+            //TourRequest.EndingDate = (DateTime)DatePickerStart.SelectedDate;               Provjeriti kako se binduje preko viewmodela
+            //DatePickerEnd.SelectedDate = TourRequest.EndingDate;
+            //DatePickerEnd.DisplayDateStart = TourRequest.EndingDate;
         }
     }
 }

@@ -12,7 +12,7 @@
     {
         private readonly ITourRepository _tourRepository;
         private readonly ITourAttendanceService _tourAttendanceService;
-        private ITourPointService _tourPointService;
+        private readonly ITourPointService _tourPointService;
 
         public TourService()
         {

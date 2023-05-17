@@ -1,20 +1,12 @@
 ﻿namespace InitialProject.Presentation.WPF.ViewModel.Guest2
 {
     using InitialProject.Aplication.Factory;
-    using InitialProject.Domen.CustomClasses;
     using InitialProject.Domen.Model;
-    using InitialProject.Presentation.WPF.View.Guest2;
     using InitialProject.Services.IServices;
-    using InitialProject.View.Guest2;
-    using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
     using System.Runtime.CompilerServices;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows;
     using System.Windows.Controls;
 
     public class ToursViewModel : INotifyPropertyChanged
@@ -50,7 +42,7 @@
         public string SelectedDurationTo { get; set; }
 
 
-        public ToursViewModel() 
+        public ToursViewModel()
         {
             _tourService = Injector.CreateInstance<ITourService>();
             Cities = new ObservableCollection<string>();
@@ -69,11 +61,12 @@
         public void ApplyFilters(object parameter)
         {
             Tours = new ObservableCollection<Tour>(_tourService.GetAllFiltered(SelectedCity, SelectedCountry, SelectedDurationFrom, SelectedDurationTo, SelectedLanguage, SelectedGuestNumber));
-        } 
-        
+        }
+
         public void PreviewTour(object parameter)
         {
-            
+            View.Guest2.Views.TourView tourView = new View.Guest2.Views.TourView(SelectedTour);
+            //this.NavigationService.Navigate(tourView);
         }
         private string _selectedCountry;
         public string SelectedCountry

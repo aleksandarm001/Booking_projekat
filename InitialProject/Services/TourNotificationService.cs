@@ -23,7 +23,7 @@
 
         public void NotifyGuest(int userId)
         {
-            var lista = _repository.GetAllForUser(userId);
+            var lista = _repository.GetAllTourNotificationsForUser(userId);
             foreach (var notification in lista)
             {
                 if (notification.Type == TourNotification.NotificationType.StatisticTour) { 

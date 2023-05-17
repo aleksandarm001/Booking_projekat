@@ -9,11 +9,13 @@
     public partial class UserView : Page
     {
         public UserWindowViewModel _ViewModel { get; set; }
-        public UserView()
+        public UserView(int userId)
         {
             InitializeComponent();
-            this._ViewModel = new UserWindowViewModel(this.frame.NavigationService);
+            this._ViewModel = new UserWindowViewModel(this.frame.NavigationService, userId);
             this.DataContext = this._ViewModel;
+            Page reservedTours = new ReservedTours(userId);
+            frame.Content = reservedTours;
         }
     }
 }

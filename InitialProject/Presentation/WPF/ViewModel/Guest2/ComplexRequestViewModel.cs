@@ -1,6 +1,8 @@
 ﻿using InitialProject.Aplication.Factory;
 using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.View.Guest2;
 using InitialProject.Services.IServices;
+using InitialProject.View.Guest2;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,20 +13,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-namespace InitialProject.Presentation.WPF.View.Guest2
+namespace InitialProject.Presentation.WPF.ViewModel.Guest2
 {
-    /// <summary>
-    /// Interaction logic for ComplexRequest.xaml
-    /// </summary>
-    public partial class ComplexRequest : Window, INotifyPropertyChanged
+    public class ComplexRequestViewModel : INotifyPropertyChanged
     {
+        public RelayCommand ConfirmCommand { get; set; }
+        public RelayCommand RejectCommand { get; set; }
+        public RelayCommand AddCommand { get; set; }
         public ComplexTourRequest ComplexTourRequest { get; set; }
         public ObservableCollection<ComplexTourRequest> ComplexTourRequests { get; set; }
         public static ObservableCollection<string> Countries { get; set; }
@@ -35,18 +31,14 @@ namespace InitialProject.Presentation.WPF.View.Guest2
         private readonly ILanguageService _languageService;
         private readonly IComplexTourRequestService _complexTourRequestService;
         private readonly Services.IServices.ILocationService _locationService;
-
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public ComplexRequest(int userId)
+        public ComplexRequestViewModel(int userId)
         {
-            InitializeComponent();
-
             _userId = userId;
             ComplexTourRequest = new ComplexTourRequest();
             ComplexTourRequest.StartingDate = DateTime.Today.AddDays(2);
             ComplexTourRequest.EndingDate = DateTime.Today.AddDays(2);
-            DataContext = this;
             ComplexTourRequest.UserId = userId;
             _complexTourRequestService = Injector.CreateInstance<IComplexTourRequestService>();
             _languageService = Injector.CreateInstance<ILanguageService>();
@@ -56,31 +48,48 @@ namespace InitialProject.Presentation.WPF.View.Guest2
             Locations = new ObservableCollection<Location>(_locationService.GetAll());
             Languages = new ObservableCollection<Language>(_languageService.GetAll());
             ReadCitiesAndCountries();
-            DatePickerStart.DisplayDateStart = DateTime.Today.AddDays(2);
-            DatePickerEnd.DisplayDateStart = DateTime.Today.AddDays(2);
-            ComplexTourRequests = new ObservableCollection<ComplexTourRequest>();
+            //DatePickerStart.DisplayDateStart = DateTime.Today.AddDays(2);                                                                     Provjeriti kako se binduje iz viewmodela
+            //DatePickerEnd.DisplayDateStart = DateTime.Today.AddDays(2);                                                                       Provjeriti kako se binduje iz viewmodela
+            ComplexTourRequests = new ObservableCollection<ComplexTourRequest>();               
+
+            ConfirmCommand = new RelayCommand(Confirm);
+            RejectCommand = new RelayCommand(Reject);
+            AddCommand = new RelayCommand(Add);
         }
 
-        private void Dodaj_Click(object sender, RoutedEventArgs e)
+        private void Add(object parameter)
         {
-            ComplexTourRequest.Id = ComplexTourRequests.Count() + 1;
-            ComplexTourRequest.Location = new Location { Country = CountryComboBox.Text, City = CityComboBox.Text };
-            ComplexTourRequests.Add(ComplexTourRequest);
-            ComplexTourRequest = new ComplexTourRequest();
-            ComplexTourRequest.StartingDate = DateTime.Today.AddDays(2);
-            ComplexTourRequest.EndingDate = DateTime.Today.AddDays(2);
-            ComplexTourRequest.UserId = _userId;
-            CountryComboBox.SelectedIndex = 0;
-            CityComboBox.SelectedIndex = 0;
-            LanguageComboBox.SelectedIndex = 0;
-            ComplexTourRequest.TourName = ComplexTourRequests.ElementAt(0).TourName;
-            TourName.IsReadOnly = true;
-        //    OnPropertyChanged(nameof(ComplexTourRequest));
+            //ComplexTourRequest.Id = ComplexTourRequests.Count() + 1;                                                                          Provjeriti kako se binduje iz viewmodela
+            //ComplexTourRequest.Location = new Location { Country = CountryComboBox.Text, City = CityComboBox.Text };
+            //ComplexTourRequests.Add(ComplexTourRequest);
+            //ComplexTourRequest = new ComplexTourRequest();
+            //ComplexTourRequest.StartingDate = DateTime.Today.AddDays(2);
+            //ComplexTourRequest.EndingDate = DateTime.Today.AddDays(2);
+            //ComplexTourRequest.UserId = _userId;
+            //CountryComboBox.SelectedIndex = 0;
+            //CityComboBox.SelectedIndex = 0;
+            //LanguageComboBox.SelectedIndex = 0;
+            //ComplexTourRequest.TourName = ComplexTourRequests.ElementAt(0).TourName;
+            //TourName.IsReadOnly = true;
+            //    OnPropertyChanged(nameof(ComplexTourRequest));
         }
 
-        private void Odustani_Click(object sender, RoutedEventArgs e)
+        private void Reject(object parameter)
         {
-            this.Close();
+            CloseWindow();
+        }
+
+        private void Confirm(object parameter)
+        {
+            _complexTourRequestService.MakeTourRequest(new List<ComplexTourRequest>(ComplexTourRequests));
+            CloseWindow();
+            
+        }
+
+        private void CloseWindow()
+        {
+            App.Current.MainWindow = App.Current.Windows.OfType<ComplexRequest>().FirstOrDefault();
+            App.Current.MainWindow.Close();
         }
 
         private void ReadCitiesAndCountries()
@@ -115,7 +124,7 @@ namespace InitialProject.Presentation.WPF.View.Guest2
                 Cities.Add(city);
             }
 
-            CityComboBox.SelectedIndex = 1;
+            //CityComboBox.SelectedIndex = 1;                                               Provjeriti kako se binduje iz viewmodela
         }
 
         private void FilterCities(object sender, SelectionChangedEventArgs e)
@@ -134,20 +143,14 @@ namespace InitialProject.Presentation.WPF.View.Guest2
 
         private void DatePickerStart_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComplexTourRequest.EndingDate = (DateTime)DatePickerStart.SelectedDate;
-            DatePickerEnd.SelectedDate = ComplexTourRequest.EndingDate;
-            DatePickerEnd.DisplayDateStart = ComplexTourRequest.EndingDate;
+            //ComplexTourRequest.EndingDate = (DateTime)DatePickerStart.SelectedDate;          Provjeriti kako se binduje iz viewmodela
+            //DatePickerEnd.SelectedDate = ComplexTourRequest.EndingDate;
+            //DatePickerEnd.DisplayDateStart = ComplexTourRequest.EndingDate;
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void Potvrdi_Click(object sender, RoutedEventArgs e)
-        {
-            _complexTourRequestService.MakeTourRequest(new List<ComplexTourRequest>(ComplexTourRequests));
-            this.Close();
         }
     }
 }

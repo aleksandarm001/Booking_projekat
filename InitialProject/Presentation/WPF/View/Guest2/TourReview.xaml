@@ -12,7 +12,7 @@
         <Button x:Name="Potvrdi"  Content="Potvrdi" HorizontalAlignment="Left" Margin="45,240,0,0" VerticalAlignment="Top" Click="Potvrdi_Click"  Height="30" Width="80"/>
         <Button x:Name="Dodaj"  Content="Dodaj" HorizontalAlignment="Left" Margin="253,190,0,0" VerticalAlignment="Top" Click="Dodaj_Click" FontSize="10" Height="18" Width="40"/>
         <Button x:Name="Odustani"  Content="Odbij" HorizontalAlignment="Left" Margin="164,240,0,0" VerticalAlignment="Top" Click="Odustani_Click"  Height="30" Width="80"/>
-        <TextBlock HorizontalAlignment="Center" Margin="0,7,0,0" TextWrapping="Wrap" Text="Ukoliko ste bili prisutni na sljedecoj turi potrebno je da potvrdite Vase prisustvo. U suprotnom odbijte potvrdu." VerticalAlignment="Top" Width="280"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,22,0,0" TextWrapping="Wrap" Text="Ocijenite izabranu turu:" VerticalAlignment="Top" Width="128"/>
         <TextBlock HorizontalAlignment="Left" Margin="26,70,0,0" TextWrapping="Wrap"  Text="Znanje vodica:" VerticalAlignment="Top" Width="99"/>
         <TextBlock HorizontalAlignment="Left" Margin="26,100,0,0" TextWrapping="Wrap" Text="Jezik vodica:" VerticalAlignment="Top" Width="99"/>
         <TextBlock HorizontalAlignment="Left" Margin="26,130,0,0" TextWrapping="Wrap" Text="Zanimljivost ture:" VerticalAlignment="Top" Width="99"/>

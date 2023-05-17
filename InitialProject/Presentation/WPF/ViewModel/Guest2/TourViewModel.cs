@@ -2,10 +2,7 @@
 {
     using InitialProject.Domen.Model;
     using InitialProject.Presentation.WPF.Constants;
-    using InitialProject.Presentation.WPF.View.Guest2;
     using InitialProject.Services.IServices;
-    using System.Collections.ObjectModel;
-    using System.Linq;
     using System.Windows;
 
     public class TourViewModel
@@ -36,17 +33,17 @@
         {
             MessageBoxResult result;
             result = MessageBox.Show(TourViewConstants.MaxGuestNumberIsZero, TourViewConstants.Caption, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes);
-           /* if (result == MessageBoxResult.Yes)
-            {
-                Tours = new ObservableCollection<Tour>(_tourService.GetSimilarAsTourHasFullCapacity(SelectedTour.Location.Country, SelectedTour.Location.City));
+            /* if (result == MessageBoxResult.Yes)
+             {
+                 Tours = new ObservableCollection<Tour>(_tourService.GetSimilarAsTourHasFullCapacity(SelectedTour.Location.Country, SelectedTour.Location.City));
 
-                if (Tours.Count == 0)
-                {
-                    MessageBox.Show(TourViewConstants.ViewOtherTours, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
-                    Tours = new ObservableCollection<Tour>(_tourService.GetAllNotStartedTours());
-                }
+                 if (Tours.Count == 0)
+                 {
+                     MessageBox.Show(TourViewConstants.ViewOtherTours, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
+                     Tours = new ObservableCollection<Tour>(_tourService.GetAllNotStartedTours());
+                 }
 
-            }*/
+             }*/
         }
     }
 }

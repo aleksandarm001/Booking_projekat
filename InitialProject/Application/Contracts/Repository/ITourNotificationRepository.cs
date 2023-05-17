@@ -10,7 +10,7 @@
     public interface ITourNotificationRepository
     {
         List<TourNotification> GetAll();
-        List<TourNotification> GetAllForUser(int userId);
+        List<TourNotification> GetAllTourNotificationsForUser(int userId);
         TourNotification Save(TourNotification notification);
         void Delete(TourNotification notification);
     }
