@@ -19,6 +19,7 @@ namespace InitialProject.Domen.Model
 
         public Statistic()
         {
+
         }
 
         public Statistic(int lessThan, int between, int greaterThan, double withVoucher, double withoutVoucher)

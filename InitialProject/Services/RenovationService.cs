@@ -27,12 +27,12 @@ namespace InitialProject.Services
 
         }
 
-        public List<int> GetReservationId(int accommodationId)
+        private List<int> GetReservationId(int accommodationId)
         {
             return _accommodationReservationService.GetReservationsIdsByAccommodationId(accommodationId);
         }
 
-        public List<Reservation> GetReservations(List<int> reservationIds)
+        private List<Reservation> GetReservations(List<int> reservationIds)
         {
             List<Reservation> reservations = new List<Reservation>();
             foreach (int reservationId in reservationIds)
@@ -77,7 +77,7 @@ namespace InitialProject.Services
         }
 
 
-        public static bool DoRangesIntersect(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
+        private static bool DoRangesIntersect(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
         {
             if ((start1 >= start2 && start1 <= end2) || (end1 >= start2 && end1 <= end2)
                 || (start2 >= start1 && start2 <= end1) || (end2 >= start1 && end2 <= end1))
@@ -111,7 +111,7 @@ namespace InitialProject.Services
             }
             return scheduledRenovations;
         }
-        public List<Renovation> GetScheduledRenovations()
+        private List<Renovation> GetScheduledRenovations()
         {
             return _renovationRepository.GetAll().Where(r => r.IsFinished == false).ToList();
         }
@@ -136,7 +136,7 @@ namespace InitialProject.Services
             return finishedRenovations;
         }
 
-        public List<Renovation> GetFinishedRenovations()
+        private List<Renovation> GetFinishedRenovations()
         {
             return _renovationRepository.GetAll().Where(r => r.IsFinished == true).ToList();
         }

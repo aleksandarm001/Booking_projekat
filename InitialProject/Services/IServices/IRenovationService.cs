@@ -19,6 +19,6 @@ namespace InitialProject.Services.IServices
         void IsRenovationFinished();
         void DeleteRenovation(Renovation renovation);
         bool isCancelationPeriodExpired(Renovation renovation);
-        public void RecentlyRenovated();
+        void RecentlyRenovated();
     }
 }

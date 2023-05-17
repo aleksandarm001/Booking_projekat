@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 
 namespace InitialProject.Domen.Model
 {
+    //ovo je dto ali je stavljen ovde pa nisam hteo da prebacujem dan pred u custom classes da nesto ne polupam ,zato nije u dijagramu :)
     public class OwnerChangeRequests 
     {
         private int _requestId;
@@ -46,32 +47,6 @@ namespace InitialProject.Domen.Model
 
         public bool IsDateAvailable { get => _isDateAvailable; set => _isDateAvailable = value;  }
 
-       /* public void FromCSV(string[] values)
-        {
-            _requestId = Convert.ToInt32(values[0]);
-            _reservationId = Convert.ToInt32(values[1]);
-            _accommodationName = Convert.ToString(values[2]);
-            _newStartDate = Convert.ToDateTime(values[3]);
-            _newEndDate = Convert.ToDateTime(values[4]);
-            _ownerId = Convert.ToInt32(values[6]);
-            _isDateAvailable = Convert.ToBoolean(values[7]);
-        } 
-
-        public string[] ToCSV()
-        {
-            string[] csvValues =
-            {
-                _requestId.ToString(),
-                _reservationId.ToString(),
-                _accommodationName,
-                _newStartDate.ToString(),
-                _newEndDate.ToString(),
-                _userId.ToString(),
-                _ownerId.ToString(),
-                _isDateAvailable.ToString()
-            };
-            return csvValues;
-        }
-       */
+       
     }
 }

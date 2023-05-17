@@ -379,7 +379,7 @@
             <Grid.Background>
                 <ImageBrush ImageSource="/Infrastructure/Resources/Images/Island.png"/>
             </Grid.Background>
-            <Grid Visibility="Collapsed">
+            <Grid Visibility="Visible">
                 <Label  FontSize="20" Foreground="GhostWhite" FontStyle="Italic"  Padding="10"  FontWeight="Bold" Height="55" VerticalAlignment="Top" Margin="2,12,-2,0">Your accommodations:</Label>
                 <DataGrid ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Background="DeepSkyBlue"  Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}"  RowStyle="{DynamicResource DataGridRowStyle2}"  x:Name="OwnerAccommodations"  ItemsSource="{Binding Path = Accommodations, UpdateSourceTrigger=PropertyChanged}"  Margin="0,79,0,0"
                     IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" VerticalAlignment="Top" HorizontalAlignment="Center" Width="1030" Height="476" SelectedItem="{Binding StartSelectedAccommodation}">
@@ -599,7 +599,7 @@
                 </Grid>
             </DockPanel>
 
-            <DockPanel x:Name="ChangeReservationRequests" Grid.Column="1" Grid.Row="2" Visibility="Visible">
+            <DockPanel x:Name="ChangeReservationRequests" Grid.Column="1" Grid.Row="2" Visibility="Collapsed">
                 <DataGrid DockPanel.Dock="Top" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Height="289" Width="776" Margin="0,20,0,0"
                       ItemsSource="{Binding Requests}"
                       SelectedItem="{Binding Path= SelectedRequest, UpdateSourceTrigger=PropertyChanged}">
