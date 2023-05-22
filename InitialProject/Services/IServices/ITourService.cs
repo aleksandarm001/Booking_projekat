@@ -8,17 +8,19 @@ namespace InitialProject.Services.IServices
     {
         List<Tour> GetAll();
         List<Tour> GetAllFiltered(string city, string country, string durationFrom, string durationTo, string language, string guestNumber);
+        List<Tour> GetAllFilteredLastMinute(string city, string country, string durationFrom, string durationTo, string language, string guestNumber);
         List<Tour> GetAllFinished(int userId);
         List<Tour> GetAllNotStartedTours();
+        List<Tour> GetAllLastMinuteTours();
         List<Tour> GetSimilarAsTourHasFullCapacity(string country, string city);
         Tour GetTourById(int id);
         Tour Save(Tour tour);
-        public int FindNextId();
+        int FindNextId();
         List<Tour> GetAllFinishedTours();
         void ReduceMaxGuestNumber(int tourId, int guestNumber);
 
         List<DateTime> GetAvailableDates(DateTime startingDate, DateTime endDate);
-        public List<Tour> GetAllNotFinishedTour();
+        List<Tour> GetAllNotFinishedTour();
 
         List<Tour> GetAllFinishedInOneYearByGuide(int guideId);
 

@@ -3,25 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest2"
+        xmlns:local="clr-namespace:InitialProject"
         mc:Ignorable="d"
-         Title="Obavjestenje o turi" Height="300" Width="300" WindowStartupLocation="CenterScreen">
+         Title="{local:Loc TourNotification}" Height="300" Width="300" WindowStartupLocation="CenterScreen">
     <Grid>
 
-        <Button x:Name="Ok"  Content="OK" HorizontalAlignment="Center" Margin="0,239,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}"  Height="30" Width="80"/>
-        <TextBlock HorizontalAlignment="Center" Margin="0,7,0,0" TextWrapping="Wrap" Text="Nedavno je kreirana sljedeca tura koja vam moze biti zanimljiva:" VerticalAlignment="Top" Width="280"/>
-        <TextBlock HorizontalAlignment="Left" Margin="27,49,0,0" TextWrapping="Wrap"  Text="Drzava:" VerticalAlignment="Top" Width="99"/>
-        <TextBlock HorizontalAlignment="Left" Margin="27,79,0,0" TextWrapping="Wrap" Text="Grad:" VerticalAlignment="Top" Width="99"/>
-        <TextBlock HorizontalAlignment="Left" Margin="27,109,0,0" TextWrapping="Wrap" Text="Jezik:" VerticalAlignment="Top" Width="99"/>
-        <TextBlock HorizontalAlignment="Left" Margin="27,139,0,0" TextWrapping="Wrap" Text="Broj gostiju:" VerticalAlignment="Top" Width="104"/>
-        <TextBlock HorizontalAlignment="Left" Margin="27,174,0,0" TextWrapping="Wrap" Text="Datum izvodjenja:" VerticalAlignment="Top" Width="99"/>
-        <TextBox HorizontalAlignment="Left" Margin="131,139,0,0" TextWrapping="Wrap" Text="{Binding Path=Tour.MaxGuestNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="131,172,0,0" TextWrapping="Wrap" Text="{Binding Path=Tour.StartingDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="131,109,0,0" TextWrapping="Wrap" Text="{Binding Path=Tour.Language.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="131,79,0,0" TextWrapping="Wrap" Text="{Binding Path=Tour.Location.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="131,49,0,0" TextWrapping="Wrap" Text="{Binding Path=Tour.Location.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
+        <TextBlock Style="{StaticResource NotificationHeader}" Text="Nedavno je kreirana sljedeca tura koja vam moze biti zanimljiva:"/>
 
+        <TextBlock HorizontalAlignment="Left"  Style="{DynamicResource TextBlock1}" Margin="20,60,0,0" TextWrapping="Wrap"  Text="{local:Loc Country:}" />
+        <TextBlock HorizontalAlignment="Left"  Style="{DynamicResource TextBlock1}" Margin="20,90,0,0" TextWrapping="Wrap" Text="{local:Loc City:}" />
+        <TextBlock HorizontalAlignment="Left"  Style="{DynamicResource TextBlock1}" Margin="20,120,0,0" TextWrapping="Wrap" Text="{local:Loc Language:}" />
+        <TextBlock HorizontalAlignment="Left"  Style="{DynamicResource TextBlock1}" Margin="20,150,0,0" TextWrapping="Wrap" Text="{local:Loc GuestNumber:}" />
+        <TextBlock HorizontalAlignment="Left"  Style="{DynamicResource TextBlock1}" Margin="20,180,0,0" TextWrapping="Wrap" Text="{local:Loc StartingDate:}"  Width="104"/>
 
+        <TextBox Style="{DynamicResource TextBox1}" HorizontalAlignment="Left" Margin="131,60,0,0" TextWrapping="Wrap" Text="{Binding Path=Tour.Location.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Style="{DynamicResource TextBox1}" HorizontalAlignment="Left" Margin="131,90,0,0" TextWrapping="Wrap" Text="{Binding Path=Tour.Location.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"    />
+        <TextBox Style="{DynamicResource TextBox1}" HorizontalAlignment="Left" Margin="131,120,0,0" TextWrapping="Wrap" Text="{Binding Path=Tour.Language.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   />
+        <TextBox Style="{DynamicResource TextBox1}"  HorizontalAlignment="Left" Margin="131,150,0,0" TextWrapping="Wrap" Text="{Binding Path=Tour.MaxGuestNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Style="{DynamicResource TextBox1}" HorizontalAlignment="Left" Margin="131,180,0,0" TextWrapping="Wrap" Text="{Binding Path=Tour.StartingDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
+        <Button x:Name="Ok"  Content="OK" HorizontalAlignment="Center" Margin="0,237,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}"  Style="{StaticResource PrimaryButtonStyle}"/>
 
     </Grid>
 </Window>

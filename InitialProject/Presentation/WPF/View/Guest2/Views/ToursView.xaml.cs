@@ -16,8 +16,6 @@
             viewModel = new ToursViewModel();
             InitializeComponent();
             this.DataContext = viewModel;
-
-
         }
 
         private void TourPreview_Click(object sender, RoutedEventArgs e)
@@ -25,5 +23,6 @@
             TourView tourView = new TourView((Tour)DataGridTure.SelectedItem);
             this.NavigationService.Navigate(tourView);
         }
+
     }
 }

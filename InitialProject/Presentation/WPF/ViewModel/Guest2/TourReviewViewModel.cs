@@ -56,7 +56,7 @@
         public void RateTour(TourRate tourRate)
         {
             _tourRateService.MakeTourRate(tourRate);
-            MessageBox.Show(TourViewConstants.CommentNoted, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
+            MessageBox.Show(TourViewConstants.CommentNoted, TourViewConstants.TourRateCaption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
         }
 
         private void AddTourReview(object parameter)

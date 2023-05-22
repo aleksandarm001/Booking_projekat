@@ -32,7 +32,7 @@
         private void HandleFullTourCapacity()
         {
             MessageBoxResult result;
-            result = MessageBox.Show(TourViewConstants.MaxGuestNumberIsZero, TourViewConstants.Caption, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes);
+            result = MessageBox.Show(TourViewConstants.MaxGuestNumberIsZero, TourViewConstants.TourReservationCaption, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes);
             /* if (result == MessageBoxResult.Yes)
              {
                  Tours = new ObservableCollection<Tour>(_tourService.GetSimilarAsTourHasFullCapacity(SelectedTour.Location.Country, SelectedTour.Location.City));

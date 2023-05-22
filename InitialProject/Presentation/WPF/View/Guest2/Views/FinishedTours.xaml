@@ -3,9 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest2.Views"
+      xmlns:local="clr-namespace:InitialProject"
       mc:Ignorable="d" 
-      d:DesignHeight="745" d:DesignWidth="1066"
+      d:DesignHeight="690" d:DesignWidth="1066"
       Title="FinishedTours">
 
     <Grid>
@@ -14,17 +14,17 @@
                                  SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Width="1064">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Width="150" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Grad" Width="150" Binding="{Binding Location.City}"/>
-                <DataGridTextColumn Header="Drzava" Width="150" Binding="{Binding Location.Country}"/>
-                <DataGridTextColumn Header="Trajanje ture" Width="120" Binding="{Binding Duration}"/>
-                <DataGridTextColumn Header="Jezik" Width="130" Binding="{Binding Language}"/>
-                <DataGridTextColumn Header="Datum i vrijeme" Width="150" Binding="{Binding StartingDateTime}"/>
-                <DataGridTextColumn Header="Broj ljudi" Width="100" Binding="{Binding MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="{local:Loc TourName}" Width="150" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="{local:Loc City}" Width="150" Binding="{Binding Location.City}"/>
+                <DataGridTextColumn Header="{local:Loc Country}" Width="150" Binding="{Binding Location.Country}"/>
+                <DataGridTextColumn Header="{local:Loc Duration}" Width="120" Binding="{Binding Duration}"/>
+                <DataGridTextColumn Header="{local:Loc Language}" Width="130" Binding="{Binding Language}"/>
+                <DataGridTextColumn Header="{local:Loc DateAndTime}" Width="150" Binding="{Binding StartingDateTime}"/>
+                <DataGridTextColumn Header="{local:Loc PeopleNumber}" Width="100" Binding="{Binding MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Height="20" Cursor="Hand" Name="Ocijeni" Width="60" Content="Ocijeni" Command="{Binding DataContext.RateCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" BorderThickness="0"  Foreground="White" FontSize="12" FontFamily="Montserrat">
+                            <Button Height="20" Cursor="Hand" Name="Ocijeni" Width="60" Content="{local:Loc Rate}" Command="{Binding DataContext.RateCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" BorderThickness="0"  Foreground="White" FontSize="12" FontFamily="Montserrat">
                                 <Button.Style>
                                     <Style TargetType="Button">
                                         <Setter Property="Background" Value="#00A76D"/>

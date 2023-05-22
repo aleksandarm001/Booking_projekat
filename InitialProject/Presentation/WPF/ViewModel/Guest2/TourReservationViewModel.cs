@@ -117,7 +117,8 @@
         }
 
         private void InitializeVouchers()
-        {
+        { 
+
             VouchersString.Add("Bez vaučera");
             foreach (Voucher v in Vouchers)
             {

@@ -41,7 +41,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
                 }
                 else
                 {
-                    MessageBox.Show(TourViewConstants.TourReviewed, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
+                    MessageBox.Show(TourViewConstants.TourReviewed, TourViewConstants.TourRateCaption, MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
                 }
             }
         }

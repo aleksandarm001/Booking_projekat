@@ -16,28 +16,23 @@
 
         public void HandleMessageForDetails(Tour tour)
         {
-            if (tour != null)
-            {
                 if (tour.TourStarted)
                 {
                     if (_tourPointService.GetActiveTourPointOnTour(tour.TourId) == null)
                     {
-                        MessageBox.Show(TourViewConstants.ActiveTourPointNotFound, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
+                        MessageBox.Show(TourViewConstants.ActiveTourPointNotFound, TourViewConstants.TrackingTourCaption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
                     }
                     else
                     {
-                        MessageBox.Show("Trenutno je aktivna " + _tourPointService.GetActiveTourPointOnTour(tour.TourId).Name + " tacka!", TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
+                        MessageBox.Show("Trenutno je aktivna " + _tourPointService.GetActiveTourPointOnTour(tour.TourId).Name + " tacka!", TourViewConstants.TrackingTourCaption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
                     }
                 }
                 else
                 {
-                    MessageBox.Show(TourViewConstants.TourNotStarted, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
+                    MessageBox.Show(TourViewConstants.TourNotStarted, TourViewConstants.TrackingTourCaption, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
                 }
-            }
-            else
-            {
-                MessageBox.Show(TourViewConstants.MustSelectTour, TourViewConstants.Caption, MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
-            }
         }
+            
     }
 }
+

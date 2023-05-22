@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest2.Views"
+      xmlns:local="clr-namespace:InitialProject"
       mc:Ignorable="d" 
       d:DesignHeight="745" d:DesignWidth="1066"
       Title="VouchersView">
@@ -13,10 +13,10 @@
                                 ItemsSource="{Binding Vouchers, UpdateSourceTrigger=PropertyChanged}"
                                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Width="1064">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Width="230" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Popust" Width="230" Binding="{Binding Location}"/>
-                <DataGridTextColumn Header="Osvojen" Width="300" Binding="{Binding Received}"/>
-                <DataGridTextColumn Header="Vrijedi do" Width="*" Binding="{Binding ValidUntil}"/>
+                <DataGridTextColumn Header="{local:Loc Name}" Width="230" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="{local:Loc Sale}" Width="230" Binding="{Binding Location}"/>
+                <DataGridTextColumn Header="{local:Loc ValidFrom}" Width="300" Binding="{Binding Received}"/>
+                <DataGridTextColumn Header="{local:Loc ValidUntil}" Width="*" Binding="{Binding ValidUntil}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

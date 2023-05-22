@@ -27,5 +27,6 @@ namespace InitialProject.Presentation.WPF.View.Guest2
             this._viewModel = new MainWindowViewModel(this.frame.NavigationService, userId);
             this.DataContext = this._viewModel;
         }
+
     }
 }

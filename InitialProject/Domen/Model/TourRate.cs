@@ -57,12 +57,15 @@
             IsValid = Convert.ToBoolean(values[5]);
             Comment = values[6];
             Images = StringToImagesList(values[7]);
-            Date = DateTime.Parse(values[8]);
+            Date = DateTime.TryParse(values[8],out var result) ? result : null;
         }
 
         private string ImagesListToString()
         {
             string s = "";
+
+           if (Images == null || Images.Count == 0)
+                return s;
             foreach (string image in Images)
             {
                 if (Images.IndexOf(image) == Images.Count - 1)

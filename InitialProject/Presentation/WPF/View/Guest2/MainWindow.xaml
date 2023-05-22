@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest2"
-        mc:Ignorable="d" Height="745" Width="1366" WindowStartupLocation="CenterScreen">
+        xmlns:local="clr-namespace:InitialProject" xmlns:validation="clr-namespace:InitialProject.Validation" d:DataContext="{d:DesignInstance Type=validation:BindableBase}"
+        mc:Ignorable="d" Height="745" Width="1366" Title="Booking budies"  WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
+    
     <Window.Resources>
         <Style TargetType="Menu" x:Key="MenuStyle">
             <Setter Property="Template">
@@ -13,28 +14,8 @@
                     <ControlTemplate TargetType="{x:Type Menu}">
                         <Border BorderThickness="1">
                             <Border.BorderBrush>
-                                <LinearGradientBrush StartPoint="0,0"
-                                 EndPoint="0,1">
-                                    <LinearGradientBrush.GradientStops>
-                                        <GradientStopCollection>
-                                            <GradientStop Color="#FF888888"
-                                                Offset="0.0" />
-                                            <GradientStop Color="#FF888888"
-                                                Offset="1.0" />
-                                        </GradientStopCollection>
-                                    </LinearGradientBrush.GradientStops>
-                                </LinearGradientBrush>
-
+                                <SolidColorBrush Color="#00A77F"/>
                             </Border.BorderBrush>
-                            <Border.Background>
-                                <LinearGradientBrush EndPoint="0.5,1"
-                                 StartPoint="0.5,0">
-                                    <GradientStop Color="#FF888888"
-                                        Offset="0" />
-                                    <GradientStop Color="#FF888888"
-                                        Offset="1" />
-                                </LinearGradientBrush>
-                            </Border.Background>
                             <StackPanel ClipToBounds="True"
                                 Orientation="Horizontal"
                                 IsItemsHost="True" />
@@ -42,6 +23,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+           
         </Style>
 
         <Style TargetType="MenuItem" x:Key="BaseMenuItem">
@@ -50,38 +32,25 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="MenuItem">
-                        <Grid x:Name="MenuItemGrid">
-                            <Border x:Name="MenuItemBorder" Grid.ColumnSpan="4">
+                        <Grid x:Name="MenuItemGrid" >
+                            <Border x:Name="MenuItemBorder" Grid.ColumnSpan="2">
                                 <Border.BorderBrush>
-                                    <LinearGradientBrush StartPoint="0,0"
-                                 EndPoint="0,1">
-                                        <LinearGradientBrush.GradientStops>
-                                            <GradientStopCollection>
-                                                <GradientStop Color="#00A76D"
-                                                Offset="0.0" />
-                                                <GradientStop Color="#00A77F"
-                                                Offset="1.0" />
-                                            </GradientStopCollection>
-                                        </LinearGradientBrush.GradientStops>
-                                    </LinearGradientBrush>
-
+                                    <SolidColorBrush Color="#00A77F"/>
+                                 
                                 </Border.BorderBrush>
                                 <Border.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1"
-                                 StartPoint="0.5,0">
-                                        <GradientStop Color="#00A76D"
-                                        Offset="0" />
-                                        <GradientStop Color="#00A77F"
-                                        Offset="1" />
-                                    </LinearGradientBrush>
+                                    <SolidColorBrush Color="#00A77F"/>
+                                
                                 </Border.Background>
                                 <StackPanel ClipToBounds="True"
                                     Orientation="Horizontal"
                                     IsItemsHost="True" />
                             </Border>
-                            <ContentPresenter x:Name="IconPresenter"  ContentSource="Icon"/>
-                            <ContentPresenter ContentSource="Header"
-                                          Margin="7, 1, 7, 1" Grid.Column="1" HorizontalAlignment="Center" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <ContentPresenter x:Name="IconPresenter" ContentSource="Icon" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <ContentPresenter ContentSource="Header"
+                                          Margin="10, 1, 7, 1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </StackPanel>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -99,26 +68,28 @@
     <StackPanel>
         <StackPanel Margin="0,0,0,0" Height="40">
             <StackPanel Orientation="Horizontal">
-                <Menu Style="{StaticResource MenuStyle}" Height="37">
-                    
-                    <MenuItem Header="Početna" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToMainPageCommand}" >
+                <Menu Style="{StaticResource MenuStyle}" Height="40">
+
+                    <MenuItem Header="{local:Loc HomePage}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToMainPageCommand}">
 
                     </MenuItem>
-                    <MenuItem Header="Ture" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourPageCommand}" >
+                    <MenuItem Header="{local:Loc Tours}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourPageCommand}" >
 
                     </MenuItem>
-                    <MenuItem Header="Last minut" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourPageCommand}" >
+                    <MenuItem Header="{local:Loc LastMinutTours}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToLastMinutePageCommand}" >
 
                     </MenuItem>
-                    <MenuItem Header="Korisničko ime" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToUserPageCommand}" >
-
+                    <MenuItem Header="{Binding UserName}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToUserPageCommand}" >
+                        <MenuItem.Icon>
+                            <Image Source="/Infrastructure/Resources/Images/user.png" Width="30" Height="30" />
+                        </MenuItem.Icon>
                     </MenuItem>
                 </Menu>
 
             </StackPanel>
         </StackPanel>
-        <StackPanel Margin="0,0,0,0" Height="744">
-            <Frame  x:Name="frame" NavigationUIVisibility="Hidden" Source="Views/ToursView.xaml" />
+        <StackPanel Margin="0,0,0,0" Height="690">
+            <Frame  x:Name="frame" NavigationUIVisibility="Hidden" ScrollViewer.CanContentScroll="True" Source="Views/ToursView.xaml" />
         </StackPanel>
     </StackPanel>
 </Window>

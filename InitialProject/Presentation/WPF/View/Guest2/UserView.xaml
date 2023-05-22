@@ -3,9 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest2.Views"
+      xmlns:local="clr-namespace:InitialProject"
       mc:Ignorable="d" 
-      d:DesignHeight="645" d:DesignWidth="1366"
+      d:DesignHeight="690" d:DesignWidth="1366"
       Title="UserView">
 
     <Page.Resources>
@@ -15,27 +15,10 @@
                     <ControlTemplate TargetType="{x:Type Menu}">
                         <Border BorderThickness="1">
                             <Border.BorderBrush>
-                                <LinearGradientBrush StartPoint="0,0"
-                                 EndPoint="0,1">
-                                    <LinearGradientBrush.GradientStops>
-                                        <GradientStopCollection>
-                                            <GradientStop Color="#FF888888"
-                                                Offset="0.0" />
-                                            <GradientStop Color="#FF888888"
-                                                Offset="1.0" />
-                                        </GradientStopCollection>
-                                    </LinearGradientBrush.GradientStops>
-                                </LinearGradientBrush>
-
+                                <SolidColorBrush Color="{StaticResource PrimaryLightColor}"/>
                             </Border.BorderBrush>
                             <Border.Background>
-                                <LinearGradientBrush EndPoint="0.5,1"
-                                 StartPoint="0.5,0">
-                                    <GradientStop Color="#FF888888"
-                                        Offset="0" />
-                                    <GradientStop Color="#FF888888"
-                                        Offset="1" />
-                                </LinearGradientBrush>
+                                <SolidColorBrush Color="White"/>
                             </Border.Background>
                             <StackPanel ClipToBounds="True"
                                 Orientation="Vertical"
@@ -56,35 +39,19 @@
                         <Grid x:Name="MenuItemGrid">
                             <Border x:Name="MenuItemBorder" Grid.ColumnSpan="2">
                                 <Border.BorderBrush>
-                                    <LinearGradientBrush StartPoint="0,0"
-                                 EndPoint="0,1">
-                                        <LinearGradientBrush.GradientStops>
-                                            <GradientStopCollection>
-                                                <GradientStop Color="#00A76D"
-                                                Offset="0.0" />
-                                                <GradientStop Color="#00A77F"
-                                                Offset="1.0" />
-                                            </GradientStopCollection>
-                                        </LinearGradientBrush.GradientStops>
-                                    </LinearGradientBrush>
+                                    <SolidColorBrush Color="{StaticResource PrimaryLightColor}"/>
 
                                 </Border.BorderBrush>
                                 <Border.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1"
-                                 StartPoint="0.5,0">
-                                        <GradientStop Color="#00A76D"
-                                        Offset="0" />
-                                        <GradientStop Color="#00A77F"
-                                        Offset="1" />
-                                    </LinearGradientBrush>
+                                    <SolidColorBrush Color="{StaticResource PrimaryLightColor}"/>
                                 </Border.Background>
                                 <StackPanel ClipToBounds="True"
                                     Orientation="Horizontal"
                                     IsItemsHost="True" />
                             </Border>
-                            <ContentPresenter x:Name="IconPresenter"  ContentSource="Icon"/>
-                            <ContentPresenter ContentSource="Header"
-                                          Margin="7, 1, 7, 1" Grid.Column="1" HorizontalAlignment="left" VerticalAlignment="Center" />
+                            <ContentPresenter ContentSource="Header" Margin="50, 1, 7, 1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                            <ContentPresenter x:Name="IconPresenter" Margin="10" ContentSource="Icon" Width="30" Height="30" HorizontalAlignment="Left"/>
+
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -108,39 +75,19 @@
         <Style TargetType="MenuItem" x:Key="UserMenuItem">
             <Setter Property="FontSize" Value="25" />
             <Setter Property="Width" Value="300" />
-            <Setter Property="Height" Value="343" />
+            <Setter Property="Height" Value="390" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="MenuItem">
-                        <Grid x:Name="MenuItemGrid">
+                        <Grid x:Name="MenuItemGrid" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="30" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Border x:Name="MenuItemBorder" Grid.ColumnSpan="2">
                                 <Border.BorderBrush>
-                                    <LinearGradientBrush StartPoint="0,0"
-                                 EndPoint="0,1">
-                                        <LinearGradientBrush.GradientStops>
-                                            <GradientStopCollection>
-                                                <GradientStop Color="#00A76D"
-                                                Offset="0.0" />
-                                                <GradientStop Color="#00A77F"
-                                                Offset="1.0" />
-                                            </GradientStopCollection>
-                                        </LinearGradientBrush.GradientStops>
-                                    </LinearGradientBrush>
-
+                                    <SolidColorBrush Color="{StaticResource PrimaryColor}"/>
                                 </Border.BorderBrush>
-                                <Border.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1"
-                                 StartPoint="0.5,0">
-                                        <GradientStop Color="#00A76D"
-                                        Offset="0" />
-                                        <GradientStop Color="#00A77F"
-                                        Offset="1" />
-                                    </LinearGradientBrush>
-                                </Border.Background>
                                 <StackPanel ClipToBounds="True"
                                     Orientation="Horizontal"
                                     IsItemsHost="True" />
@@ -150,9 +97,6 @@
                                           Margin="7, 1, 7, 1" Grid.Column="1" />
                         </Grid>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="MenuItemBorder" Property="Background" Value="CadetBlue" />
-                            </Trigger>
                             <DataTrigger Binding="{Binding Path=Checker}" Value="True">
                                 <DataTrigger.EnterActions>
                                     <BeginStoryboard>
@@ -170,23 +114,37 @@
 
 
     </Page.Resources>
-    <DockPanel>
+    <DockPanel >
         <Menu DockPanel.Dock="Left" Style="{StaticResource MenuStyle}">
-            
-            <MenuItem Header="Korisnik" Style="{StaticResource UserMenuItem}" Name="OpenMenuItem" Command="{Binding OpenMenuCommand}">
-                
-            </MenuItem>
-            <MenuItem Header="Rezervisane ture" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToReservedToursCommand}">
-                
-            </MenuItem>
-            <MenuItem Header="Zavrsene ture" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToFinishedToursCommand}" CommandParameter="nesto">
-                
-            </MenuItem>
-            <MenuItem Header= "Zahtjevane ture" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToRequestedToursCommand}">
-                
-            </MenuItem>
-            <MenuItem Header="Vauceri" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToVouchersPageCommand}">
 
+            <MenuItem  Style="{StaticResource UserMenuItem}" Name="OpenMenuItem" Command="{Binding OpenMenuCommand}">
+                <StackPanel Orientation="Vertical">                <Image Source="/Infrastructure/Resources/Images/user-avatar.png" Stretch="Fill" Height="240
+                       " Width="240"/>
+                <TextBlock Text="{Binding UserName}" TextAlignment="Center"></TextBlock>
+                </StackPanel>
+
+
+            </MenuItem>
+            <MenuItem Header="{local:Loc ReservedTours}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToReservedToursCommand}" >
+                <MenuItem.Icon>
+                    <Image Source="/Infrastructure/Resources/Images/stopwatch.png" Width="30" Height="30" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="{local:Loc FinishedTours}"  Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToFinishedToursCommand}" >
+                <MenuItem.Icon>
+                    <Image Source="/Infrastructure/Resources/Images/reservation.png" Width="30" Height="30" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header= "{local:Loc RequestedTours}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToRequestedToursCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Infrastructure/Resources/Images/time.png" Width="30" Height="30" />
+                </MenuItem.Icon>
+
+            </MenuItem>
+            <MenuItem Header="{local:Loc Vouchers}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToVouchersPageCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Infrastructure/Resources/Images/ticket.png" Width="30" Height="30" />
+                </MenuItem.Icon>
             </MenuItem>
         </Menu>
         <Frame x:Name="frame" />

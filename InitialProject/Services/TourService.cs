@@ -31,6 +31,11 @@
             return _tourRepository.GetAll().Where(t => t.TourStarted == false).ToList();
         }
 
+        public List<Tour> GetAllLastMinuteTours()
+        {
+            return _tourRepository.GetAll().Where(t => t.TourStarted == false && t.StartingDateTime<=DateTime.Now.AddDays(10)).ToList();
+        }
+
         public Tour GetTourById(int id)
         {
             return _tourRepository.GetAll().Where(t => t.TourId == id).FirstOrDefault();
@@ -94,6 +99,19 @@
         {
             List<Tour> toursFiltered = new List<Tour>();
             foreach (Tour tour in GetAllNotStartedTours())
+            {
+                if (CityFilter(tour, city) && CountryFilter(tour, country) && DurationFilter(tour, durationFrom, durationTo) && LanguageFilter(tour, language) && GuestNumberFilter(tour, guestNumber))
+                {
+                    toursFiltered.Add(tour);
+                }
+            }
+            return toursFiltered;
+        }
+
+        public List<Tour> GetAllFilteredLastMinute(string city, string country, string durationFrom, string durationTo, string language, string guestNumber)
+        {
+            List<Tour> toursFiltered = new List<Tour>();
+            foreach (Tour tour in GetAllLastMinuteTours())
             {
                 if (CityFilter(tour, city) && CountryFilter(tour, country) && DurationFilter(tour, durationFrom, durationTo) && LanguageFilter(tour, language) && GuestNumberFilter(tour, guestNumber))
                 {

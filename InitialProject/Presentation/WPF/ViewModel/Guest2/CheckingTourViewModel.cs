@@ -16,7 +16,7 @@
         private readonly ITourAttendanceService _tourAttendanceService;
         private readonly ITourService _tourService;
         public TourAttendance TourAttendance { get; set; }
-        public Tour Tour { get; }
+        public Tour Tour { get; set; }
 
         public CheckingTourViewModel(TourAttendance tourAttendance)
         {

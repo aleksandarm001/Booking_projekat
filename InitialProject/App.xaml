@@ -17,11 +17,180 @@
                 <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/ComplexTourCardTemplate.xaml" />
                 <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/PartOfComplexTourCardTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Color x:Key="PrimaryColor">#00A77F</Color>
+            <Color x:Key="PrimaryLightColor">#def2ed</Color>
+            <Color x:Key="PrimaryHoverColor">#00744c</Color>
+
+            <Color x:Key="SecondaryColor">#ffd54f</Color>
+            <Color x:Key="SecondaryLightColor">#ffecb3</Color>
+            <Color x:Key="SecondaryHoverColor">#ff8f00</Color>
+
+            <Color x:Key="ErrorColor">#BB141A</Color>
+            <Color x:Key="ErrorLightColor">#ffcdd2</Color>
+            <Color x:Key="ErrorHoverColor">#951014</Color>
+
+            <Color x:Key="DisabledColor">#E0E0E0</Color>
+
+            <SolidColorBrush x:Key="PrimaryColorBrush" Color="{StaticResource PrimaryColor}" />
+            <SolidColorBrush x:Key="PrimaryHoverColorBrush" Color="{StaticResource PrimaryHoverColor}" />
+            <SolidColorBrush x:Key="PrimaryLightColorBrush" Color="{StaticResource PrimaryLightColor}" />
+
+            <SolidColorBrush x:Key="SecondaryColorBrush" Color="{StaticResource SecondaryColor}" />
+            <SolidColorBrush x:Key="SecondaryHoverColorBrush" Color="{StaticResource SecondaryHoverColor}" />
+            <SolidColorBrush x:Key="SecondaryLightColorBrush" Color="{StaticResource SecondaryLightColor}" />
+
+            <SolidColorBrush x:Key="ErrorColorBrush" Color="{StaticResource ErrorColor}" />
+            <SolidColorBrush x:Key="ErrorHoverColorBrush" Color="{StaticResource ErrorHoverColor}" />
+            <SolidColorBrush x:Key="ErrorLightColorBrush" Color="{StaticResource ErrorLightColor}" />
+
+            <SolidColorBrush x:Key="DisabledColorBrush" Color="{StaticResource DisabledColor}" />
         
-        
-        
-        
-        <Style x:Key="topButton" TargetType="Button">
+
+
+            <Style TargetType="{x:Type Button}" x:Key="PrimaryButtonStyle">
+                <Setter Property="MinWidth" Value="150"/>
+                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Background" Value="{StaticResource PrimaryColorBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+
+             
+                
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Width="100" Height="33" CornerRadius="20" Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource PrimaryHoverColorBrush}"/>
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="{StaticResource DisabledColorBrush}"/>
+                        <Setter Property="Cursor" Value="No"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="{x:Type Button}" x:Key="SecondaryButtonStyle">
+                <Setter Property="Background" Value="{StaticResource SecondaryColorBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="MinWidth" Value="100"/>
+                <Setter Property="Padding" Value="10,5"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Width="100" Height="33" CornerRadius="20" Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource SecondaryHoverColorBrush}"/>
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="{StaticResource DisabledColorBrush}"/>
+                        <Setter Property="Cursor" Value="No"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+
+            <Style TargetType="{x:Type Button}" x:Key="ErrorButtonStyle">
+                <Setter Property="Background" Value="{StaticResource ErrorColorBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="MinWidth" Value="100"/>
+                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="100" Height="33"
+                                        CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource ErrorHoverColorBrush}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="{x:Type TextBlock}" x:Key="NotificationHeader">
+                <Setter Property="Foreground" Value="DarkSlateGray"></Setter>
+                <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="Margin" Value="10,8,10,8" />
+            </Style>
+
+            <Style TargetType="{x:Type TextBlock}" x:Key="Header">
+                <Setter Property="Foreground" Value="Black"></Setter>
+                <Setter Property="FontSize" Value="14"></Setter>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="TextAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="20,8,20,8" />
+            </Style>
+            
+
+            <Style TargetType="{x:Type TabItem}" x:Key="TabItemStyle">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="{StaticResource PrimaryColorBrush}"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Height" Value="30"/>
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Foreground" Value="{StaticResource PrimaryColorBrush}"/>
+                        <Setter Property="Background" Value="White"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+
+
+            <Style x:Key="TextBlock1" TargetType="TextBlock">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="#000000" />
+                <Setter Property="Width" Value="80" />
+                <Setter Property="Height" Value="20" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="FontWeight" Value="DemiBold" />
+                <Setter Property="FontFamily" Value="Montserrat"/>
+
+            </Style>
+
+            <Style x:Key="TextBox1" TargetType="TextBox">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="#000000" />
+                <Setter Property="Width" Value="140" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="FontWeight" Value="Regular" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="FontFamily" Value="Montserrat"/>
+
+            </Style>
+
+            <Style x:Key="topButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="#6e7783" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />

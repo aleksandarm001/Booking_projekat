@@ -4,7 +4,10 @@
 
     public static class TourViewConstants
     {
-        public static readonly string Caption = "Rezervacija ture";
+        public static readonly string TourReservationCaption = "Rezervacija ture";
+        public static readonly string TourRateCaption = "Ocjenjivanje ture";
+        public static readonly string TrackingTourCaption = "Praćenje ture";
+        public static readonly string ReservTourCaption = "Rezervacija ture";
         public static readonly string MustSelectTour = "Morate prvo izabrati turu";
         public static readonly string MaxGuestNumberIsZero = "Zao nam je, izabrana tura je popunjena, pokusajte pronaci drugu turu.";
         public static readonly string ViewOtherTours = "Trenutno ne postoji tura na istoj lokaciji, pogledajte ostale ponudjene ture!";

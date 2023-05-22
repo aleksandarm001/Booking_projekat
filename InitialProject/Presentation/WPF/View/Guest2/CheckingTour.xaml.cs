@@ -17,7 +17,7 @@
         {
             _checkingTourViewModel = new CheckingTourViewModel(tourAttendance);
             InitializeComponent();
-            DataContext = this;
+            DataContext = _checkingTourViewModel;
         }
     }
 }

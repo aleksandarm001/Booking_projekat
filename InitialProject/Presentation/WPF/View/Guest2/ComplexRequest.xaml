@@ -3,44 +3,86 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest2"
+        xmlns:local="clr-namespace:InitialProject"
         mc:Ignorable="d"
-        Title="Kreiranje složenog zahtjeva" Height="400" Width="800" WindowStartupLocation="CenterScreen">
+        Title="{local:Loc CreatingComplexRequest}" Height="500" Width="850" WindowStartupLocation="CenterScreen">
     <Grid>
 
-        <DataGrid Margin="304,32,16,0" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}" 
+        <DataGrid Margin="332,32,16,0" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}" 
  
                             ItemsSource="{Binding ComplexTourRequests, UpdateSourceTrigger=PropertyChanged}"
-                            IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Width="NaN">
+                            IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Width="NaN" Height="274">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Drzava" Width="120" Binding="{Binding Location.Country}"/>
-                <DataGridTextColumn Header="Grad" Width="120" Binding="{Binding Location.City}"/>
-                <DataGridTextColumn Header="Jezik" Width="120" Binding="{Binding Language}"/>
-                <DataGridTextColumn Header="Broj ljudi" Width="*" Binding="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="{local:Loc Country}" Width="120" Binding="{Binding Location.Country}"/>
+                <DataGridTextColumn Header="{local:Loc City}" Width="120" Binding="{Binding Location.City}"/>
+                <DataGridTextColumn Header="{local:Loc Language}" Width="120" Binding="{Binding Language}"/>
+                <DataGridTextColumn Header="{local:Loc PeopleNumber}" Width="*" Binding="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
 
         </DataGrid>
-        <Button x:Name="Dodaj"  Content="Dodaj" HorizontalAlignment="Left" Margin="140,306,0,0" VerticalAlignment="Top" Click="Dodaj_Click"  Height="30" Width="80"/>
-        <TextBlock HorizontalAlignment="Center" Margin="0,7,0,0" TextWrapping="Wrap" Text="Kreiranje zahtjeva za složenu turu" VerticalAlignment="Top" Width="280"/>
-        <TextBlock HorizontalAlignment="Left" Margin="36,70,0,0" TextWrapping="Wrap"  Text="Drzava:" VerticalAlignment="Top" Width="99"/>
-        <TextBlock HorizontalAlignment="Left" Margin="36,100,0,0" TextWrapping="Wrap" Text="Grad:" VerticalAlignment="Top" Width="99"/>
-        <TextBlock HorizontalAlignment="Left" Margin="36,130,0,0" TextWrapping="Wrap" Text="Jezik:" VerticalAlignment="Top" Width="99"/>
-        <TextBlock HorizontalAlignment="Left" Margin="36,165,0,0" TextWrapping="Wrap" Text="Broj gostiju:" VerticalAlignment="Top" Width="104"/>
-        <TextBlock HorizontalAlignment="Left" Margin="36,204,0,0" TextWrapping="Wrap" Text="Datum od:" VerticalAlignment="Top" Width="99"/>
-        <TextBlock HorizontalAlignment="Left" Margin="36,267,0,0" TextWrapping="Wrap" Text="Opis:" VerticalAlignment="Top" Width="99"/>
-        <ComboBox Name="CountryComboBox" HorizontalAlignment="Left" Margin="140,70,0,0" SelectedIndex="0" SelectionChanged="FilterCities" SelectedItem="{Binding Path=ComplexTourRequest.Location.Country }"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Countries}"   VerticalAlignment="Top" Width="120"/>
-        <ComboBox Name="CityComboBox" HorizontalAlignment="Left" Margin="140,100,0,0" SelectedItem="{Binding Path=ComplexTourRequest.Location.City }"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Cities}"  VerticalAlignment="Top" Width="120"/>
-        <ComboBox Name="LanguageComboBox" HorizontalAlignment="Left" Margin="140,130,0,0" SelectedItem="{Binding Path=ComplexTourRequest.Language }" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Languages}"  VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="140,165,0,0" TextWrapping="Wrap" Text="{Binding Path=ComplexTourRequest.GuestNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="140,265,0,0" TextWrapping="Wrap" Text="{Binding Path=ComplexTourRequest.Description, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
-        <DatePicker Name="DatePickerStart" HorizontalAlignment="Left" Margin="140,200,0,0" VerticalAlignment="Top" Width="114" IsTodayHighlighted="True" SelectedDate="{Binding Path=ComplexTourRequest.StartingDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="DatePickerStart_SelectedDateChanged"/>
-        <TextBlock HorizontalAlignment="Left" Margin="36,241,0,0" TextWrapping="Wrap" Text="Datum do:" VerticalAlignment="Top" Width="99"/>
-        <DatePicker Name="DatePickerEnd" HorizontalAlignment="Left" Margin="140,235,0,0" VerticalAlignment="Top" Width="114" SelectedDate="{Binding Path=ComplexTourRequest.EndingDate, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel Orientation="Horizontal" Margin="387,432,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.494,1.471">
+            <Button x:Name="Odustani"  Content="{local:Loc Reject}" HorizontalAlignment="Left"  Click="Odustani_Click" VerticalAlignment="Top"   Style="{StaticResource SecondaryButtonStyle}"/>
+            <Button x:Name="Potvrdi"  Content="{local:Loc Accept}"  Click="Potvrdi_Click" VerticalAlignment="Top" Margin="200,0,0,0"  Style="{StaticResource PrimaryButtonStyle}" />
+        </StackPanel>
+        <Grid Margin="0,0,541,0" Background="{StaticResource PrimaryLightColorBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+            </Grid.RowDefinitions>
 
-        <Button x:Name="Potvrdi"  Content="Potvrdi" HorizontalAlignment="Left" Margin="300,344,0,0" Click="Potvrdi_Click" VerticalAlignment="Top" Height="30" Width="80" />
-        <Button x:Name="Odustani"  Content="Odustani" HorizontalAlignment="Left" Margin="400,344,0,0" Click="Odustani_Click" VerticalAlignment="Top"   Height="30" Width="80" />
-        <TextBlock HorizontalAlignment="Left" Margin="36,43,0,0" TextWrapping="Wrap" Text="Naziv ture:" VerticalAlignment="Top" Width="99"/>
-        <TextBox x:Name="TourName" HorizontalAlignment="Left" Margin="140,41,0,0" TextWrapping="Wrap" Text="{Binding ComplexTourRequest.TourName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
+            <TextBlock Text="{local:Loc CreatingRequestForComplexTour}" Style="{StaticResource Header}" Grid.ColumnSpan="2" Grid.Row="0"/>
 
+            <TextBlock HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center"  TextWrapping="Wrap" Text="{local:Loc TourName:}"  Grid.Column="0" Grid.Row="1" />
+            <TextBox x:Name="TourName" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding ComplexTourRequest.TourName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="15,0,0,0" Width="120" Grid.Column="1" Grid.Row="1"/>
+
+            <TextBlock HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center"  TextWrapping="Wrap"  Text="{local:Loc Country:}"  Grid.Column="0" Grid.Row="2"/>
+            <ComboBox Name="CountryComboBox" HorizontalAlignment="Left"  SelectedIndex="0" SelectionChanged="FilterCities" SelectedItem="{Binding Path=ComplexTourRequest.Location.Country }" 
+                  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Countries}" VerticalAlignment="Center" Margin="15,0,0,0" Width="120" Grid.Column="1" Grid.Row="2"/>
+
+            <TextBlock HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" Text="{local:Loc City:}"  Grid.Column="0" Grid.Row="3" />
+            <ComboBox Name="CityComboBox" HorizontalAlignment="Left"  SelectedItem="{Binding Path=ComplexTourRequest.Location.City }"  
+                      IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Cities}" VerticalAlignment="Center" Margin="15,0,0,0" Width="120" Grid.Column="1" Grid.Row="3" />
+
+            <TextBlock HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" Text="{local:Loc Language:}"  Grid.Column="0" Grid.Row="4"/>
+            <ComboBox Name="LanguageComboBox" HorizontalAlignment="Left" SelectedItem="{Binding Path=ComplexTourRequest.Language }" 
+                      IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Languages}"  VerticalAlignment="Center" Margin="15,0,0,0" Width="120" Grid.Column="1" Grid.Row="4"/>
+
+            <TextBlock HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" Text="{local:Loc GuestNumber:}" Grid.Column="0" Grid.Row="5"/>
+            <TextBox HorizontalAlignment="Left"  TextWrapping="Wrap" Text="{Binding Path=ComplexTourRequest.GuestNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                     VerticalAlignment="Center"  Margin="15,0,0,0" Width="120" Grid.Column="1" Grid.Row="5" />
+
+            <TextBlock HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center"  TextWrapping="Wrap" Text="{local:Loc DateFrom:}"  Grid.Column="0" Grid.Row="6"/>
+            <DatePicker Name="DatePickerStart" HorizontalAlignment="Center" IsTodayHighlighted="True"
+                        SelectedDate="{Binding Path=ComplexTourRequest.StartingDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                        SelectedDateChanged="DatePickerStart_SelectedDateChanged"    VerticalAlignment="Center" Width="120"  Grid.Column="1" Grid.Row="6" Height="20"/>
+
+
+            <TextBlock HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" Text="{local:Loc DateTo:}" Grid.Column="0" Grid.Row="7"/>
+            <DatePicker Name="DatePickerEnd" HorizontalAlignment="Center" 
+                        SelectedDate="{Binding Path=ComplexTourRequest.EndingDate, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                        VerticalAlignment="Center" Width="120" Grid.Column="1" Grid.Row="7" Height="20"/>
+
+            <TextBlock HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" Text="{local:Loc Description:}"  Grid.Column="0" Grid.Row="8"/>
+            <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=ComplexTourRequest.Description, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                     VerticalAlignment="Center" Width="120"  Margin="15,0,0,0"  Grid.Column="1" Grid.Row="8"/>
+
+            <Button x:Name="Dodaj" Style="{StaticResource PrimaryButtonStyle}"  Content="{local:Loc Add}" VerticalAlignment="Top" Click="Dodaj_Click"   Grid.Row="9" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Center" Margin="0,26,0,0"/>
+
+
+        </Grid>
     </Grid>
 </Window>
