@@ -8,6 +8,7 @@
     using System.ComponentModel;
     using System.Linq;
     using System.Runtime.CompilerServices;
+    using System.Text.RegularExpressions;
     using System.Windows;
 
     public class TourReservationViewModel
@@ -27,6 +28,7 @@
         public string First { get; set; }
         public string Second { get; set; }
         public string Third { get; set; }
+        public string Validate { get; set; }
 
         public int NumberOfGuests { get; set; }
         private string _strNumberOfGuests;
@@ -70,16 +72,26 @@
 
         public void Reserve(object parameter)
         {
+            string regexPattern = @"^[0-9]+$";
             CommandParameter = Int32.Parse(parameter.ToString());
-
-            if (NumberOfGuests > Tour.MaxGuestNumber)
+            if (Regex.IsMatch(StrNumberOfGuests, regexPattern))
             {
-                ImpossibleMakeReservation();
-            }
-            else
+                if (NumberOfGuests > Tour.MaxGuestNumber)
+                {
+                    ImpossibleMakeReservation();
+                }
+                else
+                {
+                    MakeReservation(CommandParameter);
+                }
+            } else
             {
-                MakeReservation(CommandParameter);
+                Validate = "Number of guest must be number.";
+                OnPropertyChanged("Validate");
+                OnPropertyChanged(Validate);
+                OnPropertyChanged(nameof(Validate));
             }
+            
         }
 
         public void Decline(object parameter)

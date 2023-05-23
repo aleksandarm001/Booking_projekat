@@ -4,16 +4,10 @@
     using InitialProject.Aplication.Factory;
     using InitialProject.Domen.CustomClasses;
     using InitialProject.Domen.Model;
-    using InitialProject.Repository;
     using InitialProject.Services.IServices;
-    using Microsoft.IdentityModel.Tokens;
-    using Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
     public class TourRequestService : ITourRequestService
     {
@@ -29,8 +23,8 @@
 
         public void CheckRequests()
         {
-            foreach (TourRequest tourRequest in  _repository.GetAll()) 
-            { 
+            foreach (TourRequest tourRequest in _repository.GetAll())
+            {
                 if (tourRequest.StartingDate < DateTime.Now.AddDays(2) && tourRequest.RequestStatus == ComplexTourRequest.Status.OnHold)
                 {
                     tourRequest.RequestStatus = ComplexTourRequest.Status.Rejected;
@@ -77,7 +71,7 @@
         {
             List<TourRequest> allTourRequests = new List<TourRequest>(_repository.GetAll());
             List<TourRequest> FilteredData = new();
-            FilteredData = allTourRequests.Where(c =>(dataToFilter.City == null || c.Location.City == dataToFilter.City) &&
+            FilteredData = allTourRequests.Where(c => (dataToFilter.City == null || c.Location.City == dataToFilter.City) &&
                                       (dataToFilter.Country == null || c.Location.Country == dataToFilter.Country) &&
                                       (dataToFilter.NumberOfGuests == null || c.GuestNumber <= dataToFilter.NumberOfGuests) &&
                                       (dataToFilter.Language == null || c.Language.Name == dataToFilter.Language) &&
@@ -96,7 +90,7 @@
         {
             if (tour.CreatedType == CreationType.CreationTourType.CreatedByRequest)
             {
-                _tourNotificationService.MakeNotification( userId, tour.TourId, TourNotification.NotificationType.TourRequest);
+                _tourNotificationService.MakeNotification(userId, tour.TourId, TourNotification.NotificationType.TourRequest);
             }
             else if (tour.CreatedType == CreationType.CreationTourType.CreatedByStatistics)
             {

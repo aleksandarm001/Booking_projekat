@@ -14,5 +14,6 @@ namespace InitialProject.Presentation.WPF.View.Guest2.Views
             InitializeComponent();
             DataContext = viewModel;
         }
+
     }
 }

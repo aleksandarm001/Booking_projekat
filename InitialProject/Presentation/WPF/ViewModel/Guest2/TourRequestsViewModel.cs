@@ -3,17 +3,15 @@ using InitialProject.Domen.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Presentation.WPF.View.Guest2;
 using InitialProject.Services.IServices;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Runtime.CompilerServices;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Guest2
 {
-    public class TourRequestsViewModel
+    public class TourRequestsViewModel : INotifyPropertyChanged
     {
         public RelayCommand StatisticViewCommand { get; set; }
         public RelayCommand CreateComplexRequestCommand { get; set; }
@@ -22,8 +20,37 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
 
         private readonly ITourRequestService _tourRequestService;
         private readonly IComplexTourRequestService _complexTourRequestService;
-        public ObservableCollection<TourRequest> RequestedTours { get; set; }
-        public static ObservableCollection<ComplexTourRequestDTO> ComplexTours { get; set; }
+        private ObservableCollection<TourRequest> _requestedTours { get; set; }
+        public ObservableCollection<TourRequest> RequestedTours
+        {
+            get
+            {
+                return _requestedTours;
+            }
+            set
+            {
+                _requestedTours = value;
+                OnPropertyChanged(nameof(RequestedTours));
+            }
+        }
+
+
+        private ObservableCollection<ComplexTourRequestDTO> _complexTours;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public ObservableCollection<ComplexTourRequestDTO> ComplexTours
+        {
+            get
+            {
+                return _complexTours;
+            }
+            set
+            {
+                _complexTours = value;
+                OnPropertyChanged(nameof(ComplexTours));
+            }
+        }
         public ComplexTourRequestDTO ComplexTour { get; set; }
         public int UserId { get; set; }
         public TourRequestsViewModel(int userId)
@@ -54,12 +81,12 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
 
         private void CreateComplexRequest(object parameter)
         {
-            ComplexRequest complexRequest = new ComplexRequest(UserId);
+            ComplexRequest complexRequest = new ComplexRequest(UserId, ComplexTours);
             complexRequest.ShowDialog();
         }
         private void CreateSimpleRequest(object parameter)
         {
-            SimpleRequest simpleRequest = new SimpleRequest(UserId);
+            SimpleRequest simpleRequest = new SimpleRequest(UserId, RequestedTours);
             simpleRequest.ShowDialog();
         }
 
@@ -91,6 +118,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
                 ComplexTours.Add(_complexTourRequestDTO);
             }
         }
-        
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
     }
 }

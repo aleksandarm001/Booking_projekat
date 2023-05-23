@@ -11,10 +11,10 @@
     <Grid x:Name="TuraGrid" Visibility="Visible" Background="White" Margin="0,0,0,0">
         <Image HorizontalAlignment="Left" Source="/Infrastructure/Resources/Images/BookBuddy_logo1.png" Height="270" Margin="10,36,0,0" VerticalAlignment="Top" Width="1336"/>
         <Label Content="{local:Loc Country}" FontSize="15" HorizontalAlignment="Left" Margin="25,318,0,0" VerticalAlignment="Top" Height="32" Width="70" FontWeight="DemiBold" />
-        <Label Content="{local:Loc City}" FontSize="15" HorizontalAlignment="Left" Margin="25,365,0,0" VerticalAlignment="Top" Height="26" Width="60" FontWeight="DemiBold"/>
+        <Label Content="{local:Loc City}" FontSize="15" HorizontalAlignment="Left" Margin="25,365,0,0" VerticalAlignment="Top" Height="32" Width="60" FontWeight="DemiBold"/>
         <Label Content="{local:Loc DateAndTime}" FontSize="15" HorizontalAlignment="Left" Margin="575,318,0,0" VerticalAlignment="Top" Height="32" Width="121" FontWeight="DemiBold"/>
         <Label Content="{local:Loc Duration}" FontSize="15" HorizontalAlignment="Left" Margin="575,365,0,0" VerticalAlignment="Top" Height="32" Width="79" FontWeight="DemiBold"/>
-        <Label Content="{local:Loc RemainingPeopleNumber}" FontSize="15" HorizontalAlignment="Left" Margin="1065,318,0,0" VerticalAlignment="Top" Height="32" Width="187" FontWeight="DemiBold"/>
+        <Label Content="{local:Loc RemainingPeopleNumber}" FontSize="15" HorizontalAlignment="Left" Margin="1065,318,0,0" VerticalAlignment="Top" Height="32" Width="192" FontWeight="DemiBold"/>
         <Label Content="{local:Loc Language}" FontSize="15" HorizontalAlignment="Left" Margin="1065,365,0,0" VerticalAlignment="Top" Height="32" Width="79" FontWeight="DemiBold"/>
         <Label Content="{local:Loc Description}" FontSize="15" HorizontalAlignment="Left" Margin="25,412,0,0" VerticalAlignment="Top" Height="32" Width="99" FontWeight="DemiBold"/>
         <TextBlock  FontSize="15" HorizontalAlignment="Left" Margin="100,323,0,0"  Text="{Binding Path=Tour.Location.Country, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="175"/>

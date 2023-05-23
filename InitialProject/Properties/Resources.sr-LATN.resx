@@ -135,7 +135,7 @@
   <data name="AttendanceConfirmation" xml:space="preserve">
     <value>Potvrdjivanje prisustva</value>
   </data>
-  <data name="AverageGuestNumber" xml:space="preserve">
+  <data name="AverageGuestNumber:" xml:space="preserve">
     <value>Prosječan broj gostiju:</value>
   </data>
   <data name="City" xml:space="preserve">
@@ -163,7 +163,7 @@
     <value>Drzava:</value>
   </data>
   <data name="CreateTourRequest" xml:space="preserve">
-    <value>Kreiraj zahtjev za turu</value>
+    <value>Kreiraj zahtjev </value>
   </data>
   <data name="CreatingComplexRequest" xml:space="preserve">
     <value>Kreiranje složenog zahtjeva</value>
@@ -218,6 +218,9 @@
   </data>
   <data name="GuestNumber" xml:space="preserve">
     <value>Broj gostiju</value>
+  </data>
+  <data name="GuestNumber:" xml:space="preserve">
+    <value>Broj gostiju:</value>
   </data>
   <data name="GuideKnowledge:" xml:space="preserve">
     <value>Znanje vodiča:</value>

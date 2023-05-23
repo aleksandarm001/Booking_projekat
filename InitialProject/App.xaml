@@ -7,7 +7,6 @@
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
     <Application.Resources>
-        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Presentation/WPF/View/Guide/ResourceDictionary/TourRequestCardTemplate.xaml" />
@@ -45,24 +44,24 @@
             <SolidColorBrush x:Key="ErrorLightColorBrush" Color="{StaticResource ErrorLightColor}" />
 
             <SolidColorBrush x:Key="DisabledColorBrush" Color="{StaticResource DisabledColor}" />
-        
+
 
 
             <Style TargetType="{x:Type Button}" x:Key="PrimaryButtonStyle">
-                <Setter Property="MinWidth" Value="150"/>
-                <Setter Property="MinHeight" Value="30"/>
                 <Setter Property="Cursor" Value="Hand"/>
                 <Setter Property="Background" Value="{StaticResource PrimaryColorBrush}"/>
                 <Setter Property="Foreground" Value="White"/>
-
-             
-                
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Width="100" Height="33" CornerRadius="20" Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Border>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border MinWidth="100" Padding="10 5" Height="30" CornerRadius="15" Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </Grid>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -80,15 +79,17 @@
             <Style TargetType="{x:Type Button}" x:Key="SecondaryButtonStyle">
                 <Setter Property="Background" Value="{StaticResource SecondaryColorBrush}"/>
                 <Setter Property="Foreground" Value="White"/>
-                <Setter Property="MinHeight" Value="30"/>
-                <Setter Property="MinWidth" Value="100"/>
-                <Setter Property="Padding" Value="10,5"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Width="100" Height="33" CornerRadius="20" Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Border>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border MinWidth="100" Padding="10 5" Height="30" CornerRadius="15" Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </Grid>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -107,18 +108,18 @@
             <Style TargetType="{x:Type Button}" x:Key="ErrorButtonStyle">
                 <Setter Property="Background" Value="{StaticResource ErrorColorBrush}"/>
                 <Setter Property="Foreground" Value="White"/>
-                <Setter Property="MinWidth" Value="100"/>
-                <Setter Property="MinHeight" Value="30"/>
                 <Setter Property="Template">
                     <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Width="100" Height="33"
-                                        CornerRadius="20"
-                                        Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border MinWidth="100" Padding="10 5" Height="30" CornerRadius="15" Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
@@ -146,7 +147,14 @@
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="Margin" Value="20,8,20,8" />
             </Style>
-            
+
+
+            <Style TargetType="{x:Type TextBlock}" x:Key="ErrorText">
+                <Setter Property="Foreground" Value="Red"></Setter>
+                <Setter Property="FontSize" Value="10"></Setter>
+                <Setter Property="VerticalAlignment" Value="Bottom" />
+            </Style>
+
 
             <Style TargetType="{x:Type TabItem}" x:Key="TabItemStyle">
                 <Setter Property="Foreground" Value="White"/>
@@ -161,6 +169,95 @@
                 </Style.Triggers>
             </Style>
 
+            <Style TargetType="Menu" x:Key="MenuStyle">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Menu}">
+                            <Border BorderThickness="1">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#00A77F"/>
+                                </Border.BorderBrush>
+                                <StackPanel ClipToBounds="True"
+                                Orientation="Horizontal"
+                                IsItemsHost="True" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+            </Style>
+
+            <Style TargetType="MenuItem" x:Key="BaseMenuItem">
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="Width" Value="341" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="MenuItem">
+                            <Grid x:Name="MenuItemGrid" >
+                                <Border x:Name="MenuItemBorder" Grid.ColumnSpan="2">
+                                    <Border.BorderBrush>
+                                        <SolidColorBrush Color="#00A77F"/>
+
+                                    </Border.BorderBrush>
+                                    <Border.Background>
+                                        <SolidColorBrush Color="#00A77F"/>
+
+                                    </Border.Background>
+                                    <StackPanel ClipToBounds="True"
+                                    Orientation="Horizontal"
+                                    IsItemsHost="True" />
+                                </Border>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ContentPresenter x:Name="IconPresenter" ContentSource="Icon" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <ContentPresenter ContentSource="Header"
+                                          Margin="10, 1, 7, 1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="MenuItemBorder" Property="Background" Value="#006C6D" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+            <Style TargetType="MenuItem" x:Key="SecondaryMenuItem">
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="Width" Value="60" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="MenuItem">
+                            <Grid x:Name="MenuItemGrid" >
+                                <Border x:Name="MenuItemBorder" Grid.ColumnSpan="2">
+                                    <Border.BorderBrush>
+                                        <SolidColorBrush Color="#00A77F"/>
+
+                                    </Border.BorderBrush>
+                                    <Border.Background>
+                                        <SolidColorBrush Color="#00A77F"/>
+
+                                    </Border.Background>
+                                    <StackPanel ClipToBounds="True"
+                                    Orientation="Horizontal"
+                                    IsItemsHost="True" />
+                                </Border>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ContentPresenter x:Name="IconPresenter" ContentSource="Icon" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <ContentPresenter ContentSource="Header"
+                                          Margin="10, 1, 7, 1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="MenuItemBorder" Property="Background" Value="#006C6D" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
 
             <Style x:Key="TextBlock1" TargetType="TextBlock">

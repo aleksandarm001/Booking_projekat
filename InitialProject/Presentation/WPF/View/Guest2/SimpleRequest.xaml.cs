@@ -1,13 +1,8 @@
 ﻿namespace InitialProject.Presentation.WPF.View.Guest2
 {
-    using Eco.ViewModel.Runtime;
-    using InitialProject.Aplication.Factory;
     using InitialProject.Domen.Model;
     using InitialProject.Presentation.WPF.ViewModel.Guest2;
-    using InitialProject.Services.IServices;
-    using System;
     using System.Collections.ObjectModel;
-    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
 
@@ -18,9 +13,9 @@
     {
         private SimpleRequestViewModel _viewModel;
 
-        public SimpleRequest(int userId)
+        public SimpleRequest(int userId, ObservableCollection<TourRequest> tourRequests)
         {
-            _viewModel = new SimpleRequestViewModel(userId);
+            _viewModel = new SimpleRequestViewModel(userId, tourRequests);
             InitializeComponent();
             DataContext = _viewModel;
         }
@@ -29,6 +24,22 @@
         {
             DatePickerEnd.SelectedDate = DatePickerStart.SelectedDate;
             DatePickerEnd.DisplayDateStart = DatePickerStart.SelectedDate;
+        }
+
+
+
+        private void FilterCities(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is not ComboBox cmbx) return;
+            string country = cmbx.SelectedItem?.ToString() ?? string.Empty;
+            if (string.IsNullOrEmpty(country))
+            {
+                _viewModel.ReadCitiesAndCountries();
+            }
+            else
+            {
+                _viewModel.UpdateCitiesList(country);
+            }
         }
     }
 }

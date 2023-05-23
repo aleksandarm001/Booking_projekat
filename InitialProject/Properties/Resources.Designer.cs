@@ -115,11 +115,11 @@ namespace InitialProject.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AverageGuestNumber:.
+        ///   Looks up a localized string similar to Average guest number:.
         /// </summary>
-        internal static string AverageGuestNumber {
+        internal static string AverageGuestNumber_ {
             get {
-                return ResourceManager.GetString("AverageGuestNumber", resourceCulture);
+                return ResourceManager.GetString("AverageGuestNumber:", resourceCulture);
             }
         }
         
@@ -250,7 +250,7 @@ namespace InitialProject.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to From date.
+        ///   Looks up a localized string similar to Date from.
         /// </summary>
         internal static string DateFrom {
             get {
@@ -259,7 +259,7 @@ namespace InitialProject.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to From date:.
+        ///   Looks up a localized string similar to Date from:.
         /// </summary>
         internal static string DateFrom_ {
             get {
@@ -268,7 +268,7 @@ namespace InitialProject.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To date.
+        ///   Looks up a localized string similar to Date to.
         /// </summary>
         internal static string DateTo {
             get {
@@ -277,7 +277,7 @@ namespace InitialProject.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To date:.
+        ///   Looks up a localized string similar to Date to:.
         /// </summary>
         internal static string DateTo_ {
             get {
@@ -363,6 +363,15 @@ namespace InitialProject.Properties {
         internal static string GuestNumber {
             get {
                 return ResourceManager.GetString("GuestNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guest number:.
+        /// </summary>
+        internal static string GuestNumber_ {
+            get {
+                return ResourceManager.GetString("GuestNumber:", resourceCulture);
             }
         }
         
@@ -653,7 +662,7 @@ namespace InitialProject.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TourName:.
+        ///   Looks up a localized string similar to Tour name:.
         /// </summary>
         internal static string TourName_ {
             get {
@@ -707,7 +716,7 @@ namespace InitialProject.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ValidFrom.
+        ///   Looks up a localized string similar to Valid from.
         /// </summary>
         internal static string ValidFrom {
             get {
@@ -716,7 +725,7 @@ namespace InitialProject.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ValidUntil.
+        ///   Looks up a localized string similar to Valid until.
         /// </summary>
         internal static string ValidUntil {
             get {

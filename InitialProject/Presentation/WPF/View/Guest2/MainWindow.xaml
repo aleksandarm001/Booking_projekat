@@ -6,61 +6,9 @@
         xmlns:local="clr-namespace:InitialProject" xmlns:validation="clr-namespace:InitialProject.Validation" d:DataContext="{d:DesignInstance Type=validation:BindableBase}"
         mc:Ignorable="d" Height="745" Width="1366" Title="Booking budies"  WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
-    
-    <Window.Resources>
-        <Style TargetType="Menu" x:Key="MenuStyle">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Menu}">
-                        <Border BorderThickness="1">
-                            <Border.BorderBrush>
-                                <SolidColorBrush Color="#00A77F"/>
-                            </Border.BorderBrush>
-                            <StackPanel ClipToBounds="True"
-                                Orientation="Horizontal"
-                                IsItemsHost="True" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-           
-        </Style>
 
-        <Style TargetType="MenuItem" x:Key="BaseMenuItem">
-            <Setter Property="FontSize" Value="25" />
-            <Setter Property="Width" Value="341" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="MenuItem">
-                        <Grid x:Name="MenuItemGrid" >
-                            <Border x:Name="MenuItemBorder" Grid.ColumnSpan="2">
-                                <Border.BorderBrush>
-                                    <SolidColorBrush Color="#00A77F"/>
-                                 
-                                </Border.BorderBrush>
-                                <Border.Background>
-                                    <SolidColorBrush Color="#00A77F"/>
-                                
-                                </Border.Background>
-                                <StackPanel ClipToBounds="True"
-                                    Orientation="Horizontal"
-                                    IsItemsHost="True" />
-                            </Border>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ContentPresenter x:Name="IconPresenter" ContentSource="Icon" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <ContentPresenter ContentSource="Header"
-                                          Margin="10, 1, 7, 1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </StackPanel>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="MenuItemBorder" Property="Background" Value="#006C6D" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+    <Window.Resources>
+
 
 
     </Window.Resources>
@@ -70,20 +18,42 @@
             <StackPanel Orientation="Horizontal">
                 <Menu Style="{StaticResource MenuStyle}" Height="40">
 
-                    <MenuItem Header="{local:Loc HomePage}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToMainPageCommand}">
+                   
+
+                    <MenuItem  Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToMainPageCommand}" Width="200">
+                        <MenuItem.Icon>
+                            <Image Source="/Infrastructure/Resources/Images/BookBuddy_logo1.png" Margin="-75,0,-95,0" Height="30" Width="NaN" />
+                        </MenuItem.Icon>
 
                     </MenuItem>
-                    <MenuItem Header="{local:Loc Tours}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToTourPageCommand}" >
+                    <MenuItem Header="{local:Loc HomePage}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToMainPageCommand}" >
 
                     </MenuItem>
                     <MenuItem Header="{local:Loc LastMinutTours}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToLastMinutePageCommand}" >
 
                     </MenuItem>
-                    <MenuItem Header="{Binding UserName}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToUserPageCommand}" >
+                    <MenuItem Header="{Binding UserName}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToUserPageCommand}" Width="362"  >
                         <MenuItem.Icon>
                             <Image Source="/Infrastructure/Resources/Images/user.png" Width="30" Height="30" />
                         </MenuItem.Icon>
                     </MenuItem>
+
+                    <MenuItem  Style="{StaticResource SecondaryMenuItem}" Command="{Binding NavigateToLanguageCommand}" Height="40" >
+                        <MenuItem.Icon>
+                            <Image Source="/Infrastructure/Resources/Images/translating.png"  Margin="-12,-8,-22,-7" Width="NaN" Height="NaN" />
+
+                        </MenuItem.Icon>
+
+                    </MenuItem>
+
+                    <MenuItem  Style="{StaticResource SecondaryMenuItem}" Command="{Binding NavigateToDarkModeCommand}" Height="40" >
+                        <MenuItem.Icon>
+                            <Image Source="/Infrastructure/Resources/Images/night-mode.png"  Margin="-5,-3,-22,-3" Width="NaN" Height="NaN" />
+                        </MenuItem.Icon>
+
+                    </MenuItem>
+
+                    
                 </Menu>
 
             </StackPanel>

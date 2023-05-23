@@ -1,8 +1,24 @@
 ﻿namespace InitialProject.Domen.Model
 {
-    public class Language : ISerializable
+    using System;
+    using System.IO.Packaging;
+
+    public class Language : ValidationBase, ISerializable
     {
-        public string Name { get; set; }
+        private string name;
+        public string Name
+        {
+            get { return name; }
+
+            set
+            {
+                if (name != value)
+                {
+                    name = value;
+                    OnPropertyChanged(nameof(Name));
+                }
+            }
+        }
 
         public Language(string language)
         {
@@ -36,6 +52,14 @@
         public void FromCSV(string[] values)
         {
             Name = values[0];
+        }
+
+        protected override void ValidateSelf()
+        {
+            if (string.IsNullOrWhiteSpace(this.Name))
+            {
+                this.ValidationErrors["Name"] = "Language name should not be empty.";
+            }
         }
     }
 }

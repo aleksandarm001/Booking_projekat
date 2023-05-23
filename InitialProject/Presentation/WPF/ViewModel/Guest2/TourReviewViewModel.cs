@@ -61,8 +61,13 @@
 
         private void AddTourReview(object parameter)
         {
-            RateTour(TourRate);
-            CloseWindow();
+            TourRate.Validate();
+            if (TourRate.IsValid)
+            {
+                RateTour(TourRate);
+                CloseWindow();
+            }
+            
         }
 
         private void RejectReview(object parameter)

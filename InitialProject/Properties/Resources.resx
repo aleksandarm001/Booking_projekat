@@ -135,8 +135,8 @@
   <data name="AttendanceConfirmation" xml:space="preserve">
     <value>Attendance confirmation</value>
   </data>
-  <data name="AverageGuestNumber" xml:space="preserve">
-    <value>AverageGuestNumber:</value>
+  <data name="AverageGuestNumber:" xml:space="preserve">
+    <value>Average guest number:</value>
   </data>
   <data name="City" xml:space="preserve">
     <value>City</value>
@@ -181,16 +181,16 @@
     <value>Date and time</value>
   </data>
   <data name="DateFrom" xml:space="preserve">
-    <value>From date</value>
+    <value>Date from</value>
   </data>
   <data name="DateFrom:" xml:space="preserve">
-    <value>From date:</value>
+    <value>Date from:</value>
   </data>
   <data name="DateTo" xml:space="preserve">
-    <value>To date</value>
+    <value>Date to</value>
   </data>
   <data name="DateTo:" xml:space="preserve">
-    <value>To date:</value>
+    <value>Date to:</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -218,6 +218,9 @@
   </data>
   <data name="GuestNumber" xml:space="preserve">
     <value>Guest number</value>
+  </data>
+  <data name="GuestNumber:" xml:space="preserve">
+    <value>Guest number:</value>
   </data>
   <data name="GuideKnowledge:" xml:space="preserve">
     <value>Guide knowledge:</value>
@@ -311,7 +314,7 @@
     <value>Name</value>
   </data>
   <data name="TourName:" xml:space="preserve">
-    <value>TourName:</value>
+    <value>Tour name:</value>
   </data>
   <data name="TourNotification" xml:space="preserve">
     <value>Tour notification</value>
@@ -329,10 +332,10 @@
     <value>Track</value>
   </data>
   <data name="ValidFrom" xml:space="preserve">
-    <value>ValidFrom</value>
+    <value>Valid from</value>
   </data>
   <data name="ValidUntil" xml:space="preserve">
-    <value>ValidUntil</value>
+    <value>Valid until</value>
   </data>
   <data name="Vouchers" xml:space="preserve">
     <value>Vouchers</value>

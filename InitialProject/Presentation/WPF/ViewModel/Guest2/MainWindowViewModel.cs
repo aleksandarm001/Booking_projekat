@@ -24,6 +24,7 @@
         public RelayCommand NavigateToMainPageCommand { get; set; }
         public RelayCommand NavigateToTourPageCommand { get; set; }
         public RelayCommand NavigateToLanguageCommand { get; set; }
+        public RelayCommand NavigateToDarkModeCommand { get; set; }
         public string UserName { get; set; }
 
         private string currentLanguage;
@@ -50,7 +51,7 @@
             }
         }
 
-        private void Execute_NavigateToTourPageCommand(object obj)
+        private void Execute_NavigateToMainPageCommand(object obj)
         {
             Page toursView = new ToursView();
             this.NavService.Navigate(toursView);
@@ -71,10 +72,10 @@
         public MainWindowViewModel(System.Windows.Navigation.NavigationService navService, int userId)
         {
             this.NavigateToUserPageCommand = new RelayCommand(Execute_NavigateToUserPageCommand);
-            this.NavigateToMainPageCommand = new RelayCommand(Execute_NavigateToTourPageCommand);
-            this.NavigateToTourPageCommand = new RelayCommand(Execute_NavigateToTourPageCommand);
+            this.NavigateToMainPageCommand = new RelayCommand(Execute_NavigateToMainPageCommand);
             this.NavigateToLastMinutePageCommand = new RelayCommand(Execute_NavigateToLastMinutePageCommand);
             this.NavigateToLanguageCommand = new RelayCommand(Execute_SwitchLanguageCommand);
+            this.NavigateToDarkModeCommand = new RelayCommand(Execute_SwitchModeCommand);
             this.NavService = navService;
 
             this.CurrentLanguage = "sr-LATN";
@@ -121,6 +122,11 @@
             }
 
             app.ChangeLanguage(CurrentLanguage);
+
+        }
+
+        private void Execute_SwitchModeCommand(object obj)
+        {
 
         }
 

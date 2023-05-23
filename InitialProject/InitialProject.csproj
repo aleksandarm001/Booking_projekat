@@ -28,6 +28,7 @@
     <None Remove="Infrastructure\Resources\Images\homePageCommands.png" />
     <None Remove="Infrastructure\Resources\Images\iconmonstr-x-mark-circle-thin.png" />
     <None Remove="Infrastructure\Resources\Images\moda-removebg-preview.png" />
+    <None Remove="Infrastructure\Resources\Images\night-mode.png" />
     <None Remove="Infrastructure\Resources\Images\pin1.png" />
     <None Remove="Infrastructure\Resources\Images\pin2.png" />
     <None Remove="Infrastructure\Resources\Images\pin3.png" />
@@ -38,6 +39,7 @@
     <None Remove="Infrastructure\Resources\Images\stopwatch.png" />
     <None Remove="Infrastructure\Resources\Images\ticket.png" />
     <None Remove="Infrastructure\Resources\Images\time.png" />
+    <None Remove="Infrastructure\Resources\Images\translating.png" />
     <None Remove="Infrastructure\Resources\Images\user-avatar.png" />
     <None Remove="Infrastructure\Resources\Images\user.png" />
   </ItemGroup>
@@ -100,6 +102,9 @@
     <Content Include="Infrastructure\Resources\Images\moda-removebg-preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Infrastructure\Resources\Images\night-mode.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Infrastructure\Resources\Images\pin1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -128,6 +133,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure\Resources\Images\time.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Infrastructure\Resources\Images\translating.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure\Resources\Images\user-avatar.png">

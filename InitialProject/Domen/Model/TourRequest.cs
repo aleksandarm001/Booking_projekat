@@ -3,21 +3,153 @@
     using System;
     using static InitialProject.Domen.Model.ComplexTourRequest;
 
-    public class TourRequest : ISerializable
+    public class TourRequest : ValidationBase, ISerializable
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public Location Location { get; set; }
-        public Language Language { get; set; }
-        public string Description { get; set; }
-        public int GuestNumber { get; set; } = 1;
-        public DateTime StartingDate { get; set; }
-        public DateTime EndingDate { get; set; }
-        public Status RequestStatus { get; set; } = Status.OnHold;
-        public int GuideId { get; set; } = -1;
+        private int id;
+        private int userId;
+        private Location location;
+        private Language language;
+        private string description;
+        private int guestNumber = 1;
+        private DateTime startingDate;
+        private DateTime endingDate;
+        private Status requestStatus = Status.OnHold;
+        private int guideId = -1;
 
 
-        public TourRequest()   
+        public int Id
+        {
+            get { return id; }
+
+            set
+            {
+                if (id != value)
+                {
+                    id = value;
+                    OnPropertyChanged(nameof(Id));
+                }
+            }
+        }
+        public int UserId
+        {
+            get { return userId; }
+
+            set
+            {
+                if (userId != value)
+                {
+                    userId = value;
+                    OnPropertyChanged(nameof(UserId));
+                }
+            }
+        }
+        public Location Location
+        {
+            get { return location; }
+
+            set
+            {
+                if (location != value)
+                {
+                    location = value;
+                    OnPropertyChanged(nameof(Location));
+                }
+            }
+        }
+        public Language Language
+        {
+            get { return language; }
+
+            set
+            {
+                if (language != value)
+                {
+                    language = value;
+                    OnPropertyChanged(nameof(Language));
+                }
+            }
+        }
+        public string Description
+        {
+            get { return description; }
+
+            set
+            {
+                if (description != value)
+                {
+                    description = value;
+                    OnPropertyChanged(nameof(Description));
+                }
+            }
+        }
+        public int GuestNumber
+        {
+            get { return guestNumber; }
+
+            set
+            {
+                if (guestNumber != value)
+                {
+                    guestNumber = value;
+                    OnPropertyChanged(nameof(GuestNumber));
+                }
+            }
+        }
+        public DateTime StartingDate
+        {
+            get { return startingDate; }
+
+            set
+            {
+                if (startingDate != value)
+                {
+                    startingDate = value;
+                    OnPropertyChanged(nameof(StartingDate));
+                }
+            }
+        }
+        public DateTime EndingDate
+        {
+            get { return endingDate; }
+
+            set
+            {
+                if (endingDate != value)
+                {
+                    endingDate = value;
+                    OnPropertyChanged(nameof(EndingDate));
+                }
+            }
+        }
+        public Status RequestStatus
+        {
+            get { return requestStatus; }
+
+            set
+            {
+                if (requestStatus != value)
+                {
+                    requestStatus = value;
+                    OnPropertyChanged(nameof(RequestStatus));
+                }
+            }
+        }
+        public int GuideId
+        {
+            get { return guideId; }
+
+            set
+            {
+                if (guideId != value)
+                {
+                    guideId = value;
+                    OnPropertyChanged(nameof(GuideId));
+                }
+            }
+        }
+
+
+        public TourRequest()
         {
             Location = new Location();
             Language = new Language();
@@ -52,6 +184,52 @@
             EndingDate = DateTime.Parse(values[7]);
             RequestStatus = (Status)Enum.Parse(typeof(Status), values[8]);
             GuideId = Convert.ToInt32(values[9]);
+        }
+
+        protected override void ValidateSelf()
+        {
+
+            this.Location.Validate();
+           
+            if (!this.Location.IsValid)
+            {
+                this.ValidationErrors["Location.Country"] = this.Location.ValidationErrors["Country"];
+                this.ValidationErrors["Location.City"] = this.Location.ValidationErrors["City"];
+            }
+
+            this.Language.Validate();
+            if (!this.Language.IsValid)
+            {
+                this.ValidationErrors["Language"] = this.Language.ValidationErrors["Name"];
+            }
+
+            if (this.StartingDate <= DateTime.Now)
+            {
+                this.ValidationErrors["StartingDate"] = "Start date should not be in past.";
+            }
+
+
+            if (this.EndingDate < this.StartingDate)
+            {
+                this.ValidationErrors["EndingDate"] = "End date should be after start date.";
+            }
+
+            if (this.EndingDate <= DateTime.Now)
+            {
+                this.ValidationErrors["EndingDate"] = "End date should not be in past.";
+            }
+
+            if (string.IsNullOrWhiteSpace(this.Description))
+            {
+                this.ValidationErrors["Description"] = "Description should not be empty.";
+            }
+
+            if (this.GuestNumber <= 0)
+            {
+                this.ValidationErrors["GuestNumber"] = "Guest number should be greater than 0.";
+            }
+
+
         }
     }
 }

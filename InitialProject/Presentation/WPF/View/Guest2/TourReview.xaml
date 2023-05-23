@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject"
         mc:Ignorable="d"
-        Title="{local:Loc TourRating}" Height="330" Width="400" WindowStartupLocation="CenterScreen">
+        Title="{local:Loc TourRating}" Height="390" Width="430" WindowStartupLocation="CenterScreen">
     <Grid Margin="60,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"/>
@@ -13,13 +13,13 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="45"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <TextBlock Style="{StaticResource Header}" Text="{local:Loc RateCurrentTour}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Top"/>
@@ -32,8 +32,14 @@
 
 
         <ComboBox SelectedItem="{Binding TourRate.GuideKnowledge}"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Rating}"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="140"/>
+        <TextBlock Style="{StaticResource ErrorText}" Grid.Row="1" Grid.Column="1"  Height="16" Text="{Binding Path=TourRate.ValidationErrors[GuideKnowledge]}" Margin="30,0,-30,0"/>
+
         <ComboBox SelectedItem="{Binding TourRate.GuideLanguage}"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Rating}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Width="140"/>
+        <TextBlock Style="{StaticResource ErrorText}" Grid.Row="2" Grid.Column="1"  Height="16" Text="{Binding Path=TourRate.ValidationErrors[GuideLanguage]}" Margin="30,0,-30,0"/>
+
         <ComboBox SelectedItem="{Binding TourRate.TourInterest}"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Rating}"  Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Width="140"/>
+        <TextBlock Style="{StaticResource ErrorText}" Grid.Row="3" Grid.Column="1"  Height="16" Text="{Binding Path=TourRate.ValidationErrors[TourInterest]}" Margin="30,0,-30,0"/>
+
         <TextBox  TextWrapping="Wrap" Text="{Binding Path=TourRate.Comment, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"   Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Width="140"/>
         <TextBox  TextWrapping="Wrap" Text="{Binding Path=Image, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"   Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" Width="140"/>
 
@@ -44,7 +50,7 @@
         </StackPanel>
 
 
-     
+
 
 
         <Button x:Name="Dodaj"  Content="Dodaj" HorizontalAlignment="Left" Margin="253,190,0,0" VerticalAlignment="Top" Command="{Binding AddCommand}" FontSize="10" Height="18" Width="40"/>

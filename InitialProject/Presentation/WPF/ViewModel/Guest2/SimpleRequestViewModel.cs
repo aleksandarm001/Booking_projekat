@@ -22,9 +22,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
         public RelayCommand RejectCommand { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
         public TourRequest TourRequest { get; set; }
+
         public static ObservableCollection<string> Countries { get; set; }
         public static ObservableCollection<string> Cities { get; set; }
         public static ObservableCollection<Location> Locations { get; set; }
+        public static ObservableCollection<TourRequest> RequestedTours { get; set; }
         public static ObservableCollection<Language> Languages { get; set; }
         private readonly ILanguageService _languageService;
         private readonly ITourRequestService _tourRequestService;
@@ -46,8 +48,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
                     OnPropertyChanged("StartDay");
                 }
             }
-        } 
-        
+        }
+
         private DateTime _endDay;
         public DateTime EndDay
         {
@@ -81,7 +83,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
                 }
             }
         }
-        
+
         private string _country;
         public string Country
         {
@@ -114,8 +116,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
                     OnPropertyChanged("Language");
                 }
             }
-        }  
-        
+        }
+
         private int _guestNumber;
         public int GuestNumber
         {
@@ -131,8 +133,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
                     OnPropertyChanged("GuestNumber");
                 }
             }
-        }    
-        
+        }
+
         private string _description;
         public string Description
         {
@@ -150,9 +152,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
             }
         }
 
-        public SimpleRequestViewModel(int userId)
+        public SimpleRequestViewModel(int userId, ObservableCollection<TourRequest> tourRequests)
         {
-            userId = userId;
+            UserId = userId;
             TourRequest = new TourRequest();
             TourRequest.StartingDate = DateTime.Today.AddDays(2);
             TourRequest.EndingDate = DateTime.Today.AddDays(2);
@@ -168,6 +170,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
             SelectedDateChangedCommand = new RelayCommand(SelectedDateChanged);
             AcceptCommand = new RelayCommand(AcceptSimpleRequest);
             RejectCommand = new RelayCommand(Close);
+            RequestedTours = tourRequests;
             //DatePickerStart.DisplayDateStart = DateTime.Today.AddDays(2);                      Provjeriti kako se binduje preko viewmodela
             //DatePickerEnd.DisplayDateStart = DateTime.Today.AddDays(2);
         }
@@ -180,8 +183,19 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
         private void AcceptSimpleRequest(object parameter)
         {
             TourRequest.Location = new Location { Country = _country, City = _city };
-            _tourRequestService.MakeTourRequest(TourRequest);
-            Close(parameter);
+            TourRequest.Validate();
+            if (TourRequest.IsValid)
+            {               
+                _tourRequestService.MakeTourRequest(TourRequest);
+                Close(parameter);
+                
+            }
+            RequestedTours.Clear();
+            foreach (var tour in _tourRequestService.GetAllTourRequests(UserId))
+            {
+                RequestedTours.Add(tour);
+            }
+            
         } 
         
         private void Close(object parameter)
@@ -190,7 +204,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
             App.Current.MainWindow.Close();
         }
 
-        private void ReadCitiesAndCountries()
+        public void ReadCitiesAndCountries()
         {
             Cities.Clear();
             Countries.Clear();
@@ -208,7 +222,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest2
             }
         }
 
-        private void UpdateCitiesList(string country)
+        public void UpdateCitiesList(string country)
         {
             Cities.Clear();
             Cities.Add("");

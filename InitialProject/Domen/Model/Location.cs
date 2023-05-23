@@ -2,11 +2,51 @@
 
 namespace InitialProject.Domen.Model
 {
-    public class Location : ISerializable
+    public class Location : ValidationBase, ISerializable
     {
-        public int Id { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
+        private int id;
+        private string country;
+        private string city;
+
+        public int Id
+        {
+            get { return id; }
+
+            set
+            {
+                if (id != value)
+                {
+                    id = value;
+                    OnPropertyChanged(nameof(Id));
+                }
+            }
+        }
+        public string Country       
+        {
+            get { return country; }
+
+            set
+            {
+                if (country != value)
+                {
+                    country = value;
+                    OnPropertyChanged(nameof(Country));
+                }
+            }
+        }
+        public string City
+        {
+            get { return city; }
+
+            set
+            {
+                if (city != value)
+                {
+                    city = value;
+                    OnPropertyChanged(nameof(City));
+                }
+            }
+        }
 
 
         public Location(string city, string country)
@@ -56,6 +96,19 @@ namespace InitialProject.Domen.Model
             Id = Convert.ToInt32(values[0]);
             City = values[1];
             Country = values[2];
+        }
+
+        protected override void ValidateSelf()
+        {
+            if (string.IsNullOrWhiteSpace(this.Country))
+            {
+                this.ValidationErrors["Country"] = "Country should not be empty.";
+            }
+
+            if (string.IsNullOrWhiteSpace(this.Country))
+            {
+                this.ValidationErrors["City"] = "City should not be empty.";
+            }
         }
     }
 }

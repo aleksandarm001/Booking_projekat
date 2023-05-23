@@ -4,7 +4,7 @@
     using InitialProject.Domen;
     using System;
 
-    public class TourReservation : ISerializable
+    public class TourReservation : ValidationBase,ISerializable
     {
         public int ReservationId { get; set; }
         public int TourId { get; set; }
@@ -60,6 +60,14 @@
             ReservationDateRange = ReservationDateRange.fromStringToDateRange(values[3]);
             UserId = Convert.ToInt32(values[4]);
             VoucherId = Convert.ToInt32(values[5]);
+        }
+
+        protected override void ValidateSelf()
+        {
+            if (this.NumberOfGuests == 0)
+            {
+                this.ValidationErrors["NumberOfGuests"] = "Number of guest must be number.";
+            }
         }
     }
 }

@@ -117,7 +117,7 @@
     <DockPanel >
         <Menu DockPanel.Dock="Left" Style="{StaticResource MenuStyle}">
 
-            <MenuItem  Style="{StaticResource UserMenuItem}" Name="OpenMenuItem" Command="{Binding OpenMenuCommand}">
+            <MenuItem  Style="{StaticResource UserMenuItem}" Name="OpenMenuItem" Command="{Binding OpenMenuCommand}" Height="370">
                 <StackPanel Orientation="Vertical">                <Image Source="/Infrastructure/Resources/Images/user-avatar.png" Stretch="Fill" Height="240
                        " Width="240"/>
                 <TextBlock Text="{Binding UserName}" TextAlignment="Center"></TextBlock>

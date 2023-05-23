@@ -5,19 +5,20 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InitialProject"
       mc:Ignorable="d" 
-      d:DesignHeight="745" d:DesignWidth="1066"
+      d:DesignHeight="690" d:DesignWidth="1066"
       Title="VouchersView">
-
-    <Grid>
-        <DataGrid Margin="0,10,0,8" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}"
+    <ScrollViewer  VerticalScrollBarVisibility="Auto">
+        <Grid Height="690">
+            <DataGrid Height="652" Margin="0,10,0,8" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}"
                                 ItemsSource="{Binding Vouchers, UpdateSourceTrigger=PropertyChanged}"
                                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Width="1064">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="{local:Loc Name}" Width="230" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="{local:Loc Sale}" Width="230" Binding="{Binding Location}"/>
-                <DataGridTextColumn Header="{local:Loc ValidFrom}" Width="300" Binding="{Binding Received}"/>
-                <DataGridTextColumn Header="{local:Loc ValidUntil}" Width="*" Binding="{Binding ValidUntil}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-    </Grid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{local:Loc Name}" Width="230" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="{local:Loc Sale}" Width="230" Binding="{Binding Location}"/>
+                    <DataGridTextColumn Header="{local:Loc ValidFrom}" Width="300" Binding="{Binding Received}"/>
+                    <DataGridTextColumn Header="{local:Loc ValidUntil}" Width="*" Binding="{Binding ValidUntil}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </ScrollViewer>
 </Page>

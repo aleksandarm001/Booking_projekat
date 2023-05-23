@@ -13,7 +13,7 @@
         <TextBlock  Style="{DynamicResource TextBlock1}" Margin="25,60,0,0" TextWrapping="Wrap"  Text="{local:Loc Country:}" VerticalAlignment="Top" />
         <TextBlock  Style="{DynamicResource TextBlock1}" Margin="25,90,0,0" TextWrapping="Wrap" Text="{local:Loc City:}" VerticalAlignment="Top" />
         <TextBlock  Style="{DynamicResource TextBlock1}" Margin="25,120,0,0" TextWrapping="Wrap" Text="{local:Loc Language:}" VerticalAlignment="Top"/>
-        <TextBlock  Style="{DynamicResource TextBlock1}" Margin="25,150,0,0" TextWrapping="Wrap" Text="{local:Loc GuestNumber:}" VerticalAlignment="Top"/>
+        <TextBlock  Style="{DynamicResource TextBlock1}" Margin="25,150,0,0" TextWrapping="Wrap" Text="{local:Loc GuestNumber:}" Width="99"/>
         <TextBlock  Style="{DynamicResource TextBlock1}" Margin="25,180,0,0" TextWrapping="Wrap" Text="{local:Loc StartingDate:}" VerticalAlignment="Top" Width="99"/>
 
         <TextBox Margin="131,60,0,0" TextWrapping="Wrap" Text="{Binding Path=TourRequest.Location.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Style="{DynamicResource TextBox1}"/>

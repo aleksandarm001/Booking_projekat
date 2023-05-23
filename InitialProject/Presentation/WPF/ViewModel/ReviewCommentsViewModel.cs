@@ -84,7 +84,7 @@ namespace InitialProject.Presentation.WPF.ViewModel
 
         public void SetReviewToNotValid()
         {
-            SelectedReview.IsValid = false;
+            SelectedReview.IsValidRate = false;
             _tourRateService.Update(SelectedReview);
             GetAllRatesForSelectedTour();
         }

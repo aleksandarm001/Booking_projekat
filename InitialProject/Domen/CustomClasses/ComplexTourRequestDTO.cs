@@ -1,5 +1,6 @@
 ﻿namespace InitialProject.Domen.CustomClasses
 {
+    using InitialProject.Domen.Model;
     using System;
     using static InitialProject.Domen.Model.ComplexTourRequest;
 

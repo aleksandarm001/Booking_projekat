@@ -3,8 +3,9 @@
     using InitialProject.Domen;
     using System;
     using System.Collections.Generic;
+    using System.Printing;
 
-    public class TourRate : ISerializable
+    public class TourRate : ValidationBase,ISerializable
     {
         public TourRate() { }
         public int GuestId { get; set; }
@@ -17,7 +18,7 @@
 
         public DateTime? Date { get; set; }
 
-        public bool? IsValid { get; set; }
+        public bool? IsValidRate { get; set; } = true;
 
         public TourRate(int guestId, int tourId, int guideKnowledge, int guideLanguage, int tourInterest, bool isValid, string? comment, List<string>? images)
         {
@@ -26,7 +27,7 @@
             GuideKnowledge = guideKnowledge;
             GuideLanguage = guideLanguage;
             TourInterest = tourInterest;
-            IsValid = isValid;
+            IsValidRate = isValid;
             Comment = comment;
             Images = images;
         }
@@ -40,7 +41,7 @@
                 GuideKnowledge.ToString(),
                 GuideLanguage.ToString(),
                 TourInterest.ToString(),
-                IsValid.ToString(),
+                IsValidRate.ToString(),
                 Comment,
                 ImagesListToString(),
                 Date.ToString()
@@ -54,7 +55,7 @@
             GuideKnowledge = Convert.ToInt32(values[2]);
             GuideLanguage = Convert.ToInt32(values[3]);
             TourInterest = Convert.ToInt32(values[4]);
-            IsValid = Convert.ToBoolean(values[5]);
+            IsValidRate = Convert.ToBoolean(values[5]);
             Comment = values[6];
             Images = StringToImagesList(values[7]);
             Date = DateTime.TryParse(values[8],out var result) ? result : null;
@@ -82,6 +83,25 @@
         private List<string> StringToImagesList(string s)
         {
             return new List<string>(s.Split(";"));
+        }
+
+        protected override void ValidateSelf()
+        {
+
+            if (this.GuideKnowledge == 0)
+            {
+                this.ValidationErrors["GuideKnowledge"] = "Guide knowledge must be selected.";
+            }
+
+            if (this.TourInterest == 0)
+            {
+                this.ValidationErrors["TourInterest"] = "Tour interest must be selected.";
+            }
+
+            if (this.GuideLanguage == 0)
+            {
+                this.ValidationErrors["GuideLanguage"] = "Guide language must be selected.";
+            }
         }
     }
 

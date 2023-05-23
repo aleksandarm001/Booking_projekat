@@ -11,3 +11,14 @@
 11|1|Barcelona;Spain|Bosnian|zxvzx|11|5/25/2022 12:00:00 AM|5/26/2022 12:00:00 AM|Rejected|-1
 12|1|London;United Kingdom|Serbian|Tura u Londonu|10|4/27/2022 12:00:00 AM|4/28/2023 12:00:00 AM|Accepted|-1
 13|1|Shanghai;China|Armenian|Tura po Sangaju|11|5/20/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Rejected|-1
+14|1|Salvador;Brazil|Albanian|Tura 123|11|5/24/2023 12:00:00 AM|5/27/2023 12:00:00 AM|Rejected|-1
+15|1|Salvador;Brazil|Arabic|asf|11|5/24/2023 12:00:00 AM|5/24/2023 12:00:00 AM|Rejected|-1
+16|1|Barcelona;Spain|Bosnian|zxvzx|11|5/25/2022 12:00:00 AM|5/26/2022 12:00:00 AM|Rejected|-1
+17|1|London;United Kingdom|Serbian|Tura u Londonu|10|4/27/2022 12:00:00 AM|4/28/2023 12:00:00 AM|Accepted|-1
+18|1|Shanghai;China|Armenian|Tura po Sangaju|11|5/20/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Rejected|-1
+19|1|Salvador;Brazil|Albanian|Tura 123|11|5/24/2023 12:00:00 AM|5/27/2023 12:00:00 AM|Rejected|-1
+20|1|Salvador;Brazil|Arabic|asf|11|5/24/2023 12:00:00 AM|5/24/2023 12:00:00 AM|Rejected|-1
+24|1|Fortaleza;Brazil|Albanian|322|1|5/25/2023 12:00:00 AM|5/27/2023 12:00:00 AM|Rejected|-1
+26|1|Guadalajara;Mexico|Albanian|fasd|1|5/25/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Rejected|-1
+27|1|Salvador;Brazil|Arabic|sdf|1|5/25/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Rejected|-1
+28|14|Chongqing;China|Arabic|Tura u Kini|12|5/24/2023 12:00:00 AM|5/24/2023 12:00:00 AM|Rejected|-1

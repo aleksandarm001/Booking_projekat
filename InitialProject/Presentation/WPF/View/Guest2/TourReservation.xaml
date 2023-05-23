@@ -11,6 +11,7 @@
         <TextBlock Text="{Binding Path=Second}" HorizontalAlignment="Left" Height="36" Margin="10,60,0,0" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="412"/>
         <TextBlock Text="{Binding Path=Third}" HorizontalAlignment="Left" Height="36" Margin="10,96,0,0" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="412"/>
         <TextBox Name="NumberOfGuestTextBox"  HorizontalAlignment="Left" Text="{Binding Path=StrNumberOfGuests, UpdateSourceTrigger=PropertyChanged}" Height="22" Margin="264,203,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="53"/>
+        <TextBlock Style="{StaticResource ErrorText}"  Height="16" Text="{Binding Path=Validate, UpdateSourceTrigger=PropertyChanged}" Margin="264,0,0,90" Width="NaN"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="18,152,0,0" TextWrapping="Wrap" Text="{local:Loc SelectVoucher}" VerticalAlignment="Top" Width="99"/>
         <ComboBox Name="Vaucer" HorizontalAlignment="Left" Margin="126,148,0,0"  SelectedItem="{Binding SelectedVoucher}"  SelectedIndex="0" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=VouchersString}"  Height="22" VerticalAlignment="Top" Width="222"/>

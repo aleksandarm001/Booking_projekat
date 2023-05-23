@@ -1,7 +1,5 @@
-﻿using Eco.ViewModel.Runtime;
-using InitialProject.Aplication.Factory;
+﻿using InitialProject.Aplication.Factory;
 using InitialProject.Domen.Model;
-using InitialProject.Services;
 using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
@@ -9,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Channels;
 using System.Windows;
 using System.Windows.Controls;
 
