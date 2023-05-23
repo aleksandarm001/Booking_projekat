@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="{local:Loc ComplexTourReview}" Height="450" Width="900" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid Margin="10,33,10,0" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}" 
+        <TextBlock  FontSize="20" HorizontalAlignment="Center" Margin="0,22,0,0"  Text="{Binding Path=TourName, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" FontWeight="SemiBold" VerticalAlignment="Top" Width="254"/>
+
+        <DataGrid Margin="10,73,10,0" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}" 
                             ItemsSource="{Binding Path=ComplexTourRequests, UpdateSourceTrigger=PropertyChanged}"
                             IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False"  Height="391">
             <DataGrid.Columns>

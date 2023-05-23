@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject"
         mc:Ignorable="d"
-               Title="{local:Loc CreatingSimpleTourRequest}" Height="600" Width="330" WindowStartupLocation="CenterScreen">
+               Title="{local:Loc CreatingSimpleTourRequest}" Height="700" Width="330" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,0,0"  Background="{StaticResource PrimaryLightColorBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
@@ -22,6 +22,8 @@
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
 
@@ -63,11 +65,12 @@
         <TextBlock Style="{StaticResource ErrorText}" Grid.Row="6" Grid.Column="1"  Margin="15,0,0,0" Height="16" Width="180" Text="{Binding Path=TourRequest.ValidationErrors[EndingDate]}"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center"  TextWrapping="Wrap"  Grid.Column="0" Grid.Row="7" Text="{local:Loc Description:}"/>
-        <TextBox TextWrapping="Wrap" Text="{Binding Path=TourRequest.Description, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0,0,0" Width="180" Grid.Column="1" Grid.Row="7"/>
-        <TextBlock Style="{StaticResource ErrorText}" Grid.Row="7" Grid.Column="1"  Margin="15,0,0,0" Height="16" Width="180" Text="{Binding Path=TourRequest.ValidationErrors[Description]}"/>
+        <TextBox TextWrapping="Wrap"  Text="{Binding Path=TourRequest.Description, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0,0,0" Width="180" Grid.Column="1" Grid.Row="7" Grid.RowSpan="3" Height="140" HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
+        <TextBlock Style="{StaticResource ErrorText}" Grid.Row="9"  Grid.Column="1"  Margin="15,0,0,0" Height="16" Width="180" Text="{Binding Path=TourRequest.ValidationErrors[Description]}"/>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top"  Grid.RowSpan="2" Grid.Row="8" Grid.ColumnSpan="2" Margin="39,24,0,0"  >
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top"   Grid.Row="10" Grid.ColumnSpan="2" Margin="45,15,0,0"  >
             <Button x:Name="Odustani"  Content="{local:Loc Reject}"    Command="{Binding RejectCommand}"  Margin="0,0,30,0"   Style="{StaticResource SecondaryButtonStyle}"/>
             <Button x:Name="Potvrdi"  Content="{local:Loc Accept}"    Command="{Binding AcceptCommand}"   Style="{StaticResource PrimaryButtonStyle}" />
         </StackPanel>

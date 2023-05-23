@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InitialProject"
       mc:Ignorable="d" 
-      d:DesignHeight="690" d:DesignWidth="800"
+     d:DesignHeight="690" d:DesignWidth="1366"
       Title="TureView">
 
 
@@ -14,82 +14,93 @@
         <Grid Name="TureGrid" >
 
 
-
-                <Grid>
-
-                <ScrollViewer  VerticalScrollBarVisibility="Auto">
-                    <DataGrid Height="652"   x:Name="DataGridTure" Margin="279,12,5,10" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}" 
+            <ScrollViewer  VerticalScrollBarVisibility="Auto">
+                <DataGrid Height="642"  x:Name="DataGridTure" Margin="279,15,5,10" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}" 
  
                             ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
                             SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                             IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" >
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="{local:Loc TourName}" Width="150" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="{local:Loc City}" Width="150" Binding="{Binding Location.City}"/>
-                            <DataGridTextColumn Header="{local:Loc Country}" Width="150" Binding="{Binding Location.Country}"/>
-                            <DataGridTextColumn Header="{local:Loc Duration}" Width="120" Binding="{Binding Duration}"/>
-                            <DataGridTextColumn Header="{local:Loc Language}" Width="130" Binding="{Binding Language}"/>
-                            <DataGridTextColumn Header="{local:Loc DateAndTime}" Width="150" Binding="{Binding StartingDateTime}"/>
-                            <DataGridTextColumn Header="{local:Loc PeopleNumber}" Width="100" Binding="{Binding MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTemplateColumn Width="*">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Height="20" Cursor="Hand" Name="TourPreview" Width="60" Content="{local:Loc Review}"  Click="TourPreview_Click" Command="{Binding DataContext.PreviewTourCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" BorderThickness="0"  Foreground="White" FontSize="12" FontFamily="Montserrat">
-                                            <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <Setter Property="Background" Value="#00A76D"/>
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Background" Value="#078563"/>
-                                                        </Trigger>
-                                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
-                                                            <Setter Property="FocusVisualStyle">
-                                                                <Setter.Value>
-                                                                    <Style>
-                                                                        <Setter Property="Control.BorderThickness" Value="2"/>
-                                                                        <Setter Property="Control.BorderBrush" Value="#FF0000"/>
-                                                                    </Style>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Button.Style>
-                                            <Button.Template>
-                                                <ControlTemplate TargetType="Button">
-                                                    <Border Width="60" Height="20" CornerRadius="5" Background="{TemplateBinding Background}">
-                                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Button.Template>
-                                        </Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </ScrollViewer>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn  Width="15" />
+                        <DataGridTextColumn Header="{local:Loc TourName}" Width="150" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="{local:Loc City}" Width="150" Binding="{Binding Location.City}"/>
+                        <DataGridTextColumn Header="{local:Loc Country}" Width="150" Binding="{Binding Location.Country}"/>
+                        <DataGridTextColumn Header="{local:Loc Duration}" Width="100" Binding="{Binding Duration}"/>
+                        <DataGridTextColumn Header="{local:Loc Language}" Width="130" Binding="{Binding Language}"/>
+                        <DataGridTextColumn Header="{local:Loc DateAndTime}" Width="160" Binding="{Binding StartingDateTime}"/>
+                        <DataGridTextColumn Header="{local:Loc PeopleNumber}" Width="80" Binding="{Binding MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTemplateColumn Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Height="20" Cursor="Hand" Name="TourPreview" Width="60" Content="{local:Loc Review}"  Click="TourPreview_Click" Command="{Binding DataContext.PreviewTourCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" BorderThickness="0"  Foreground="White" FontSize="12" FontFamily="Montserrat">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Background" Value="#00A76D"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#078563"/>
+                                                    </Trigger>
+                                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
+                                                        <Setter Property="FocusVisualStyle">
+                                                            <Setter.Value>
+                                                                <Style>
+                                                                    <Setter Property="Control.BorderThickness" Value="2"/>
+                                                                    <Setter Property="Control.BorderBrush" Value="#FF0000"/>
+                                                                </Style>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Width="60" Height="20" CornerRadius="5" Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn  Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
 
-                <StackPanel  Orientation="Vertical" HorizontalAlignment="Left" Background="{StaticResource PrimaryLightColorBrush}"  Height="680" Width="279">
+            </ScrollViewer>
+            <StackPanel  Orientation="Vertical" HorizontalAlignment="Left" Background="{StaticResource PrimaryLightColorBrush}"  Height="680" Width="279">
 
-                        <ComboBox x:Name ="CountryCmbx" FontSize="12" Text="{local:Loc Country}" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
-                                 ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}"  HorizontalAlignment="Left" Margin="33,15,0,0" Width="210" />
-                        <ComboBox x:Name="CityCmbx" Text="{local:Loc City}" FontSize="12" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
-                                 ItemsSource="{Binding Cities}" SelectedItem="{Binding SelectedCity}"  HorizontalAlignment="Left" Margin="33,50,0,0" Width="210" />
-                        <ComboBox x:Name="LanguageCmbx" FontSize="12" Text="{local:Loc Language}" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
-                                 ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" HorizontalAlignment="Left" Margin="33,50,0,0" VerticalAlignment="Top" Width="207" />
-                        <ComboBox x:Name="GuestNumberCmbx" FontSize="12" Text="{local:Loc GuestNumber}" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
-                                 ItemsSource="{Binding GuestNumber}" SelectedItem="{Binding SelectedGuestNumber}"  HorizontalAlignment="Left" Margin="33,50,0,0" Width="210" />
-                        <StackPanel Orientation="Horizontal" Height="122" Width="278" HorizontalAlignment="Left">
+                <TextBlock  Style="{DynamicResource TextBlock1}" Margin="33,24,0,0" TextWrapping="Wrap"  Text="{local:Loc Country:}" />
 
-                            <ComboBox x:Name ="Duration_Box_From" FontSize="12"  SelectedItem="{Binding SelectedDurationFrom}"  IsEditable="True" IsReadOnly="False" Text="{local:Loc DurationFrom}" ItemsSource="{Binding Duration}" Margin="33,50,0,0" Height="25" VerticalAlignment="Top" Width="100"/>
-                            <ComboBox x:Name ="Duration_Box_To" FontSize="12"  SelectedItem="{Binding SelectedDurationTo}" IsEditable="True" IsReadOnly="False" Text="{local:Loc DurationTo}"  ItemsSource="{Binding Duration}" Width="90" Height="26" Margin="20,0,0,0"  />
-                        </StackPanel>
-                    <Button Content="{local:Loc ApplyFilters}" Style="{StaticResource PrimaryButtonStyle}"  Cursor="Hand" Command="{Binding ApplyFiltersCommand}" Width="107" />
-                    <Image  Height="238" Margin="0,25,0,0"  Source="/Infrastructure/Resources/Images/ad-image.png" Stretch="UniformToFill" />
+                <ComboBox x:Name ="CountryCmbx" FontSize="12" IsTextSearchEnabled="True" StaysOpenOnEdit="True"  IsEditable="True" 
+                                 ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}"  HorizontalAlignment="Left" Margin="33,0,0,0" Width="210" />
 
-                    </StackPanel>
-                </Grid>
+                <TextBlock  Style="{DynamicResource TextBlock1}" Margin="33,24,0,0" TextWrapping="Wrap"  Text="{local:Loc City:}" />
+                <ComboBox x:Name="CityCmbx"  FontSize="12" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                                 ItemsSource="{Binding Cities}" SelectedItem="{Binding SelectedCity}"  HorizontalAlignment="Left" Margin="33,0,0,0" Width="210" />
+
+                <TextBlock  Style="{DynamicResource TextBlock1}" Margin="33,24,0,0" TextWrapping="Wrap"  Text="{local:Loc Language:}" />
+                <ComboBox x:Name="LanguageCmbx" FontSize="12"  IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                                 ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Top" Width="207" />
+
+                <TextBlock  Style="{DynamicResource TextBlock1}" Margin="33,24,0,0" TextWrapping="Wrap"  Text="{local:Loc GuestNumber:}" Width="97" />
+                <ComboBox x:Name="GuestNumberCmbx" FontSize="12" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" 
+                                 ItemsSource="{Binding GuestNumber}" SelectedItem="{Binding SelectedGuestNumber}"  HorizontalAlignment="Left" Margin="33,0,0,0" Width="210" />
+
+                <TextBlock  Style="{DynamicResource TextBlock1}" Margin="33,24,0,0" TextWrapping="Wrap"  Text="{local:Loc DurationFrom:}" Width="102" />
+                <ComboBox x:Name ="Duration_Box_From" FontSize="12"  HorizontalAlignment="Left" SelectedItem="{Binding SelectedDurationFrom}"  IsEditable="True" IsReadOnly="False"  ItemsSource="{Binding Duration}" Margin="33,0,0,0" Height="26" Width="210"/>
+
+
+                <TextBlock  Style="{DynamicResource TextBlock1}" Margin="33,24,0,0" TextWrapping="Wrap"  Text="{local:Loc DurationTo:}" Width="97" />
+                <ComboBox x:Name ="Duration_Box_To" FontSize="12"  SelectedItem="{Binding SelectedDurationTo}" IsEditable="True" IsReadOnly="False"   ItemsSource="{Binding Duration}" Width="208" Height="26"  />
+
+
+                <Button Content="{local:Loc ApplyFilters}" Style="{StaticResource PrimaryButtonStyle}"  Cursor="Hand" Command="{Binding ApplyFiltersCommand}" HorizontalAlignment="Left" Margin="83,20,0,0" Width="105" Height="40"/>
+                <Image  Height="227" Margin="0,25,0,0"  Source="/Infrastructure/Resources/Images/ad-image.png" Stretch="UniformToFill" />
+
+            </StackPanel>
+
 
         </Grid>
 

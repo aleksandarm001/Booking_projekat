@@ -222,7 +222,86 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            
+
+
+
+
+
+            <Style TargetType="MenuItem" x:Key="BaseMenuItem2">
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="Width" Value="341" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="MenuItem">
+                            <Grid x:Name="MenuItemGrid">
+                                <Border x:Name="MenuItemBorder" Grid.ColumnSpan="2">
+                                    <Border.BorderBrush>
+                                        <SolidColorBrush Color="#00A77F"/>
+                                    </Border.BorderBrush>
+                                    <Border.Background>
+                                        <SolidColorBrush Color="#00A77F"/>
+                                    </Border.Background>
+                                    <StackPanel ClipToBounds="True"
+                                    Orientation="Vertical">
+                                        <ItemsPresenter />
+                                        <!-- Added ItemsPresenter -->
+                                    </StackPanel>
+                                </Border>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ContentPresenter x:Name="IconPresenter" ContentSource="Icon" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <ContentPresenter ContentSource="Header"
+                                          Margin="10, 1, 7, 1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="MenuItemBorder" Property="Background" Value="#006C6D" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="MenuItem" x:Key="SubMenuItem">
+                <Setter Property="FontSize" Value="22" />
+                <Setter Property="Width" Value="342" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Padding" Value="15" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="MenuItem">
+                            <Grid x:Name="MenuItemGrid" >
+                                <Border x:Name="MenuItemBorder" Grid.ColumnSpan="2">
+                                    <Border.BorderBrush>
+                                        <SolidColorBrush Color="{StaticResource PrimaryLightColor}"/>
+
+                                    </Border.BorderBrush>
+                                    <Border.Background>
+                                        <SolidColorBrush Color="{StaticResource PrimaryLightColor}"/>
+
+                                    </Border.Background>
+                                    <StackPanel ClipToBounds="True"
+                                    Orientation="Horizontal"
+                                    IsItemsHost="True" />
+                                </Border>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <ContentPresenter x:Name="IconPresenter" ContentSource="Icon"  Width="30" Height="30" Margin="10,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <ContentPresenter ContentSource="Header"
+                                       Margin="15,0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="MenuItemBorder" Property="Background" Value="{StaticResource PrimaryColorBrush}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
             <Style TargetType="MenuItem" x:Key="SecondaryMenuItem">
                 <Setter Property="FontSize" Value="25" />
                 <Setter Property="Width" Value="60" />

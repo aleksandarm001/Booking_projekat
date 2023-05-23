@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject"
         mc:Ignorable="d"
-        Title="{local:Loc CreatingComplexRequest}" Height="630" Width="850" WindowStartupLocation="CenterScreen">
+        Title="{local:Loc CreatingComplexRequest}" Height="720" Width="850" WindowStartupLocation="CenterScreen">
     <Grid>
 
         <DataGrid Margin="338,32,10,0" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}" 
  
                             ItemsSource="{Binding ComplexTourRequests, UpdateSourceTrigger=PropertyChanged}"
-                            IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Width="NaN" Height="486" >
+                            IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Width="NaN" Height="578" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{local:Loc Country}" Width="180" Binding="{Binding Location.Country}"/>
                 <DataGridTextColumn Header="{local:Loc City}" Width="180" Binding="{Binding Location.City}"/>
@@ -20,7 +20,7 @@
             </DataGrid.Columns>
 
         </DataGrid>
-        <StackPanel Orientation="Horizontal" Margin="387,548,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.494,1.471">
+        <StackPanel Orientation="Horizontal" Margin="389,644,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.494,1.471">
             <Button x:Name="Odustani"  Content="{local:Loc Reject}" HorizontalAlignment="Left"  Click="Odustani_Click" VerticalAlignment="Top"   Style="{StaticResource SecondaryButtonStyle}"/>
             <Button x:Name="Potvrdi"  Content="{local:Loc Accept}"  Click="Potvrdi_Click" VerticalAlignment="Top" Margin="200,0,0,0"  Style="{StaticResource PrimaryButtonStyle}" />
         </StackPanel>
@@ -39,22 +39,24 @@
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
 
             <TextBlock Text="{local:Loc CreatingRequestForComplexTour}" Style="{StaticResource Header}" Grid.ColumnSpan="2" Grid.Row="0"/>
             <TextBlock Style="{StaticResource ErrorText}" Grid.Row="2" Grid.Column="1"  Height="16" Width="180" Text="{Binding Path=ComplexTourRequest.ValidationErrors[TourName]}"/>
 
-            <TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center"  TextWrapping="Wrap" Text="{local:Loc TourName:}"  Grid.Column="0" Grid.Row="1" />
-            <TextBox x:Name="TourName" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding ComplexTourRequest.TourName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            <TextBlock x:Name="TourNameTextBlock" HorizontalAlignment="Left"  Margin="20,0,0,0" VerticalAlignment="Center"  FontSize="14" TextWrapping="Wrap" Text="{local:Loc TourName:}" Grid.Row="1" Width="80" />
+            <TextBox x:Name="TourNameTextBox" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding ComplexTourRequest.TourName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Margin="15,0,0,0" Width="180" Grid.Column="1" Grid.Row="1"/>
 
             <TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center"  TextWrapping="Wrap"  Text="{local:Loc Country:}"  Grid.Column="0" Grid.Row="2"/>
             <ComboBox Name="CountryComboBox" HorizontalAlignment="Left"  SelectedIndex="0" SelectionChanged="FilterCities" SelectedItem="{Binding Path=ComplexTourRequest.Location.Country }" 
                   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Countries}" VerticalAlignment="Center" Margin="15,0,0,0" Width="180" Grid.Column="1" Grid.Row="2"/>
             <TextBlock Style="{StaticResource ErrorText}" Grid.Row="2" Grid.Column="1"  Height="16" Width="180" Text="{Binding Path=ComplexTourRequest.ValidationErrors[Location.Country]}"/>
-            
-            
+
+
             <TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" Text="{local:Loc City:}"  Grid.Column="0" Grid.Row="3" />
             <ComboBox Name="CityComboBox" HorizontalAlignment="Left"  SelectedItem="{Binding Path=ComplexTourRequest.Location.City }"  
                       IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Cities}" VerticalAlignment="Center" Margin="15,0,0,0" Width="180" Grid.Column="1" Grid.Row="3" />
@@ -75,22 +77,24 @@
                         SelectedDate="{Binding Path=ComplexTourRequest.StartingDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                         SelectedDateChanged="DatePickerStart_SelectedDateChanged"    VerticalAlignment="Center" Width="180"  Grid.Column="1" Grid.Row="6" Height="24"/>
             <TextBlock Style="{StaticResource ErrorText}" Grid.Row="6" Grid.Column="1"  Height="16" Width="180" Text="{Binding Path=ComplexTourRequest.ValidationErrors[StartingDate]}"/>
-            
+
 
             <TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" Text="{local:Loc DateTo:}" Grid.Column="0" Grid.Row="7"/>
             <DatePicker Name="DatePickerEnd" HorizontalAlignment="Center" 
                         SelectedDate="{Binding Path=ComplexTourRequest.EndingDate, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                         VerticalAlignment="Center" Width="180" Grid.Column="1" Grid.Row="7" Height="24"/>
             <TextBlock Style="{StaticResource ErrorText}" Grid.Row="7" Grid.Column="1"  Height="16" Width="180" Text="{Binding Path=ComplexTourRequest.ValidationErrors[EndingDate]}"/>
-            
+
 
             <TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" Text="{local:Loc Description:}"  Grid.Column="0" Grid.Row="8"/>
             <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=ComplexTourRequest.Description, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                     VerticalAlignment="Center" Width="180"  Margin="15,0,0,0"  Grid.Column="1" Grid.Row="8"/>
-            <TextBlock Style="{StaticResource ErrorText}" Grid.Row="8" Grid.Column="1"  Height="16" Width="180" Text="{Binding Path=ComplexTourRequest.ValidationErrors[Description]}"/>
-            
+                     VerticalAlignment="Center" Width="180" Height="120" AcceptsReturn="True"
+                        HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Auto"  Margin="15,0,0,0"  Grid.Column="1" Grid.Row="8" Grid.RowSpan="3"/>
+            <TextBlock Style="{StaticResource ErrorText}" Grid.Row="10" Grid.Column="1"  Height="16" Width="180" Text="{Binding Path=ComplexTourRequest.ValidationErrors[Description]}"/>
 
-            <Button x:Name="Dodaj" Style="{StaticResource PrimaryButtonStyle}"  Content="{local:Loc Add}" VerticalAlignment="Top" Click="Dodaj_Click"   Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10" />
+
+            <Button x:Name="Dodaj" Style="{StaticResource PrimaryButtonStyle}"  Content="{local:Loc Add}" VerticalAlignment="Top" Click="Dodaj_Click"   Grid.Row="11" Grid.Column="1" HorizontalAlignment="Center" />
 
 
         </Grid>

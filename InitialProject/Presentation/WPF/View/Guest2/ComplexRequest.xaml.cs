@@ -6,10 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace InitialProject.Presentation.WPF.View.Guest2
 {
@@ -72,7 +74,11 @@ namespace InitialProject.Presentation.WPF.View.Guest2
                 CityComboBox.SelectedIndex = 0;
                 LanguageComboBox.SelectedIndex = 0;
                 ComplexTourRequest.TourName = ComplexTourRequests.ElementAt(0).TourName;
-                TourName.IsReadOnly = true;
+                TourNameTextBox.IsReadOnly = true;
+                TourNameTextBox.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(222, 242, 237));
+                TourNameTextBox.BorderThickness = new Thickness(0);
+                TourNameTextBox.FontWeight = FontWeights.SemiBold;
+                TourNameTextBlock.FontWeight = FontWeights.SemiBold;
                 OnPropertyChanged(nameof(ComplexTourRequest));
 
                 

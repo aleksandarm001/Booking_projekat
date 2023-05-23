@@ -27,6 +27,7 @@
     <None Remove="Infrastructure\Resources\Images\home.png" />
     <None Remove="Infrastructure\Resources\Images\homePageCommands.png" />
     <None Remove="Infrastructure\Resources\Images\iconmonstr-x-mark-circle-thin.png" />
+    <None Remove="Infrastructure\Resources\Images\last-minute.png" />
     <None Remove="Infrastructure\Resources\Images\moda-removebg-preview.png" />
     <None Remove="Infrastructure\Resources\Images\night-mode.png" />
     <None Remove="Infrastructure\Resources\Images\pin1.png" />
@@ -97,6 +98,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure\Resources\Images\iconmonstr-x-mark-circle-thin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Infrastructure\Resources\Images\last-minute.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure\Resources\Images\moda-removebg-preview.png">

@@ -125,23 +125,25 @@
 
 
             </MenuItem>
-            <MenuItem Header="{local:Loc ReservedTours}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToReservedToursCommand}" >
+            
+            
+            <MenuItem Header="{local:Loc ReservedTours}" Style="{StaticResource SubMenuItem}" Command="{Binding NavigateToReservedToursCommand}" >
                 <MenuItem.Icon>
                     <Image Source="/Infrastructure/Resources/Images/stopwatch.png" Width="30" Height="30" />
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="{local:Loc FinishedTours}"  Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToFinishedToursCommand}" >
+            <MenuItem Header="{local:Loc FinishedTours}"  Style="{StaticResource SubMenuItem}" Command="{Binding NavigateToFinishedToursCommand}" >
                 <MenuItem.Icon>
                     <Image Source="/Infrastructure/Resources/Images/reservation.png" Width="30" Height="30" />
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header= "{local:Loc RequestedTours}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToRequestedToursCommand}">
+            <MenuItem Header= "{local:Loc RequestedTours}" Style="{StaticResource SubMenuItem}" Command="{Binding NavigateToRequestedToursCommand}">
                 <MenuItem.Icon>
                     <Image Source="/Infrastructure/Resources/Images/time.png" Width="30" Height="30" />
                 </MenuItem.Icon>
 
             </MenuItem>
-            <MenuItem Header="{local:Loc Vouchers}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToVouchersPageCommand}">
+            <MenuItem Header="{local:Loc Vouchers}" Style="{StaticResource SubMenuItem}" Command="{Binding NavigateToVouchersPageCommand}">
                 <MenuItem.Icon>
                     <Image Source="/Infrastructure/Resources/Images/ticket.png" Width="30" Height="30" />
                 </MenuItem.Icon>

@@ -10,15 +10,16 @@
 
     <ScrollViewer  VerticalScrollBarVisibility="Auto">
         <Grid Height="690">
-            <DataGrid Height="652" Margin="0,12,0,8" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}"
+            <DataGrid Height="652" Margin="0,15,0,8" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}"
                                 ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
                                  SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Width="1064">
                 <DataGrid.Columns>
+                    <DataGridTextColumn  Width="15" />
                     <DataGridTextColumn Header="{local:Loc TourName}" Width="160" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="{local:Loc City}" Width="160" Binding="{Binding Location.City}"/>
                     <DataGridTextColumn Header="{local:Loc Country}" Width="170" Binding="{Binding Location.Country}"/>
-                    <DataGridTextColumn Header="{local:Loc Duration}" Width="140" Binding="{Binding Duration}"/>
+                    <DataGridTextColumn Header="{local:Loc Duration}" Width="110" Binding="{Binding Duration}"/>
                     <DataGridTextColumn Header="{local:Loc Language}" Width="150" Binding="{Binding Language}"/>
                     <DataGridTextColumn Header="{local:Loc DateAndTime}" Width="170" Binding="{Binding StartingDateTime}"/>
                     <DataGridTemplateColumn Width="*">
@@ -56,6 +57,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTextColumn  Width="15" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

@@ -15,6 +15,8 @@ using InitialProject.Presentation.WPF.View.Guest1;
 using InitialProject.Presentation.WPF.View.Owner;
 using InitialProject.Presentation.WPF.View.Guide;
 using InitialProject.Presentation.WPF.View.Guest2;
+using InitialProject.Presentation.WPF.ViewModel;
+using System.Windows.Controls;
 
 namespace InitialProject
 {
@@ -23,6 +25,7 @@ namespace InitialProject
     /// </summary>
     public partial class UserLogIn : Window, INotifyPropertyChanged
     {
+        public RelayCommand SignUpCommand { get; set; }
         private UserRepository _userRepository;
         public string Email { get; set; }
         public string Password { get; set; }
@@ -42,22 +45,33 @@ namespace InitialProject
             _userService = Injector.CreateInstance<IUserService>();
             _accommodationRepository = new AccommodationRepository();
             Locations = new ObservableCollection<Location>(_accommodationRepository.GetAllLocationsFromAccommodations());
+            SignUpCommand = new RelayCommand(SignUp);
 
         }
-        private void Btn_LogIn(object sender, RoutedEventArgs e)
+
+        
+        private void SignUp(object parameter)
         {
-            List<User> users = _userRepository.GetAllUsers();
             bool match = false;
-            foreach(User user in users)
+            if (parameter != null)
             {
-                if(user.Email == Email && user.Password == Password)
+                var passwordBox = parameter as PasswordBox;
+                var password = passwordBox.Password;
+
+
+                List<User> users = _userRepository.GetAllUsers();
+               
+                foreach (User user in users)
                 {
-                    match = true;
-                    //StartWindow startWindow = new StartWindow(user.Id); 
-                    // this.Close();
-                    _userService.UpdateUserId(user.Id);
-                    ChooseWindow(user);
-                    break;
+                    if (user.Email == Email && user.Password == password)
+                    {
+                        match = true;
+                        //StartWindow startWindow = new StartWindow(user.Id); 
+                        // this.Close();
+                        _userService.UpdateUserId(user.Id);
+                        ChooseWindow(user);
+                        break;
+                    }
                 }
             }
             if (!match) MessageBox.Show("User don't exist.");

@@ -177,6 +177,9 @@
   <data name="CreatingSimpleTourRequest" xml:space="preserve">
     <value>Creating simple tour request</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
   <data name="DateAndTime" xml:space="preserve">
     <value>Date and time</value>
   </data>
@@ -207,8 +210,14 @@
   <data name="DurationFrom" xml:space="preserve">
     <value>Duration from</value>
   </data>
+  <data name="DurationFrom:" xml:space="preserve">
+    <value>Duration from:</value>
+  </data>
   <data name="DurationTo" xml:space="preserve">
     <value>Duration to</value>
+  </data>
+  <data name="DurationTo:" xml:space="preserve">
+    <value>Duration to:</value>
   </data>
   <data name="FinishedTours" xml:space="preserve">
     <value>Finished tours</value>
@@ -231,8 +240,8 @@
   <data name="HomePage" xml:space="preserve">
     <value>Home</value>
   </data>
-  <data name="InputGuestNumberForReservation" xml:space="preserve">
-    <value>Input number of guest for reservation</value>
+  <data name="InputGuestNumberForReservation:" xml:space="preserve">
+    <value>Input number of guest for reservation:</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
@@ -267,6 +276,9 @@
   <data name="RequestedTours" xml:space="preserve">
     <value>Requested tours</value>
   </data>
+  <data name="Reservation" xml:space="preserve">
+    <value>Reservation</value>
+  </data>
   <data name="Reserve" xml:space="preserve">
     <value>Reserve</value>
   </data>
@@ -283,8 +295,8 @@
   <data name="Sale" xml:space="preserve">
     <value>Sale</value>
   </data>
-  <data name="SelectVoucher" xml:space="preserve">
-    <value>Select voucher</value>
+  <data name="SelectVoucher:" xml:space="preserve">
+    <value>Select voucher:</value>
   </data>
   <data name="Simple" xml:space="preserve">
     <value>Simple </value>
@@ -297,6 +309,9 @@
   </data>
   <data name="StartingDateAndTime" xml:space="preserve">
     <value>Start date and time</value>
+  </data>
+  <data name="StartTime:" xml:space="preserve">
+    <value>Start time:</value>
   </data>
   <data name="StatisticView" xml:space="preserve">
     <value>View statistic</value>

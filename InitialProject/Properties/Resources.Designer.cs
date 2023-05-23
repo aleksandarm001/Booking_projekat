@@ -241,6 +241,15 @@ namespace InitialProject.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        internal static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date and time.
         /// </summary>
         internal static string DateAndTime {
@@ -331,11 +340,29 @@ namespace InitialProject.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Duration from:.
+        /// </summary>
+        internal static string DurationFrom_ {
+            get {
+                return ResourceManager.GetString("DurationFrom:", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duration to.
         /// </summary>
         internal static string DurationTo {
             get {
                 return ResourceManager.GetString("DurationTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration to:.
+        /// </summary>
+        internal static string DurationTo_ {
+            get {
+                return ResourceManager.GetString("DurationTo:", resourceCulture);
             }
         }
         
@@ -403,11 +430,11 @@ namespace InitialProject.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Input number of guest for reservation.
+        ///   Looks up a localized string similar to Input number of guest for reservation:.
         /// </summary>
-        internal static string InputGuestNumberForReservation {
+        internal static string InputGuestNumberForReservation_ {
             get {
-                return ResourceManager.GetString("InputGuestNumberForReservation", resourceCulture);
+                return ResourceManager.GetString("InputGuestNumberForReservation:", resourceCulture);
             }
         }
         
@@ -511,6 +538,15 @@ namespace InitialProject.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reservation.
+        /// </summary>
+        internal static string Reservation {
+            get {
+                return ResourceManager.GetString("Reservation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reserve.
         /// </summary>
         internal static string Reserve {
@@ -572,11 +608,11 @@ namespace InitialProject.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select voucher.
+        ///   Looks up a localized string similar to Select voucher:.
         /// </summary>
-        internal static string SelectVoucher {
+        internal static string SelectVoucher_ {
             get {
-                return ResourceManager.GetString("SelectVoucher", resourceCulture);
+                return ResourceManager.GetString("SelectVoucher:", resourceCulture);
             }
         }
         
@@ -613,6 +649,15 @@ namespace InitialProject.Properties {
         internal static string StartingDateAndTime {
             get {
                 return ResourceManager.GetString("StartingDateAndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start time:.
+        /// </summary>
+        internal static string StartTime_ {
+            get {
+                return ResourceManager.GetString("StartTime:", resourceCulture);
             }
         }
         

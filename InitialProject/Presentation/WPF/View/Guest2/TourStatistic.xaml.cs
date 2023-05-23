@@ -87,7 +87,7 @@ namespace InitialProject.Presentation.WPF.View.Guest2
 
             if (vrijednosti.Count() != 0)
             {
-                double mjera = 280 / vrijednosti.Max();
+                double mjera = 260 / vrijednosti.Max();
                 double sirina = 0.5 * 700 / languages.Count();
                 double razmak = 0.48 * 700 / (languages.Count() - 1);
 
@@ -106,8 +106,15 @@ namespace InitialProject.Presentation.WPF.View.Guest2
                     label.Content = languages[i].Name;
                     Canvas.SetLeft(label, i * (sirina + razmak));
                     Canvas.SetBottom(label, 0);
+
+                    Label number = new Label();
+                    number.Content = vrijednosti[i];
+                    Canvas.SetLeft(number, sirina/3 + i * (sirina + razmak));
+                    Canvas.SetBottom(number,40 + vrijednosti[i] * mjera);
+
                     Mreza.Children.Add(rectangle1);
                     Mreza.Children.Add(label);
+                    Mreza.Children.Add(number);
                 }
             }
 
@@ -140,7 +147,7 @@ namespace InitialProject.Presentation.WPF.View.Guest2
 
             if (vrijednosti.Count() != 0)
             {
-                double mjera = 270 / vrijednosti.Max();
+                double mjera = 260 / vrijednosti.Max();
                 double sirina = 0.5 * 700 / locations.Count();
                 double razmak = 0.48 * 700 / (locations.Count() - 1);
 
@@ -160,8 +167,15 @@ namespace InitialProject.Presentation.WPF.View.Guest2
                     label.Content = locations[i].City;
                     Canvas.SetLeft(label, i * (sirina + razmak));
                     Canvas.SetBottom(label, 0);
+
+                    Label number = new Label();
+                    number.Content = vrijednosti[i];
+                    Canvas.SetLeft(number, sirina / 4 + i * (sirina + razmak));
+                    Canvas.SetBottom(number, 40 + vrijednosti[i] * mjera);
+
                     Dijagram.Children.Add(rectangle1);
                     Dijagram.Children.Add(label);
+                    Dijagram.Children.Add(number);
                 }
             }
 

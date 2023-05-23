@@ -32,8 +32,8 @@
             GuideId = Convert.ToInt32(values[1]);
             UserId = Convert.ToInt32(values[2]);
             Name = values[3];
-            Received = Convert.ToDateTime(values[4]);
-            ValidUntil = Convert.ToDateTime(values[5]);
+            Received = Convert.ToDateTime(values[4]).Date;
+            ValidUntil = Convert.ToDateTime(values[5]).Date;
 
 
         }

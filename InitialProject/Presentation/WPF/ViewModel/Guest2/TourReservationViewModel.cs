@@ -64,9 +64,6 @@
             VouchersString = new ObservableCollection<string>();
             Vouchers = new ObservableCollection<Voucher>(_voucherService.GetAllForUser(userId));
             InitializeVouchers();
-            First = "Izabrali ste turu u " + Tour.Location.City + " koja se izvodi " + Tour.StartingDateTime.ToShortDateString() + " u " + Tour.StartingDateTime.TimeOfDay.ToString() + ".";
-            Second = "Tura se izvodi na " + Tour.Language + " jeziku i traje " + Tour.Duration + "h.";
-            Third = "Preostali broj slobodnih mjesta je " + Tour.MaxGuestNumber + ".";
         }
 
 

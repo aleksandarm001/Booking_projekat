@@ -9,7 +9,7 @@
       Title="TourRequestsView">
 
     <Grid>
-        <TabControl TabStripPlacement="Top" Margin="0,10,0,0" BorderThickness="0" >
+        <TabControl TabStripPlacement="Top" Margin="0,15,0,0" BorderThickness="0" >
             <TabItem Header="{local:Loc Simple}" Width="522" Style="{StaticResource TabItemStyle}">
                 <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
                     <Grid Margin="0,0,0,20">
@@ -56,14 +56,15 @@
 
                         <DataGrid  Grid.Row="0"  Margin="5,20,5,0"  FontSize="12" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}"
                                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}"
-                                        ItemsSource="{Binding Path = ComplexTours, UpdateSourceTrigger=PropertyChanged}"
+                                        ItemsSource="{Binding Path = ComplexTours, UpdateSourceTrigger=PropertyChanged}" 
                                         SelectedItem="{Binding ComplexTour, UpdateSourceTrigger=PropertyChanged}"
                                         IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="{local:Loc TourName}" Width="250" Binding="{Binding Name}"></DataGridTextColumn>
-                                <DataGridTextColumn Header="{local:Loc StartingDate}" Width="250" Binding="{Binding StartingDateTime}"></DataGridTextColumn>
-                                <DataGridTextColumn Header="{local:Loc Status}" Width="200" Binding="{Binding Status}"></DataGridTextColumn>
-                                <DataGridTemplateColumn Width="*">
+                                <DataGridTextColumn Width="15"/>
+                                <DataGridTextColumn Header="{local:Loc TourName}" Width="300" Binding="{Binding Name}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="{local:Loc StartingDate}" Width="350" Binding="{Binding StartingDateTime}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="{local:Loc Status}" Width="180" Binding="{Binding Status}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Width="100">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button Height="20" Cursor="Hand" Name="PrikaziSlozenuTuru" Width="60" Content="{local:Loc Review}" Command="{Binding DataContext.ComplexTourReviewCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" BorderThickness="0"  Foreground="White" FontSize="12" FontFamily="Montserrat">
@@ -98,6 +99,7 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
+                                <DataGridTextColumn Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
 

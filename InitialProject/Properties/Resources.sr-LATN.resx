@@ -177,6 +177,9 @@
   <data name="CreatingSimpleTourRequest" xml:space="preserve">
     <value>Kreiranje običnog zahtjeva</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
   <data name="DateAndTime" xml:space="preserve">
     <value>Datum i vrijeme</value>
   </data>
@@ -231,7 +234,7 @@
   <data name="HomePage" xml:space="preserve">
     <value>Početna</value>
   </data>
-  <data name="InputGuestNumberForReservation" xml:space="preserve">
+  <data name="InputGuestNumberForReservation:" xml:space="preserve">
     <value>Unesite broj osoba za koji vrsite rezervaciju:</value>
   </data>
   <data name="Language" xml:space="preserve">
@@ -267,6 +270,9 @@
   <data name="RequestedTours" xml:space="preserve">
     <value>Zahtjevane ture</value>
   </data>
+  <data name="Reservation" xml:space="preserve">
+    <value>Rezervacija</value>
+  </data>
   <data name="Reserve" xml:space="preserve">
     <value>Rezerviši</value>
   </data>
@@ -279,8 +285,8 @@
   <data name="Sale" xml:space="preserve">
     <value>Popus</value>
   </data>
-  <data name="SelectVoucher" xml:space="preserve">
-    <value>Izaberi vaučer</value>
+  <data name="SelectVoucher:" xml:space="preserve">
+    <value>Izaberi vaučer:</value>
   </data>
   <data name="Simple" xml:space="preserve">
     <value>Obična</value>
@@ -293,6 +299,9 @@
   </data>
   <data name="StartingDateAndTime" xml:space="preserve">
     <value>Datum i vrijeme početka</value>
+  </data>
+  <data name="StartTime:" xml:space="preserve">
+    <value>Vrijeme početka:</value>
   </data>
   <data name="StatisticView" xml:space="preserve">
     <value>Prikaži statistiku</value>

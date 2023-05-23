@@ -15,7 +15,7 @@
 
     <StackPanel>
         <StackPanel Margin="0,0,0,0" Height="40">
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Background="{StaticResource PrimaryColorBrush}">
                 <Menu Style="{StaticResource MenuStyle}" Height="40">
 
                    
@@ -27,20 +27,56 @@
 
                     </MenuItem>
                     <MenuItem Header="{local:Loc HomePage}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToMainPageCommand}" >
-
+                        <MenuItem.Icon>
+                            <Image Source="/Infrastructure/Resources/Images/home.png" Margin="0,0,0,0" Height="25" Width="25" />
+                        </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{local:Loc LastMinutTours}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToLastMinutePageCommand}" >
-
-                    </MenuItem>
-                    <MenuItem Header="{Binding UserName}" Style="{StaticResource BaseMenuItem}" Command="{Binding NavigateToUserPageCommand}" Width="362"  >
                         <MenuItem.Icon>
-                            <Image Source="/Infrastructure/Resources/Images/user.png" Width="30" Height="30" />
+                            <Image Source="/Infrastructure/Resources/Images/last-minute.png" Margin="0,0,0,0" Height="25" Width="25" />
                         </MenuItem.Icon>
                     </MenuItem>
 
+                    <Menu Margin="0,0,0,0" Width="350"  >
+                        <MenuItem Height="37" Width="350" HorizontalAlignment="Center" Background="{StaticResource PrimaryColorBrush}" HorizontalContentAlignment="Center" BorderThickness="0" >
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="100,0">
+                                    <Image Source="/Infrastructure/Resources/Images/user.png" Width="30" ClipToBounds="True" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="fill"   />
+                                    <TextBlock Text="{Binding UserName}"  FontSize="25" TextAlignment="Center"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                            <MenuItem.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </MenuItem.ItemsPanel>
+                            <MenuItem Header="{local:Loc ReservedTours}" Style="{StaticResource SubMenuItem}" Command="{Binding NavigateToReservedToursCommand}" >
+                                <MenuItem.Icon>
+                                    <Image Source="/Infrastructure/Resources/Images/stopwatch.png" Width="30" Height="30" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="{local:Loc FinishedTours}"  Style="{StaticResource SubMenuItem}" Command="{Binding NavigateToFinishedToursCommand}" >
+                                <MenuItem.Icon>
+                                    <Image Source="/Infrastructure/Resources/Images/reservation.png" Width="30" Height="30" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header= "{local:Loc RequestedTours}" Style="{StaticResource SubMenuItem}" Command="{Binding NavigateToRequestedToursCommand}">
+                                <MenuItem.Icon>
+                                    <Image Source="/Infrastructure/Resources/Images/time.png" Width="30" Height="30" />
+                                </MenuItem.Icon>
+
+                            </MenuItem>
+                            <MenuItem Header="{local:Loc Vouchers}" Style="{StaticResource SubMenuItem}" Command="{Binding NavigateToVouchersPageCommand}">
+                                <MenuItem.Icon>
+                                    <Image Source="/Infrastructure/Resources/Images/ticket.png" Width="30" Height="30" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+
                     <MenuItem  Style="{StaticResource SecondaryMenuItem}" Command="{Binding NavigateToLanguageCommand}" Height="40" >
                         <MenuItem.Icon>
-                            <Image Source="/Infrastructure/Resources/Images/translating.png"  Margin="-12,-8,-22,-7" Width="NaN" Height="NaN" />
+                            <Image Source="/Infrastructure/Resources/Images/translating.png"  Width="NaN" Height="NaN" />
 
                         </MenuItem.Icon>
 
@@ -48,7 +84,7 @@
 
                     <MenuItem  Style="{StaticResource SecondaryMenuItem}" Command="{Binding NavigateToDarkModeCommand}" Height="40" >
                         <MenuItem.Icon>
-                            <Image Source="/Infrastructure/Resources/Images/night-mode.png"  Margin="-5,-3,-22,-3" Width="NaN" Height="NaN" />
+                            <Image Source="/Infrastructure/Resources/Images/night-mode.png"   Width="NaN" Height="NaN" />
                         </MenuItem.Icon>
 
                     </MenuItem>
