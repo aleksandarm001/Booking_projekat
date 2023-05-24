@@ -15,7 +15,7 @@
 
 
             <ScrollViewer  VerticalScrollBarVisibility="Auto">
-                <DataGrid Height="642"  x:Name="DataGridTure" Margin="279,15,5,10" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}" 
+                <DataGrid Height="627"  x:Name="DataGridTure" Margin="279,15,5,10" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}" 
  
                             ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
                             SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"

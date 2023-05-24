@@ -5,11 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InitialProject"
       mc:Ignorable="d" 
-      d:DesignHeight="690" d:DesignWidth="1066"
+      d:DesignHeight="675" d:DesignWidth="1366"
       Title="VouchersView">
     <ScrollViewer  VerticalScrollBarVisibility="Auto">
-        <Grid Height="690">
-            <DataGrid Height="652" Margin="0,15,0,8" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}"
+        <Grid Height="675">
+            <StackPanel Height="675" Width="300" HorizontalAlignment="Left" >
+                <Image  Height="675" Margin="0,15,0,0"  Source="/Infrastructure/Resources/Images/ad-image.png" Stretch="UniformToFill" />
+            </StackPanel>
+            <DataGrid Height="637" Margin="300,15,0,8" Style="{DynamicResource DataGridStyle2}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle2}"
                                 ItemsSource="{Binding Vouchers, UpdateSourceTrigger=PropertyChanged}"
                                  IsReadOnly="True"  AutoGenerateColumns="False" Width="1064">
                 <DataGrid.Columns>

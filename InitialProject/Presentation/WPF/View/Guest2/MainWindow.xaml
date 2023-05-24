@@ -14,9 +14,9 @@
     </Window.Resources>
 
     <StackPanel>
-        <StackPanel Margin="0,0,0,0" Height="40">
+        <StackPanel Margin="0,0,0,0" Height="55">
             <StackPanel Orientation="Horizontal" Background="{StaticResource PrimaryColorBrush}">
-                <Menu Style="{StaticResource MenuStyle}" Height="40">
+                <Menu Style="{StaticResource MenuStyle}" Height="55">
 
                    
 
@@ -38,7 +38,7 @@
                     </MenuItem>
 
                     <Menu Margin="0,0,0,0" Width="350"  >
-                        <MenuItem Height="37" Width="350" HorizontalAlignment="Center" Background="{StaticResource PrimaryColorBrush}" HorizontalContentAlignment="Center" BorderThickness="0" >
+                        <MenuItem Height="55" Width="350" HorizontalAlignment="Center" Background="{StaticResource PrimaryColorBrush}" HorizontalContentAlignment="Center" BorderThickness="0" >
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="100,0">
                                     <Image Source="/Infrastructure/Resources/Images/user.png" Width="30" ClipToBounds="True" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="fill"   />
@@ -94,7 +94,7 @@
 
             </StackPanel>
         </StackPanel>
-        <StackPanel Margin="0,0,0,0" Height="690">
+        <StackPanel Margin="0,0,0,0" Height="675">
             <Frame  x:Name="frame" NavigationUIVisibility="Hidden" ScrollViewer.CanContentScroll="True" Source="Views/ToursView.xaml" />
         </StackPanel>
     </StackPanel>

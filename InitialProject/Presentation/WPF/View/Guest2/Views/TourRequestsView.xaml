@@ -5,16 +5,19 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InitialProject"
       mc:Ignorable="d" 
-      d:DesignHeight="690" d:DesignWidth="1066"
+      d:DesignHeight="675" d:DesignWidth="1366"
       Title="TourRequestsView">
 
     <Grid>
-        <TabControl TabStripPlacement="Top" Margin="0,15,0,0" BorderThickness="0" >
+        <StackPanel Height="675" Width="300" HorizontalAlignment="Left" >
+            <Image  Height="690" Margin="0,15,0,0"  Source="/Infrastructure/Resources/Images/ad-image.png" Stretch="UniformToFill" />
+        </StackPanel>
+        <TabControl TabStripPlacement="Top" Margin="300,15,0,0" BorderThickness="0" >
             <TabItem Header="{local:Loc Simple}" Width="522" Style="{StaticResource TabItemStyle}">
                 <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
                     <Grid Margin="0,0,0,20">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="560" />
+                            <RowDefinition Height="545" />
                             <!-- Row for the scrollable content -->
                             <RowDefinition Height="Auto" />
                             <!-- Row for the additional controls -->
@@ -35,11 +38,9 @@
                         </DataGrid>
          
                     <StackPanel Grid.Row="1" Orientation="Horizontal"  Height="40" Margin="20,0" >
-                        <Button x:Name="PrikaziStatistiku" Content="{local:Loc StatisticView}"  Command="{Binding StatisticViewCommand}" 
-                            HorizontalAlignment="Left"  VerticalAlignment="Center" FontFamily="Montserrat" Style="{StaticResource PrimaryButtonStyle}"
-                           >
-                        </Button>
-                                <Button x:Name="KreirajObicanZahtje" Content="{local:Loc CreateTourRequest}"  Command="{Binding CreateSimpleRequestCommand}" Margin="730,0,0,0"  VerticalAlignment="Center"  Style="{StaticResource PrimaryButtonStyle}"/>
+                        <Button x:Name="PrikaziStatistiku" Content="{local:Loc StatisticView}"  Command="{Binding StatisticViewCommand}"  VerticalAlignment="Center" FontFamily="Montserrat" Style="{StaticResource PrimaryButtonStyle}"
+                           />
+                            <Button x:Name="KreirajObicanZahtje" Content="{local:Loc CreateTourRequest}"  Command="{Binding CreateSimpleRequestCommand}" Margin="730,0,0,0"  VerticalAlignment="Center"  Style="{StaticResource PrimaryButtonStyle}"/>
                         </StackPanel>
                 </Grid>
                 </ScrollViewer>
@@ -48,7 +49,7 @@
                 <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
                     <Grid Margin="0,0,0,20">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="560" />
+                        <RowDefinition Height="545" />
                         <!-- Row for the scrollable content -->
                         <RowDefinition Height="Auto" />
                         <!-- Row for the additional controls -->

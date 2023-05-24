@@ -25,6 +25,10 @@
         public RelayCommand NavigateToTourPageCommand { get; set; }
         public RelayCommand NavigateToLanguageCommand { get; set; }
         public RelayCommand NavigateToDarkModeCommand { get; set; }
+        public RelayCommand NavigateToReservedToursCommand { get; set; }
+        public RelayCommand NavigateToFinishedToursCommand { get; set; }
+        public RelayCommand NavigateToRequestedToursCommand { get; set; }
+        public RelayCommand NavigateToVouchersPageCommand { get; set; }
         public string UserName { get; set; }
 
         private string currentLanguage;
@@ -69,6 +73,28 @@
             this.NavService.Navigate(lastMinute);
         }
 
+        private void Execute_NavigateToFinishedToursCommand(object obj)
+        {
+            Page finishedTours = new FinishedTours(_userId);
+            this.NavService.Navigate(finishedTours);
+        }
+        private void Execute_NavigateToVouchersViewCommand(object obj)
+        {
+            Page vouchersView = new VouchersView(_userId);
+            this.NavService.Navigate(vouchersView);
+        }
+        private void Execute_NavigateToRequestedToursCommand(object obj)
+        {
+            Page tourRequests = new TourRequestsView(_userId);
+            this.NavService.Navigate(tourRequests);
+        }
+
+        private void Execute_NavigateToReservedToursCommand(object obj)
+        {
+            Page reservedTours = new ReservedTours(_userId);
+            this.NavService.Navigate(reservedTours);
+        }
+
         public MainWindowViewModel(System.Windows.Navigation.NavigationService navService, int userId)
         {
             this.NavigateToUserPageCommand = new RelayCommand(Execute_NavigateToUserPageCommand);
@@ -76,6 +102,10 @@
             this.NavigateToLastMinutePageCommand = new RelayCommand(Execute_NavigateToLastMinutePageCommand);
             this.NavigateToLanguageCommand = new RelayCommand(Execute_SwitchLanguageCommand);
             this.NavigateToDarkModeCommand = new RelayCommand(Execute_SwitchModeCommand);
+            this.NavigateToReservedToursCommand = new RelayCommand(Execute_NavigateToReservedToursCommand);
+            this.NavigateToFinishedToursCommand = new RelayCommand(Execute_NavigateToFinishedToursCommand);
+            this.NavigateToRequestedToursCommand = new RelayCommand(Execute_NavigateToRequestedToursCommand);
+            this.NavigateToVouchersPageCommand = new RelayCommand(Execute_NavigateToVouchersViewCommand);
             this.NavService = navService;
 
             this.CurrentLanguage = "sr-LATN";

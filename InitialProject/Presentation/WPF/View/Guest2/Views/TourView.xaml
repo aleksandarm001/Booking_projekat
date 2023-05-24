@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InitialProject"
       mc:Ignorable="d" 
-      d:DesignHeight="745" d:DesignWidth="1366"
+      d:DesignHeight="675" d:DesignWidth="1366"
       Title="TourView">
 
     <Grid x:Name="TuraGrid" Visibility="Visible" Background="White" Margin="0,0,0,0">
