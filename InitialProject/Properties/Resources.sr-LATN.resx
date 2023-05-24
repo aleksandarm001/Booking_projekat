@@ -162,6 +162,12 @@
   <data name="Country:" xml:space="preserve">
     <value>Drzava:</value>
   </data>
+  <data name="CreatePDF" xml:space="preserve">
+    <value>Kreirajte PDF izvještaj za vaše rezervacije</value>
+  </data>
+  <data name="CreateReport" xml:space="preserve">
+    <value>Kreiraj izvještaj</value>
+  </data>
   <data name="CreateTourRequest" xml:space="preserve">
     <value>Kreiraj zahtjev </value>
   </data>
@@ -266,6 +272,9 @@
   </data>
   <data name="RemainingPeopleNumber" xml:space="preserve">
     <value>Broj preostalih mjesta</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Izvještaj</value>
   </data>
   <data name="RequestedTours" xml:space="preserve">
     <value>Zahtjevane ture</value>

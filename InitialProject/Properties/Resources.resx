@@ -162,6 +162,12 @@
   <data name="Country:" xml:space="preserve">
     <value>Country:</value>
   </data>
+  <data name="CreatePDF" xml:space="preserve">
+    <value>Create PDF report for your reservations</value>
+  </data>
+  <data name="CreateReport" xml:space="preserve">
+    <value>Create report</value>
+  </data>
   <data name="CreateTourRequest" xml:space="preserve">
     <value>Create request</value>
   </data>
@@ -272,6 +278,9 @@
   </data>
   <data name="RemainingPeopleNumber" xml:space="preserve">
     <value>Remaining people number</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Report</value>
   </data>
   <data name="RequestedTours" xml:space="preserve">
     <value>Requested tours</value>

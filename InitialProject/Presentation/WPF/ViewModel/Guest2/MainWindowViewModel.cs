@@ -29,6 +29,7 @@
         public RelayCommand NavigateToFinishedToursCommand { get; set; }
         public RelayCommand NavigateToRequestedToursCommand { get; set; }
         public RelayCommand NavigateToVouchersPageCommand { get; set; }
+        public RelayCommand NavigateToReportPageCommand { get; set; }
         public string UserName { get; set; }
 
         private string currentLanguage;
@@ -94,6 +95,11 @@
             Page reservedTours = new ReservedTours(_userId);
             this.NavService.Navigate(reservedTours);
         }
+        private void Execute_NavigateToReportViewCommand(object obj)
+        {
+            Page reportPage = new ReportPage(_userId);
+            this.NavService.Navigate(reportPage);
+        }
 
         public MainWindowViewModel(System.Windows.Navigation.NavigationService navService, int userId)
         {
@@ -106,6 +112,7 @@
             this.NavigateToFinishedToursCommand = new RelayCommand(Execute_NavigateToFinishedToursCommand);
             this.NavigateToRequestedToursCommand = new RelayCommand(Execute_NavigateToRequestedToursCommand);
             this.NavigateToVouchersPageCommand = new RelayCommand(Execute_NavigateToVouchersViewCommand);
+            this.NavigateToReportPageCommand = new RelayCommand(Execute_NavigateToReportViewCommand);
             this.NavService = navService;
 
             this.CurrentLanguage = "sr-LATN";

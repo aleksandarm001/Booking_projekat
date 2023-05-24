@@ -73,13 +73,15 @@
             CommandParameter = Int32.Parse(parameter.ToString());
             if (Regex.IsMatch(StrNumberOfGuests, regexPattern))
             {
-                if (NumberOfGuests > Tour.MaxGuestNumber)
-                {
-                    ImpossibleMakeReservation();
-                }
-                else
-                {
-                    MakeReservation(CommandParameter);
+                if (NumberOfGuests > 0) { 
+                    if (NumberOfGuests > Tour.MaxGuestNumber)
+                    {
+                        ImpossibleMakeReservation();
+                    }
+                    else
+                    {
+                        MakeReservation(CommandParameter);
+                    }
                 }
             } else
             {

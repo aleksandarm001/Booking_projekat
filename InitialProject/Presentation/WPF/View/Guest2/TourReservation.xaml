@@ -26,7 +26,6 @@
 
         <TextBlock Style="{DynamicResource TextBlock1}" HorizontalAlignment="Left" Margin="26,184,0,0" TextWrapping="Wrap" Text="{local:Loc InputGuestNumberForReservation:}" VerticalAlignment="Top" Width="242"/>
         <TextBox Name="NumberOfGuestTextBox"  HorizontalAlignment="Left" Text="{Binding Path=StrNumberOfGuests, UpdateSourceTrigger=PropertyChanged}" Height="22" Margin="272,181,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="53"/>
-        <TextBlock Style="{StaticResource ErrorText}"  Height="16" Text="{Binding Path=Validate, UpdateSourceTrigger=PropertyChanged}" Margin="272,0,-8,68" Width="NaN"/>
 
 
 

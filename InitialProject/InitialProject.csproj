@@ -36,6 +36,7 @@
     <None Remove="Infrastructure\Resources\Images\pin3.png" />
     <None Remove="Infrastructure\Resources\Images\qmark.png" />
     <None Remove="Infrastructure\Resources\Images\repeat.png" />
+    <None Remove="Infrastructure\Resources\Images\report.png" />
     <None Remove="Infrastructure\Resources\Images\reservation.png" />
     <None Remove="Infrastructure\Resources\Images\right-arrow.png" />
     <None Remove="Infrastructure\Resources\Images\stopwatch.png" />
@@ -128,6 +129,9 @@
     <Content Include="Infrastructure\Resources\Images\repeat.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Infrastructure\Resources\Images\report.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Infrastructure\Resources\Images\reservation.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -155,6 +159,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ceTe.DynamicPDF.CoreSuite.NET" Version="12.4.0" />
     <PackageReference Include="DotNetProjects.WpfToolkit.DataVisualization" Version="6.1.94" />
     <PackageReference Include="EcoWpf" Version="7.0.0.14619" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />

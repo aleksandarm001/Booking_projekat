@@ -70,6 +70,10 @@ namespace InitialProject.Domen.Model
         {
             return City + " " + Country;
         }
+        public string ToString3()
+        {
+            return City + ", " + Country;
+        }
         public Location fromStringToLocation(string s)
         {
             if (s.Equals(String.Empty))

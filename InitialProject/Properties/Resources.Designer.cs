@@ -196,6 +196,24 @@ namespace InitialProject.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create PDF report for your reservations.
+        /// </summary>
+        internal static string CreatePDF {
+            get {
+                return ResourceManager.GetString("CreatePDF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create report.
+        /// </summary>
+        internal static string CreateReport {
+            get {
+                return ResourceManager.GetString("CreateReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create request.
         /// </summary>
         internal static string CreateTourRequest {
@@ -525,6 +543,15 @@ namespace InitialProject.Properties {
         internal static string RemainingPeopleNumber {
             get {
                 return ResourceManager.GetString("RemainingPeopleNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report.
+        /// </summary>
+        internal static string Report {
+            get {
+                return ResourceManager.GetString("Report", resourceCulture);
             }
         }
         

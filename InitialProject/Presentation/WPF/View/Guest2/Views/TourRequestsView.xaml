@@ -10,7 +10,7 @@
 
     <Grid>
         <StackPanel Height="675" Width="300" HorizontalAlignment="Left" >
-            <Image  Height="690" Margin="0,15,0,0"  Source="/Infrastructure/Resources/Images/ad-image.png" Stretch="UniformToFill" />
+            <Image  Height="675" Margin="0,0,0,0"  Source="/Infrastructure/Resources/Images/ad-image.png" Stretch="UniformToFill" />
         </StackPanel>
         <TabControl TabStripPlacement="Top" Margin="300,15,0,0" BorderThickness="0" >
             <TabItem Header="{local:Loc Simple}" Width="522" Style="{StaticResource TabItemStyle}">

@@ -45,7 +45,7 @@
         <ComboBox Name="LangugageComboBox"  SelectedItem="{Binding Path=TourRequest.Language }"
                   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Languages}"   VerticalAlignment="Center" HorizontalAlignment="Center" 
                   Margin="15,0,0,0" Width="180" Grid.Column="1" Grid.Row="3"/>
-        <TextBlock Style="{StaticResource ErrorText}" Grid.Row="3" Grid.Column="1"  Margin="15,0,0,0" Height="16" Width="180" Text="{Binding Path=TourRequest.ValidationErrors[Language]}"/>
+        <TextBlock Style="{StaticResource ErrorText}" Grid.Row="3" Grid.Column="1"  Margin="15,0,0,0" Height="16" Width="180" Text="{Binding Path= TourRequest.ValidationErrors[Language]}"/>
         
 
         <TextBlock HorizontalAlignment="Left" Margin="19,0,0,0" VerticalAlignment="Center"  TextWrapping="Wrap"  Grid.Column="0" Grid.Row="4" Text="{local:Loc GuestNumber:}" Width="80"/>
@@ -57,7 +57,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center"  TextWrapping="Wrap"  Grid.Column="0" Grid.Row="5" Text="{local:Loc DateFrom:}"/>
         <DatePicker Name="DatePickerStart" IsTodayHighlighted="True"  SelectedDate="{Binding Path=TourRequest.StartingDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedDateChanged="DatePickerStart_SelectedDateChanged"  VerticalAlignment="Center" Height="24" HorizontalAlignment="Left"  Margin="22,0,0,0" Width="180" Grid.Column="1" Grid.Row="5"/>
-        <TextBlock Style="{StaticResource ErrorText}" Grid.Row="5" Grid.Column="1"  Margin="15,0,0,0" Height="16" Width="180" Text="{Binding Path=TourRequest.ValidationErrors[StartingDate]}"/>
+        <TextBlock Style="{StaticResource ErrorText}" Grid.Row="5" Grid.Column="1"  Margin="15,0,0,0" Height="16" Width="180" Text="{Binding Path = TourRequest.ValidationErrors[StartingDate]}"/>
         
         <TextBlock HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center"  TextWrapping="Wrap"  Grid.Column="0" Grid.Row="6" Text="{local:Loc DateTo:}" />
         <DatePicker Name="DatePickerEnd"  SelectedDate="{Binding Path=TourRequest.EndingDate, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 

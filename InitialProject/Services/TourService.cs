@@ -2,6 +2,7 @@
 {
     using InitialProject.Aplication.Contracts.Repository;
     using InitialProject.Aplication.Factory;
+    using InitialProject.Domen.CustomClasses;
     using InitialProject.Domen.Model;
     using InitialProject.Services.IServices;
     using System;
@@ -63,6 +64,19 @@
                     tours.Add(_tourRepository.GetAll().Find(tour => tour.TourId == t.TourId));
             }
             return tours;
+        }
+
+        public List<TourReportsDTO> GetAllForReport(int userId, DateTime starting, DateTime ending)
+        {
+            List<TourAttendance> _tourAttendance = _tourAttendanceService.GetAll().Where(t=> t.UserId==userId && t.TourDate.Date<=ending.Date && t.TourDate.Date>=starting.Date).ToList();
+            var attendances = _tourAttendance.GroupBy(t => t.TourId);
+            List<TourReportsDTO> lista = new List<TourReportsDTO>();
+            foreach (var t in attendances)
+            {
+                TourReportsDTO tour = new TourReportsDTO(t.ElementAt(0).TourId, t.ElementAt(0).UserAttended, t.ElementAt(0).TourDate.Date);
+                lista.Add(tour);
+            }
+            return lista;
         }
 
         public bool HasFinished(int tourId)

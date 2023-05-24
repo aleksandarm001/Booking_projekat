@@ -1,4 +1,5 @@
-﻿using InitialProject.Domen.Model;
+﻿using InitialProject.Domen.CustomClasses;
+using InitialProject.Domen.Model;
 using System;
 using System.Collections.Generic;
 
@@ -15,6 +16,8 @@ namespace InitialProject.Services.IServices
         List<Tour> GetSimilarAsTourHasFullCapacity(string country, string city);
         Tour GetTourById(int id);
         Tour Save(Tour tour);
+
+        List<TourReportsDTO> GetAllForReport(int userId, DateTime starting, DateTime ending);
         int FindNextId();
         List<Tour> GetAllFinishedTours();
         void ReduceMaxGuestNumber(int tourId, int guestNumber);
