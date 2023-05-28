@@ -5,71 +5,117 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View.Guest1"
         mc:Ignorable="d"
-        Title="OwnerRating" Height="680" Width="560"
-        WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="80*"/>
-            <RowDefinition Height="91*"/>
-            <RowDefinition Height="81*"/>
-            <RowDefinition Height="81*"/>
-            <RowDefinition Height="156*"/>
-            <RowDefinition Height="66*"/>
-            <RowDefinition Height="79*"/>
-        </Grid.RowDefinitions>
-        <Label Grid.Row="0" FontSize="25" FontWeight="DemiBold" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,25,0,10" Width="160">Owner rating</Label>
+        Title="OwnerRating" Height="680" Width="500"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Background="Transparent">
+      
+    <Border CornerRadius="12"
+            BorderThickness="5"
+            Background="White" Margin="0,0,0,31">
 
-        <Grid Grid.Column="0" Margin="80,26,80,0" Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25*"/>
-                <RowDefinition Height="60*"/>
-            </Grid.RowDefinitions>
-            <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="25" Width="136" Content="Accommodation Name"/>
-            <ComboBox ItemsSource="{Binding AccommodationsName}" HorizontalAlignment="Left" 
-                      Grid.Row="1" VerticalAlignment="Top" Width="170" Height="28" Grid.Column="1"
-                      DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding Path=SelectedAccommodationId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-        
-        </Grid>
-        <Grid Grid.Row="2" Grid.Column="0" Margin="80,3,80,5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="15*"/>
-                <RowDefinition Height="40*"/>
-            </Grid.RowDefinitions>
-            <Label  Content="Hygiene&#xD;&#xA;" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="70"/>
-            <ComboBox ItemsSource="{Binding Grades}" SelectedItem="{Binding Path=StrCleanliness, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Grid.Row="1" Height="28" Margin="0,0,30,0">
-                
-            </ComboBox>
-        </Grid>
-        <Grid Grid.Row="3" Grid.Column="0" Margin="80,0,80,5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="15*"/>
-                <RowDefinition Height="40*"/>
-            </Grid.RowDefinitions>
-            <Label  Content="Correctness of the owener" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="149"/>
-            <ComboBox ItemsSource="{Binding Grades}" SelectedItem="{Binding Path=StrCorrectness, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Height="28" Margin="0,20,30,0" Grid.RowSpan="2">
-            </ComboBox>
-        </Grid>
-        <Grid Grid.Row="4" Grid.Column="0" Margin="80,0,80,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="15*"/>
-                <RowDefinition Height="40*"/>
-            </Grid.RowDefinitions>
-            <Label  Content="Additional Comment" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="149"/>
-            <TextBox Text="{Binding Path=AdditionalComment, UpdateSourceTrigger=LostFocus}" Grid.Row ="1" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,30,0"/>
-        </Grid>
-        <Grid Grid.Row="5" Grid.Column="0" Margin="80,10,80,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="18*"/>
-                <ColumnDefinition Width="7*"/>
-            </Grid.ColumnDefinitions>
-            <TextBox Text="{Binding Path=Image, UpdateSourceTrigger=LostFocus}" Height="28" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="278"/>
-            <Button Grid.Column="1" Click="AddImage_Click" Content="Add Image" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Center" Height="20" Width="64" />
-
-        </Grid>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="118,0,0,0" Grid.Row="6" VerticalAlignment="Center" Height="32" Width="111" Click="Submit_Click"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="315,0,0,0" Grid.Row="6" VerticalAlignment="Center" Height="32" Width="111"/>
-    </Grid>
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#002D3A" Offset="0"/>
+                <GradientStop Color="#00A76D" Offset="0.75"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <StackPanel Width="330">
+            <TextBlock Grid.Row="0" FontSize="25" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="0,25,0,10">Owner rating</TextBlock>
+            <StackPanel Margin="0 15 0 0">
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Accommodation Name" Margin="0 0 0 5"/>
+                <ComboBox x:Name="cmbx" ItemsSource="{Binding AccommodationsName}" HorizontalAlignment="Left" 
+                        Grid.Row="1" VerticalAlignment="Top" Width="170" Height="28" DisplayMemberPath="Value" 
+                          SelectedValuePath="Key" SelectedValue="{Binding Path=SelectedAccommodationId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Margin="0 15 0 0">
+                <TextBlock  Text="Hygiene" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
+                <ComboBox ItemsSource="{Binding Grades}" SelectedItem="{Binding Path=StrCleanliness, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,30,0" Height="28"/>
+            </StackPanel>
+            <StackPanel Margin="0 15 0 0">
+                <TextBlock  Text="Correctness of the owner" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
+                <ComboBox ItemsSource="{Binding Grades}" SelectedItem="{Binding Path=StrCorrectness, UpdateSourceTrigger=PropertyChanged}" Height="28" Margin="0,0,30,0"/>
+            </StackPanel>
+            <StackPanel Margin="0 15 0 0">
+                <TextBlock  Text="Additional Comment" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
+                <TextBox Text="{Binding Path=AdditionalComment, UpdateSourceTrigger=LostFocus}" Grid.Row ="1" Height="150" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,30,0"/>
+            </StackPanel>
+            <StackPanel Margin="0 15 0 0" Orientation="Vertical">
+                <TextBlock  Text="Additional Comment" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Text="{Binding Path=Image, UpdateSourceTrigger=LostFocus}" Height="28" HorizontalAlignment="Left" TextWrapping="Wrap" Width="255"/>
+                    <Button Grid.Column="1" Click="AddImage_Click" Content="Add Image" HorizontalAlignment="Left"  Height="28" Width="70" Margin="5" />
+                </StackPanel>
+            </StackPanel>
+            <Grid Height="50" Margin="0 20 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button BorderThickness="0"
+                            Content="Submit (F10)"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"                           
+                            Margin="0,0,0,0"
+                            Command="{Binding SubmitReview_Command}"
+                        HorizontalAlignment="Center"
+                        Grid.Column="0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#00A76D"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#006C6D"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="130" Height="40"
+                                        CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button BorderThickness="0"
+                            Content="Cancel (F11)"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"                           
+                            Margin="0,0,0,0"
+                            Command="{Binding Cancel_Command}"
+                        HorizontalAlignment="Center"
+                        Grid.Column="1">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#00A76D"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#006C6D"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="130" Height="40"
+                                        CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </StackPanel>
+    </Border>
 </Window>

@@ -13,6 +13,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 {
@@ -21,14 +22,19 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private ObservableCollection<ForumOverviewDTO> _myForums;
         private ObservableCollection<ForumOverviewDTO> _allForums;
         private ForumOverviewDTO _selectedForum;
-        private readonly IForumService _forumService;
-        private readonly IForumCommentService _forumCommentService;
-        private readonly IUserService _userService;
-        private readonly IForumIdService _forumIdService;
-        private readonly IForumUtilityService _forumUtilityService;
+        private IForumService _forumService;
+        private IForumCommentService _forumCommentService;
+        private IUserService _userService;
+        private IForumIdService _forumIdService;
+        private IForumUtilityService _forumUtilityService;
         public RelayCommand CreateForumCommand { get; set; }
         public RelayCommand CloseForumCommand { get; set; }
         public RelayCommand OpenForumCommand { get; set; }
+        public RelayCommand SelectMyForumTab_Command { get; set; }
+        public RelayCommand SelectForumOverview_Command { get; set; }
+        public RelayCommand SelectMyForumsElement_Command { get; set; }
+        public RelayCommand SelectForumsOverviewElement_Command { get; set; }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         public ObservableCollection<ForumOverviewDTO> MyForums
         {
@@ -72,19 +78,57 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         public ForumsOverviewViewModel()
         {
+            InitializeServices();
+            InitializeCommands();
+            InitializeCollections();
+            InitializeMyForums();
+            InitializeAllForums();
+        }
+
+        private void InitializeCollections()
+        {
+            MyForums = new ObservableCollection<ForumOverviewDTO>();
+            AllForums = new ObservableCollection<ForumOverviewDTO>();
+        }
+
+        private void InitializeServices()
+        {
             _forumService = Injector.CreateInstance<IForumService>();
             _forumCommentService = Injector.CreateInstance<IForumCommentService>();
             _userService = Injector.CreateInstance<IUserService>();
             _forumIdService = Injector.CreateInstance<IForumIdService>();
             _forumUtilityService = Injector.CreateInstance<IForumUtilityService>();
+        }
+
+        private void InitializeCommands()
+        {
             CreateForumCommand = new RelayCommand(OpenCreateForumForm);
             CloseForumCommand = new RelayCommand(CloseForum);
             OpenForumCommand = new RelayCommand(OpenForum);
-            MyForums = new ObservableCollection<ForumOverviewDTO>();
-            AllForums = new ObservableCollection<ForumOverviewDTO>();
-            InitializeMyForums();
-            InitializeAllForums();
+            SelectMyForumTab_Command = new RelayCommand(SelectMyForumTab);
+            SelectForumOverview_Command = new RelayCommand(SelectForumOverview);
+            SelectMyForumsElement_Command = new RelayCommand(SelectFirstElement);
+            SelectForumsOverviewElement_Command = new RelayCommand(SelectFirstElement);
         }
+        private void SelectFirstElement(object parameter)
+        {
+            var dataGrid = (parameter) as DataGrid;
+            dataGrid.Focus();
+            dataGrid.SelectedItem = dataGrid.Items[0];
+            dataGrid.ScrollIntoView(dataGrid.SelectedItem);
+        }
+        private void SelectMyForumTab(object parameter)
+        {
+            var tab = (parameter) as TabControl;
+            tab.SelectedIndex = 0;
+
+        }
+        private void SelectForumOverview(object parameter)
+        {
+            var tab = (parameter) as TabControl;
+            tab.SelectedIndex = 1;
+        }
+
         private void OpenCreateForumForm(object parameter)
         {
             CreatingForumForm creatingForumForm = new CreatingForumForm();

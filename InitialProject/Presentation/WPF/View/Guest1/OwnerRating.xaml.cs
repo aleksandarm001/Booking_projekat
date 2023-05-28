@@ -1,5 +1,6 @@
 ﻿using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.ViewModel;
 using InitialProject.Presentation.WPF.ViewModel.Guest1;
 using InitialProject.Services;
 using InitialProject.Services.IServices;
@@ -18,15 +19,56 @@ namespace InitialProject.View.Guest1
     /// </summary>
     public partial class OwnerRating : Window, INotifyPropertyChanged
     {
+        public event EventHandler FieldsUpdated;
+        private RelayCommand _submitReview_command;
+        public RelayCommand SubmitReview_Command
+        {
+            get
+            {
+                if (_submitReview_command == null)
+                {
+                    _submitReview_command = new RelayCommand(SubmitReview, CanSubmitReview);
+                }
+                return _submitReview_command;
+            }
+        }
+        private bool _isEnabled;
+        public bool CanExecute
+        {
+            get
+            {
+                return _isEnabled;
+            }
+            set
+            {
+                _isEnabled = !string.IsNullOrEmpty(StrCorrectness) && !string.IsNullOrEmpty(StrCleanliness);
+                OnPropertyChanged(nameof(CanExecute));
+            }
+        }
+        public RelayCommand Cancel_Command { get; set; }
         public List<OwnerToRate> ownersToRate;
         public ObservableCollection<KeyValuePair<int, string>> AccommodationsName { get; set; }
-        private readonly OwnerToRateService ownerToRateService;
-        private readonly OwnerRateService ownerRateService;
-        private readonly AccommodationService accommodationService;
+        private  OwnerToRateService ownerToRateService;
+        private  OwnerRateService ownerRateService;
+        private  AccommodationService accommodationService;
         public List<string> NekaLista;
         public List<string> Grades { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
-        public int SelectedAccommodationId { get; set; }
+        private int _selectedAccommodationId;
+        public int SelectedAccommodationId
+        {
+            get => _selectedAccommodationId;
+            set
+            {
+                if(value != _selectedAccommodationId)
+                {
+                    _selectedAccommodationId = value;
+                    OnPropertyChanged();
+                    NotifyFieldsUpdated();
+                }
+            }
+        }
+
         public List<string> Images { get; set; }
         public int Cleanliness { get; set; }
         private string _strCleanliness;
@@ -46,6 +88,7 @@ namespace InitialProject.View.Guest1
                     catch (Exception) { }
                     _strCleanliness = value;
                     OnPropertyChanged();
+                    NotifyFieldsUpdated();
                 }
             }
         }
@@ -67,6 +110,7 @@ namespace InitialProject.View.Guest1
                     catch (Exception) { }
                     _strCorrectness = value;
                     OnPropertyChanged();
+                    NotifyFieldsUpdated();
                 }
             }
         }
@@ -89,14 +133,34 @@ namespace InitialProject.View.Guest1
         public OwnerRating(int userId)
         {
             InitializeComponent();
-            InitializeGrades();
             _userId = userId;
             DataContext = this;
+            cmbx.Focus();
+            InitializeGrades();
+            InitializeServices();
+            InitializeCollections(userId);
+            InitializeCommands();
+        }
+        private void NotifyFieldsUpdated()
+        {
+            FieldsUpdated?.Invoke(this, EventArgs.Empty);
+        }
+        private void InitializeCommands()
+        {
+            Cancel_Command = new RelayCommand(Cancel);
+        }
+
+        private void InitializeCollections(int userId)
+        {
+            Images = new List<string>();
+            AccommodationsName = new ObservableCollection<KeyValuePair<int, string>>(ownerToRateService.GetAccommodationNamesByUser(userId));
+        }
+
+        private void InitializeServices()
+        {
             ownerToRateService = new OwnerToRateService();
             ownerRateService = new OwnerRateService();
             accommodationService = new AccommodationService();
-            Images = new List<string>();
-            AccommodationsName = new ObservableCollection<KeyValuePair<int, string>>(ownerToRateService.GetAccommodationNamesByUser(userId));
         }
 
         private void AddImage_Click(object sender, RoutedEventArgs e)
@@ -106,15 +170,21 @@ namespace InitialProject.View.Guest1
                 Images.Add(Image);
             }
         }
-
-        private void Submit_Click(object sender, RoutedEventArgs e)
+        private void SubmitReview(object parameter)
         {
             ownerToRateService.DeleteOwnerToRate(SelectedAccommodationId);
             int ownerId = accommodationService.GetOwnerIdByAccommodationId(SelectedAccommodationId);
-            OwnerRate ownerRate = new OwnerRate(_userId, ownerId,SelectedAccommodationId, Cleanliness, Correctness, AdditionalComment, Images);
+            OwnerRate ownerRate = new OwnerRate(_userId, ownerId, SelectedAccommodationId, Cleanliness, Correctness, AdditionalComment, Images);
             ownerRateService.SaveRate(ownerRate);
             AskRenovationRecommendation();
-
+        }
+        private bool CanSubmitReview(object parameter)
+        {
+            return CanExecute;
+        }
+        private void Cancel(object parameter)
+        {
+            this.Close();
         }
         private void InitializeGrades()
         {
