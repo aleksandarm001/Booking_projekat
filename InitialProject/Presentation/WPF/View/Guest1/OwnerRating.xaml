@@ -44,7 +44,7 @@
             <StackPanel Margin="0 15 0 0" Orientation="Vertical">
                 <TextBlock  Text="Additional Comment" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Text="{Binding Path=Image, UpdateSourceTrigger=LostFocus}" Height="28" HorizontalAlignment="Left" TextWrapping="Wrap" Width="255"/>
+                    <TextBox Text="{Binding Path=Image, UpdateSourceTrigger=LostFocus}" Height="28" HorizontalAlignment="Left" TextWrapping="Wrap" Width="225"/>
                     <Button Grid.Column="1" Click="AddImage_Click" Content="Add Image" HorizontalAlignment="Left"  Height="28" Width="70" Margin="5" />
                 </StackPanel>
             </StackPanel>

@@ -63,9 +63,13 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             _accommodationId = accommdoationId;
             Levels = RenovationLevels.Levels;
             CanSubmit = false;
-            SubmitCommand = new RelayCommand(SubmitRecommendation);
+            SubmitCommand = new RelayCommand(SubmitRecommendation, CanSubmitRecommendation);
             CloseCommand = new RelayCommand(CloseWindow);
             F3OpenLevels = new RelayCommand(OpenRenovationLevelsOverview);
+        }
+        private bool CanSubmitRecommendation(object parameter)
+        {
+            return SelectedLevel != null;
         }
         public void SubmitRecommendation(object parameter)
         {

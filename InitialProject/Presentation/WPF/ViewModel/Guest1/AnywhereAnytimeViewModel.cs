@@ -30,6 +30,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         public RelayCommand ApplyFiltersCommand { get; set; }
         public RelayCommand ResetFiltersCommand { get; set; }
         public RelayCommand ReserveCommand { get; set; }
+        public RelayCommand FocusFilters_Command { get; set; }
+        public RelayCommand FocusTable_Command { get; set; }
         public ObservableCollection<AccommodationReservationDTO> Accommodations
         {
             get 
@@ -144,9 +146,22 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             ApplyFiltersCommand = new RelayCommand(ApplyFilters);
             ResetFiltersCommand = new RelayCommand(ResetFilters);
             ReserveCommand = new RelayCommand(MakeReservation);
+            FocusFilters_Command = new RelayCommand(FocusFilters);
+            FocusTable_Command = new RelayCommand(FocusTable);
             AccommodationsNumber = 0;
         }
-
+        private void FocusFilters(object parameter)
+        {
+            var datePicker = parameter as DatePicker;
+            datePicker.Focus();
+        }
+        private void FocusTable(object parameter)
+        {
+            var dataGrid = parameter as DataGrid;
+            dataGrid.Focus();
+            dataGrid.SelectedItem = dataGrid.Items[0];
+            dataGrid.ScrollIntoView(dataGrid.SelectedItem);
+        }
         public void ApplyFilters(object parameter)
         {
             UpdateAccommodations();

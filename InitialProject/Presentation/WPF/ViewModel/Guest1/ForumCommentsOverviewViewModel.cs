@@ -11,6 +11,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 {
@@ -29,6 +30,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private readonly ICommentService _commentService;
         private readonly IAccommodationReservationService _accommodationReservationService;
         public RelayCommand SubmitCommentCommand { get; set; }
+        public RelayCommand FocusComments_Comman { get; set; }
+        public RelayCommand FocusTextBox_Comman { get; set; }
         public ObservableCollection<CommentDTO> Comments
         {
             get => _comments;
@@ -98,11 +101,36 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             _forumIdService = Injector.CreateInstance<IForumIdService>();
             _accommodationReservationService = Injector.CreateInstance<IAccommodationReservationService>();
             Comments = new ObservableCollection<CommentDTO>();
-            SubmitCommentCommand = new RelayCommand(SubmitComment);
             InitializeForumComments();
             InitializeTopic();
             InitializeLocation();
             InitializeCanLeaveComment();
+            InitializeCommands();
+
+        }
+
+        private void InitializeCommands()
+        {
+            SubmitCommentCommand = new RelayCommand(SubmitComment, CanSubmitComment);
+            FocusComments_Comman = new RelayCommand(FocusComments);
+            FocusTextBox_Comman = new RelayCommand(FocusTextBox);
+        }
+
+        private void FocusComments(object parameter)
+        {
+            var listBox = parameter as ListBox;
+            listBox.Focus();
+            listBox.SelectedItem = listBox.Items[0];
+            listBox.ScrollIntoView(listBox.SelectedItem);
+        }
+        private void FocusTextBox(object parameter)
+        {
+            var textBox = parameter as TextBox;
+            textBox.Focus();
+        }
+        private bool CanSubmitComment(object parameter)
+        {
+            return CanLeaveComment;
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
