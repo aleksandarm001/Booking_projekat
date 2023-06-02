@@ -143,13 +143,19 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             _accommodationReservationService = Injector.CreateInstance<IAccommodationReservationService>();
             _reservationService = Injector.CreateInstance<IReservationService>();
             _userService = Injector.CreateInstance<IUserService>();
+            InitializeCommands();
+            AccommodationsNumber = 0;
+        }
+
+        private void InitializeCommands()
+        {
             ApplyFiltersCommand = new RelayCommand(ApplyFilters);
             ResetFiltersCommand = new RelayCommand(ResetFilters);
             ReserveCommand = new RelayCommand(MakeReservation);
             FocusFilters_Command = new RelayCommand(FocusFilters);
             FocusTable_Command = new RelayCommand(FocusTable);
-            AccommodationsNumber = 0;
         }
+
         private void FocusFilters(object parameter)
         {
             var datePicker = parameter as DatePicker;

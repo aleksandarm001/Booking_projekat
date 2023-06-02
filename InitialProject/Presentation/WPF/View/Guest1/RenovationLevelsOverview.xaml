@@ -6,34 +6,79 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest1"
         mc:Ignorable="d"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
         Title="RenovationLevelsOverview" Height="450" Width="480">
-    <Grid Margin="20, 30, 20, 10">
-        <Grid Margin="40, 0, 40, 0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <TextBlock FontSize="14" Grid.Row="0" TextWrapping="Wrap">
+    <Window.InputBindings>
+        <KeyBinding Key="Return" Command="{Binding CloseCommand}"/>
+    </Window.InputBindings>
+    <Border CornerRadius="12"
+            BorderThickness="5"
+            Background="White" Margin="0,0,0,0">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#002D3A" Offset="0"/>
+                <GradientStop Color="#00A76D" Offset="0.75"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <Grid Margin="20, 30, 20, 10">
+            <Grid Margin="40, 0, 40, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock FontSize="14" Grid.Row="0" TextWrapping="Wrap">
                 Level 1: It would be nice to renovate some minor things, but everything works fine without it.&#13;&#10;
-            </TextBlock>
-            <TextBlock FontSize="14" Grid.Row="1" TextWrapping="Wrap">
+                </TextBlock>
+                <TextBlock FontSize="14" Grid.Row="1" TextWrapping="Wrap">
                 Level 2: Minor complaints about the accommodation that, if addressed, would make it perfect.
-            </TextBlock>
-            <TextBlock FontSize="14" Grid.Row="2" TextWrapping="Wrap">
+                </TextBlock>
+                <TextBlock FontSize="14" Grid.Row="2" TextWrapping="Wrap">
                 Level 3: Several things that bothered me should be renovated.
-            </TextBlock>
-            <TextBlock FontSize="14" Grid.Row="3" TextWrapping="Wrap">
+                </TextBlock>
+                <TextBlock FontSize="14" Grid.Row="3" TextWrapping="Wrap">
                 Level 4: There are a lot of issues and renovation is really necessary.
-            </TextBlock>
-            <TextBlock FontSize="14" Grid.Row="4" TextWrapping="Wrap">
+                </TextBlock>
+                <TextBlock FontSize="14" Grid.Row="4" TextWrapping="Wrap">
                Level 5: The accommodation is in very poor condition and not worth renting unless renovated.
-            </TextBlock>
-            <Button Grid.Row="5" Width="150" Height="35" FontSize="14" Content="Press enter to close" Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=renovationLevelsOverview}"></Button>
-
+                </TextBlock>
+                <Button BorderThickness="0"
+                                Content="Press enter to close"
+                                Foreground="White"
+                                FontSize="14"
+                                FontFamily="Montserrat"
+                                Cursor="Hand"        
+                                Width="150"
+                                HorizontalAlignment="Center"
+                                Grid.Row="5"
+                                Command="{Binding CloseCommand}"
+                                CommandParameter="{Binding ElementName=renovationLevelsOverview}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#00A76D"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#006C6D"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" Height="40"
+                                            CornerRadius="20"
+                                            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
         </Grid>
-    </Grid>
+    </Border>
 </Window>

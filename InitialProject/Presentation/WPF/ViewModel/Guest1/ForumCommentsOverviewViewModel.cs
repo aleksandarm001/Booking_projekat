@@ -23,15 +23,15 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private string _newComment;
         private ObservableCollection<CommentDTO> _comments;
         public event PropertyChangedEventHandler? PropertyChanged;
-        private readonly IForumCommentService _forumCommentService;
-        private readonly IForumIdService _forumIdService;
-        private readonly IForumService _forumService;
-        private readonly IUserService _userService;
-        private readonly ICommentService _commentService;
-        private readonly IAccommodationReservationService _accommodationReservationService;
+        private IForumCommentService _forumCommentService;
+        private IForumIdService _forumIdService;
+        private IForumService _forumService;
+        private IUserService _userService;
+        private ICommentService _commentService;
+        private IAccommodationReservationService _accommodationReservationService;
         public RelayCommand SubmitCommentCommand { get; set; }
-        public RelayCommand FocusComments_Comman { get; set; }
-        public RelayCommand FocusTextBox_Comman { get; set; }
+        public RelayCommand FocusComments_Command { get; set; }
+        public RelayCommand FocusTextBox_Command { get; set; }
         public ObservableCollection<CommentDTO> Comments
         {
             get => _comments;
@@ -52,6 +52,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 if (_canLeaveComment != value)
                 {
                     _canLeaveComment = value;
+                    SubmitCommentCommand = new RelayCommand(SubmitComment);
                     OnPropertyChanged(nameof(CanLeaveComment));
                 }
             }
@@ -94,53 +95,19 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         public ForumCommentsOverviewViewModel()
         {
-            _forumService = Injector.CreateInstance<IForumService>();
-            _forumCommentService = Injector.CreateInstance<IForumCommentService>();
-            _userService = Injector.CreateInstance<IUserService>();
-            _commentService = Injector.CreateInstance<ICommentService>();
-            _forumIdService = Injector.CreateInstance<IForumIdService>();
-            _accommodationReservationService = Injector.CreateInstance<IAccommodationReservationService>();
             Comments = new ObservableCollection<CommentDTO>();
+            InitializeServices();
             InitializeForumComments();
             InitializeTopic();
             InitializeLocation();
             InitializeCanLeaveComment();
             InitializeCommands();
-
-        }
-
-        private void InitializeCommands()
-        {
-            SubmitCommentCommand = new RelayCommand(SubmitComment, CanSubmitComment);
-            FocusComments_Comman = new RelayCommand(FocusComments);
-            FocusTextBox_Comman = new RelayCommand(FocusTextBox);
-        }
-
-        private void FocusComments(object parameter)
-        {
-            var listBox = parameter as ListBox;
-            listBox.Focus();
-            listBox.SelectedItem = listBox.Items[0];
-            listBox.ScrollIntoView(listBox.SelectedItem);
-        }
-        private void FocusTextBox(object parameter)
-        {
-            var textBox = parameter as TextBox;
-            textBox.Focus();
-        }
-        private bool CanSubmitComment(object parameter)
-        {
-            return CanLeaveComment;
-        }
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         private void InitializeForumComments()
         {
             Comments.Clear();
             List<int> commentIds = _forumCommentService.GetCommentsIdByForumId(_forumIdService.ForumId);
-            foreach(int commentId in commentIds)
+            foreach (int commentId in commentIds)
             {
                 Comment com = _commentService.GetByCommentId(commentId);
                 User user = _userService.GetById(com.UserId);
@@ -158,6 +125,39 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         {
             Location location = _forumService.GetLocation(_forumIdService.ForumId);
             Location = location.City + ", " + location.Country;
+        }
+        private void InitializeServices()
+        {
+            _forumService = Injector.CreateInstance<IForumService>();
+            _forumCommentService = Injector.CreateInstance<IForumCommentService>();
+            _userService = Injector.CreateInstance<IUserService>();
+            _commentService = Injector.CreateInstance<ICommentService>();
+            _forumIdService = Injector.CreateInstance<IForumIdService>();
+            _accommodationReservationService = Injector.CreateInstance<IAccommodationReservationService>();
+        }
+
+        private void InitializeCommands()
+        {
+            SubmitCommentCommand = new RelayCommand(SubmitComment);
+            FocusComments_Command = new RelayCommand(FocusComments);
+            FocusTextBox_Command = new RelayCommand(FocusTextBox);
+        }
+
+        private void FocusComments(object parameter)
+        {
+            var listBox = parameter as ListBox;
+            listBox.Focus();
+            listBox.SelectedItem = listBox.Items[0];
+            listBox.ScrollIntoView(listBox.SelectedItem);
+        }
+        private void FocusTextBox(object parameter)
+        {
+            var textBox = parameter as TextBox;
+            textBox.Focus();
+        }
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         private void SubmitComment(object parameter)
         {

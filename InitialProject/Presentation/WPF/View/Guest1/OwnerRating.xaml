@@ -10,7 +10,11 @@
         AllowsTransparency="True"
         WindowStyle="None"
         Background="Transparent">
-      
+
+    <Window.InputBindings>
+        <KeyBinding Key="F10" Command="{Binding SubmitReview_Command}"/>
+        <KeyBinding Key="F11" Command="{Binding Cancel_Command}"/>
+    </Window.InputBindings>
     <Border CornerRadius="12"
             BorderThickness="5"
             Background="White" Margin="0,0,0,31">
@@ -42,7 +46,7 @@
                 <TextBox Text="{Binding Path=AdditionalComment, UpdateSourceTrigger=LostFocus}" Grid.Row ="1" Height="150" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,30,0"/>
             </StackPanel>
             <StackPanel Margin="0 15 0 0" Orientation="Vertical">
-                <TextBlock  Text="Additional Comment" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
+                <TextBlock  Text="Add image" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBox Text="{Binding Path=Image, UpdateSourceTrigger=LostFocus}" Height="28" HorizontalAlignment="Left" TextWrapping="Wrap" Width="225"/>
                     <Button Grid.Column="1" Click="AddImage_Click" Content="Add Image" HorizontalAlignment="Left"  Height="28" Width="70" Margin="5" />

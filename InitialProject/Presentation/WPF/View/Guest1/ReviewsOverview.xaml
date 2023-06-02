@@ -6,7 +6,7 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest1" xmlns:system="http://schemas.microsoft.com/winfx/2009/xaml"
         mc:Ignorable="d"
-        Title="ReviewsOverview" Height="800" Width="1024"
+        Title="ReviewsOverview" Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Background="Transparent"
@@ -22,23 +22,10 @@
             </LinearGradientBrush>
         </Border.BorderBrush>
         <Grid>
-            <Menu FontSize="15">
-                <Menu.Resources>
-                    <Style TargetType="MenuItem">
-                        <Setter Property="Margin" Value="10,0,10,0" />
-                    </Style>
-                </Menu.Resources>
-                <MenuItem Header="Home"/>
-                <MenuItem Header="Accommodation"/>
-                <MenuItem Header="Forum"/>
-                <MenuItem Header="My Ratings"/>
-                <MenuItem Header="Reservations"/>
-                <MenuItem Header="Log Out"/>
-            </Menu>
             <Grid Margin="10, 30, 10, 10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="130"/>
-                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="0"/>
+                    <RowDefinition Height="70"/>
                     <RowDefinition Height="80"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
@@ -67,35 +54,41 @@
                             <Binding RelativeSource="{RelativeSource Self}" Path="StrokeThickness"/>
                         </Rectangle.StrokeDashOffset>
                     </Rectangle>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" Margin="50 0 50 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="300"/>
                             <ColumnDefinition Width="300*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="16"  VerticalAlignment="Center">Average rating:</TextBlock>
-                            <TextBlock FontSize="16" Text="{Binding StrAverageRate}" Width="26"/>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="0">
+                            <TextBlock FontSize="16" VerticalAlignment="Center">Average rating:  </TextBlock>
+                            <TextBlock FontSize="16" VerticalAlignment="Center" Text="{Binding StrAverageRate}" Width="26"/>
                             <TextBlock FontSize="16" VerticalAlignment="Center">/ 10</TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="1">
-                            <TextBlock FontSize="16" VerticalAlignment="Center">Based on:</TextBlock>
-                            <TextBlock FontSize="16" Text="{Binding ReviewsNumber}" Width="26"/>
-                            <TextBlock FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" >review(s).</TextBlock>
+                            <TextBlock FontSize="16" VerticalAlignment="Center">Based on:  </TextBlock>
+                            <TextBlock FontSize="16" VerticalAlignment="Center" Text="{Binding ReviewsNumber}" Width="26"/>
+                            <TextBlock FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"> review(s).</TextBlock>
                         </StackPanel>
 
 
                     </Grid>
                 </Grid>
-                <DataGrid Grid.Row="3" Width="800" Height="400" FontSize="16"
+                <DataGrid Grid.Row="3" Width="600" Height="370" FontSize="16"
                 ItemsSource="{Binding Path = Reviews, UpdateSourceTrigger=PropertyChanged}"
                 Style ="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"
                 IsReadOnly="True" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Owner" Width="0.45*" Binding="{Binding OwnerName}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Accommodation" Width="0.6*" Binding="{Binding AccommodationName}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Hygiene" Width="0.3*" Binding="{Binding Hygiene}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Following Rules" Width="0.5*" Binding="{Binding FollowingRules}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Comment" Width="*" Binding="{Binding Comment}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Accommodation" Width="0.7*" Binding="{Binding AccommodationName}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Hygiene" Width="0.4*" Binding="{Binding Hygiene}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Following Rules" Width="0.7*" Binding="{Binding FollowingRules}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Comment" Width="*" Binding="{Binding Comment}" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

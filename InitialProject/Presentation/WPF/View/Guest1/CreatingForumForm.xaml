@@ -5,15 +5,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         d:DataContext="{d:DesignInstance Type=guest1:CreatingForumViewModel}"
-        xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest1" xmlns:guest1="clr-namespace:InitialProject.Presentation.WPF.ViewModel.Guest1"
+        xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest1" 
+        xmlns:guest1="clr-namespace:InitialProject.Presentation.WPF.ViewModel.Guest1"
         mc:Ignorable="d"
-        Title="CreatingForumForm" Height="520" Width="400">
+        Title="CreatingForumForm" Height="520" Width="400"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None">
+    <Window.InputBindings>
+        <KeyBinding Key="F10" Command="{Binding CreateForumCommand}" />
+        <KeyBinding Key="F11" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=creatingForumForm}"/>
+    </Window.InputBindings>
     <Grid Margin="5,10,5,10">
+        <Border CornerRadius="12" BorderThickness="5" Background="White" Margin="0,0,0,0">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#002D3A" Offset="0"/>
+                    <GradientStop Color="#00A76D" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+        </Border>
         <StackPanel Orientation="Vertical" Width="260" Margin="0,20,0,0">
             <TextBlock Text="Enter forum informations" HorizontalAlignment="Center" FontSize="18" FontWeight="DemiBold"/>
             <StackPanel Margin="0,30,0,0">
                 <TextBlock Text="Choose Country" Margin="2,0,0,0"/>
-                <ComboBox IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" Height="30" 
+                <ComboBox x:Name="cmbx" IsTextSearchEnabled="True" StaysOpenOnEdit="True" IsEditable="True" Height="30" 
+                          
                   ItemsSource="{Binding Countries}" SelectedItem="{Binding Path=SelectedCountry, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
             </StackPanel>
             <StackPanel Margin="0,15,0,0">
@@ -23,11 +40,70 @@
             </StackPanel>
             <StackPanel Margin="0,15,0,0">
                 <TextBlock Text="Write what's on your mind" Margin="2,0,0,0"/>
-                <TextBox Text="{Binding Path=Text, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}" Height="130"></TextBox>
+                <TextBox Text="{Binding Path=Text, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Height="130"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Vertical" Margin="0,20,0,0">
-                <Button Command="{Binding CreateForumCommand}" IsEnabled="{Binding CanCreate}" Content="Create Forum (F10)" Width="150" Height="35" Margin="0,0,0,10"></Button>
-                <Button Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=creatingForumForm}" Content="Cancel (F11)" Width="150" Height="35" Margin="0,10,0,00"></Button>
+                <Button BorderThickness="0"
+                            Content= "Create Forum (F10)"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"                           
+                            Margin="0,0,0,10"
+                            Command="{Binding CreateForumCommand}"
+                            IsEnabled="{Binding CanCreate}"
+                            HorizontalAlignment="Center"
+                            x:Name="Send_Button">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#00A76D"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#006C6D"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" Height="40"
+                                        CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button BorderThickness="0"
+                            Content="Cancel (F11)"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"                           
+                            Margin="0,10,0,0"
+                            Command="{Binding CancelCommand}"
+                            CommandParameter="{Binding ElementName=creatingForumForm}"
+                            HorizontalAlignment="Center">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#00A76D"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#006C6D"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" Height="40"
+                                        CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </StackPanel>
         </StackPanel>
     </Grid>

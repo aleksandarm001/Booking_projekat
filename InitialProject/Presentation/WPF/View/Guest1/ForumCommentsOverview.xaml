@@ -17,8 +17,8 @@
     </Window.Resources>
 
     <Window.InputBindings>
-        <KeyBinding Key="F1" Command="{Binding FocusComments_Comman}" CommandParameter="{Binding ElementName=listBox}"/>
-        <KeyBinding Key="F2" Command="{Binding FocusTextBox_Comman}"  CommandParameter="{Binding ElementName=textBox}"/>
+        <KeyBinding Key="F1" Command="{Binding FocusComments_Command}" CommandParameter="{Binding ElementName=listBox}"/>
+        <KeyBinding Key="F2" Command="{Binding FocusTextBox_Command}"  CommandParameter="{Binding ElementName=textBox}"/>
         <KeyBinding Key="F10" Command="{Binding SubmitCommentCommand}"/>
     </Window.InputBindings>
 

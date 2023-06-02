@@ -4,3 +4,5 @@
 4|1|Ima li metro?|Fortaleza;Brazil|5/9/2023 7:06:32 PM|Open|False
 5|1|Bilo sta|New York City;United States|5/16/2023 8:29:48 PM|Open|False
 6|12|Gdje ima dobra vodka da se pije|Saint Petersburg;Russia|5/16/2023 8:33:48 PM|Open|False
+7|1|asdasdasd|Brasília;Brazil|6/2/2023 11:45:26 AM|Open|False
+8|1|Mogu li jahati kamile?|Cairo;Egypt|6/2/2023 11:46:28 AM|Open|False

@@ -15,6 +15,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 {
@@ -27,11 +29,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private ObservableCollection<string> _countries;
         private ObservableCollection<string> _cities;
         public event PropertyChangedEventHandler? PropertyChanged;
-        private readonly ILocationService _locationService;
-        private readonly IUserService _userService;
-        private readonly IForumCommentService _forumCommentService;
-        private readonly IForumService _forumService;
-        private readonly ICommentRepository _commentRepository; 
+        private ILocationService _locationService;
+        private IUserService _userService;
+        private IForumCommentService _forumCommentService;
+        private IForumService _forumService;
+        private ICommentRepository _commentRepository; 
         public RelayCommand CreateForumCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public ObservableCollection<string> Countries
@@ -42,7 +44,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 if(value != _countries)
                 {
                     _countries = value;
-                    OnPropertyChanged("Countries");
+                    OnPropertyChanged(nameof(Countries));
                 }
             }
         }
@@ -54,7 +56,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 if (value != _cities)
                 {
                     _cities = value;
-                    OnPropertyChanged("Cities");
+                    OnPropertyChanged(nameof(Cities));
                 }
             }
         }
@@ -68,9 +70,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                     _selectedCountry = value;
                     Cities.Clear();
                     Cities = new ObservableCollection<string>(_locationService.GetCitiesByCountry(_selectedCountry));
-                    CheckCanCreate();
-                    OnPropertyChanged("Cities");
-                    OnPropertyChanged("SelectedCountry");
+                    OnPropertyChanged(nameof(Cities));
+                    OnPropertyChanged(nameof(SelectedCountry));
+                    CheckIfCanSubmit();
                 }
             }
         }
@@ -82,8 +84,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 if (value != _selectedCity)
                 {
                     _selectedCity = value;
-                    CheckCanCreate();
-                    OnPropertyChanged("SelectedCity");
+                    OnPropertyChanged(nameof(SelectedCity));
+                    CheckIfCanSubmit();
                 }
             }
         }
@@ -95,20 +97,23 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 if (value != _text)
                 {
                     _text = value;
-                    CheckCanCreate();
-                    OnPropertyChanged("Text");
+                    OnPropertyChanged(nameof(Text));
+                    CheckIfCanSubmit();
                 }
             }
         }
         public bool CanCreate
         {
-            get => _canCreate;
+            get
+            {
+                return _canCreate;
+            }
             set
             {
                 if (value != _canCreate)
                 {
                     _canCreate = value;
-                    OnPropertyChanged("CanCreate");
+                    OnPropertyChanged(nameof(CanCreate));
                 }
             }
         }
@@ -118,17 +123,33 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         public CreatingForumViewModel()
         {
+            InitializeServices();
+            InitializeCollections();
+            CanCreate = false;
+            InitializeCommands();
+        }
+
+        private void InitializeCollections()
+        {
+            Countries = new ObservableCollection<string>(_locationService.GetAllCountries());
+            Cities = new ObservableCollection<string>(_locationService.GetAllCities());
+        }
+
+        private void InitializeServices()
+        {
             _locationService = Injector.CreateInstance<ILocationService>();
             _userService = Injector.CreateInstance<IUserService>();
             _forumService = Injector.CreateInstance<IForumService>();
             _forumCommentService = Injector.CreateInstance<IForumCommentService>();
             _commentRepository = Injector.CreateInstance<ICommentRepository>();
-            CreateForumCommand = new RelayCommand(CreateForum);
-            CancelCommand = new RelayCommand(Close);
-            Countries = new ObservableCollection<string>(_locationService.GetAllCountries());
-            Cities = new ObservableCollection<string>(_locationService.GetAllCities());
-            CanCreate = false;
         }
+
+        private void InitializeCommands()
+        {
+            CreateForumCommand = new RelayCommand(CreateForum, CanCreateForum);
+            CancelCommand = new RelayCommand(Close);
+        }
+
         private void CreateForum(object parameter)
         {
             int userId = _userService.GetUserId();
@@ -139,7 +160,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             ShowSuccessMessage();
             CloseWindow();
         }
-
         private Comment CreateComment(int userId)
         {
             Comment comment = new Comment(DateTime.Now, Text, userId);
@@ -170,21 +190,13 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             App.Current.MainWindow = App.Current.Windows.OfType<CreatingForumForm>().FirstOrDefault();
             App.Current.MainWindow.Close();
         }
-        private void CheckCanCreate()
+        private void CheckIfCanSubmit()
         {
-            if(CheckFields())
-            {
-                CanCreate = true;
-            }
-            else
-            {
-                CanCreate = false;
-            }
-            OnPropertyChanged("CanCreate");
+            CanCreate = (!string.IsNullOrEmpty(SelectedCountry) && !string.IsNullOrEmpty(SelectedCity) && !string.IsNullOrEmpty(Text));
         }
-        private bool CheckFields()
+        private bool CanCreateForum(object parameter)
         {
-            return !string.IsNullOrEmpty(SelectedCountry) && !string.IsNullOrEmpty(SelectedCity) && !string.IsNullOrEmpty(Text);
+            return CanCreate;
         }
     }
 }

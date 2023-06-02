@@ -20,20 +20,9 @@ namespace InitialProject.View.Guest1
     public partial class OwnerRating : Window, INotifyPropertyChanged
     {
         public event EventHandler FieldsUpdated;
-        private RelayCommand _submitReview_command;
-        public RelayCommand SubmitReview_Command
-        {
-            get
-            {
-                if (_submitReview_command == null)
-                {
-                    _submitReview_command = new RelayCommand(SubmitReview, CanSubmitReview);
-                }
-                return _submitReview_command;
-            }
-        }
+        public RelayCommand SubmitReview_Command { get; set; }
         private bool _isEnabled;
-        public bool CanExecute
+        public bool IsEnabled
         {
             get
             {
@@ -41,8 +30,11 @@ namespace InitialProject.View.Guest1
             }
             set
             {
-                _isEnabled = !string.IsNullOrEmpty(StrCorrectness) && !string.IsNullOrEmpty(StrCleanliness);
-                OnPropertyChanged(nameof(CanExecute));
+                if (value != _isEnabled)
+                {
+                    _isEnabled = value;
+                    OnPropertyChanged(nameof(IsEnabled));
+                }
             }
         }
         public RelayCommand Cancel_Command { get; set; }
@@ -64,7 +56,7 @@ namespace InitialProject.View.Guest1
                 {
                     _selectedAccommodationId = value;
                     OnPropertyChanged();
-                    NotifyFieldsUpdated();
+                    CheckIfCanSubmit();
                 }
             }
         }
@@ -87,8 +79,8 @@ namespace InitialProject.View.Guest1
                     }
                     catch (Exception) { }
                     _strCleanliness = value;
-                    OnPropertyChanged();
-                    NotifyFieldsUpdated();
+                    OnPropertyChanged(nameof(StrCleanliness));
+                    CheckIfCanSubmit();
                 }
             }
         }
@@ -109,8 +101,8 @@ namespace InitialProject.View.Guest1
                     }
                     catch (Exception) { }
                     _strCorrectness = value;
-                    OnPropertyChanged();
-                    NotifyFieldsUpdated();
+                    OnPropertyChanged(nameof(StrCorrectness));
+                    CheckIfCanSubmit();
                 }
             }
         }
@@ -141,12 +133,17 @@ namespace InitialProject.View.Guest1
             InitializeCollections(userId);
             InitializeCommands();
         }
-        private void NotifyFieldsUpdated()
+        private void CheckIfCanSubmit()
         {
-            FieldsUpdated?.Invoke(this, EventArgs.Empty);
+            IsEnabled = (SelectedAccommodationId > 0 && !string.IsNullOrEmpty(StrCleanliness) && !string.IsNullOrEmpty(StrCorrectness));
+        }
+        private bool CanSubmitReview(object parameter)
+        {
+            return IsEnabled;
         }
         private void InitializeCommands()
         {
+            SubmitReview_Command = new RelayCommand(SubmitReview, CanSubmitReview);
             Cancel_Command = new RelayCommand(Cancel);
         }
 
@@ -178,10 +175,7 @@ namespace InitialProject.View.Guest1
             ownerRateService.SaveRate(ownerRate);
             AskRenovationRecommendation();
         }
-        private bool CanSubmitReview(object parameter)
-        {
-            return CanExecute;
-        }
+        
         private void Cancel(object parameter)
         {
             this.Close();
