@@ -8,14 +8,24 @@
         xmlns:guest1="clr-namespace:InitialProject.Presentation.WPF.ViewModel.Guest1"
         d:DataContext="{d:DesignInstance Type=guest1:AnywhereAnytimeViewModel}"
         mc:Ignorable="d"
-        Title="AnywhereAnytimeWindow" Height="650" Width="1100">
+        Title="AnywhereAnytimeWindow" Height="650" Width="1100"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None">
     <Window.InputBindings>
         <KeyBinding Key="F1" Command="{Binding FocusFilters_Command}" CommandParameter="{Binding ElementName=datePicker}" />
         <KeyBinding Key="F2" Command="{Binding FocusTable_Command}" CommandParameter="{Binding ElementName=accommodationsDataGrid}" />
         <KeyBinding Key="F10" Command="{Binding ApplyFiltersCommand}" />
         <KeyBinding Key="F11" Command="{Binding ResetFiltersCommand}" />
     </Window.InputBindings>
-    <Grid>
+    <Border CornerRadius="12" BorderThickness="5" Background="White" Margin="0,0,0,0">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#002D3A" Offset="0"/>
+                <GradientStop Color="#00A76D" Offset="0.75"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="110"/>
@@ -213,5 +223,6 @@
                 </StackPanel>
             </Border>
         </Grid>
-    </Grid>
+        </Grid>
+    </Border>
 </Window>

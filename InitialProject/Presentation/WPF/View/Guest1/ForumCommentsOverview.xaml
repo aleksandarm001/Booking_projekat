@@ -10,7 +10,10 @@
         d:DataContext="{d:DesignInstance Type=guest1:ForumCommentsOverviewViewModel}"
         xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest1" 
         mc:Ignorable="d"
-        Title="ForumCommentsOverview" Height="910" Width="1000">
+        Title="ForumCommentsOverview" Height="910" Width="1000"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None">
     <Window.Resources>
         <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <LocalConverters:BooleanNegationConverter x:Key="BooleanNegationConverter" />
@@ -21,26 +24,19 @@
         <KeyBinding Key="F2" Command="{Binding FocusTextBox_Command}"  CommandParameter="{Binding ElementName=textBox}"/>
         <KeyBinding Key="F10" Command="{Binding SubmitCommentCommand}"/>
     </Window.InputBindings>
-
+    <Border CornerRadius="12" BorderThickness="5" Background="White" Margin="0,0,0,0">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#002D3A" Offset="0"/>
+                <GradientStop Color="#00A76D" Offset="0.75"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="110"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" FontSize="15">
-            <Menu.Resources>
-                <Style TargetType="MenuItem">
-                    <Setter Property="Margin" Value="10,0,10,0" />
-                </Style>
-            </Menu.Resources>
-            <MenuItem Header="Home"/>
-            <MenuItem Header="Accommodation"/>
-            <MenuItem Header="Forum"/>
-            <MenuItem Header="My Ratings"/>
-            <MenuItem Header="Reservations"/>
-            <MenuItem Header="Log Out"/>
-        </Menu>
         <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,1">
             <Image Source="/Infrastructure/Resources/Images/forumcommands.png" Width="1000" VerticalAlignment="Top" Margin="0,0,0,0"/>
         </Border>
@@ -131,5 +127,6 @@
 
             </StackPanel>
         </StackPanel>
-    </Grid>
+        </Grid>
+    </Border>
 </Window>

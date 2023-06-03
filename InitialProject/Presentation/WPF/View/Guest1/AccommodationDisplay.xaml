@@ -9,14 +9,24 @@
         Title="Accommodation" Height="750" Width="1100"
         WindowStartupLocation ="CenterScreen"
         ResizeMode="NoResize"
-        Background="#EFF2F7">
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None">
     <Window.InputBindings>
         <KeyBinding Key="F1" Command="{Binding FocusFilters_Command}" CommandParameter="{Binding ElementName=nameTextBox}" />
         <KeyBinding Key="F2" Command="{Binding FocusTable_Command}" CommandParameter="{Binding ElementName=accommodationsDataGrid}" />
         <KeyBinding Key="F10" Command="{Binding ApplyFilters_Command}" />
         <KeyBinding Key="F11" Command="{Binding  RestoreFilters_Command}" />
     </Window.InputBindings>
+    <Border CornerRadius="12" BorderThickness="5" Background="White" Margin="0,0,0,0">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#002D3A" Offset="0"/>
+                <GradientStop Color="#00A76D" Offset="0.75"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
     <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="110"/>
@@ -225,5 +235,6 @@
                 </StackPanel>
             </Border>
         </Grid>
-    </Grid>
+        </Grid>
+    </Border>
 </Window>

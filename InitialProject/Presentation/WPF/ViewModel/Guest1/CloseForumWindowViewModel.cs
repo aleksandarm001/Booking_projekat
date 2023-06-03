@@ -17,8 +17,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 {
     public class CloseForumWindowViewModel : INotifyPropertyChanged
     {
-        private readonly IForumService _forumService;
-        private readonly IUserService _userService;
+        private IForumService _forumService;
+        private IUserService _userService;
         private int _selectedForumId;
         private bool _canCancelForum;
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -54,14 +54,28 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         public ObservableCollection<KeyValuePair<int, string>> Forums { get; set; }
         public CloseForumWindowViewModel()
         {
-            _forumService = Injector.CreateInstance<IForumService>();
-            _userService = Injector.CreateInstance<IUserService>();
+            InitializeServices();
             InitializeUserForums();
-            CloseForumCommand = new RelayCommand(CloseForum);
-            CancelCommand = new RelayCommand(Cancel);
+            InitializeCommands();
             CanCancelForum = false;
 
         }
+
+        private void InitializeCommands()
+        {
+            CloseForumCommand = new RelayCommand(CloseForum, CanExecuteCommand);
+            CancelCommand = new RelayCommand(Cancel);
+        }
+        private bool CanExecuteCommand(object parameter)
+        {
+            return CanCancelForum;
+        }
+        private void InitializeServices()
+        {
+            _forumService = Injector.CreateInstance<IForumService>();
+            _userService = Injector.CreateInstance<IUserService>();
+        }
+
         private void InitializeUserForums()
         {
             int userId = _userService.GetUserId();
