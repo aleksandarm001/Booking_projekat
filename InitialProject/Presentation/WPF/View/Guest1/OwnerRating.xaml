@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:focusBehavior="clr-namespace:InitialProject.Domen.CustomClasses"
         xmlns:local="clr-namespace:InitialProject.View.Guest1"
         mc:Ignorable="d"
-        Title="OwnerRating" Height="680" Width="500"
+        Title="OwnerRating" Height="640" Width="460"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         WindowStyle="None"
@@ -26,12 +27,13 @@
             </LinearGradientBrush>
         </Border.BorderBrush>
         <StackPanel Width="330">
-            <TextBlock Grid.Row="0" FontSize="25" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="0,25,0,10">Owner rating</TextBlock>
+            <TextBlock Grid.Row="0" FontSize="25" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="0,15,0,10">Owner rating</TextBlock>
             <StackPanel Margin="0 15 0 0">
                 <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Accommodation Name" Margin="0 0 0 5"/>
                 <ComboBox x:Name="cmbx" ItemsSource="{Binding AccommodationsName}" HorizontalAlignment="Left" 
                         Grid.Row="1" VerticalAlignment="Top" Width="170" Height="28" DisplayMemberPath="Value" 
-                          SelectedValuePath="Key" SelectedValue="{Binding Path=SelectedAccommodationId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                          SelectedValuePath="Key" SelectedValue="{Binding Path=SelectedAccommodationId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                          focusBehavior:FocusBehavior.IsFocused="True"/>
             </StackPanel>
             <StackPanel Margin="0 15 0 0">
                 <TextBlock  Text="Hygiene" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>

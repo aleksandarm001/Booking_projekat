@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:val="clr-namespace:InitialProject.Presentation.WPF.ViewModel"
+        xmlns:focusBehavior="clr-namespace:InitialProject.Domen.CustomClasses"
         xmlns:local="clr-namespace:InitialProject.View"
         mc:Ignorable="d"
         Title="Enter Guest Number" Height="153" Width="400"
@@ -33,8 +34,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 0">
                     <Label Content="Please enter the number of guests" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
                     <TextBox Name="textBox" Background="#EFF2F7"  HorizontalAlignment="Left" TextWrapping="Wrap" 
-                         VerticalAlignment="Center" 
-                         Width="110" Height="25">
+                         VerticalAlignment="Center" Width="110" Height="25" focusBehavior:FocusBehavior.IsFocused="True">
                         <TextBox.Text>
                             <Binding Path="StrNumberOfGuests" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
                                 <Binding.ValidationRules>

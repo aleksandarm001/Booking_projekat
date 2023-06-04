@@ -228,13 +228,13 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private void OpenMyRatings(object parameter)
         {
             ReviewsOverview reviewsOverview = new ReviewsOverview(_userId);
-            AdjustWindow(reviewsOverview);
+            AdjustWindowLower(reviewsOverview);
             reviewsOverview.ShowDialog();
         }
         private void OpenOwnerRating(object parameter)
         {
             OwnerRating ownerRating = new OwnerRating(_userId);
-            AdjustWindow(ownerRating);
+            AdjustWindowLower2(ownerRating);
             ownerRating.ShowDialog();
         }
         private void OpenChangeReservation(object parameter)
@@ -264,10 +264,42 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             AdjustWindow(forumsOverviewWindow);
             forumsOverviewWindow.ShowDialog();
         }
-        private void AdjustWindow(Window anywhereAnytimeWindow)
+        private void AdjustWindow(Window window)
         {
-            anywhereAnytimeWindow.Owner = App.Current.Windows.OfType<Guest1HomeWindow>().FirstOrDefault();
-            anywhereAnytimeWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            window.Owner = App.Current.Windows.OfType<Guest1HomeWindow>().FirstOrDefault();
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        }
+        private void AdjustWindowLower(Window window)
+        {
+            window.Owner = App.Current.Windows.OfType<Guest1HomeWindow>().FirstOrDefault();
+            window.WindowStartupLocation = WindowStartupLocation.Manual;
+
+            double screenWidth = SystemParameters.WorkArea.Width;
+            double screenHeight = SystemParameters.WorkArea.Height;
+            double windowWidth = window.Width;
+            double windowHeight = window.Height;
+
+            double left = (screenWidth - windowWidth) / 2;  // Center horizontally
+            double top = screenHeight - windowHeight - 20; // Position lower vertically (adjust the offset as needed)
+
+            window.Left = left;
+            window.Top = top;
+        }
+        private void AdjustWindowLower2(Window window)
+        {
+            window.Owner = App.Current.Windows.OfType<Guest1HomeWindow>().FirstOrDefault();
+            window.WindowStartupLocation = WindowStartupLocation.Manual;
+
+            double screenWidth = SystemParameters.WorkArea.Width;
+            double screenHeight = SystemParameters.WorkArea.Height;
+            double windowWidth = window.Width;
+            double windowHeight = window.Height;
+
+            double left = (screenWidth - windowWidth) / 2;  // Center horizontally
+            double top = screenHeight - windowHeight - 10; // Position lower vertically (adjust the offset as needed)
+
+            window.Left = left;
+            window.Top = top;
         }
         private void CloseWindow()
         {

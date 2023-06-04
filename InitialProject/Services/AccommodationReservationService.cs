@@ -161,7 +161,52 @@ namespace InitialProject.Services
                 allDates.Remove(dateRange);
             }
         }
+        private List<Reservation> GetAllReservationsByAccommodation(int accommodationId)
+        {
+            List<int> ids = _accommodationService.GetReservationIdsByAccommodationId(accommodationId);
+            List<Reservation> result = new List<Reservation>();
+            foreach (int id in ids)
+            {
+                Reservation reservation = _reservationService.GetReservationById(id);
+                result.Add(reservation);
+            }
+            return result;
+        }
+        public KeyValuePair<string, int>[] GetAccommodationStatistics(int accommodationId)
+        {
+            List<Reservation> reservations = GetAllReservationsByAccommodation(accommodationId);
+            Dictionary<string, int> result = new Dictionary<string, int>();
 
-        
+            DateTime oneMonthAgo = DateTime.Now.AddMonths(-1);
+            DateTime currentDate = DateTime.Now;
+
+            // Add all dates from a month ago as keys
+            for (DateTime date = oneMonthAgo; date <= currentDate; date = date.AddDays(1))
+            {
+                result.Add(date.ToString("dd.MM.yyyy."), 0);
+            }
+
+            if (reservations != null)
+            {
+                // Count reservations for each date
+                foreach (Reservation r in reservations)
+                {
+                    string reservationDate = r.ReservationDateRange.SStartDate;
+                    if (result.ContainsKey(reservationDate))
+                    {
+                        result[reservationDate]++;
+                    }
+                }
+            }
+
+            KeyValuePair<string, int>[] keyValuePairs = result.ToArray();
+            return keyValuePairs;
+        }
+
+
+        private bool CheckKey(string key, Dictionary<string, int> result)
+        {
+            return result.ContainsKey(key);
+        }
     }
 }

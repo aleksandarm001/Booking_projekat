@@ -15,7 +15,7 @@ namespace InitialProject.Services.IServices
         List<DateRange> GetAvailableDays(int accommodationId, int reservationDays, DateTime startDate, DateTime endDate);
         bool WasOnLocation(int userId, Location location);
         List<int> GetReservationsIdsByAccommodationId(int accommodationId);
-
+        KeyValuePair<string, int>[] GetAccommodationStatistics(int accommodationId);
         List<int> GetAccommodationIdByReservationIds(int reservationId);
     }
 }

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:focusBehavior="clr-namespace:InitialProject.Domen.CustomClasses"
         xmlns:local="clr-namespace:InitialProject.View.Guest1"
         mc:Ignorable="d"
         Title="ReservationChange" Height="420" Width="450"
@@ -96,7 +97,8 @@
                     <TextBlock Text="Select reservation you want to change"/>
                     <ComboBox ItemsSource="{Binding ReservationsForChange}" 
                     DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding Path=SelectedReservationId, UpdateSourceTrigger=PropertyChanged}"
-                    Height="30" Width="320" HorizontalAlignment="Left" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="1"/>    
+                    Height="30" Width="320" HorizontalAlignment="Left" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="1"
+                    focusBehavior:FocusBehavior.IsFocused="True"/>    
                 </StackPanel>
                 <StackPanel Margin="0 15 0 0">
                     <TextBlock Text="Select new check-in date"/>

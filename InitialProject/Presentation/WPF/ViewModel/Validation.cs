@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -93,6 +94,28 @@ namespace InitialProject.Presentation.WPF.ViewModel
                     return new ValidationResult(true, null);
                 }
                 return new ValidationResult(false, "Please enter a valid number.");
+            }
+            catch
+            {
+                return new ValidationResult(false, "Unknown error occurred.");
+            }
+        }
+    }
+    public class DateValidation : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            try
+            {
+                var s = value as string;
+                string r;
+                Regex regex = new Regex("\\b(0?[1-9]|1[012])([\\/\\-])(0?[1-9]|[12]\\d|3[01])\\2(\\d{4})");
+                if (!regex.IsMatch(s))
+                {
+                    return new ValidationResult(false, "Date format: MM/dd/YYYY.");
+                }
+
+                return new ValidationResult(true, null);
             }
             catch
             {

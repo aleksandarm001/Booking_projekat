@@ -25,6 +25,8 @@
 		<None Remove="Infrastructure\Resources\Images\forumcommands.png" />
 		<None Remove="Infrastructure\Resources\Images\ForumOverview.png" />
 		<None Remove="Infrastructure\Resources\Images\hamburher.png" />
+		<None Remove="Infrastructure\Resources\Images\help1920x160.png" />
+		<None Remove="Infrastructure\Resources\Images\helpHomeWindowTransparent.png" />
 		<None Remove="Infrastructure\Resources\Images\home.png" />
 		<None Remove="Infrastructure\Resources\Images\Island.png" />
 		<None Remove="Infrastructure\Resources\Images\LisceBato.jpg" />
@@ -90,6 +92,12 @@
 		</Content>
 		<Content Include="Infrastructure\Resources\Images\hamburher.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Infrastructure\Resources\Images\help1920x160.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Infrastructure\Resources\Images\helpHomeWindowTransparent.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Infrastructure\Resources\Images\home.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -4,16 +4,37 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:val="clr-namespace:InitialProject.Presentation.WPF.ViewModel"
-        xmlns:local="clr-namespace:InitialProject.View"
+        xmlns:focusBehavior="clr-namespace:InitialProject.Domen.CustomClasses"
+        xmlns:local="clr-namespace:InitialProject.View" 
+        xmlns:local1="clr-namespace:InitialProject.Presentation.WPF.View" 
+        xmlns:DVC1="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=DotNetProjects.DataVisualization.Toolkit"
+        xmlns:charting="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:datavis="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:chartingprimitives="clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         mc:Ignorable="d"
-        Title="AccommodationReservationForm" Height="400" Width="500"
+        Title="AccommodationReservationForm" Height="400" Width="600"
         WindowStartupLocation="CenterOwner"
         Background="Transparent"
         AllowsTransparency="True"
         WindowStyle="None">
+    <Window.Resources>
+        <local1:ValidationToCommandParameterConverter x:Key="ValidationToCommandParameterConverter" />
+        <local1:ValidationResultToBoolConverter x:Key="ValidationResultToBoolConverter"/>
+    </Window.Resources>
+
     <Window.InputBindings>
-        <KeyBinding Key="F10" Command="{Binding ApplyCommand}" />
-        <KeyBinding Key="F11" Command="{Binding  CloseCommand}" />
+        <KeyBinding Key="F10">
+            <KeyBinding.Command>
+                <Binding Path="ApplyCommand" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+            </KeyBinding.Command>
+            <KeyBinding.CommandParameter>
+                <MultiBinding Converter="{StaticResource ValidationToCommandParameterConverter}">
+                    <Binding ElementName="textBox1" Path="(Validation.HasError)" />
+                    <!-- Additional bindings if required -->
+                </MultiBinding>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+        <KeyBinding Key="F11" Command="{Binding CloseCommand}" />
     </Window.InputBindings>
     <Border CornerRadius="12"
             BorderThickness="5"
@@ -27,21 +48,54 @@
         </Border.BorderBrush>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.55*"/>
+                <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0" CornerRadius="6 50 0 6" Background="#00734B">
-                <StackPanel Width="160" Margin="0 25 0 0">
-                    <TextBlock Text="Enter information" HorizontalAlignment="Center" Foreground="White" FontSize="14" FontWeight="DemiBold" Margin="20 20"/>
+                <StackPanel Width="160" Margin="0 15 0 0">
+                    <TextBlock Text="Enter information" HorizontalAlignment="Center" Foreground="White" FontSize="14" FontWeight="DemiBold" Margin="15 15"/>
                     <StackPanel>
                         <TextBlock Text="Start date" Foreground="White" Margin="0 0 0 5"/>
-                        <DatePicker Width="150" Name ="StartDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top" SelectedDate="{Binding Path=StartDay, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}"/>
+                        <TextBox Width="150" Height="25" Name ="StartDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                    focusBehavior:FocusBehavior.IsFocused="True">
+                            <TextBox.Text>
+                                <Binding Path="SStartDay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <val:DateValidation ValidationStep="RawProposedValue"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder x:Name="textBox1"/>
+                                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
                     </StackPanel>
-                    <StackPanel Margin="0 10 0 0">
+                    <StackPanel Margin="0 20 0 0">
                         <TextBlock Text="End date" Foreground="White" Margin="0 0 0 5"/>
-                        <DatePicker Width="150" Name ="EndDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top" SelectedDate="{Binding Path=EndDay, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}"/>
+                        <TextBox Width="150" Height="25" Name ="EndDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <TextBox.Text>
+                                <Binding Path="SEndDay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <val:DateValidation ValidationStep="RawProposedValue"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder x:Name="textBox2"/>
+                                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
                     </StackPanel>
-                    <StackPanel Margin="0 10 0 10">
+                    <StackPanel Margin="0 20 0 10">
                         <TextBlock Foreground="White" Text="Number of days" Margin="0,0,0,5" HorizontalAlignment="Left" />
                         <TextBox x:Name="textBox1" Background="#EFF2F7"  HorizontalAlignment="Left" TextWrapping="Wrap" 
                          VerticalAlignment="Top" 
@@ -69,7 +123,7 @@
                             FontSize="12"
                             FontFamily="Montserrat"
                             Cursor="Hand"                           
-                            Margin="0,20,0,0"
+                            Margin="0,15,0,0"
                             Command="{Binding ApplyCommand}"
                             CommandParameter="{Binding ElementName=rezervacije}">
                         <Button.Style>
@@ -128,57 +182,84 @@
                     <TextBlock Text="Reservation for: " FontSize="14" FontWeight="DemiBold"/>
                     <TextBlock Text="{Binding Path = AccommodationName}" FontSize="14" FontWeight="DemiBold"/>
                 </StackPanel>
-                <DataGrid Name="rezervacije" HorizontalAlignment="Center" Height="225" VerticalAlignment="Top" Width="290"
+                <TabControl Name="tabControl" Margin="10,10,10,0">
+                    <TabItem Header="Dates (F7)" FontSize="14" Name="DatesTab">
+                            <DataGrid Name="rezervacije" HorizontalAlignment="Center" VerticalAlignment="Top"
                   Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"
                   ItemsSource="{Binding Path = DateRanges, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path= SelectedDateRange, UpdateSourceTrigger=PropertyChanged}"
-                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
-                    <DataGrid.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Reserve" Click="DataGritMenuItemClick"></MenuItem>
-                        </ContextMenu>
-                    </DataGrid.ContextMenu>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Start Date" Binding="{Binding SStartDate}" Width="0.7*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="End Date" Binding="{Binding SEndDate}" Width="0.7*"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Book" Width="0.7*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button x:Name="reserveButton" BorderThickness="0" Content="Book" Foreground="White"
+                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False"
+                                      VerticalScrollBarVisibility="Visible">
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Reserve" Click="DataGritMenuItemClick"></MenuItem>
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Start Date" Binding="{Binding SStartDate}" Width="0.7*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="End Date" Binding="{Binding SEndDate}" Width="0.7*"></DataGridTextColumn>
+                                    <DataGridTemplateColumn Header="Book" Width="0.7*">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button x:Name="reserveButton" BorderThickness="0" Content="Book" Foreground="White"
                                         FontSize="12" FontFamily="Montserrat" Cursor="Hand" Click="DataGritMenuItemClick">
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Setter Property="Background" Value="#00A76D"/>
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" Value="#078563"/>
-                                                    </Trigger>
-                                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
-                                                        <Setter Property="FocusVisualStyle">
-                                                            <Setter.Value>
-                                                                <Style>
-                                                                    <Setter Property="Control.BorderThickness" Value="2"/>
-                                                                    <Setter Property="Control.BorderBrush" Value="#FF0000"/>
-                                                                </Style>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Button.Style>
-                                        <Button.Template>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border Width="60" Height="30" CornerRadius="10" Background="{TemplateBinding Background}">
-                                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Button.Template>
-                                    </Button>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                                                    <Button.Style>
+                                                        <Style TargetType="Button">
+                                                            <Setter Property="Background" Value="#00A76D"/>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="#078563"/>
+                                                                </Trigger>
+                                                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
+                                                                    <Setter Property="FocusVisualStyle">
+                                                                        <Setter.Value>
+                                                                            <Style>
+                                                                                <Setter Property="Control.BorderThickness" Value="2"/>
+                                                                                <Setter Property="Control.BorderBrush" Value="#FF0000"/>
+                                                                            </Style>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Button.Style>
+                                                    <Button.Template>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Border Width="60" Height="30" CornerRadius="10" Background="{TemplateBinding Background}">
+                                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                    </TabItem>
+                    <TabItem Header="Statistics (F8)" FontSize="14" Name="StatisticsTab">
+                        <DVC1:Chart Name="mcChart" Width="370" Height="250" HorizontalAlignment="Center" >
+                                <DVC1:Chart.Axes>
+                                <DVC1:CategoryAxis Orientation="X">
+                                    <DVC1:CategoryAxis.AxisLabelStyle>
+                                        <Style TargetType="DVC1:AxisLabel">
+                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                        </Style>
+                                    </DVC1:CategoryAxis.AxisLabelStyle>
+                                    <DVC1:CategoryAxis.Title>
+                                        <Style TargetType="DVC1:CategoryAxis">
+                                            <Setter Property="Title" Value="Reservations in past month"></Setter>
+                                        </Style>
+                                    </DVC1:CategoryAxis.Title>
+                                </DVC1:CategoryAxis>
+                            </DVC1:Chart.Axes>
+                            <DVC1:Chart.Series>
+                                <DVC1:ColumnSeries IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}">
+                                </DVC1:ColumnSeries>
+                            </DVC1:Chart.Series>
+                        </DVC1:Chart>
+                    </TabItem>
+                </TabControl>
                 <TextBlock Name ="NoFreeReservation" Visibility="Hidden" HorizontalAlignment="Center" Height="49" Margin="0,274,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="342"/>
             </StackPanel>
         </Grid>

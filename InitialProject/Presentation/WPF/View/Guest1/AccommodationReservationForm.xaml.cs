@@ -1,13 +1,17 @@
-﻿using InitialProject.CustomClasses;
+﻿using InitialProject.Aplication.Factory;
+using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.View.Owner;
 using InitialProject.Presentation.WPF.ViewModel;
 using InitialProject.Repository;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.DataVisualization.Charting;
 
 namespace InitialProject.View
 {
@@ -20,7 +24,9 @@ namespace InitialProject.View
         private ObservableCollection<DateRange> _dateRanges;
         private readonly ReservationRepository _reservationRepository;
         private readonly AccommodationReservationRepository _accommodationReservationRepository;
+        private IAccommodationReservationService _accommodationReservationService;
         private int _userId;
+        public KeyValuePair<string ,int>[] Statistics { get; set; }
         public RelayCommand ApplyCommand { get; private set; }
         public RelayCommand CloseCommand { get; private set; }
         public DateRange SelectedDateRange { get; set; }
@@ -48,8 +54,29 @@ namespace InitialProject.View
                 if (value != _startDay)
                 {
                     _startDay = value;
-                    EndDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, StartDay));
+                    //EndDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, StartDay));
                     OnPropertyChanged("StartDay");
+                }
+            }
+        }
+        private string _sStartDay;
+        public string SStartDay
+        {
+            get
+            {
+                return _sStartDay;
+            }
+            set
+            {
+                if (value != _sStartDay)
+                {
+                    _sStartDay = value;
+                    string[] values = _sStartDay.Split('/');
+                    if (!string.IsNullOrEmpty(value)) { 
+                        StartDay = new DateTime(Convert.ToInt32(values[2]), Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
+                        OnPropertyChanged("SStartDay");
+                        OnPropertyChanged("StartDay");
+                    }
                 }
             }
         }
@@ -66,6 +93,28 @@ namespace InitialProject.View
                 {
                     _endDay = value;
                     OnPropertyChanged("EndDay");
+                }
+            }
+        }
+        private string _sEndDay;
+        public string SEndDay
+        {
+            get
+            {
+                return _sEndDay;
+            }
+            set
+            {
+                if (value != _sEndDay)
+                {
+                    _sEndDay = value;
+                    string[] values = _sEndDay.Split('/');
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        EndDay = new DateTime(Convert.ToInt32(values[2]), Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
+                        OnPropertyChanged("SEndDay");
+                        OnPropertyChanged("EndDay");
+                    }
                 }
             }
         }
@@ -114,6 +163,17 @@ namespace InitialProject.View
                 OnPropertyChanged(nameof(IsEnabled)); 
             }
         }
+        private bool _isStartDateValid;
+        public bool IsStartDateValid
+        {
+            get { return _isStartDateValid; }
+            set
+            {
+                _isStartDateValid = value;
+                OnPropertyChanged(nameof(IsStartDateValid));
+            }
+        }
+
         protected virtual void OnPropertyChanged(string name)
         {
             if (PropertyChanged != null)
@@ -138,12 +198,19 @@ namespace InitialProject.View
             ApplyCommand = new RelayCommand(ApplyFilters_Command);
             CloseCommand = new RelayCommand(CloseWindow_Command);
             validation = new NumericValidation();
+            _accommodationReservationService = Injector.CreateInstance<IAccommodationReservationService>();
+            Statistics = _accommodationReservationService.GetAccommodationStatistics(SelectedAccommodation.AccommodationID);
+            LoadColumnChartData();
         }
 
+        private void LoadColumnChartData()
+        {
+            ((ColumnSeries)mcChart.Series[0]).ItemsSource = Statistics;
+        }
         private void InitializeDatePickers()
         {
-            StartDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
-            EndDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
+            //StartDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
+            //EndDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
         }
         private void ApplyFilters_Command(object parameter)
         {

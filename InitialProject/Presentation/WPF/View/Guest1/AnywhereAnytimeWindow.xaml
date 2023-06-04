@@ -13,7 +13,7 @@
         Background="Transparent"
         WindowStyle="None">
     <Window.InputBindings>
-        <KeyBinding Key="F1" Command="{Binding FocusFilters_Command}" CommandParameter="{Binding ElementName=datePicker}" />
+        <KeyBinding Key="F1" Command="{Binding FocusFilters_Command}" CommandParameter="{Binding ElementName=StartDateTextBox}" />
         <KeyBinding Key="F2" Command="{Binding FocusTable_Command}" CommandParameter="{Binding ElementName=accommodationsDataGrid}" />
         <KeyBinding Key="F10" Command="{Binding ApplyFiltersCommand}" />
         <KeyBinding Key="F11" Command="{Binding ResetFiltersCommand}" />
@@ -108,14 +108,44 @@
                     <TextBlock Text="Search Filters" FontSize="16" Foreground="White" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="0,5,0,10"/>
                     <StackPanel Margin="0,30,0,10">
                         <TextBlock Text="Start Date" Margin="0,0,0,5" Foreground="White" HorizontalAlignment="Left" />
-                        <DatePicker Name="datePicker" Background="#EFF2F7" HorizontalAlignment="Left"
-                         VerticalAlignment="Top" SelectedDate="{Binding Path=StartDay, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                         Width="140" Height="25"/>
-                    </StackPanel>
+                            <TextBox Width="150" Height="25" Name ="StartDateTextBox" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <TextBox.Text>
+                                    <Binding Path="SStartDay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <val:DateValidation ValidationStep="RawProposedValue"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <Validation.ErrorTemplate>
+                                    <ControlTemplate>
+                                        <StackPanel>
+                                            <AdornedElementPlaceholder x:Name="textBox1"/>
+                                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                                        </StackPanel>
+                                    </ControlTemplate>
+                                </Validation.ErrorTemplate>
+                            </TextBox>
+                        </StackPanel>
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="End Date" Margin="0,0,0,5" Foreground="White"  HorizontalAlignment="Left" />
-                        <DatePicker Background="#EFF2F7" Width="140" Height="25"  SelectedDate="{Binding Path=EndDay, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-                    </StackPanel>
+                            <TextBox Width="150" Height="25" Name ="EndDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <TextBox.Text>
+                                    <Binding Path="SEndDay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <val:DateValidation ValidationStep="RawProposedValue"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <Validation.ErrorTemplate>
+                                    <ControlTemplate>
+                                        <StackPanel>
+                                            <AdornedElementPlaceholder x:Name="textBox2"/>
+                                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                                        </StackPanel>
+                                    </ControlTemplate>
+                                </Validation.ErrorTemplate>
+                            </TextBox>
+                        </StackPanel>
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Foreground="White" Text="Number of guests" Margin="0,0,0,5" HorizontalAlignment="Left" />
                         <TextBox Name="textBox1" Background="#EFF2F7"  HorizontalAlignment="Left" TextWrapping="Wrap" 

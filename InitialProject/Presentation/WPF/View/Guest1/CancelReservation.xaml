@@ -4,7 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InitialProject.View.Guest1"
+        xmlns:focusBehavior="clr-namespace:InitialProject.Domen.CustomClasses"
         xmlns:vm="clr-namespace:InitialProject.Presentation.WPF.ViewModel.Guest1" 
         d:DataContext="{d:DesignInstance Type=vm:CancelReservationViewModel}"
         mc:Ignorable="d"
@@ -35,7 +35,9 @@
                     <TextBlock Text="Select reservation you want to cancel" Margin="0 0 0 5"/>
                     <ComboBox x:Name="Cmbx" ItemsSource="{Binding Reservations}"  DisplayMemberPath="Value" 
                         SelectedValuePath="Key" SelectedValue="{Binding Path=SelectedReservationId, UpdateSourceTrigger=PropertyChanged}" 
-                        HorizontalAlignment="Left" Width="320" Height="25"/>        
+                        HorizontalAlignment="Left" Width="320" Height="25" focusBehavior:FocusBehavior.IsFocused="True">
+                       
+                    </ComboBox>
                 </StackPanel>
                 <StackPanel Width="320" Margin="0 10 0 0" Orientation="Horizontal">
                     <Button BorderThickness="0"

@@ -115,6 +115,29 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 }
             }
         }
+        private string _sStartDay;
+        public string SStartDay
+        {
+            get
+            {
+                return _sStartDay;
+            }
+            set
+            {
+                if (value != _sStartDay)
+                {
+                    _sStartDay = value;
+                    string[] values = _sStartDay.Split('/');
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        StartDay = new DateTime(Convert.ToInt32(values[2]), Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
+                        OnPropertyChanged("SStartDay");
+                        OnPropertyChanged("StartDay");
+                    }
+                }
+            }
+        }
+
         private DateTime? _endDay;
         public DateTime? EndDay
         {
@@ -128,6 +151,29 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 {
                     _endDay = value;
                     OnPropertyChanged("EndDay");
+                }
+            }
+        }
+
+        private string _sEndDay;
+        public string SEndDay
+        {
+            get
+            {
+                return _sEndDay;
+            }
+            set
+            {
+                if (value != _sEndDay)
+                {
+                    _sEndDay = value;
+                    string[] values = _sEndDay.Split('/');
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        EndDay = new DateTime(Convert.ToInt32(values[2]), Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
+                        OnPropertyChanged("SEndDay");
+                        OnPropertyChanged("EndDay");
+                    }
                 }
             }
         }
@@ -158,8 +204,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 
         private void FocusFilters(object parameter)
         {
-            var datePicker = parameter as DatePicker;
-            datePicker.Focus();
+            var textBox = parameter as TextBox;
+            textBox.Focus();
         }
         private void FocusTable(object parameter)
         {
@@ -202,6 +248,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         public void ResetFilters(object parameter)
         {
+            SStartDay = string.Empty;
+            SEndDay = string.Empty;
             StartDay = null;
             EndDay = null;
             StrReservationDays = string.Empty;
