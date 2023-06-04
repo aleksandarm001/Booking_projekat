@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition">
+	<DataSources>
+		<!-- Define your data sources here -->
+	</DataSources>
+	<DataSets>
+		<!-- Define your data sets here -->
+	</DataSets>
+	<Body>
+		<ReportItems>
+			<Tablix Name="SampleTablix">
+				<TablixBody>
+					<TablixRows>
+						<TablixRow>
+							<Height>0.25in</Height>
+							<TablixCells>
+								<TablixCell>
+									<CellContents>
+										<Textbox Name="IDTextbox">
+											<!-- Design the layout for the ID column -->
+										</Textbox>
+									</CellContents>
+								</TablixCell>
+								<TablixCell>
+									<CellContents>
+										<Textbox Name="NameTextbox">
+											<!-- Design the layout for the Name column -->
+										</Textbox>
+									</CellContents>
+								</TablixCell>
+							</TablixCells>
+						</TablixRow>
+					</TablixRows>
+				</TablixBody>
+				<TablixColumnHierarchy>
+					<TablixMembers>
+						<TablixMember>
+							<KeepWithGroup>After</KeepWithGroup>
+						</TablixMember>
+					</TablixMembers>
+				</TablixColumnHierarchy>
+				<TablixRowHierarchy>
+					<TablixMembers>
+						<TablixMember />
+					</TablixMembers>
+				</TablixRowHierarchy>
+				<DataSetName>SampleDataSet</DataSetName>
+				<Top>1.5cm</Top>
+				<Left>1.5cm</Left>
+				<Height>2cm</Height>
+				<Width>10cm</Width>
+				<Style>
+					<Border>
+						<Style>None</Style>
+					</Border>
+				</Style>
+			</Tablix>
+		</ReportItems>
+		<Height>2cm</Height>
+	</Body>
+	<Width>8.5in</Width>
+	<Page>
+		<PageWidth>8.5in</PageWidth>
+		<PageHeight>11in</PageHeight>
+		<MarginTop>0.5in</MarginTop>
+		<MarginLeft>0.5in</MarginLeft>
+		<MarginRight>0.5in</MarginRight>
+		<MarginBottom>0.5in</MarginBottom>
+	</Page>
+</Report>

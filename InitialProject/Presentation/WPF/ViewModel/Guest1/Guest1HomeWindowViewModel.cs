@@ -44,6 +44,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         public RelayCommand OpenAnywhereAnytime_Command { get; set; }
         public RelayCommand OpenForumCreate_Command { get; set; }
         public RelayCommand LogUserOut_Commend { get; set; }
+        public RelayCommand OpenReport_Command { get; set; }
         public ObservableCollection<ReservationDTO> UpcomingReservations
         {
             get
@@ -139,6 +140,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             OpenAnywhereAnytime_Command = new RelayCommand(OpenAnywhereAnytime);
             OpenForumCreate_Command = new RelayCommand(OpenForumCreate);
             LogUserOut_Commend = new RelayCommand(LogUserOut);
+            OpenReport_Command = new RelayCommand(OpenReport);
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -263,6 +265,12 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             ForumsOverviewWindow forumsOverviewWindow = new ForumsOverviewWindow();
             AdjustWindow(forumsOverviewWindow);
             forumsOverviewWindow.ShowDialog();
+        }
+        private void OpenReport(object parameter)
+        {
+            ReservationReport reportWindow = new ReservationReport();
+            AdjustWindow(reportWindow);
+            reportWindow.ShowDialog();
         }
         private void AdjustWindow(Window window)
         {

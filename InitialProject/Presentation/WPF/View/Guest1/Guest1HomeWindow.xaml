@@ -20,6 +20,7 @@
         <KeyBinding Key="F6" Command="{Binding OpenOwnerRating_Command}" />
         <KeyBinding Key="F7" Command="{Binding OpenForumCreate_Command}" />
         <KeyBinding Key="F8" Command="{Binding OpenForumCreate_Command}" />
+        <KeyBinding Key="F9" Command="{Binding OpenReport_Command}" />
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>

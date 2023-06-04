@@ -77,5 +77,10 @@ namespace InitialProject.Services
             var user = GetById(_userId);
             return user.Points;
         }
+        public string GetFullName()
+        {
+            var user = GetById(_userId);
+            return user.Name;
+        }
     }
 }

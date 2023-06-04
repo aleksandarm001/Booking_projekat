@@ -17,5 +17,6 @@ namespace InitialProject.Services.IServices
         string GetUsername();
         bool GetSuperGuest();
         int GetUserPoints();
+        string GetFullName();
     }
 }
