@@ -376,9 +376,6 @@
         </Grid>
 
         <Grid x:Name="AllAccommodations"  Grid.Row="2" Grid.Column="1">
-            <Grid.Background>
-                <ImageBrush ImageSource="/Infrastructure/Resources/Images/Island.png"/>
-            </Grid.Background>
             <Grid Visibility="Collapsed">
                 <Label  FontSize="20" Foreground="GhostWhite" FontStyle="Italic"  Padding="10"  FontWeight="Bold" Height="55" VerticalAlignment="Top" Margin="2,12,-2,0">Your accommodations:</Label>
                 <DataGrid ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Background="DeepSkyBlue"  Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}"  RowStyle="{DynamicResource DataGridRowStyle2}"  x:Name="OwnerAccommodations"  ItemsSource="{Binding Path = Accommodations, UpdateSourceTrigger=PropertyChanged}"  Margin="0,79,0,0"
@@ -395,9 +392,7 @@
             </Grid>
 
             <DockPanel  x:Name="AddAccommodation" Grid.Row="2" Grid.Column="1" Visibility="Collapsed">
-                <DockPanel.Background>
-                    <ImageBrush ImageSource="/Infrastructure/Resources/Images/Island.png"/>
-                </DockPanel.Background>
+                
                 <Grid DockPanel.Dock="Left" Width="397">
                     <Grid.RowDefinitions>
                         <RowDefinition ></RowDefinition>
