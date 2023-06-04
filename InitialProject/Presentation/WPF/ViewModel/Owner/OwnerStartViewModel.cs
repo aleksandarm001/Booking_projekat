@@ -15,6 +15,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.TeamFoundation.Build.WebApi;
+using InitialProject.Presentation.WPF.View.Owner.StartWindowPages;
+using System.Windows.Controls;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Owner
 { 
@@ -29,16 +32,17 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public System.Windows.Navigation.NavigationService NavService { get; set; }
 
         private readonly IAccommodationService _accommodationService;
-        private readonly IAddAccommodationService _addAccommodationService;
+        //private readonly IAddAccommodationService _addAccommodationService;
         private readonly IGuestReviewService _guestReviewService;
         private readonly IOwnerRateService _ownerRateService;
-        private readonly IChangeReservationRequestService _requestService;
+        //private readonly IChangeReservationRequestService _requestService;
         private readonly IRenovationService _renovationService;
 
        
-        
+        /*
         public ObservableCollection<OwnerChangeRequests> _requests;
         public ObservableCollection<OwnerChangeRequests> Requests
         {
@@ -49,7 +53,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 OnPropertyChanged(nameof(Requests));
             }
         }
-
+        */
+        /*
         public ObservableCollection<OwnerRate> _ownerRates;
         public ObservableCollection<OwnerRate> OwnerRates
         {
@@ -61,7 +66,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
             }
         }
-
+        */
         public ObservableCollection<Accommodation> _accommodations;
         public ObservableCollection<Accommodation> Accommodations
         {
@@ -73,7 +78,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
             }
         }
-
+        /*
         public ObservableCollection<Renovation> _renovations;
 
         public ObservableCollection<Renovation> ScheduledRenovations
@@ -97,20 +102,21 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 OnPropertyChanged(nameof(FinishedRenovations));
             }
         }
+        */
 
-        public static ObservableCollection<string> Countries { get; set; }
-        public static ObservableCollection<string> Cities { get; set; }
-        public static ObservableCollection<Location> Locations { get; set; }
-        public static ObservableCollection<AccommodationImage> Images { get; set; }
+        //public static ObservableCollection<string> Countries { get; set; }
+       // public static ObservableCollection<string> Cities { get; set; }
+        //public static ObservableCollection<Location> Locations { get; set; }
+        //public static ObservableCollection<AccommodationImage> Images { get; set; }
         public static ObservableCollection<Reservation> Reservations { get; set; }
-        public static List<GuestReview> GuestReviews { get; set; }
-        public static ObservableCollection<UserToReview> UsersToReview { get; set; }
+       // public static List<GuestReview> GuestReviews { get; set; }
+        //public static ObservableCollection<UserToReview> UsersToReview { get; set; }
         public static ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
 
 
         int UserId;
 
-        
+        /*
 
         private string _url;
 
@@ -127,8 +133,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 }
             }
         }
+        */
        
-
+        /*
         private Accommodation _accommodation = new Accommodation();
         public Accommodation NewAccommodation
         {
@@ -142,54 +149,67 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 }
             }
         }
-
-        public UserToReview SelectedUserToReview { get; set; }
-        public OwnerChangeRequests SelectedRequest { get; set; }
-        public Accommodation SelectedAccommodation { get; set; }
+        */
+       // public UserToReview SelectedUserToReview { get; set; }
+        //public OwnerChangeRequests SelectedRequest { get; set; }
+        //public Accommodation SelectedAccommodation { get; set; }
         public Accommodation StartSelectedAccommodation { get; set; }
-        public Renovation SelectedRenovation { get; set; }
+       // public Renovation SelectedRenovation { get; set; }
 
 
-        public RelayCommand AddUrl { get; set; }
-        public RelayCommand SaveNewAccommodation { get; set; }
-        public RelayCommand AddRenovation { get; set; }
-        public RelayCommand CancelRenovation { get; set; }
-        public RelayCommand ReviewGuest { get; set; }
-        public RelayCommand AcceptChangeReservation { get; set; }
-        public RelayCommand DeclineChangeReservation { get; set; }
+       // public RelayCommand AddUrl { get; set; }
+       // public RelayCommand SaveNewAccommodation { get; set; }
+       // public RelayCommand AddRenovation { get; set; }
+        //public RelayCommand CancelRenovation { get; set; }
+       // public RelayCommand ReviewGuest { get; set; }
+        //public RelayCommand AcceptChangeReservation { get; set; }
+        //public RelayCommand DeclineChangeReservation { get; set; }
 
         public RelayCommand AccommodationStatistics { get; set; }
 
-        public OwnerStartViewModel(int userId)
+
+
+
+
+        public RelayCommand NavigateToAllAccommodations { get; set; }
+        public RelayCommand NavigateToAddAccommodations { get; set; }
+        public RelayCommand NavigateToGuestsToReview { get; set; } 
+        public RelayCommand NavigateToOwnerReviews { get; set; }
+        public RelayCommand NavigateToChangeReservationRequest { get; set; }
+
+        public RelayCommand NavigateToRenovations { get; set; }
+
+
+        public OwnerStartViewModel(System.Windows.Navigation.NavigationService navService,int userId)
         {
             UserId = userId;
 
             _accommodationService = Injector.CreateInstance<IAccommodationService>();
-            _addAccommodationService = Injector.CreateInstance<IAddAccommodationService>();
+            //_addAccommodationService = Injector.CreateInstance<IAddAccommodationService>();
             _guestReviewService = Injector.CreateInstance<IGuestReviewService>();
             _ownerRateService = Injector.CreateInstance<IOwnerRateService>();
-            _requestService = Injector.CreateInstance<IChangeReservationRequestService>();
+            //_requestService = Injector.CreateInstance<IChangeReservationRequestService>();
             _renovationService = Injector.CreateInstance<IRenovationService>();
 
             Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetAccommodationsByOwnerId(userId));
-            Locations = new ObservableCollection<Location>(_addAccommodationService.GetAllLocations());
-            Cities = new ObservableCollection<string>(_addAccommodationService.GetCities(Locations.ToList()));
-            Countries = new ObservableCollection<string>(_addAccommodationService.GetCountries(Locations.ToList()));
-            Images = new ObservableCollection<AccommodationImage>();
+            //Locations = new ObservableCollection<Location>(_addAccommodationService.GetAllLocations());
+            //Cities = new ObservableCollection<string>(_addAccommodationService.GetCities(Locations.ToList()));
+            //Countries = new ObservableCollection<string>(_addAccommodationService.GetCountries(Locations.ToList()));
+            //Images = new ObservableCollection<AccommodationImage>();
 
             // Reservations = new ObservableCollection<Reservation>(_reservationRepository.GetAll());
             //GuestReviews = new List<GuestReview>(_guestReviewRepository.GetAll());
             //AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationRepository.GetAll());
-            UsersToReview = new ObservableCollection<UserToReview>(_guestReviewService.GetUsersByID(UserId));
-            OwnerRates = new ObservableCollection<OwnerRate>(_ownerRateService.RatingsFromRatedGuest(UserId));
-            Requests = new ObservableCollection<OwnerChangeRequests>(_requestService.OwnerChangeReservationRequest(UserId));
+           //UsersToReview = new ObservableCollection<UserToReview>(_guestReviewService.GetUsersByID(UserId));
+           //OwnerRates = new ObservableCollection<OwnerRate>(_ownerRateService.RatingsFromRatedGuest(UserId));
+            //Requests = new ObservableCollection<OwnerChangeRequests>(_requestService.OwnerChangeReservationRequest(UserId));
 
-            NewAccommodation.AccommodationCancelationDays = 1;
+            //NewAccommodation.AccommodationCancelationDays = 1;
 
             _renovationService.IsRenovationFinished();
-            ScheduledRenovations = new ObservableCollection<Renovation>(_renovationService.GetScheduledRenovationsByOwnerId(UserId));
-            FinishedRenovations = new ObservableCollection<Renovation>(_renovationService.GetFinishedRenovationsByOwnerId(UserId));
-            _renovationService.RecentlyRenovated();
+            //ScheduledRenovations = new ObservableCollection<Renovation>(_renovationService.GetScheduledRenovationsByOwnerId(UserId));
+            //FinishedRenovations = new ObservableCollection<Renovation>(_renovationService.GetFinishedRenovationsByOwnerId(UserId));
+            _renovationService.RecentlyRenovated(); // PRoveri gde treba
 
 
 
@@ -198,23 +218,60 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             _guestReviewService.RateNotification(UserId);
             // showSuperOwner(UserId);
 
+            this.NavService = navService;
+            this.NavigateToAllAccommodations = new RelayCommand(AllAccommodations_ButtonClick);
+            this.NavigateToAddAccommodations = new RelayCommand(AddAccommodation_ButtonClick);
+            this.NavigateToGuestsToReview = new RelayCommand(GuestsToReview_ButtonClick);
+            this.NavigateToOwnerReviews = new RelayCommand(OwnerReviews_ButtonClick);
+            this.NavigateToChangeReservationRequest = new RelayCommand(ChangeReservationRequest_ButtonClick);
+            this.NavigateToRenovations = new RelayCommand(Renovations_ButtonClick);
 
-            AddUrl = new RelayCommand(AddUrl_ButtonClick);
-            ReviewGuest = new RelayCommand(Review_ButtonClick);
-            AcceptChangeReservation = new RelayCommand(AcceptChangeReservation_Button_Click);
-            DeclineChangeReservation = new RelayCommand(DeclineChangeReservation_Button_Click);
-            SaveNewAccommodation = new RelayCommand(SaveNewAccommodation_ButtonClick);
-            AddRenovation = new RelayCommand(AddRenovation_ButtonClick);
-            CancelRenovation = new RelayCommand(CancelRenovation_ButtonClick);
+            //AddUrl = new RelayCommand(AddUrl_ButtonClick);
+            //ReviewGuest = new RelayCommand(Review_ButtonClick);
+            //AcceptChangeReservation = new RelayCommand(AcceptChangeReservation_Button_Click);
+            //DeclineChangeReservation = new RelayCommand(DeclineChangeReservation_Button_Click);
+            //SaveNewAccommodation = new RelayCommand(SaveNewAccommodation_ButtonClick);
+            //AddRenovation = new RelayCommand(AddRenovation_ButtonClick);
+            //CancelRenovation = new RelayCommand(CancelRenovation_ButtonClick);
             
             AccommodationStatistics = new RelayCommand(Statistics_ButtonClick);
 
         }
 
-        private void AllAccommodations_ButtonClick(object sender, RoutedEventArgs e)
+        private void AllAccommodations_ButtonClick(object obj)
         {
-            //AddAccommodation.Visibility = Visibility.Collapsed;
-            //OwnerAccommodations.Visibility = Visibility.Visible;
+            Page allAccommodations = new AllAccommodations(UserId);
+            this.NavService.Navigate(allAccommodations);
+        }
+
+        private void AddAccommodation_ButtonClick(object obj)
+        {
+            Page addAccommodations = new AddAccommodation(UserId);
+            this.NavService.Navigate(addAccommodations);
+        }
+
+        private void GuestsToReview_ButtonClick(object obj)
+        {
+            Page guestsToReview = new GuestsToReview(UserId);
+            this.NavService.Navigate(guestsToReview);
+        }
+
+        private void OwnerReviews_ButtonClick(object obj)
+        {
+            Page ownerReviews = new OwnerReviewsPage(UserId);
+            this.NavService.Navigate(ownerReviews);
+        }
+
+        private void ChangeReservationRequest_ButtonClick(object obj)
+        {
+            Page changeReservationRequest = new ChangeReservationRequestPage(UserId);
+            this.NavService.Navigate(changeReservationRequest);
+        }
+
+        private void Renovations_ButtonClick(object obj)
+        {
+            Page renovations = new RenovationsPage(UserId);
+            this.NavService.Navigate(renovations);
         }
 
         private void Guests_ButtonClick(object sender, RoutedEventArgs e)
@@ -297,6 +354,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
        }
    }
    */
+
+        /*
         private void SaveNewAccommodation_ButtonClick(object parameter)
         {
             NewAccommodation.Validate();
@@ -319,10 +378,10 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             Images.Add(newImage);
         }
 
-
+    */
 
         //GOSTI ZA OCENJIVANJE
-
+        /*
         private void Review_ButtonClick(object parameter)
         {
             if (SelectedUserToReview == null)
@@ -340,7 +399,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 }
             }
         }
-
+        */
         //Za owner review
         public void showSuperOwner(int ownerId)
         {
@@ -354,7 +413,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             }
         }
 
-        //Za ChangereservationRequest
+        /*Za ChangereservationRequest
         public void AcceptChangeReservation_Button_Click(object parameter)
         {
             if (SelectedRequest == null)
@@ -382,7 +441,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
             }
         }
-        //Renovation
+        */
+        /*
+        Renovation
         private void AddRenovation_ButtonClick(object parameter)
         {
             if (SelectedAccommodation == null)
@@ -420,6 +481,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 }
             }
         }
+        */
         //Statistics
         private void Statistics_ButtonClick(object parameter)
         {

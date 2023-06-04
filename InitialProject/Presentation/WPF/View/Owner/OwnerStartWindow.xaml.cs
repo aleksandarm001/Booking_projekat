@@ -3,6 +3,7 @@ using InitialProject.Aplication.Factory;
 using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Presentation.WPF.ViewModel.Owner;
+using InitialProject.Presentation.WPF.View.Owner;
 using InitialProject.Repository;
 using InitialProject.Services;
 using InitialProject.Services.IServices;
@@ -17,6 +18,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -32,32 +34,21 @@ namespace InitialProject.Presentation.WPF.View.Owner
     /// </summary>
     public partial class OwnerStartWindow : Window
     {
-        private OwnerStartViewModel viewModel;
+        private OwnerStartViewModel viewModel { get; set; }
 
         public OwnerStartWindow(int UserId)
         {
             InitializeComponent();
-            viewModel = new OwnerStartViewModel(UserId);
-            DataContext = viewModel;
+            this.viewModel = new OwnerStartViewModel(this.frame.NavigationService, UserId);
+            DataContext = this.viewModel;
         }
 
-        private void AddAccommodation_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            
-            AllAccommodations.Visibility= Visibility.Collapsed;
-            AddAccommodation.Visibility= Visibility.Visible;
-        }
-
-        private void AllAccommodations_Button_Click(object sender, RoutedEventArgs e)
-        {
-            AddAccommodation.Visibility = Visibility.Collapsed;
-            AllAccommodations.Visibility= Visibility.Visible;
-        }
-
+        
+        
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            AllAccommodations.Visibility = Visibility.Visible;
-            AddAccommodation.Visibility = Visibility.Collapsed;
+            //AllAccommodations.Visibility = Visibility.Visible;
+            //AddAccommodation.Visibility = Visibility.Collapsed;
         }
 
         

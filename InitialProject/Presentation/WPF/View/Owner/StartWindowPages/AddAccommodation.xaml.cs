@@ -1,0 +1,32 @@
+﻿using InitialProject.Presentation.WPF.ViewModel.Owner;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace InitialProject.Presentation.WPF.View.Owner.StartWindowPages
+{
+    /// <summary>
+    /// Interaction logic for AddAccommodation.xaml
+    /// </summary>
+    public partial class AddAccommodation : Page
+    {
+        private AddAccommodationViewModel viewModel { get; set; }
+        public AddAccommodation(int UserId)
+        {
+            viewModel = new AddAccommodationViewModel(UserId);
+            InitializeComponent();
+            this.DataContext = viewModel;
+        }
+    }
+}
