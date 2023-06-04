@@ -8,7 +8,7 @@
          Title="Obavjestenje o turi" Height="300" Width="300" WindowStartupLocation="CenterScreen">
     <Grid>
 
-        <Button x:Name="Ok"  Content="OK" HorizontalAlignment="Center" Margin="0,239,0,0" VerticalAlignment="Top" Click="Ok_Click"  Height="30" Width="80"/>
+        <Button x:Name="Ok"  Content="OK" HorizontalAlignment="Center" Margin="0,239,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}" Height="30" Width="80"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,7,0,0" TextWrapping="Wrap" Text="Vas zahtjev za turu sa sljedecim osobinama je prihvacen od strane vodica:" VerticalAlignment="Top" Width="280"/>
         <TextBlock HorizontalAlignment="Left" Margin="27,59,0,0" TextWrapping="Wrap"  Text="Drzava:" VerticalAlignment="Top" Width="99"/>
         <TextBlock HorizontalAlignment="Left" Margin="27,89,0,0" TextWrapping="Wrap" Text="Grad:" VerticalAlignment="Top" Width="99"/>

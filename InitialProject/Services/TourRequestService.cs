@@ -96,26 +96,32 @@
         {
             if (tour.CreatedType == CreationType.CreationTourType.CreatedByRequest)
             {
-                _tourNotificationService.MakeNotification( userId, tour.TourId, TourNotification.NotificationType.StatisticTour);
+                _tourNotificationService.MakeNotification( userId, tour.TourId, TourNotification.NotificationType.TourRequest);
             }
             else if (tour.CreatedType == CreationType.CreationTourType.CreatedByStatistics)
             {
-                var lista = _repository.GetAll().Where(t => t.Language.Name == tour.Language.Name).ToList().GroupBy(t => t.UserId);
-                foreach (var item in lista)
-                {
-                    if (item.Where(t => t.RequestStatus == ComplexTourRequest.Status.Rejected).Count() == item.Count())
-                    {
-                        _tourNotificationService.MakeNotification(item.ElementAt(0).UserId, tour.TourId, TourNotification.NotificationType.StatisticTour);
-                    }
-                }
+                MakeNotificationsForStatisticTour(tour);
+            }
+        }
 
-                var pista = _repository.GetAll().Where(t => t.Location.Country.ToString() == tour.Location.Country.ToString() && t.Location.City.ToString() == tour.Location.City.ToString()).ToList().GroupBy(t => t.UserId);
-                foreach (var item in pista)
+
+        private void MakeNotificationsForStatisticTour(Tour tour)
+        {
+            var lista = _repository.GetAll().Where(t => t.Language.Name == tour.Language.Name).ToList().GroupBy(t => t.UserId);
+            foreach (var item in lista)
+            {
+                if (item.Where(t => t.RequestStatus == ComplexTourRequest.Status.Rejected).Count() == item.Count())
                 {
-                    if (item.Where(t => t.RequestStatus == ComplexTourRequest.Status.Rejected).Count() == item.Count())
-                    {
-                        _tourNotificationService.MakeNotification(item.ElementAt(0).UserId, tour.TourId, TourNotification.NotificationType.StatisticTour);
-                    }
+                    _tourNotificationService.MakeNotification(item.ElementAt(0).UserId, tour.TourId, TourNotification.NotificationType.StatisticTour);
+                }
+            }
+
+            var list = _repository.GetAll().Where(t => t.Location.Country.ToString() == tour.Location.Country.ToString() && t.Location.City.ToString() == tour.Location.City.ToString()).ToList().GroupBy(t => t.UserId);
+            foreach (var item in list)
+            {
+                if (item.Where(t => t.RequestStatus == ComplexTourRequest.Status.Rejected).Count() == item.Count())
+                {
+                    _tourNotificationService.MakeNotification(item.ElementAt(0).UserId, tour.TourId, TourNotification.NotificationType.StatisticTour);
                 }
             }
         }

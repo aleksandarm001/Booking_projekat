@@ -95,8 +95,11 @@ namespace InitialProject
                     this.Close();
                     break;
                 case (UserType.Guest2):
-                    HomeWindow homeWindow = new HomeWindow(user.Id);
-                    homeWindow.Show();
+                    //HomeWindow homeWindow = new HomeWindow(user.Id);
+                    //homeWindow.Show();
+
+                    MainWindow mainWindow = new MainWindow(user.Id);
+                    mainWindow.Show();
                     this.Close();
                     break;
 

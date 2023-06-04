@@ -1,5 +1,9 @@
+1|jedan|1|NotActive|jedaaan|1
+2|dva|1|NotActive|dvaaaaaa|2
 3|jedan|2|NotActive|jedaaan|1
 4|dva|2|NotActive|dvaaaaaa|2
+5|das|3|NotActive|asd|1
+6|dasasd|3|NotActive|asd|2
 7|das|4|NotActive|asd|1
 8|dasasd|4|NotActive|asd|2
 9|asd|18|NotActive|asd|1
@@ -38,5 +42,5 @@
 42|asdfasd|29|NotActive|asdf|2
 43|asdfa|30|NotActive|as|1
 44|asdfaasd|30|NotActive|assd|2
-45|fsd|31|NotActive|sdf|1
-46|asd|24|NotActive|asd|1
+45|asdasd|16|NotActive|asd|1
+46|asdasdas|16|NotActive|asda|2

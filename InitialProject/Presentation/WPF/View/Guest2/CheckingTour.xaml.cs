@@ -11,34 +11,13 @@
     /// </summary>
     public partial class CheckingTour : Window
     {
-        public Tour Tour { get; }
         private readonly CheckingTourViewModel _checkingTourViewModel;
-        private readonly ITourService _tourService;
-        private TourAttendance _tourAttendance;
 
         public CheckingTour(TourAttendance tourAttendance)
         {
-            _checkingTourViewModel = new CheckingTourViewModel();
-            _tourService = Injector.CreateInstance<ITourService>();
-            Tour = _tourService.GetTourById(tourAttendance.TourId);
-            _tourAttendance = tourAttendance;
+            _checkingTourViewModel = new CheckingTourViewModel(tourAttendance);
             InitializeComponent();
             DataContext = this;
-        }
-
-
-
-        private void Odbij_Click(object sender, RoutedEventArgs e)
-        {
-            _checkingTourViewModel.RejectTourAttendance(_tourAttendance);
-            this.Close();
-        }
-
-        private void Potvrdi_Click(object sender, RoutedEventArgs e)
-        {
-            _checkingTourViewModel.ConfirmTourAttendance(_tourAttendance);
-            this.Close();
-
         }
     }
 }

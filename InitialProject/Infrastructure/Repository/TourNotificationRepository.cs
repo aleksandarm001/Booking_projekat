@@ -52,7 +52,7 @@
 
 
 
-        public List<TourNotification> GetAllForUser(int userId)
+        public List<TourNotification> GetAllTourNotificationsForUser(int userId)
         {
             return _tourNotifications.Where(t => t.UserId ==  userId).ToList();
         }

@@ -10,6 +10,4 @@
 10|1|Miami;United States|Russian|fgdasf|14|5/23/2023 12:00:00 AM|8/23/2023 12:00:00 AM|Accepted|-1
 11|1|Barcelona;Spain|Bosnian|zxvzx|11|5/25/2022 12:00:00 AM|5/26/2022 12:00:00 AM|Rejected|-1
 12|1|London;United Kingdom|Serbian|Tura u Londonu|10|4/27/2022 12:00:00 AM|4/28/2023 12:00:00 AM|Accepted|-1
-13|1|Delhi;India|Amharic|asfdsada|1|5/16/2023 12:00:00 AM|7/6/2023 12:00:00 AM|Rejected|-1
-14|1|São Paulo;Brazil|Arabic|qdsad|1|5/16/2023 12:00:00 AM|8/23/2023 12:00:00 AM|Accepted|-1
-15|1|Delhi;India|Afrikaans|dsfds|1|5/16/2023 12:00:00 AM|7/6/2023 12:00:00 AM|Accepted|-1
+13|1|Shanghai;China|Armenian|Tura po Sangaju|11|5/20/2023 12:00:00 AM|5/25/2023 12:00:00 AM|OnHold|-1

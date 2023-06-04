@@ -1,1 +1,2 @@
-1|30|StatisticTour
+1|3|TourRequest
+1|5|StatisticTour
