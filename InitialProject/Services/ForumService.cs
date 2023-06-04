@@ -3,6 +3,7 @@ using InitialProject.Application.Contracts.Repository;
 using InitialProject.Domen.Model;
 using InitialProject.Infrastructure.Repository;
 using InitialProject.Services.IServices;
+using Microsoft.TeamFoundation.Build.WebApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,11 @@ namespace InitialProject.Services
     public class ForumService : IForumService
     {
         private IForumRepository _forumRepository;
+        private IAccommodationService _accommodationService;
         public ForumService()
         {
             _forumRepository = Injector.CreateInstance<IForumRepository>();
+            _accommodationService = Injector.CreateInstance<AccommodationService>();
         }
         public void Delete(Forum forum)
         {
@@ -77,5 +80,31 @@ namespace InitialProject.Services
             Forum forum = GetForumById(forumId);
             return forum.Location;
         }
+
+        public List<Forum> ForumsForOwners(int userId)
+        {
+            List<Accommodation> accommodations = _accommodationService.GetAccommodationsByOwnerId(userId);
+            List<Forum> allForums = GetAll();
+            
+
+            List<Forum> matchingForums = allForums.Where(forum => accommodations.Any(accommodation => accommodation.Location == forum.Location)).ToList();
+            return matchingForums;
+        }
+
+        public List<Forum> OpenedForums(int userId)
+        {
+            List<Forum> openedForums = new List<Forum>();
+            List<Forum> forums = ForumsForOwners(userId);
+            foreach(Forum forum in forums)
+            {
+                if(forum.Status == ForumStatus.Open)
+                {
+                    openedForums.Add(forum);
+                }
+            }
+            return openedForums;
+        }
+
+
     }
 }
