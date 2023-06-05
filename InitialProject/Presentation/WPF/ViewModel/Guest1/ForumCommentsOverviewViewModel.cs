@@ -161,7 +161,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         private void SubmitComment(object parameter)
         {
-            if (!string.IsNullOrEmpty(NewComment))
+            if (!string.IsNullOrEmpty(NewComment) && CanLeaveComment == true)
             {
                 Comment newComment = new Comment(DateTime.Now, NewComment, _userService.GetUserId());
                 newComment = _commentService.Save(newComment);

@@ -24,7 +24,7 @@
         </Border.BorderBrush>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.45*"/>
+            <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Separator Background="Black" Grid.Column="1" HorizontalAlignment="Left" Margin="0,301,0,0" VerticalAlignment="Top"/>

@@ -35,6 +35,10 @@ namespace InitialProject.View
         public KeyValuePair<string ,int>[] Statistics { get; set; }
         public RelayCommand ApplyCommand { get; private set; }
         public RelayCommand CloseCommand { get; private set; }
+        public RelayCommand FocusInformations_Command { get; private set; }
+        public RelayCommand FocusTable_Command { get; private set; }
+        public RelayCommand SelectDates_Command { get; private set; }
+        public RelayCommand SelectStatistics_Command { get; private set; }
         public DateRange SelectedDateRange { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public string AccommodationName { get; set; }
@@ -80,7 +84,7 @@ namespace InitialProject.View
                     _sStartDay = value;
                     string[] values = _sStartDay.Split('/');
                     if (!string.IsNullOrEmpty(value)) { 
-                        StartDay = new DateTime(Convert.ToInt32(values[2]), Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
+                         StartDay = new DateTime(Convert.ToInt32(values[2]), Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
                         OnPropertyChanged("SStartDay");
                         OnPropertyChanged("StartDay");
                     }
@@ -202,8 +206,7 @@ namespace InitialProject.View
             InitializeDatePickers();
             DateRanges = new ObservableCollection<DateRange>();
             IsEnabled = false;
-            ApplyCommand = new RelayCommand(ApplyFilters_Command);
-            CloseCommand = new RelayCommand(CloseWindow_Command);
+            InitializeCommands();
             validation = new NumericValidation();
             _accommodationReservationService = Injector.CreateInstance<IAccommodationReservationService>();
             _userService = Injector.CreateInstance<IUserService>();
@@ -211,6 +214,42 @@ namespace InitialProject.View
             LoadColumnChartData();
         }
 
+        private void InitializeCommands()
+        {
+            ApplyCommand = new RelayCommand(ApplyFilters_Command);
+            CloseCommand = new RelayCommand(CloseWindow_Command);
+            FocusInformations_Command = new RelayCommand(FocusInformations);
+            FocusTable_Command = new RelayCommand(FocusTable);
+            SelectDates_Command = new RelayCommand(SelectDates);
+            SelectStatistics_Command = new RelayCommand(SelectStatistics);
+        }
+        private void FocusInformations(object parameter)
+        {
+            var textBox = parameter as TextBox;
+            textBox.Focus();
+        }
+        private void FocusTable(object parameter)
+        {
+            var dataGrid = parameter as DataGrid;
+            dataGrid.Focus();
+            if(dataGrid.Items.Count != 0)
+            {
+                dataGrid.SelectedItem = dataGrid.Items[0];
+                dataGrid.ScrollIntoView(dataGrid.SelectedItem);
+            }
+        }
+        private void SelectDates(object parameter)
+        {
+            var tab = (parameter) as TabControl;
+            tab.SelectedIndex = 0;
+
+        }
+        private void SelectStatistics(object parameter)
+        {
+            var tab = (parameter) as TabControl;
+            tab.SelectedIndex = 1;
+
+        }
         private void LoadColumnChartData()
         {
             ((ColumnSeries)mcChart.Series[0]).ItemsSource = Statistics;
@@ -409,6 +448,30 @@ namespace InitialProject.View
             GenerateReport(accommodation,dateRange,numberOfGuests);
             Report.Draw("C:\\Users\\Aleksandar\\Desktop\\Report.pdf");
             MessageBox.Show("Report has been successfuly created and it is located in ../Users/Aleksandar/Desktop", "Report Creating", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
+        }
+
+        private void rezervacije_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                if (SelectedAccommodation == null)
+                {
+                    MessageBox.Show("Please select date.");
+                }
+                else
+                {
+                    EnterGuestNumberDialog guestNumberInputDialog = new EnterGuestNumberDialog(SelectedAccommodation.MaxGuestNumber);
+                    guestNumberInputDialog.Owner = this;
+                    guestNumberInputDialog.ShowDialog();
+                    if (guestNumberInputDialog.NumberOfGuests != 0)
+                    {
+                        NumberOfGuests = guestNumberInputDialog.NumberOfGuests;
+                        ReserveAccommodation(SelectedAccommodation.AccommodationID, _userId, SelectedDateRange, NumberOfGuests);
+                        MessageBox.Show("You successfuly reserved " + ReservationDays.ToString() + " day(s) at " + AccommodationName);
+                        guestNumberInputDialog.Close();
+                    }
+                }
+            }
         }
     }
 }

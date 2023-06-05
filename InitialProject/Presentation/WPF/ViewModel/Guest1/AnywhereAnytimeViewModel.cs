@@ -15,6 +15,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Page = ceTe.DynamicPDF.Page;
+using System.Windows.Input;
+using ceTe.DynamicPDF;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 {
@@ -25,6 +28,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         private readonly IAccommodationReservationService _accommodationReservationService;
         private readonly IReservationService _reservationService;
         private readonly IUserService _userService;
+        public ceTe.DynamicPDF.Document Report;
         public AccommodationReservationDTO SelectedAccommodation { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
         public RelayCommand ApplyFiltersCommand { get; set; }
@@ -32,6 +36,14 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         public RelayCommand ReserveCommand { get; set; }
         public RelayCommand FocusFilters_Command { get; set; }
         public RelayCommand FocusTable_Command { get; set; }
+        private RelayCommand _reserveOnEnter_Command;
+        public RelayCommand ReserveOnEnter_Command
+        {
+            get
+            {
+                return _reserveOnEnter_Command ?? ( _reserveOnEnter_Command = new RelayCommand(x => { Reserve(); }));
+            }
+        }
         public ObservableCollection<AccommodationReservationDTO> Accommodations
         {
             get 
@@ -201,7 +213,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             FocusFilters_Command = new RelayCommand(FocusFilters);
             FocusTable_Command = new RelayCommand(FocusTable);
         }
-
         private void FocusFilters(object parameter)
         {
             var textBox = parameter as TextBox;
@@ -211,8 +222,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         {
             var dataGrid = parameter as DataGrid;
             dataGrid.Focus();
-            dataGrid.SelectedItem = dataGrid.Items[0];
-            dataGrid.ScrollIntoView(dataGrid.SelectedItem);
+            if(dataGrid.Items.Count != 0)
+            {
+                dataGrid.SelectedItem = dataGrid.Items[0];
+                dataGrid.ScrollIntoView(dataGrid.SelectedItem);
+            }
         }
         public void ApplyFilters(object parameter)
         {
@@ -259,15 +273,104 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         public void MakeReservation(object parameter)
         {
-            if(MessageBox.Show("Confirm reservation", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Information) == MessageBoxResult.OK)
+            Reserve();
+        }
+
+        private void Reserve()
+        {
+            if (MessageBox.Show("Confirm reservation", "Question", MessageBoxButton.OKCancel, MessageBoxImage.Information) == MessageBoxResult.OK)
             {
                 Reservation reservation = new Reservation(SelectedAccommodation.CheckInOutDates, NumberOfGuests, _userService.GetUserId());
                 _reservationService.Save(reservation);
                 AccommodationReservation accommodationReservation = new AccommodationReservation(SelectedAccommodation.AccommodationId, reservation.ReservationId);
                 _accommodationService.Save(accommodationReservation);
-                MessageBox.Show("You successfuly reserved " + StrReservationDays + " day(s) at " + SelectedAccommodation.AccommodationName + " for " + StrNumberOfGuests + " people.(" + SelectedAccommodation.CheckInOutDates.ToStringForPrint()+")");
+                MessageBox.Show("You successfuly reserved " + StrReservationDays + " day(s) at " + SelectedAccommodation.AccommodationName + " for " + StrNumberOfGuests + " people.(" + SelectedAccommodation.CheckInOutDates.ToStringForPrint() + ")");
+                Accommodation accommodation = _accommodationService.GetAccommodationById(SelectedAccommodation.AccommodationId);
+                CreateReport(accommodation, SelectedAccommodation.CheckInOutDates, NumberOfGuests);
                 UpdateAccommodations();
             }
+        }
+
+        private void GenerateReport(Accommodation accommodation, DateRange dateRange, int numberOfGuests)
+        {
+            Page page = new Page(PageSize.A4, PageOrientation.Portrait, 44.0f);
+            Report.Pages.Add(page);
+            string today = string.Format("{0:dd.MM.yyyy.}", DateTime.Now);
+            string fullName = _userService.GetFullName();
+            ceTe.DynamicPDF.PageElements.Label header = new ceTe.DynamicPDF.PageElements.Label("Reservation report", 0, 0, 504, 100, Font.TimesRoman, 20, TextAlign.Center);
+            ceTe.DynamicPDF.PageElements.Label user = new ceTe.DynamicPDF.PageElements.Label("User: " + fullName, 0, 50, 200, 20, Font.TimesRoman, 14, TextAlign.Left);
+            ceTe.DynamicPDF.PageElements.Label datefrom = new ceTe.DynamicPDF.PageElements.Label("Today date: " + today, 0, 70, 200, 20, Font.TimesRoman, 14, TextAlign.Left);
+            //ceTe.DynamicPDF.PageElements.Label dateto = new ceTe.DynamicPDF.PageElements.Label("Datum do: " + dateRange.EndDate.Date.ToShortDateString(), 0, 90, 200, 20, Font.TimesRoman, 14, TextAlign.Left);
+
+            page.Elements.Add(datefrom);
+            page.Elements.Add(header);
+            page.Elements.Add(user);
+
+            ReservationReportDTO reservationReportDTO = new ReservationReportDTO(accommodation.Name, accommodation.Location, dateRange, numberOfGuests, accommodation.DaysBeforeCancelling);
+
+            if (reservationReportDTO != null)
+            {
+
+                ceTe.DynamicPDF.PageElements.Label accommodationName = new ceTe.DynamicPDF.PageElements.Label("Accommodation", 0, 100, 200, 40, Font.TimesRoman, 14, TextAlign.Left);
+                ceTe.DynamicPDF.PageElements.Label accommodationLocation = new ceTe.DynamicPDF.PageElements.Label("Location", 130, 100, 504, 100, Font.TimesRoman, 14, TextAlign.Left);
+                ceTe.DynamicPDF.PageElements.Label checkInDate = new ceTe.DynamicPDF.PageElements.Label("Check in", 240, 100, 504, 100, Font.TimesRoman, 14, TextAlign.Left);
+                ceTe.DynamicPDF.PageElements.Label checkOutDate = new ceTe.DynamicPDF.PageElements.Label("Check out", 320, 100, 504, 100, Font.TimesRoman, 14, TextAlign.Left);
+                ceTe.DynamicPDF.PageElements.Label numOfGuests = new ceTe.DynamicPDF.PageElements.Label("Number of guests", 400, 100, 504, 100, Font.TimesRoman, 14, TextAlign.Left);
+
+
+                page.Elements.Add(accommodationName);
+                page.Elements.Add(accommodationLocation);
+                page.Elements.Add(checkInDate);
+                page.Elements.Add(checkOutDate);
+                page.Elements.Add(numOfGuests);
+
+                float labelWidth = 100f; // Adjust the width of each label as needed
+                float labelHeight = 10f; // Adjust the height of each label as needed
+                float horizontalSpacing = 15f; // Adjust the horizontal spacing between labels as needed
+                float verticalSpacing = 2f; // Adjust the vertical spacing between rows as needed
+                float initialX = 0; // Initial starting X-coordinate
+                float initialY = 160; // Initial starting Y-coordinate
+
+                float currentX = initialX;
+                float currentY = initialY;
+
+
+                currentX = initialX;
+
+
+                ceTe.DynamicPDF.PageElements.Label name = new ceTe.DynamicPDF.PageElements.Label(reservationReportDTO.AccommodationName, currentX, currentY, 130, labelHeight, Font.TimesRoman, 11, TextAlign.Left);
+                ceTe.DynamicPDF.PageElements.Label location = new ceTe.DynamicPDF.PageElements.Label(reservationReportDTO.AccommdoationLocation.ToString(), currentX + 130f, currentY, 140, labelHeight, Font.TimesRoman, 11, TextAlign.Left);
+                ceTe.DynamicPDF.PageElements.Label date1 = new ceTe.DynamicPDF.PageElements.Label(reservationReportDTO.ReservationDateRange.SStartDate, currentX + 240f, currentY, 140, labelHeight, Font.TimesRoman, 11, TextAlign.Left);
+                ceTe.DynamicPDF.PageElements.Label date2 = new ceTe.DynamicPDF.PageElements.Label(reservationReportDTO.ReservationDateRange.SEndDate, currentX + 320f, currentY, 140, labelHeight, Font.TimesRoman, 11, TextAlign.Left);
+                ceTe.DynamicPDF.PageElements.Label guestNumber = new ceTe.DynamicPDF.PageElements.Label(reservationReportDTO.NumberOfGuests.ToString(), currentX + 400f, currentY, 160, labelHeight, Font.TimesRoman, 11, TextAlign.Left);
+
+                // Add each label to the page
+                page.Elements.Add(name);
+                page.Elements.Add(location);
+                page.Elements.Add(date1);
+                page.Elements.Add(date2);
+                page.Elements.Add(guestNumber);
+
+                // Increment the X-coordinate for the next row
+                currentY += labelHeight + verticalSpacing;
+
+                float labelEndX = page.Dimensions.Width - labelWidth - 120f; // Adjust the X-coordinate and spacing as needed
+                MessageBox.Show(labelEndX.ToString());
+                float labelEndY = page.Dimensions.Height - labelHeight - 120f; // Adjust the Y-coordinate and spacing as needed
+                MessageBox.Show(labelEndY.ToString());
+
+                ceTe.DynamicPDF.PageElements.Label endLabel = new ceTe.DynamicPDF.PageElements.Label("BookBuddy LLC", labelEndX, labelEndY, labelWidth, labelHeight, Font.TimesRoman, 18, TextAlign.Right);
+                page.Elements.Add(endLabel);
+
+            }
+            // Note: You may need to adjust the page dimensions or position of the labels based on your specific requirements.
+        }
+        private void CreateReport(Accommodation accommodation, DateRange dateRange, int numberOfGuests)
+        {
+            Report = new ceTe.DynamicPDF.Document();
+            GenerateReport(accommodation, dateRange, numberOfGuests);
+            Report.Draw("C:\\Users\\Aleksandar\\Desktop\\Report.pdf");
+            MessageBox.Show("Report has been successfuly created and it is located in ../Users/Aleksandar/Desktop", "Report Creating", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
         }
     }
 }

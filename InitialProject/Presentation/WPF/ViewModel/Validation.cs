@@ -108,11 +108,30 @@ namespace InitialProject.Presentation.WPF.ViewModel
             try
             {
                 var s = value as string;
-                string r;
                 Regex regex = new Regex("\\b(0?[1-9]|1[012])([\\/\\-])(0?[1-9]|[12]\\d|3[01])\\2(\\d{4})");
                 if (!regex.IsMatch(s))
                 {
                     return new ValidationResult(false, "Date format: MM/dd/YYYY.");
+                }
+
+                return new ValidationResult(true, null);
+            }
+            catch
+            {
+                return new ValidationResult(false, "Unknown error occurred.");
+            }
+        }
+    }
+    public class NotNullValidation: ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            try
+            {
+                var s = value as string;
+                if (string.IsNullOrEmpty(s))
+                {
+                    return new ValidationResult(false, "This field is requiered!");
                 }
 
                 return new ValidationResult(true, null);

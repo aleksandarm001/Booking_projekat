@@ -393,7 +393,7 @@ namespace InitialProject.View
         private void FocusTable(object parameter)
         {
             var dataGrid = parameter as DataGrid;
-            dataGrid.Focus();
+            //  dataGrid.Focus();
             dataGrid.SelectedItem = dataGrid.Items[0];
             dataGrid.ScrollIntoView(dataGrid.SelectedItem);
         }
@@ -401,6 +401,23 @@ namespace InitialProject.View
         private void accommodationsDataGrid_SelectionChanged()
         {
 
+        }
+
+        private void accommodationsDataGrid_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if(e.Key == System.Windows.Input.Key.Enter)
+            {
+                if (SelectedAccommodation == null)
+                {
+                    MessageBox.Show("Please select accommodation.");
+                }
+                else
+                {
+                    AccommodationReservationForm accommodationReservationFormWindow = new AccommodationReservationForm(SelectedAccommodation, _userId);
+                    accommodationReservationFormWindow.Owner = this;
+                    accommodationReservationFormWindow.ShowDialog();
+                }
+            }
         }
     }
 }

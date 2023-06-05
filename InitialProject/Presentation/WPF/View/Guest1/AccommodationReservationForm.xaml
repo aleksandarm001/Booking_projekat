@@ -12,7 +12,7 @@
         xmlns:datavis="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         xmlns:chartingprimitives="clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         mc:Ignorable="d"
-        Title="AccommodationReservationForm" Height="400" Width="600"
+        Title="AccommodationReservationForm" Height="430 " Width="620"
         WindowStartupLocation="CenterOwner"
         Background="Transparent"
         AllowsTransparency="True"
@@ -21,7 +21,6 @@
         <local1:ValidationToCommandParameterConverter x:Key="ValidationToCommandParameterConverter" />
         <local1:ValidationResultToBoolConverter x:Key="ValidationResultToBoolConverter"/>
     </Window.Resources>
-
     <Window.InputBindings>
         <KeyBinding Key="F10">
             <KeyBinding.Command>
@@ -35,6 +34,10 @@
             </KeyBinding.CommandParameter>
         </KeyBinding>
         <KeyBinding Key="F11" Command="{Binding CloseCommand}" />
+        <KeyBinding Key="F1" Command="{Binding FocusInformations_Command}" CommandParameter="{Binding ElementName=StartDatePicker}"/>
+        <KeyBinding Key="F2" Command="{Binding FocusTable_Command}" CommandParameter="{Binding ElementName=rezervacije}"/>
+        <KeyBinding Key="F7" Command="{Binding SelectDates_Command}" CommandParameter="{Binding ElementName=tabControl}"/>
+        <KeyBinding Key="F8" Command="{Binding SelectStatistics_Command}" CommandParameter="{Binding ElementName=tabControl}"/>
     </Window.InputBindings>
     <Border CornerRadius="12"
             BorderThickness="5"
@@ -178,30 +181,35 @@
                 </StackPanel>
             </Border>
             <StackPanel Grid.Column="1">
-                <StackPanel Orientation="Horizontal" Margin="35 40 35 10">
+                <StackPanel Orientation="Horizontal" Margin="35 10 35 10">
+                    <TextBlock Text="F1 - go to informations" FontSize="14" FontWeight="Bold" Foreground="#00734B" />
+                    <TextBlock Text="F2 - go to table" FontSize="14" FontWeight="Bold" Margin="35 0 35 0" Foreground="#00734B"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="35 0 35 10" >
                     <TextBlock Text="Reservation for: " FontSize="14" FontWeight="DemiBold"/>
                     <TextBlock Text="{Binding Path = AccommodationName}" FontSize="14" FontWeight="DemiBold"/>
                 </StackPanel>
-                <TabControl Name="tabControl" Margin="10,10,10,0">
+                <TabControl Name="tabControl" Margin="10,10,10,0" MaxHeight="300">
                     <TabItem Header="Dates (F7)" FontSize="14" Name="DatesTab">
                             <DataGrid Name="rezervacije" HorizontalAlignment="Center" VerticalAlignment="Top"
-                  Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"
-                  ItemsSource="{Binding Path = DateRanges, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path= SelectedDateRange, UpdateSourceTrigger=PropertyChanged}"
-                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False"
-                                      VerticalScrollBarVisibility="Visible">
+                    Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" 
+                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"
+                    ItemsSource="{Binding Path = DateRanges, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding Path= SelectedDateRange, UpdateSourceTrigger=PropertyChanged}"
+                    IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" 
+                    MaxHeight="280" PreviewKeyDown ="rezervacije_PreviewKeyDown">
                                 <DataGrid.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem Header="Reserve" Click="DataGritMenuItemClick"></MenuItem>
                                     </ContextMenu>
                                 </DataGrid.ContextMenu>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Start Date" Binding="{Binding SStartDate}" Width="0.7*"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="End Date" Binding="{Binding SEndDate}" Width="0.7*"></DataGridTextColumn>
-                                    <DataGridTemplateColumn Header="Book" Width="0.7*">
+                                    <DataGridTextColumn Header="Start Date" Binding="{Binding SStartDate}" Width="0.5*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="End Date" Binding="{Binding SEndDate}" Width="0.5*"></DataGridTextColumn>
+                                    <DataGridTemplateColumn Header="Book" Width="0.8*">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button x:Name="reserveButton" BorderThickness="0" Content="Book" Foreground="White"
+                                                <Button x:Name="reserveButton" BorderThickness="0" Content="Press Enter to book" Foreground="White"
                                         FontSize="12" FontFamily="Montserrat" Cursor="Hand" Click="DataGritMenuItemClick">
                                                     <Button.Style>
                                                         <Style TargetType="Button">
@@ -225,8 +233,8 @@
                                                     </Button.Style>
                                                     <Button.Template>
                                                         <ControlTemplate TargetType="Button">
-                                                            <Border Width="60" Height="30" CornerRadius="10" Background="{TemplateBinding Background}">
-                                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                            <Border Width="110" Height="30" CornerRadius="10" Background="{TemplateBinding Background}">
+                                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                                             </Border>
                                                         </ControlTemplate>
                                                     </Button.Template>

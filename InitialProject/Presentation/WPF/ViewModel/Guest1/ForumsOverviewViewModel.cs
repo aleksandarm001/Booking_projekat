@@ -34,6 +34,16 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         public RelayCommand SelectForumOverview_Command { get; set; }
         public RelayCommand SelectMyForumsElement_Command { get; set; }
         public RelayCommand SelectForumsOverviewElement_Command { get; set; }
+        private RelayCommand _reserveOnEnter_Command;
+        public RelayCommand ReserveOnEnter_Command
+        {
+            get
+            {
+                return _reserveOnEnter_Command ?? (
+                    _reserveOnEnter_Command = new RelayCommand(x => { OpenForum_WithoutParams(); })
+                    );
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public ObservableCollection<ForumOverviewDTO> MyForums
@@ -180,7 +190,13 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         }
         private void OpenForum(object parameter)
         {
-            if(SelectedForum != null)
+            OpenForum_WithoutParams();
+
+        }
+
+        private void OpenForum_WithoutParams()
+        {
+            if (SelectedForum != null)
             {
                 _forumIdService.ForumId = SelectedForum.ForumId;
 
@@ -190,8 +206,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
             forumCommentsOverview.ShowDialog();
             InitializeAllForums();
             InitializeMyForums();
-
         }
+
         private void SetWindowsProperties(Window window)
         {
             window.Owner = App.Current.Windows.OfType<ForumsOverviewWindow>().FirstOrDefault();

@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:val="clr-namespace:InitialProject.Presentation.WPF.ViewModel"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:i1="clr-namespace:InitialProject.Presentation.WPF.View"
         xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest1" 
-        xmlns:guest1="clr-namespace:InitialProject.Presentation.WPF.ViewModel.Guest1"
+        xmlns:guest1="clr-namespace:InitialProject.Presentation.WPF.ViewModel.Guest1" 
         d:DataContext="{d:DesignInstance Type=guest1:AnywhereAnytimeViewModel}"
         mc:Ignorable="d"
         Title="AnywhereAnytimeWindow" Height="650" Width="1100"
@@ -55,6 +57,11 @@
                   ItemsSource="{Binding Path = Accommodations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path= SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" >
+                        <i:Interaction.Triggers>
+                            <i1:EnterKeyDownEventTrigger EventName="PreviewKeyDown">
+                                <i:InvokeCommandAction Command="{Binding ReserveOnEnter_Command}"/>
+                            </i1:EnterKeyDownEventTrigger>
+                        </i:Interaction.Triggers>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Accommodation Name" Width="*" Binding="{Binding AccommodationName}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Country" Width="0.75*" Binding="{Binding Location.Country}"></DataGridTextColumn>

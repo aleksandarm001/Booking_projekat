@@ -20,7 +20,6 @@
         <KeyBinding Key="F6" Command="{Binding OpenOwnerRating_Command}" />
         <KeyBinding Key="F7" Command="{Binding OpenForumCreate_Command}" />
         <KeyBinding Key="F8" Command="{Binding OpenForumCreate_Command}" />
-        <KeyBinding Key="F9" Command="{Binding OpenReport_Command}" />
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -156,7 +155,7 @@
                           RowStyle="{DynamicResource DataGridRowStyle1}"
                           HorizontalAlignment="Left" Margin="20,30,10,20"
                       ItemsSource="{Binding Path = UpcomingReservations, UpdateSourceTrigger=PropertyChanged}"
-                      IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False"
+                      IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" MaxHeight="200"
                           FontSize="16">
                     <DataGrid.Columns>
                         <DataGridTextColumn  FontSize="16" Header="Accommodation name" Width="0.7*" Binding="{Binding AccommodationName}"></DataGridTextColumn>
@@ -175,7 +174,7 @@
                           HorizontalAlignment="Left" Margin="20,30,10,20"
                           ItemsSource="{Binding Path = PreviousReservations, UpdateSourceTrigger=PropertyChanged}"
                           IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False"
-                          FontSize="16">
+                          FontSize="16" MaxHeight="200">
                     <DataGrid.Columns>
                         <DataGridTextColumn FontSize="16" Header="Accommodation name" Width="0.7*" Binding="{Binding AccommodationName}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Country" Width="0.5*" Binding="{Binding Country}"></DataGridTextColumn>

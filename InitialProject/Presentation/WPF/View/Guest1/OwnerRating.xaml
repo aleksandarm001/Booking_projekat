@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:focusBehavior="clr-namespace:InitialProject.Domen.CustomClasses"
+        xmlns:val="clr-namespace:InitialProject.Presentation.WPF.ViewModel"
         xmlns:local="clr-namespace:InitialProject.View.Guest1"
         mc:Ignorable="d"
         Title="OwnerRating" Height="640" Width="460"
@@ -29,26 +30,58 @@
         <StackPanel Width="330">
             <TextBlock Grid.Row="0" FontSize="25" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="0,15,0,10">Owner rating</TextBlock>
             <StackPanel Margin="0 15 0 0">
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Accommodation Name" Margin="0 0 0 5"/>
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="*Accommodation Name" Margin="0 0 0 5"/>
                 <ComboBox x:Name="cmbx" ItemsSource="{Binding AccommodationsName}" HorizontalAlignment="Left" 
                         Grid.Row="1" VerticalAlignment="Top" Width="170" Height="28" DisplayMemberPath="Value" 
-                          SelectedValuePath="Key" SelectedValue="{Binding Path=SelectedAccommodationId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                          focusBehavior:FocusBehavior.IsFocused="True"/>
+                          SelectedValuePath="Key" focusBehavior:FocusBehavior.IsFocused="True">
+                    <ComboBox.SelectedValue>
+                        <Binding Path="SelectedAccommodationId" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <val:NotNullValidation ValidationStep="RawProposedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.SelectedValue>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </ComboBox>
             </StackPanel>
             <StackPanel Margin="0 15 0 0">
-                <TextBlock  Text="Hygiene" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
-                <ComboBox ItemsSource="{Binding Grades}" SelectedItem="{Binding Path=StrCleanliness, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,30,0" Height="28"/>
+                <TextBlock  Text="*Hygiene" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
+                <ComboBox ItemsSource="{Binding Grades}"
+                          Margin="0,0,30,0" Height="28">
+                    <ComboBox.SelectedValue>
+                        <Binding Path="StrCleanliness" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <val:NotNullValidation ValidationStep="RawProposedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.SelectedValue>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </ComboBox>
             </StackPanel>
             <StackPanel Margin="0 15 0 0">
-                <TextBlock  Text="Correctness of the owner" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
+                <TextBlock  Text="*Correctness of the owner" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
                 <ComboBox ItemsSource="{Binding Grades}" SelectedItem="{Binding Path=StrCorrectness, UpdateSourceTrigger=PropertyChanged}" Height="28" Margin="0,0,30,0"/>
             </StackPanel>
             <StackPanel Margin="0 15 0 0">
-                <TextBlock  Text="Additional Comment" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
+                <TextBlock  Text="Additional Comment (optional)" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
                 <TextBox Text="{Binding Path=AdditionalComment, UpdateSourceTrigger=LostFocus}" Grid.Row ="1" Height="150" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,30,0"/>
             </StackPanel>
             <StackPanel Margin="0 15 0 0" Orientation="Vertical">
-                <TextBlock  Text="Add image" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
+                <TextBlock  Text="Add image (optional)" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 5"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBox Text="{Binding Path=Image, UpdateSourceTrigger=LostFocus}" Height="28" HorizontalAlignment="Left" TextWrapping="Wrap" Width="225"/>
                     <Button Grid.Column="1" Click="AddImage_Click" Content="Add Image" HorizontalAlignment="Left"  Height="28" Width="70" Margin="5" />

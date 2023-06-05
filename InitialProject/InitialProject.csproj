@@ -147,6 +147,7 @@
 		<PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
 		<PackageReference Include="Microsoft.TeamFoundationServer.ExtendedClient" Version="16.170.0" />
 		<PackageReference Include="Syncfusion.SfChart.WPF" Version="21.1.41" />
+		<PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
 	</ItemGroup>
 
 	<ItemGroup>
