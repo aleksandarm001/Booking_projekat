@@ -27,10 +27,10 @@
         </Grid.ColumnDefinitions>
 
 
-        <Border Grid.Row="1" Grid.Column="0" BorderThickness="0,2,2,2" BorderBrush="#00A76D"></Border>
-        <Border Grid.Row="1" Grid.Column="1" BorderThickness="0,2,0,2" BorderBrush="#00A76D"></Border>
-        <Border Grid.Row="2" Grid.Column="0" BorderThickness="0,0,2,2" BorderBrush="#00A76D"></Border>
-        <Border Grid.Row="2" Grid.Column="1" BorderThickness="0,0,0,2" BorderBrush="#00A76D"></Border>
+        <Border Grid.Row="1" Grid.Column="0" BorderThickness="0,2,2,2" BorderBrush="AntiqueWhite"></Border>
+        <Border Grid.Row="1" Grid.Column="1" BorderThickness="0,2,0,2" BorderBrush="AntiqueWhite"></Border>
+        <Border Grid.Row="2" Grid.Column="0" BorderThickness="0,0,2,2" BorderBrush="AntiqueWhite"></Border>
+        <Border Grid.Row="2" Grid.Column="1" BorderThickness="0,0,0,2" BorderBrush="AntiqueWhite"></Border>
 
 
 
@@ -43,347 +43,23 @@
 
         <Grid Grid.Row="1" Grid.Column="0">
             <Image Source="/Infrastructure/Resources/Images/BookBuddy_logo1.png" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="235" Margin="6,20,0,0"/>
+            
         </Grid>
 
-        <Grid Background="DeepSkyBlue" Grid.Row ="2" Grid.Column="0"  x:Name="HomeButtons"  Visibility="Collapsed" >
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Label  FontSize="20" Foreground="White" FontStyle="Italic"  Padding="10"  Grid.Row="0" VerticalAlignment="Center" FontWeight="Bold" Margin="9">Home:</Label>
-            <Button Grid.Row="1" Content="All accommodations" HorizontalAlignment="Center" VerticalAlignment="Center" Width="176"  Height="34"
-                FontFamily="Montserrat" Foreground="DeepSkyBlue"
-                Cursor="Hand" Command="{Binding NavigateToAllAccommodations}">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="WHite"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="DarkSlateBlue"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button Grid.Row="2" Content="Add accommodations" HorizontalAlignment="Center"   VerticalAlignment="Center" Width="176"  Height="34"
-                FontFamily="Montserrat" Foreground="DeepSkyBlue"
-                Cursor="Hand" Command="{Binding NavigateToAddAccommodations}">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="White"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="DarkSlateBlue"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button Grid.Row="3" Content="Renovations" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="176" Height="34"
-                FontFamily="Montserrat" Foreground="DeepSkyBlue"
-                Cursor="Hand" Command="{Binding NavigateToRenovations}">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="White"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="DarkSlateBlue"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button Grid.Row="4" Content="Proposal for registration" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="176" Height="34"
-                FontFamily="Montserrat" Foreground="DeepSkyBlue"
-                Cursor="Hand">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="White"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="DarkSlateBlue"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button Grid.Row="5"  Content="Statistics" HorizontalAlignment="Center"   VerticalAlignment="Center" Width="176" Height="34"
-                 FontFamily="Montserrat" Foreground="DeepSkyBlue"
-                    Command="{Binding AccommodationStatistics}"
-                 Cursor="Hand" >
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="white"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="DarkSlateBlue"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button Grid.Row="6" Content="Delete accommodation" HorizontalAlignment="Center" VerticalAlignment="Center" Width="176" Height="34"
-                FontFamily="Montserrat" Foreground="DeepSkyBlue"
-                Cursor="Hand">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="White"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="DarkSlateBlue"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-        </Grid>
 
-        <Grid Grid.Row ="2" Grid.Column="0" x:Name="GuestsButtons" Visibility="Visible" Background="SandyBrown">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Label  FontSize="20" Foreground="White" FontStyle="Italic"  Padding="10" VerticalAlignment="Center" FontWeight="Bold" Margin="25,0,-7,0">Guests:</Label>
-            <Button Grid.Row ="1" Content="Current guests" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="176" Height="34" 
-                FontFamily="Montserrat" Foreground="White"
-                Cursor="Hand">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-
-            </Button>
-            <Button Grid.Row ="2" Content="Guests to review" HorizontalAlignment="Center" VerticalAlignment="Center" Width="176" Height="34" 
-                FontFamily="Montserrat" Foreground="White"
-                Cursor="Hand" Command="{Binding NavigateToGuestsToReview}">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button Grid.Row="3" Content="Owner reviews" HorizontalAlignment="Center" VerticalAlignment="Center" Width="176" Height="34" 
-                FontFamily="Montserrat" Foreground="White"
-                Cursor="Hand" Command="{Binding NavigateToOwnerReviews}">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button Grid.Row="4" Content="Forum" HorizontalAlignment="Center" VerticalAlignment="Center" Width="176" Height="34"
-                FontFamily="Montserrat" Foreground="White"
-                Cursor="Hand">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-        </Grid>
-
-        <Grid Grid.Row ="2" Grid.Column="0" x:Name="ReservationButtons" Visibility="Collapsed">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Label  FontSize="20" Foreground="#00A76D" FontStyle="Italic"  Padding="10" VerticalAlignment="Center" FontWeight="Bold" Margin="25,0,-7,0">Reservations:</Label>
-            <Button  Grid.Row ="1" Content="All reservations" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="176" Height="34"
-                FontFamily="Montserrat" Foreground="White"
-                Cursor="Hand">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button  Grid.Row ="2" Content="Requests" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="176" Height="34" 
-                FontFamily="Montserrat" Foreground="White"
-                Cursor="Hand" Command="{Binding NavigateToChangeReservationRequest}">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-
-            </Button>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Frame x:Name="sideBarFrame" NavigationUIVisibility="Hidden"></Frame>
         </Grid>
 
         <Grid  Grid.Row="2" Grid.Column="1">
 
-            <Frame x:Name="frame" NavigationUIVisibility="Hidden"></Frame>
+            <Frame x:Name="frame" NavigationUIVisibility="Hidden" ></Frame>
         </Grid>
 
         <Button
             Grid.Column="1" Content="Reservations"   Grid.Row="1" VerticalAlignment="Center" Width="100" Height="26" Margin="583,0,367,0"
             FontFamily="Montserrat" Foreground="White"
-            Cursor="Hand">
+            Cursor="Hand" Command="{Binding NavigateToReservations}">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Background" Value="#00A76D"/>
@@ -408,7 +84,7 @@
         <Button
             Grid.Column="1" Content="Home" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Center" Width="100" Height="26"   
             FontFamily="Montserrat" Foreground="White"
-            Cursor="Hand" Margin="482,0,0,0">
+            Cursor="Hand" Margin="482,0,0,0" Command="{Binding NavigateToHome }">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Background" Value="DeepSkyBlue"/>
@@ -433,7 +109,7 @@
         <Button
             Grid.Column="1" Content="Guests" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Width="100" Height="26"   Margin="381,0,0,0"
             FontFamily="Montserrat" Foreground="White"
-            Cursor="Hand" >
+            Cursor="Hand"  Command="{Binding NavigateToGuests}">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Background" Value="SandyBrown"/>
@@ -456,7 +132,9 @@
             </Button.Template>
         </Button>
         <Image x:Name="zvjezda"  Source="/Infrastructure/Resources/Images/Zvjezda.png"  Grid.Row="1" Height="27" Margin="212,0,716,0" VerticalAlignment="Center" Visibility="Visible" Grid.Column="1"/>
-
+        <Grid.Background>
+            <ImageBrush ImageSource="/Infrastructure/Resources/Images/Stars.jpg"></ImageBrush>
+        </Grid.Background>
 
     </Grid>
 </Window>

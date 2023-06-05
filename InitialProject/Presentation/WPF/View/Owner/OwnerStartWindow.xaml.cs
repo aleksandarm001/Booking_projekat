@@ -39,16 +39,8 @@ namespace InitialProject.Presentation.WPF.View.Owner
         public OwnerStartWindow(int UserId)
         {
             InitializeComponent();
-            this.viewModel = new OwnerStartViewModel(this.frame.NavigationService, UserId);
+            this.viewModel = new OwnerStartViewModel(this.frame.NavigationService,this.sideBarFrame.NavigationService, UserId);
             DataContext = this.viewModel;
-        }
-
-        
-        
-        private void HomeButton_Click(object sender, RoutedEventArgs e)
-        {
-            //AllAccommodations.Visibility = Visibility.Visible;
-            //AddAccommodation.Visibility = Visibility.Collapsed;
         }
 
         

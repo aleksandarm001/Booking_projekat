@@ -20,6 +20,8 @@
     <None Remove="Infrastructure\Resources\Images\arrow.png" />
     <None Remove="Infrastructure\Resources\Images\chat.png" />
     <None Remove="Infrastructure\Resources\Images\download.png" />
+    <None Remove="Infrastructure\Resources\Images\dusty-sky.jfif" />
+    <None Remove="Infrastructure\Resources\Images\DzunglaIspodZvezda.jpg" />
     <None Remove="Infrastructure\Resources\Images\female_profile.jpg" />
     <None Remove="Infrastructure\Resources\Images\female_profile.png" />
     <None Remove="Infrastructure\Resources\Images\hamburher.png" />
@@ -31,9 +33,13 @@
     <None Remove="Infrastructure\Resources\Images\pin1.png" />
     <None Remove="Infrastructure\Resources\Images\pin2.png" />
     <None Remove="Infrastructure\Resources\Images\pin3.png" />
+    <None Remove="Infrastructure\Resources\Images\Planine.jfif" />
     <None Remove="Infrastructure\Resources\Images\qmark.png" />
     <None Remove="Infrastructure\Resources\Images\repeat.png" />
     <None Remove="Infrastructure\Resources\Images\right-arrow.png" />
+    <None Remove="Infrastructure\Resources\Images\sands-at-night.jpg" />
+    <None Remove="Infrastructure\Resources\Images\Stars.jpg" />
+    <None Remove="Infrastructure\Resources\Images\Tarzan.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -76,6 +82,12 @@
     <Content Include="Infrastructure\Resources\Images\download.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Infrastructure\Resources\Images\dusty-sky.jfif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Infrastructure\Resources\Images\DzunglaIspodZvezda.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Infrastructure\Resources\Images\female_profile.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -103,6 +115,9 @@
     <Content Include="Infrastructure\Resources\Images\pin3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Infrastructure\Resources\Images\Planine.jfif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Infrastructure\Resources\Images\qmark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -110,6 +125,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure\Resources\Images\right-arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Infrastructure\Resources\Images\sands-at-night.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Infrastructure\Resources\Images\Stars.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Infrastructure\Resources\Images\Tarzan.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

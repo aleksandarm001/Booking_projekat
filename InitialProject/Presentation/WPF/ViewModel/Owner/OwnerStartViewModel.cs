@@ -33,6 +33,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         }
 
         public System.Windows.Navigation.NavigationService NavService { get; set; }
+        public System.Windows.Navigation.NavigationService SideBarNavigationService { get; set; }
 
         private readonly IAccommodationService _accommodationService;
         //private readonly IAddAccommodationService _addAccommodationService;
@@ -171,16 +172,20 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
 
 
-        public RelayCommand NavigateToAllAccommodations { get; set; }
-        public RelayCommand NavigateToAddAccommodations { get; set; }
-        public RelayCommand NavigateToGuestsToReview { get; set; } 
-        public RelayCommand NavigateToOwnerReviews { get; set; }
-        public RelayCommand NavigateToChangeReservationRequest { get; set; }
+        //public RelayCommand NavigateToAllAccommodations { get; set; }
+        //public RelayCommand NavigateToAddAccommodations { get; set; }
+        //public RelayCommand NavigateToGuestsToReview { get; set; } 
+        //public RelayCommand NavigateToOwnerReviews { get; set; }
+        //public RelayCommand NavigateToChangeReservationRequest { get; set; }
+        //public RelayCommand NavigateToRenovations { get; set; }
+        public RelayCommand NavigateToHome { get;set; }
 
-        public RelayCommand NavigateToRenovations { get; set; }
+        public RelayCommand NavigateToGuests { get; set; }
+
+        public RelayCommand NavigateToReservations { get; set; }
 
 
-        public OwnerStartViewModel(System.Windows.Navigation.NavigationService navService,int userId)
+        public OwnerStartViewModel(System.Windows.Navigation.NavigationService navService,System.Windows.Navigation.NavigationService sideBarFrameNavigation, int userId)
         {
             UserId = userId;
 
@@ -218,13 +223,17 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             _guestReviewService.RateNotification(UserId);
             // showSuperOwner(UserId);
 
+            this.SideBarNavigationService = sideBarFrameNavigation;
             this.NavService = navService;
-            this.NavigateToAllAccommodations = new RelayCommand(AllAccommodations_ButtonClick);
-            this.NavigateToAddAccommodations = new RelayCommand(AddAccommodation_ButtonClick);
-            this.NavigateToGuestsToReview = new RelayCommand(GuestsToReview_ButtonClick);
-            this.NavigateToOwnerReviews = new RelayCommand(OwnerReviews_ButtonClick);
-            this.NavigateToChangeReservationRequest = new RelayCommand(ChangeReservationRequest_ButtonClick);
-            this.NavigateToRenovations = new RelayCommand(Renovations_ButtonClick);
+            //this.NavigateToAllAccommodations = new RelayCommand(AllAccommodations_ButtonClick);
+            //this.NavigateToAddAccommodations = new RelayCommand(AddAccommodation_ButtonClick);
+            //this.NavigateToGuestsToReview = new RelayCommand(GuestsToReview_ButtonClick);
+            //this.NavigateToOwnerReviews = new RelayCommand(OwnerReviews_ButtonClick);
+            //this.NavigateToChangeReservationRequest = new RelayCommand(ChangeReservationRequest_ButtonClick);
+            //this.NavigateToRenovations = new RelayCommand(Renovations_ButtonClick);
+            this.NavigateToHome = new RelayCommand(Home_ButtonClick);
+            this.NavigateToGuests = new RelayCommand(Guests_ButtonClick);
+            this.NavigateToReservations = new RelayCommand(Reservations_ButtonClick);
 
             //AddUrl = new RelayCommand(AddUrl_ButtonClick);
             //ReviewGuest = new RelayCommand(Review_ButtonClick);
@@ -238,79 +247,68 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         }
 
-        private void AllAccommodations_ButtonClick(object obj)
-        {
-            Page allAccommodations = new AllAccommodations(UserId);
-            this.NavService.Navigate(allAccommodations);
-        }
+       // private void AllAccommodations_ButtonClick(object obj)
+       // {
+        //    Page allAccommodations = new AllAccommodations(UserId);
+        //    this.NavService.Navigate(allAccommodations);
+       // }
 
-        private void AddAccommodation_ButtonClick(object obj)
-        {
-            Page addAccommodations = new AddAccommodation(UserId);
-            this.NavService.Navigate(addAccommodations);
-        }
-
+       // private void AddAccommodation_ButtonClick(object obj)
+       // {
+        //    Page addAccommodations = new AddAccommodation(UserId);
+        //    this.NavService.Navigate(addAccommodations);
+       // }
+       /*
         private void GuestsToReview_ButtonClick(object obj)
         {
             Page guestsToReview = new GuestsToReview(UserId);
             this.NavService.Navigate(guestsToReview);
         }
-
+       */
+       /*
         private void OwnerReviews_ButtonClick(object obj)
         {
             Page ownerReviews = new OwnerReviewsPage(UserId);
             this.NavService.Navigate(ownerReviews);
         }
-
+       */
+       /*
         private void ChangeReservationRequest_ButtonClick(object obj)
         {
             Page changeReservationRequest = new ChangeReservationRequestPage(UserId);
             this.NavService.Navigate(changeReservationRequest);
         }
-
+       */
+        /*
         private void Renovations_ButtonClick(object obj)
         {
             Page renovations = new RenovationsPage(UserId);
             this.NavService.Navigate(renovations);
         }
-
-        private void Guests_ButtonClick(object sender, RoutedEventArgs e)
+       */
+        private void Home_ButtonClick(object obj)
         {
-            //HomeButtons.Visibility = Visibility.Collapsed;
-            //GuestsButtons.Visibility = Visibility.Visible;
-            //GuestsToReview.Visibility = Visibility.Visible;
-            //ReservationButtons.Visibility = Visibility.Collapsed;
-            //AddAccommodation.Visibility = Visibility.Collapsed;
-            //OwnerAccommodations.Visibility = Visibility.Collapsed;
-        }
-        private void GuestsToReview_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            //OwnerAccommodations.Visibility = Visibility.Collapsed;
-            //GuestsToReview.Visibility = Visibility.Visible;
-        }
-
-        private void Home_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            //GuestsButtons.Visibility = Visibility.Collapsed;
-            //HomeButtons.Visibility = Visibility.Visible;
-            //AddAccommodation.Visibility = Visibility.Collapsed;
-            //OwnerAccommodations.Visibility = Visibility.Visible;
-            //GuestsToReview.Visibility = Visibility.Collapsed;
-            //OwnerReviews.Visibility = Visibility.Collapsed;
+            Page home = new HomeSideBarPage(NavService,UserId);
+            this.SideBarNavigationService.Navigate(home);
+            Page allAccommodations = new AllAccommodations(UserId);
+            this.NavService.Navigate(allAccommodations);
 
         }
-
-        private void Request_ButtonClick(object sender, RoutedEventArgs e)
+        private void Guests_ButtonClick(object obj)
         {
-
+            Page guests = new GuestsSideBarPage(NavService, UserId);
+            this.SideBarNavigationService.Navigate(guests);
+            Page guestsToReview = new GuestsToReview(UserId);
+            this.NavService.Navigate(guestsToReview);
         }
-        private void OwnerReviews_ButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         
-        
+        private void Reservations_ButtonClick(object obj)
+        {
+            Page reservations = new ReservationSideBarPage(NavService, UserId);
+            this.SideBarNavigationService.Navigate(reservations);
+            Page changeReservations = new ChangeReservationRequestPage(UserId);
+            this.NavService.Navigate(changeReservations);
+        }
 
         /*
     //ADD ACCOMMODATION

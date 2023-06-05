@@ -22,7 +22,7 @@
             <RowDefinition Height="43*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.Background>
-            <ImageBrush ImageSource="/Infrastructure/Resources/Images/Island.png"></ImageBrush>
+            <ImageBrush ImageSource="/Infrastructure/Resources/Images/sands-at-night.jpg"></ImageBrush>
         </Grid.Background>
         <Label  FontSize="20" Foreground="GhostWhite" FontStyle="Italic"  Padding="10"  FontWeight="Bold" Height="55" VerticalAlignment="Center" Margin="2,12,-2,0" Grid.Row="0">Your accommodations:</Label>
         <DataGrid  BorderThickness="2" BorderBrush="DarkBlue" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Background="Transparent" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}"  RowStyle="{DynamicResource DataGridRowStyle2}"  x:Name="OwnerAccommodations"  ItemsSource="{Binding Path = Accommodations, UpdateSourceTrigger=PropertyChanged}"  Margin="0,10,0,0"

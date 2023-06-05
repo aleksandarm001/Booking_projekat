@@ -5,28 +5,90 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Owner.StartWindowPages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="610" d:DesignWidth="1050"
       Title="ChangeReservationRequestPage">
+    <Page.Resources>
+
+        <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Foreground" Value="White"  />
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+    </Page.Resources>
 
     <Grid>
-        <DockPanel x:Name="ChangeReservationRequests">
-            <DataGrid DockPanel.Dock="Top" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Height="289" Width="776" Margin="0,20,0,0"
+        <Grid.Background>
+            <ImageBrush ImageSource="/Infrastructure/Resources/Images/DzunglaIspodZvezda.jpg"></ImageBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="82*"></RowDefinition>
+            <RowDefinition Height="395*"></RowDefinition>
+            <RowDefinition Height="133*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label VerticalAlignment="Center" Foreground="White" Padding="10" FontStyle="Italic" Margin="34,0,-14,0" Height="36">Change reservation requests:</Label>
+        <DataGrid Grid.Row="1" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" 
                           ItemsSource="{Binding Requests}"
-                          SelectedItem="{Binding Path= SelectedRequest, UpdateSourceTrigger=PropertyChanged}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Accommodation Name" Width="*" Binding="{Binding AccommodationName}"  ></DataGridTextColumn>
-                    <DataGridTextColumn Header="New start date" Width="*" Binding="{Binding NewStartDate}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="New end date" Width="*"  Binding="{Binding NewEndDate}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Is date range available" Width="*" Binding="{Binding IsDateAvailable}"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <DockPanel DockPanel.Dock="Bottom">
-                <Grid>
-                    <Button Content="Decline" Width="130" Height="30" HorizontalAlignment="Left" Margin="404,2,0,22"  Command="{Binding DeclineChangeReservation}"/>
-                    <Button Content="Accept" Width="130"  Height ="30" HorizontalAlignment="Left" Margin="191,2,0,22" Command="{Binding AcceptChangeReservation}" />
-                </Grid>
-            </DockPanel>
-        </DockPanel>
+                          SelectedItem="{Binding Path= SelectedRequest, UpdateSourceTrigger=PropertyChanged}" Margin="42,10,42,0" BorderThickness="2" BorderBrush="DarkBlue" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Background="Transparent" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}"  RowStyle="{DynamicResource DataGridRowStyle2}"  VerticalAlignment="Top" Height="364"  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Accommodation Name" Width="*" Binding="{Binding AccommodationName}"  ></DataGridTextColumn>
+                <DataGridTextColumn Header="New start date" Width="*" Binding="{Binding NewStartDate}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="New end date" Width="*"  Binding="{Binding NewEndDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Is date range available" Width="*" Binding="{Binding IsDateAvailable}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="2">
+            <Button
+                Content="Decline" Width="130" Height="30" HorizontalAlignment="Left" Margin="582,11,0,92"  Command="{Binding DeclineChangeReservation}"
+                FontFamily="Montserrat" Foreground="White"
+                Cursor="Hand">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="DeepSkyBlue"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="DarkSlateBlue"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            CornerRadius="10"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                            HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Content="Accept" Width="130"  Height ="30" HorizontalAlignment="Left" Margin="363,11,0,92" Command="{Binding AcceptChangeReservation}" 
+                FontFamily="Montserrat" Foreground="White"
+                Cursor="Hand">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="DeepSkyBlue"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="DarkSlateBlue"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            CornerRadius="10"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                            HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+                
+            </Button>
+        </Grid>
 
     </Grid>
 </Page>

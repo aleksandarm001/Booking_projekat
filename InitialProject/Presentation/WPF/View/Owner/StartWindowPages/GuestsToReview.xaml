@@ -11,65 +11,68 @@
 
         <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
             <Setter Property="Foreground" Value="White"  />
-            <Setter Property="Background" Value="DeepSkyBlue"/>
+            <Setter Property="Background" Value="Transparent"/>
         </Style>
 
     </Page.Resources>
 
 
-    <DockPanel  x:Name="GuestsToReviewPage" >
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="63*"></RowDefinition>
-                <RowDefinition Height="325*"></RowDefinition>
-                <RowDefinition Height="61*"></RowDefinition>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Label  Grid.Row ="0" FontSize="15" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10" Margin="0,20,0,0"     >
-                <Label.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform />
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Label.RenderTransform> You can review:
-            </Label>
-            <Button  Grid.Row ="2" Content="Review"  
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Infrastructure/Resources/Images/dusty-sky.jfif"></ImageBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="63*"></RowDefinition>
+            <RowDefinition Height="264*"></RowDefinition>
+            <RowDefinition Height="122*"></RowDefinition>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label  Grid.Row ="0" FontSize="15" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10" Margin="20,10,0,0"  >
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform> You can review:
+        </Label>
+        <Button  Grid.Row ="2" Content="Review"  
                             Command ="{Binding ReviewGuest}"
                             FontFamily="Montserrat" Foreground="GhostWhite"
-                                Cursor="Hand" Margin="302,6,302,14">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="DeepSkyBlue"></Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="DarkSlateBlue"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border
+                                Cursor="Hand" Margin="391,10,375,107" >
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="DeepSkyBlue"></Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="DarkSlateBlue"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border
                             CornerRadius="10"
                             Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
+                        <ContentPresenter VerticalAlignment="Center"
                             HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <DataGrid Grid.Row="1" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"   Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}"  RowStyle="{DynamicResource DataGridRowStyle2}" ItemsSource="{Binding Path= UsersToReview}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Background="DeepSkyBlue"
-                           SelectedItem="{Binding Path= SelectedUserToReview, UpdateSourceTrigger=PropertyChanged}" Margin="66,0,66,0" Height="305">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Guest id" Width="*" Binding="{Binding Guest1Id}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Accommodation Id" Width="*" Binding="{Binding AccommodationId}"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <DataGrid Grid.Row="1" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"   Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}"  RowStyle="{DynamicResource DataGridRowStyle2}" ItemsSource="{Binding Path= UsersToReview}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Background="Transparent"
+                           SelectedItem="{Binding Path= SelectedUserToReview, UpdateSourceTrigger=PropertyChanged}" Margin="44,0,24,0" Height="244" VerticalAlignment="Top">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Guest id" Width="*" Binding="{Binding Guest1Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Accommodation Id" Width="*" Binding="{Binding AccommodationId}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 
-    </DockPanel>
+
 
 
 </Page>
