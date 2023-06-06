@@ -14,6 +14,14 @@
         </Style>
 
     </Window.Resources>
+    
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding NavigateToHome}" Key="H" Modifiers="Control"></KeyBinding>
+        <KeyBinding Command="{Binding NavigateToGuests}" Key="G" Modifiers="Control"></KeyBinding>
+        <KeyBinding Command="{Binding NavigateToReservations}" Key="R" Modifiers="Control"></KeyBinding>
+        <KeyBinding Command="{Binding NavigateToReport}" Key="P" Modifiers="Control"></KeyBinding>
+    </Window.InputBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="20"></RowDefinition>
@@ -35,10 +43,20 @@
 
 
         <Menu Grid.Row="0" Grid.ColumnSpan="2">
-            <MenuItem Header="File"></MenuItem>
-            <MenuItem Header="Edit"></MenuItem>
+            <MenuItem Header="File">
+                <MenuItem Header="Home" InputGestureText="Ctrl+H" Command="{Binding NavigateToHome}"></MenuItem>
+                <MenuItem Header="Guest" InputGestureText="Ctrl+G" Command="{Binding NavigateToGuests}"></MenuItem>
+                <MenuItem Header="Reservation" InputGestureText="Ctrl+R" Command="{Binding NavigateToReservations}"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Reservation report" InputGestureText="Ctrl+R" Command="{Binding NavigateToReport}"></MenuItem>
+            </MenuItem>
             <MenuItem Header="View"></MenuItem>
-            <MenuItem Header="Help"></MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About us"></MenuItem>
+                <MenuItem Header="Tutorial"></MenuItem>
+                
+            </MenuItem>
         </Menu>
 
         <Grid Grid.Row="1" Grid.Column="0">
