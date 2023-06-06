@@ -216,7 +216,7 @@ namespace InitialProject.View
 
         private void InitializeCommands()
         {
-            ApplyCommand = new RelayCommand(ApplyFilters_Command);
+            ApplyCommand = new RelayCommand(ApplyFilters_Command, CanApplyFilters);
             CloseCommand = new RelayCommand(CloseWindow_Command);
             FocusInformations_Command = new RelayCommand(FocusInformations);
             FocusTable_Command = new RelayCommand(FocusTable);
@@ -259,17 +259,36 @@ namespace InitialProject.View
             //StartDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
             //EndDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
         }
+        private bool CanApplyFilters(object parameter)
+        {
+            var values = (object[])parameter;
+            if (parameter != null)
+            {
+                return (!(bool)values[0] && !(bool)values[1] && !(bool)values[2]);
+            }
+            return false;
+        }
         private void ApplyFilters_Command(object parameter)
         {
-            ApplyFilters();
+            
+            if (CanApplyFilters(parameter) && IsFieldsEmpty())
+            {
+                ApplyFilters();
+            }
             var dataGrid = parameter as DataGrid;
-            if(dataGrid != null && dataGrid.Items.Count > 0)
+            if (dataGrid != null && dataGrid.Items.Count > 0)
             {
                 dataGrid.Focus();
                 dataGrid.SelectedItem = dataGrid.Items[0];
                 dataGrid.ScrollIntoView(dataGrid.SelectedItem);
             }
         }
+
+        private bool IsFieldsEmpty()
+        {
+            return !string.IsNullOrEmpty(SEndDay) && !string.IsNullOrEmpty(SStartDay) && !string.IsNullOrEmpty(StrReservationDays);
+        }
+
         private void CloseWindow_Command(object parameter)
         {
             this.Close();
@@ -432,9 +451,7 @@ namespace InitialProject.View
                 currentY += labelHeight + verticalSpacing;
 
                 float labelEndX = page.Dimensions.Width - labelWidth - 120f; // Adjust the X-coordinate and spacing as needed
-                MessageBox.Show(labelEndX.ToString());
                 float labelEndY = page.Dimensions.Height - labelHeight - 120f; // Adjust the Y-coordinate and spacing as needed
-                MessageBox.Show(labelEndY.ToString());
 
                 ceTe.DynamicPDF.PageElements.Label endLabel = new ceTe.DynamicPDF.PageElements.Label("BookBuddy LLC", labelEndX, labelEndY, labelWidth, labelHeight, Font.TimesRoman, 18, TextAlign.Right);
                 page.Elements.Add(endLabel);

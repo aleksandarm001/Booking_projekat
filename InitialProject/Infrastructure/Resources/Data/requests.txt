@@ -2,3 +2,4 @@
 3|30|Cosy Chalet|4/24/2023 12:00:00 AM|5/19/2023 12:00:00 AM|Pending|1|3|-
 4|36|Modern Loft|5/17/2023 12:00:00 AM|6/10/2023 12:00:00 AM|Pending|1|3|-
 5|45|The Cozy Cottage|3/10/2023 12:00:00 AM|6/11/2023 12:00:00 AM|Pending|1|3|-
+6|65|Beach House|6/7/2023 12:00:00 AM|6/11/2023 12:00:00 AM|Pending|1|3|-

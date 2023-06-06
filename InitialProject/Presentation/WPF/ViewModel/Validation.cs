@@ -83,7 +83,7 @@ namespace InitialProject.Presentation.WPF.ViewModel
                 int r;
                 if (string.IsNullOrEmpty(s))
                 {
-                    return new ValidationResult(true, null);
+                    return new ValidationResult(false, "This field is requiered.");
                 }
                 if (int.TryParse(s, out r))
                 {
@@ -108,7 +108,7 @@ namespace InitialProject.Presentation.WPF.ViewModel
             try
             {
                 var s = value as string;
-                Regex regex = new Regex("\\b(0?[1-9]|1[012])([\\/\\-])(0?[1-9]|[12]\\d|3[01])\\2(\\d{4})");
+                Regex regex = new Regex("\\b(0?[1-9]|1[012])([\\/\\-])(0?[1-9]|[12]\\d|3[01])\\2(\\d{4})$");
                 if (!regex.IsMatch(s))
                 {
                     return new ValidationResult(false, "Date format: MM/dd/YYYY.");

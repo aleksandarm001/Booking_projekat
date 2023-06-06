@@ -8,9 +8,6 @@
         xmlns:local="clr-namespace:InitialProject.View" 
         xmlns:local1="clr-namespace:InitialProject.Presentation.WPF.View" 
         xmlns:DVC1="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=DotNetProjects.DataVisualization.Toolkit"
-        xmlns:charting="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-        xmlns:datavis="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-        xmlns:chartingprimitives="clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         mc:Ignorable="d"
         Title="AccommodationReservationForm" Height="430 " Width="620"
         WindowStartupLocation="CenterOwner"
@@ -29,7 +26,8 @@
             <KeyBinding.CommandParameter>
                 <MultiBinding Converter="{StaticResource ValidationToCommandParameterConverter}">
                     <Binding ElementName="textBox1" Path="(Validation.HasError)" />
-                    <!-- Additional bindings if required -->
+                    <Binding ElementName="EndDatePicker" Path="(Validation.HasError)" />
+                    <Binding ElementName="StartDatePicker" Path="(Validation.HasError)" />
                 </MultiBinding>
             </KeyBinding.CommandParameter>
         </KeyBinding>
@@ -59,7 +57,7 @@
                     <TextBlock Text="Enter information" HorizontalAlignment="Center" Foreground="White" FontSize="14" FontWeight="DemiBold" Margin="15 15"/>
                     <StackPanel>
                         <TextBlock Text="Start date" Foreground="White" Margin="0 0 0 5"/>
-                        <TextBox Width="150" Height="25" Name ="StartDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                        <TextBox Width="150" Height="25" x:Name ="StartDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top" 
                                     focusBehavior:FocusBehavior.IsFocused="True">
                             <TextBox.Text>
                                 <Binding Path="SStartDay" UpdateSourceTrigger="PropertyChanged">
@@ -80,7 +78,7 @@
                     </StackPanel>
                     <StackPanel Margin="0 20 0 0">
                         <TextBlock Text="End date" Foreground="White" Margin="0 0 0 5"/>
-                        <TextBox Width="150" Height="25" Name ="EndDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBox Width="150" Height="25" x:Name ="EndDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <TextBox.Text>
                                 <Binding Path="SEndDay" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
@@ -99,7 +97,7 @@
                         </TextBox>
                     </StackPanel>
                     <StackPanel Margin="0 20 0 10">
-                        <TextBlock Foreground="White" Text="Number of days" Margin="0,0,0,5" HorizontalAlignment="Left" />
+                        <TextBlock Foreground="White" Text="*Number of days" Margin="0,0,0,5" HorizontalAlignment="Left" />
                         <TextBox x:Name="textBox1" Background="#EFF2F7"  HorizontalAlignment="Left" TextWrapping="Wrap" 
                          VerticalAlignment="Top" 
                          Width="150" Height="25">

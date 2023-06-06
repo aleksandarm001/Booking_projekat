@@ -6,6 +6,7 @@
         xmlns:val="clr-namespace:InitialProject.Presentation.WPF.ViewModel"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:i1="clr-namespace:InitialProject.Presentation.WPF.View"
+        xmlns:local1="clr-namespace:InitialProject.Presentation.WPF.View" 
         xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Guest1" 
         xmlns:guest1="clr-namespace:InitialProject.Presentation.WPF.ViewModel.Guest1" 
         d:DataContext="{d:DesignInstance Type=guest1:AnywhereAnytimeViewModel}"
@@ -14,10 +15,25 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None">
+    <Window.Resources>
+        <local1:ValidationToCommandParameterConverter x:Key="ValidationToCommandParameterConverter" />
+    </Window.Resources>
     <Window.InputBindings>
-        <KeyBinding Key="F1" Command="{Binding FocusFilters_Command}" CommandParameter="{Binding ElementName=StartDateTextBox}" />
-        <KeyBinding Key="F2" Command="{Binding FocusTable_Command}" CommandParameter="{Binding ElementName=accommodationsDataGrid}" />
-        <KeyBinding Key="F10" Command="{Binding ApplyFiltersCommand}" />
+        <KeyBinding Key="F10">
+            <KeyBinding.Command>
+                <Binding Path="DataContext.ApplyFiltersCommand" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+            </KeyBinding.Command>
+            <KeyBinding.CommandParameter>
+                <MultiBinding Converter="{StaticResource ValidationToCommandParameterConverter}">
+                    <Binding ElementName="StartDateTextBox" Path="(Validation.HasError)" />
+                    <Binding ElementName="EndDatePicker" Path="(Validation.HasError)" />
+                    <Binding ElementName="textBox1" Path="(Validation.HasError)" />
+                    <Binding ElementName="textBox2" Path="(Validation.HasError)" />
+                </MultiBinding>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+        <KeyBinding Key="F1" Command="{Binding FocusFilters_Command}" CommandParameter="{Binding ElementName=StartDateTextBox}"/>
+        <KeyBinding Key="F2" Command="{Binding FocusTable_Command}" CommandParameter="{Binding ElementName=accommodationsDataGrid}"/>
         <KeyBinding Key="F11" Command="{Binding ResetFiltersCommand}" />
     </Window.InputBindings>
     <Border CornerRadius="12" BorderThickness="5" Background="White" Margin="0,0,0,0">
@@ -115,7 +131,7 @@
                     <TextBlock Text="Search Filters" FontSize="16" Foreground="White" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="0,5,0,10"/>
                     <StackPanel Margin="0,30,0,10">
                         <TextBlock Text="Start Date" Margin="0,0,0,5" Foreground="White" HorizontalAlignment="Left" />
-                            <TextBox Width="150" Height="25" Name ="StartDateTextBox" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <TextBox Width="150" Height="25" x:Name ="StartDateTextBox" HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <TextBox.Text>
                                     <Binding Path="SStartDay" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>
@@ -135,7 +151,7 @@
                         </StackPanel>
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="End Date" Margin="0,0,0,5" Foreground="White"  HorizontalAlignment="Left" />
-                            <TextBox Width="150" Height="25" Name ="EndDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <TextBox Width="150" Height="25" x:Name ="EndDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <TextBox.Text>
                                     <Binding Path="SEndDay" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>

@@ -228,9 +228,25 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 dataGrid.ScrollIntoView(dataGrid.SelectedItem);
             }
         }
-        public void ApplyFilters(object parameter)
+        private void ApplyFilters(object parameter)
         {
-            UpdateAccommodations();
+            if (CanApplyFilters(parameter) && IsFieldsEmpty())
+            {
+                UpdateAccommodations();
+            }
+        }
+        private bool IsFieldsEmpty()
+        {
+            return !string.IsNullOrEmpty(StrReservationDays) && !string.IsNullOrEmpty(StrNumberOfGuests);
+        }
+        private bool CanApplyFilters(object parameter)
+        {
+            var values = (object[])parameter;
+            if (parameter != null)
+            {
+                return !(bool)values[0] && !(bool)values[1] && !(bool)values[2] && !(bool)values[3];
+            }
+            return false;
         }
         private void UpdateAccommodations()
         {
@@ -355,9 +371,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
                 currentY += labelHeight + verticalSpacing;
 
                 float labelEndX = page.Dimensions.Width - labelWidth - 120f; // Adjust the X-coordinate and spacing as needed
-                MessageBox.Show(labelEndX.ToString());
                 float labelEndY = page.Dimensions.Height - labelHeight - 120f; // Adjust the Y-coordinate and spacing as needed
-                MessageBox.Show(labelEndY.ToString());
 
                 ceTe.DynamicPDF.PageElements.Label endLabel = new ceTe.DynamicPDF.PageElements.Label("BookBuddy LLC", labelEndX, labelEndY, labelWidth, labelHeight, Font.TimesRoman, 18, TextAlign.Right);
                 page.Elements.Add(endLabel);
