@@ -142,7 +142,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
 
         private Comment CreateComment(int userId)
         {
-            Comment comment = new Comment(DateTime.Now, Text, userId);
+            Comment comment = new Comment(DateTime.Now, Text, userId,false,0);
             return _commentRepository.Save(comment);
         }
         private Forum CreateForum(int userId, Location location)

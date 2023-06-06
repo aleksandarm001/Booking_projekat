@@ -19,7 +19,7 @@ namespace InitialProject.Services
         public ForumService()
         {
             _forumRepository = Injector.CreateInstance<IForumRepository>();
-            _accommodationService = Injector.CreateInstance<AccommodationService>();
+            _accommodationService = Injector.CreateInstance<IAccommodationService>();
         }
         public void Delete(Forum forum)
         {
@@ -85,10 +85,30 @@ namespace InitialProject.Services
         {
             List<Accommodation> accommodations = _accommodationService.GetAccommodationsByOwnerId(userId);
             List<Forum> allForums = GetAll();
-            
+            List<Forum> matchingForums = new List<Forum>();
 
-            List<Forum> matchingForums = allForums.Where(forum => accommodations.Any(accommodation => accommodation.Location == forum.Location)).ToList();
-            return matchingForums;
+            //List<Forum> matchingForums = allForums.Where(forum => accommodations.Any(accommodation => accommodation.Location == forum.Location)).ToList();
+            foreach (Forum forum in allForums)
+            {
+                bool hasMatchingLocation = false;
+
+                foreach (var accommodation in accommodations)
+                {
+                    if (accommodation.Location.Country == forum.Location.Country && accommodation.Location.City == forum.Location.City)
+                    {
+                        hasMatchingLocation = true;
+                        break;
+                    }
+                }
+
+                if (hasMatchingLocation)
+                {
+                    matchingForums.Add(forum);
+                }
+
+            }
+
+             return matchingForums;
         }
 
         public List<Forum> OpenedForums(int userId)

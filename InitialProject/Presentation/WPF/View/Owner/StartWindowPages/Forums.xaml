@@ -1,0 +1,85 @@
+﻿<Page x:Class="InitialProject.Presentation.WPF.View.Owner.StartWindowPages.Forums"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Owner.StartWindowPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Forums">
+
+    <Page.Resources>
+
+        <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Foreground" Value="White"  />
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="61*"></RowDefinition>
+                <RowDefinition Height="389*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label  Grid.Row ="0" FontSize="15" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10"  >
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform />
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform> Forums:
+            </Label>
+
+            <DataGrid Grid.Row="1" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"   Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}"  RowStyle="{DynamicResource DataGridRowStyle2}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Background="Transparent"
+                             Height="244" VerticalAlignment="Top" Margin="20,42,20,0"
+                             ItemsSource="{Binding Path= Forums , UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedForum}">
+                                
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Topic" Width="*" Binding="{Binding ForumTopic}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Location" Width="*" Binding="{Binding Location}" ></DataGridTextColumn>
+                    <DataGridTemplateColumn  Header ="Comments" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Height="20" Cursor="Hand" Name="ForumComment" Width="60" Content="Comments"  Command="{Binding DataContext.ForumComments, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" BorderThickness="0"  Foreground="White" FontSize="12" FontFamily="Montserrat">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="#00A76D"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#078563"/>
+                                                </Trigger>
+                                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
+                                                    <Setter Property="FocusVisualStyle">
+                                                        <Setter.Value>
+                                                            <Style>
+                                                                <Setter Property="Control.BorderThickness" Value="2"/>
+                                                                <Setter Property="Control.BorderBrush" Value="#FF0000"/>
+                                                            </Style>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Width="60" Height="20" CornerRadius="5" Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Page>

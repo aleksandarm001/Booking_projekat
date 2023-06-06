@@ -1,4 +1,5 @@
 ﻿using InitialProject.Domen.CustomClasses;
+using InitialProject.Domen.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace InitialProject.Services.IServices
         void Update(ForumComment forum);
         int GetCommentsNumberByForum(int forumId);
         List<int> GetCommentsIdByForumId(int forumId);
+        
     }
 }

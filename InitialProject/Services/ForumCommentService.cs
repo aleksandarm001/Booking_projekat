@@ -1,6 +1,7 @@
 ﻿using InitialProject.Aplication.Factory;
 using InitialProject.Application.Contracts.Repository;
 using InitialProject.Domen.CustomClasses;
+using InitialProject.Domen.Model;
 using InitialProject.Services.IServices;
 using MDriven.WebApi.Client;
 using System;
@@ -14,9 +15,11 @@ namespace InitialProject.Services
     public class ForumCommentService : IForumCommentService
     {
         private readonly IForumCommentRepository _forumCommentRepository;
+        
         public ForumCommentService()
         {
             _forumCommentRepository = Injector.CreateInstance<IForumCommentRepository>();
+            
         }
         public void Delete(ForumComment forum)
         {
@@ -56,5 +59,7 @@ namespace InitialProject.Services
         {
             _forumCommentRepository.Update(forum);
         }
+
+        
     }
 }

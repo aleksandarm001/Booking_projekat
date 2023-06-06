@@ -97,7 +97,7 @@
             </Button>
             <Button Grid.Row="4" Content="Forum" HorizontalAlignment="Center" VerticalAlignment="Center" Width="176" Height="34"
                 FontFamily="Montserrat" Foreground="White"
-                Cursor="Hand">
+                Cursor="Hand" Command="{Binding NavigateToForums}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="#00A76D"/>

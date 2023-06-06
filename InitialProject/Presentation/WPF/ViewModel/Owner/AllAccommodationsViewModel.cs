@@ -42,10 +42,11 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         public AllAccommodationsViewModel(int userId)
         {
-            _accommodationService = Injector.CreateInstance<IAccommodationService>();
 
-      
-            Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetAccommodationsByOwnerId(userId));
+            _accommodationService = Injector.CreateInstance<IAccommodationService>();
+            UserId= userId;
+            
+            Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetAccommodationsByOwnerId(UserId));
         }
     }
 }

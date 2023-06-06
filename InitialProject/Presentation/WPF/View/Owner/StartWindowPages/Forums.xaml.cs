@@ -17,16 +17,16 @@ using System.Windows.Shapes;
 namespace InitialProject.Presentation.WPF.View.Owner.StartWindowPages
 {
     /// <summary>
-    /// Interaction logic for RenovationsPage.xaml
+    /// Interaction logic for Forums.xaml
     /// </summary>
-    public partial class RenovationsPage : Page
+    public partial class Forums : Page
     {
-        private RenovationViewModel viewModel { get; set; }
-        public RenovationsPage(int userId)
+        private ForumViewModel viewModel { get; set; }
+        public Forums(int userId)
         {
             InitializeComponent();
-            viewModel = new RenovationViewModel(userId);
-            this.DataContext = viewModel;
+            viewModel = new ForumViewModel(userId);
+            this.DataContext= viewModel;
         }
     }
 }

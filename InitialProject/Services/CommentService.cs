@@ -13,9 +13,11 @@ namespace InitialProject.Services
     public class CommentService : ICommentService
     {
         private readonly ICommentRepository _commentRepository;
+        private readonly IForumCommentService _forumCommentService;
         public CommentService()
         {
             _commentRepository = Injector.CreateInstance<ICommentRepository>();
+            _forumCommentService = Injector.CreateInstance<IForumCommentService>();
         }
         public void Delete(Comment comment)
         {
@@ -45,5 +47,29 @@ namespace InitialProject.Services
         {
             return _commentRepository.Update(comment);
         }
+        
+        public List<Comment> CommentsByForumId(int forumId)
+        {
+            List<int> commentsId = _forumCommentService.GetCommentsIdByForumId(forumId);
+            List<Comment> comments = new List<Comment>();
+            foreach (int commentId in commentsId)
+            {
+                comments.Add((GetByCommentId(commentId)));
+            }
+            return comments;
+        }
+        
+        public Comment CreateOwnerComment(string text, int userId)
+        {
+            Comment comment = new Comment();
+            comment.Text = text;
+            comment.UserId = userId;
+            comment.CreationTime = DateTime.Now;
+            comment.IsOwnerComment = true;
+
+            return comment;
+
+        }
+        
     }
 }

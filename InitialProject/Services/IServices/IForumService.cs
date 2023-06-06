@@ -19,5 +19,6 @@ namespace InitialProject.Services.IServices
         Dictionary<int, string> GetForumsByUserKeyValue(int userId);
         string GetTopic(int forumId);
         Location GetLocation(int forumId);
+        List<Forum> OpenedForums(int userId);
     }
 }

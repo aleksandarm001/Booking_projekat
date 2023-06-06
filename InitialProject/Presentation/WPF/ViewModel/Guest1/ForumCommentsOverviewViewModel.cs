@@ -135,7 +135,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Guest1
         {
             if (!string.IsNullOrEmpty(NewComment))
             {
-                Comment newComment = new Comment(DateTime.Now, NewComment, _userService.GetUserId());
+                Comment newComment = new Comment(DateTime.Now, NewComment, _userService.GetUserId(),false,0);
                 newComment = _commentService.Save(newComment);
                 ForumComment forumComment = new ForumComment(_forumIdService.ForumId, newComment.CommentId);
                 _forumCommentService.Save(forumComment);

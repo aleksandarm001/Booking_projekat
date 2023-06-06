@@ -15,5 +15,7 @@ namespace InitialProject.Services.IServices
         Comment Update(Comment comment);
         List<Comment> GetByUser(int userId);
         Comment GetByCommentId(int commentId);
+        List<Comment> CommentsByForumId(int forumId);
+        Comment CreateOwnerComment(string text, int userId);
     }
 }

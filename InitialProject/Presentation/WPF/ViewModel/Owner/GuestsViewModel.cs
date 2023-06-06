@@ -15,6 +15,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         public RelayCommand NavigateToGuestsToReview { get; set; }
         public RelayCommand NavigateToOwnerReviews { get; set; }
+        public RelayCommand NavigateToForums { get; set; }
         public GuestsViewModel(System.Windows.Navigation.NavigationService navService, int userId) 
         {
 
@@ -23,6 +24,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             this.NavService = navService;
             this.NavigateToGuestsToReview = new RelayCommand(GuestsToReview_ButtonClick);
             this.NavigateToOwnerReviews = new RelayCommand(OwnerReviews_ButtonClick);
+            this.NavigateToForums = new RelayCommand(Forum_ButtonClick);
 
 
         }
@@ -38,6 +40,12 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         {
             Page ownerReviews = new OwnerReviewsPage(UserId);
             this.NavService.Navigate(ownerReviews);
+        }
+
+        private void Forum_ButtonClick(object obj)
+        {
+            Page forum = new Forums(UserId);
+            this.NavService.Navigate(forum);
         }
     }
 }
