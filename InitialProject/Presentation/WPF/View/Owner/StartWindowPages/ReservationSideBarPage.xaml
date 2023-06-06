@@ -69,6 +69,33 @@
                 </Button.Template>
 
             </Button>
+            <Button Grid.Row="3" Content="Reservation report" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="176" Height="34"
+                    FontFamily="Montserrat" Foreground="White"
+                     Cursor="Hand"  Command="{Binding NavigateToGeneratingReport}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#00A76D"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#006C6D"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                        CornerRadius="10"
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+                    
+                
+                
+            </Button>
         </Grid>
         
     </Grid>

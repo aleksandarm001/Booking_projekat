@@ -14,10 +14,14 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         int UserId;
 
         public RelayCommand NavigateToChangeReservationRequest { get; set; }
+        public RelayCommand NavigateToGeneratingReport { get; set; }
 
         public ReservationViewModel(System.Windows.Navigation.NavigationService navService, int userId) 
         {
+            UserId= userId;
+            NavService = navService;
             this.NavigateToChangeReservationRequest = new RelayCommand(ChangeReservationRequest_ButtonClick);
+            this.NavigateToGeneratingReport = new RelayCommand(ReportButtonClick);
         }
 
 
@@ -25,6 +29,12 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         {
             Page changeReservationRequest = new ChangeReservationRequestPage(UserId);
             this.NavService.Navigate(changeReservationRequest);
+        }
+
+        private void ReportButtonClick(object obj)
+        {
+            Page generatingReport = new GeneratingReport(UserId);
+            this.NavService.Navigate(generatingReport);
         }
     }
 }

@@ -66,6 +66,13 @@ namespace InitialProject.Services
             User user = GetById(_userId);
             return user.Username;
         }
+
+        public string GetFullName(int userId)
+        {
+            User user = GetById(userId);
+            return user.Name;
+        }
+
         public bool GetSuperGuest()
         {
             User user = GetById(_userId);

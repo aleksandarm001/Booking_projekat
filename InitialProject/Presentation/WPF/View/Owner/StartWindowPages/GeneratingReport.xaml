@@ -1,0 +1,65 @@
+﻿<Page x:Class="InitialProject.Presentation.WPF.View.Owner.StartWindowPages.GeneratingReport"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Owner.StartWindowPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="610" d:DesignWidth="1050"
+      Title="GeneratingReport">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">Create a pdf report for reservations of a accommodation:</Label>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label>Enter accommodation name:</Label>
+            <TextBox Name="AccommodationName" Text="{Binding AccommodationName}" Width="150" ></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label>Choose start date:</Label>
+            <DatePicker Name="DatePickerStart" IsTodayHighlighted="True"
+                        SelectedDate="{Binding Path=StartingDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                        ></DatePicker>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label>Choose end date:</Label>
+            <DatePicker Name="DatePickerEnd" IsTodayHighlighted="True"
+                        SelectedDate="{Binding Path=EndingDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                        ></DatePicker>
+        </StackPanel>
+        <Button Grid.Row="4" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="176" Height="34"
+                 FontFamily="Montserrat" Foreground="White"
+                     Cursor="Hand" Content="Generate" Command="{Binding CreateReportCommand}">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="#00A76D"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#006C6D"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        CornerRadius="10"
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+
+        </Button>
+       
+    </Grid>
+</Page>

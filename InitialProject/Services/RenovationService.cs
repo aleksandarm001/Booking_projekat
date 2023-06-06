@@ -1,4 +1,5 @@
 ﻿using InitialProject.CustomClasses;
+using InitialProject.Domen.CustomClasses;
 using InitialProject.Domen.Model;
 using InitialProject.Infrastructure.Repository;
 using InitialProject.Services.IServices;
@@ -17,6 +18,7 @@ namespace InitialProject.Services
         private readonly IReservationService _reservationService;
         private readonly IAccommodationReservationService _accommodationReservationService;
         private readonly IAccommodationService _accommodationService;
+        private readonly IUserService _userService;
 
         public RenovationService()
         {
@@ -24,6 +26,7 @@ namespace InitialProject.Services
             _reservationService = new ReservationService();
             _accommodationReservationService = new AccommodationReservationService();
             _accommodationService = new AccommodationService();
+            _userService = new UserService();
 
         }
 
@@ -194,6 +197,26 @@ namespace InitialProject.Services
                    
                 }
             }
+        }
+
+        public List<OwnerReportDTO> AllForReport(string AccommodationName)
+        {
+            List<OwnerReportDTO> ownerReports = new List<OwnerReportDTO>();
+            int accommodationid = _accommodationService.GetAccommodationIdByAccommodationName(AccommodationName);
+            List<int> reservationIds = GetReservationId(accommodationid);
+            List<Reservation> reservations = GetReservations(reservationIds);
+
+            foreach(Reservation r in reservations)
+            {
+                OwnerReportDTO report = new OwnerReportDTO();
+                string Name = _userService.GetFullName(r.UserId);
+                report.UserName = Name;
+                report.ReservationDateRange = r.ReservationDateRange;
+                report.NumberOfGuests= r.NumberOfGuests;
+                ownerReports.Add(report);
+            }
+            
+            return ownerReports;
         }
     }
 }

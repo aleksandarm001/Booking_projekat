@@ -139,6 +139,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ceTe.DynamicPDF.CoreSuite.NET" Version="12.4.0" />
     <PackageReference Include="DotNetProjects.WpfToolkit.DataVisualization" Version="6.1.94" />
     <PackageReference Include="EcoWpf" Version="7.0.0.14619" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
