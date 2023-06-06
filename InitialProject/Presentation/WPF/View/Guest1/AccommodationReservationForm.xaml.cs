@@ -8,6 +8,7 @@ using InitialProject.Presentation.WPF.ViewModel;
 using InitialProject.Repository;
 using InitialProject.Services;
 using InitialProject.Services.IServices;
+using LiveCharts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +16,11 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.DataVisualization.Charting;
+using LiveCharts;
+using LiveCharts.Wpf;
 using Page = ceTe.DynamicPDF.Page;
+using ColumnSeries = LiveCharts.Wpf.ColumnSeries;
+using System.Windows.Media;
 
 namespace InitialProject.View
 {
@@ -43,6 +48,8 @@ namespace InitialProject.View
         public Accommodation SelectedAccommodation { get; set; }
         public string AccommodationName { get; set; }
         public List<Reservation> Reservations { get; set; }
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
         public ObservableCollection<DateRange> DateRanges
 
         {
@@ -252,8 +259,26 @@ namespace InitialProject.View
         }
         private void LoadColumnChartData()
         {
-            ((ColumnSeries)mcChart.Series[0]).ItemsSource = Statistics;
+            //((ColumnSeries)mcChart.Series[0]).ItemsSource = Statistics;
+            SeriesCollection = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Fill= (Brush)(new BrushConverter().ConvertFrom("#00734B")),
+                    Values = GetValues()
+                }
+            };
         }
+        private ChartValues<int> GetValues()
+        {
+            ChartValues<int> result = new ChartValues<int>();
+            foreach (KeyValuePair<string, int> pair in Statistics)
+            {
+                result.Add(pair.Value);
+            }
+            return result;
+        }
+
         private void InitializeDatePickers()
         {
             //StartDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
@@ -270,12 +295,18 @@ namespace InitialProject.View
         }
         private void ApplyFilters_Command(object parameter)
         {
-            
+
             if (CanApplyFilters(parameter) && IsFieldsEmpty())
             {
                 ApplyFilters();
             }
-            var dataGrid = parameter as DataGrid;
+            FocusDataGrid(parameter);
+        }
+
+        private static void FocusDataGrid(object parameter)
+        {
+            var values = (object[])parameter;
+            var dataGrid = values[3] as DataGrid;
             if (dataGrid != null && dataGrid.Items.Count > 0)
             {
                 dataGrid.Focus();

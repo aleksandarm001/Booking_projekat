@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.View" 
+        xmlns:local1="clr-namespace:InitialProject.Presentation.WPF.View" 
         xmlns:val="clr-namespace:InitialProject.Presentation.WPF.ViewModel"
         mc:Ignorable="d"
         Title="Accommodation" Height="750" Width="1100"
@@ -12,11 +13,36 @@
         Background="Transparent"
         AllowsTransparency="True"
         WindowStyle="None">
+    <Window.Resources>
+        <local1:ValidationToCommandParameterConverter x:Key="ValidationToCommandParameterConverter" />
+    </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="F1" Command="{Binding FocusFilters_Command}" CommandParameter="{Binding ElementName=nameTextBox}" />
         <KeyBinding Key="F2" Command="{Binding FocusTable_Command}" CommandParameter="{Binding ElementName=accommodationsDataGrid}" />
-        <KeyBinding Key="F10" Command="{Binding ApplyFilters_Command}" />
-        <KeyBinding Key="F11" Command="{Binding  RestoreFilters_Command}" />
+        <KeyBinding Key="F10">
+            <KeyBinding.Command>
+                <Binding Path="ApplyFilters_Command" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+            </KeyBinding.Command>
+            <KeyBinding.CommandParameter>
+                <MultiBinding Converter="{StaticResource ValidationToCommandParameterConverter}">
+                    <Binding ElementName="textBox1" Path="(Validation.HasError)" />
+                    <Binding ElementName="textBox2" Path="(Validation.HasError)" /> 
+                    <Binding ElementName="accommodationsDataGrid"/>
+                </MultiBinding>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+        <KeyBinding Key="F11">
+            <KeyBinding.Command>
+                <Binding Path="RestoreFilters_Command" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+            </KeyBinding.Command>
+            <KeyBinding.CommandParameter>
+                <MultiBinding Converter="{StaticResource ValidationToCommandParameterConverter}">
+                    <Binding ElementName="textBox1" Path="(Validation.HasError)" />
+                    <Binding ElementName="textBox2" Path="(Validation.HasError)" />
+                    <Binding ElementName="accommodationsDataGrid"/>
+                </MultiBinding>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
     </Window.InputBindings>
     <Border CornerRadius="12" BorderThickness="5" Background="White" Margin="0,0,0,0">
         <Border.BorderBrush>

@@ -293,6 +293,15 @@ namespace InitialProject.View
         }
         private void ApplyFilters(object parameter)
         {
+            if (CanApplyFilters(parameter))
+            {
+                UpdateCollection();
+            }
+            FocusDataGrid(parameter);
+        }
+
+        private void UpdateCollection()
+        {
             ICollectionView view = CollectionViewSource.GetDefaultView(Accommodations);
             view.Filter = (obj) =>
             {
@@ -306,6 +315,28 @@ namespace InitialProject.View
                     AccommodationTypeFilter(accommodation));
             };
             AccommodationsNumber = view.Cast<object>().Count();
+        }
+
+        private static void FocusDataGrid(object parameter)
+        {
+            var values = (object[])parameter;
+            var dataGrid = values[2] as DataGrid;
+            if (dataGrid != null && dataGrid.Items.Count > 0)
+            {
+                dataGrid.Focus();
+                dataGrid.SelectedItem = dataGrid.Items[0];
+                dataGrid.ScrollIntoView(dataGrid.SelectedItem);
+            }
+        }
+
+        private bool CanApplyFilters(object parameter)
+        {
+            if (parameter != null)
+            {
+                var values = (object[])parameter;
+                return (!(bool)values[0] && !(bool)values[1]);
+            }
+            return false;
         }
         private void ReadCitiesAndCountries()
         {
@@ -383,7 +414,7 @@ namespace InitialProject.View
             IsHouseSelected = false;
             StrNumberOfGuests = string.Empty;
             StrReservationDays = string.Empty;
-            ApplyFilters(parameter);
+            UpdateCollection();
         }
         private void FocusFilters(object parameter)
         {
