@@ -248,7 +248,7 @@
                     <TabItem Header="Statistics (F8)" FontSize="14" Name="StatisticsTab">
                         <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="None" Height="270">
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Past month" FontSize="12" Labels="{Binding Labels}" MinValue="0" MaxValue="30"></lvc:Axis>
+                                <lvc:Axis Title="Past month" FontSize="12" Labels="{Binding Labels}" MinValue="0" MaxValue="31"></lvc:Axis>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
                                 <lvc:Axis Title="Reservations" FontSize="12" MinValue="0" MaxValue="2">

@@ -49,7 +49,7 @@ namespace InitialProject.View
         public string AccommodationName { get; set; }
         public List<Reservation> Reservations { get; set; }
         public SeriesCollection SeriesCollection { get; set; }
-        public string[] Labels { get; set; }
+        public List<string> Labels{ get; set; }
         public ObservableCollection<DateRange> DateRanges
 
         {
@@ -137,7 +137,6 @@ namespace InitialProject.View
             }
         }
         public int ReservationDays { get; set; }
-
         private string _strReservationDays;
         public string StrReservationDays
         {
@@ -218,6 +217,7 @@ namespace InitialProject.View
             _accommodationReservationService = Injector.CreateInstance<IAccommodationReservationService>();
             _userService = Injector.CreateInstance<IUserService>();
             Statistics = _accommodationReservationService.GetAccommodationStatistics(SelectedAccommodation.AccommodationID);
+            Labels = new List<string>();
             LoadColumnChartData();
         }
 
@@ -274,6 +274,7 @@ namespace InitialProject.View
             ChartValues<int> result = new ChartValues<int>();
             foreach (KeyValuePair<string, int> pair in Statistics)
             {
+                Labels.Add(pair.Key);
                 result.Add(pair.Value);
             }
             return result;
