@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Owner.StartWindowPages"
         mc:Ignorable="d"
-        Title="Tutorial" Height="600" Width="700">
+        Title="Tutorial" Height="700" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="39*"></RowDefinition>
+            <RowDefinition Height="70*"></RowDefinition>
+            <RowDefinition Height="233*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" VerticalAlignment="Bottom">Tutorijal</Label>
+        <TextBlock Grid.Row="1">Ovo je video tutorijal za vas mentole koji ne znate da unesete 2 stvari u text blok,da je do mene sve bih vas spalio ali moram ovo da radim da mi zena iz hci ne bi zavrnula jaja</TextBlock>
+        <MediaElement x:Name="tutorialVideo"  Source="..\..\..\Infrastructure\Resources\Videos\TutorijalVerzija2.mkv"  LoadedBehavior="Play" Grid.Row="2" />
     </Grid>
 </Window>

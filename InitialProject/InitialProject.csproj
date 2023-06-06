@@ -40,6 +40,8 @@
     <None Remove="Infrastructure\Resources\Images\sands-at-night.jpg" />
     <None Remove="Infrastructure\Resources\Images\Stars.jpg" />
     <None Remove="Infrastructure\Resources\Images\Tarzan.jpg" />
+    <None Remove="Infrastructure\Resources\Videos\Tutorijal.mkv" />
+    <None Remove="Infrastructure\Resources\Videos\TutorijalVerzija2.mkv" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,8 +66,14 @@
     <Content Include="Infrastructure/Resources\Images\search.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Infrastructure\Resources\Videos\TutorijalVerzija2.mkv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Infrastructure/Resources\Images\Zvjezda.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Infrastructure\Resources\Videos\Tutorijal.mkv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Infrastructure\Resources\Images\262038.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -184,6 +184,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         public RelayCommand NavigateToReservations { get; set; }
         public RelayCommand NavigateToReport { get; set; }
+        public RelayCommand OpenTutorial { get; set; }
 
 
         public OwnerStartViewModel(System.Windows.Navigation.NavigationService navService,System.Windows.Navigation.NavigationService sideBarFrameNavigation, int userId)
@@ -236,6 +237,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             this.NavigateToGuests = new RelayCommand(Guests_ButtonClick);
             this.NavigateToReservations = new RelayCommand(Reservations_ButtonClick);
             this.NavigateToReport = new RelayCommand(Report_ButtonClick);
+            this.OpenTutorial = new RelayCommand(Tutorial_ButtonClick);
 
             //AddUrl = new RelayCommand(AddUrl_ButtonClick);
             //ReviewGuest = new RelayCommand(Review_ButtonClick);
@@ -318,6 +320,13 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             this.NavService.Navigate(report);
             Page reservations = new ReservationSideBarPage(NavService, UserId);
             this.SideBarNavigationService.Navigate(reservations);
+        }
+
+        private void Tutorial_ButtonClick(object obj)
+        {
+            Tutorial tutorial = new Tutorial();
+            tutorial.Show();
+
         }
 
         /*

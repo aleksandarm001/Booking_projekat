@@ -22,6 +22,7 @@ namespace InitialProject.Presentation.WPF.View.Owner.StartWindowPages
         public Tutorial()
         {
             InitializeComponent();
+            this.DataContext= this;
         }
     }
 }

@@ -20,3 +20,5 @@
 20|9|Japanski dormeo|Japan;Tokyo|Shack|5|2|3|False
 21|3|Hotel Srbija|Serbia;Novi Sad|House|5|4|3|False
 22|3|Novi smestaj|Russia;Mumbai|House|3|4|5|False
+23|3|Nas novi smestaj|China;Beijing|Shack|3|5|1|False
+24|3|Novi smestaj|China;Beijing|Shack|3|2|1|False

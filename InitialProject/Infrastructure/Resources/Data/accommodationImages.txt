@@ -55,3 +55,7 @@
 55|34|slika1
 56|35|Slika2
 57|36|Slika2
+58|23|http1
+59|23|http2
+60|24|http1
+61|24|http2
