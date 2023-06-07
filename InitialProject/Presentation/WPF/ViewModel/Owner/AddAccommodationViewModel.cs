@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Owner
 {
@@ -89,6 +90,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 Accommodation newAccommodation = _addAccommodationService.CreateNewAccommodation(UserId, NewAccommodation.AccommodationName, NewAccommodation.AccommodationMaxGuests, NewAccommodation.AccommodationCancelationDays, NewAccommodation.MinReservationDays, NewAccommodation.AccommodationCountry, NewAccommodation.AccommodationCity, NewAccommodation.AccommodationType.ToString());
                 _addAccommodationService.SaveAccommodation(newAccommodation);
                 _addAccommodationService.SaveAccommodationImages(Images.ToList());
+                MessageBox.Show("Successfully added a new accommodation", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {

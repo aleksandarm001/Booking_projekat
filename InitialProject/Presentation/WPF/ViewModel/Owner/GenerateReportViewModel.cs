@@ -30,8 +30,41 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         public ceTe.DynamicPDF.Document Report;
         public int UserId { get; set; }
         public RelayCommand CreateReportCommand { get; set; }
-        public DateTime StartingDate { get; set; } = DateTime.Now;
-        public DateTime EndingDate { get; set; } = DateTime.Now;
+
+
+        private DateTime _startDay;
+        public DateTime StartingDate
+        {
+            get
+            {
+                return _startDay;
+            }
+            set
+            {
+                if (value != _startDay)
+                {
+                    _startDay = value;
+                    OnPropertyChanged("StartDay");
+                }
+            }
+        }
+        private DateTime _endDay;
+        public DateTime EndingDate
+        {
+            get
+            {
+                return _endDay;
+            }
+            set
+            {
+                if (value != _endDay)
+                {
+                    _endDay = value;
+                    
+                    OnPropertyChanged("StartDay");
+                }
+            }
+        }
 
         private string _name;
         public string AccommodationName
@@ -76,7 +109,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             page.Elements.Add(header);
             page.Elements.Add(user);
 
-            if (_renovationService.AllForReport(AccommodationName).Count != 0)
+            if (_renovationService.AllForReport(AccommodationName,StartingDate,EndingDate).Count != 0)
             {
                 ceTe.DynamicPDF.PageElements.Label reservationName = new ceTe.DynamicPDF.PageElements.Label("Ime korisnika", 0, 150, 200, 40, Font.TimesRoman, 14, TextAlign.Left);
                 ceTe.DynamicPDF.PageElements.Label startDate = new ceTe.DynamicPDF.PageElements.Label("Pocetni datum", 120, 150, 504, 100, Font.TimesRoman, 14, TextAlign.Left);
@@ -98,7 +131,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 float currentX = initialX;
                 float currentY = initialY;
 
-                foreach (var element in _renovationService.AllForReport(AccommodationName))
+                foreach (var element in _renovationService.AllForReport(AccommodationName,StartingDate,EndingDate))
                 {
                     currentX = initialX;
 
@@ -151,7 +184,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             GenerateReport();
             Report.Draw("C:\\Users\\ASUS\\OneDrive\\Documents\\GitHub\\Booking_projekat\\OwnerReports\\Report.pdf");
 
-            MessageBox.Show("Izvještaj je uspješno kreiran i možete ga pronaći unutar report foldera", "Kreiranje izvještaja", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
+            MessageBox.Show("Report successfully created , you can find it in the OwnerReport folder!", "Creating report", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
         }
     }
 }

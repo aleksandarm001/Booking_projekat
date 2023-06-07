@@ -76,36 +76,11 @@
 
         <Button
             Grid.Column="1" Content="Reservations"   Grid.Row="1" VerticalAlignment="Center" Width="100" Height="26" Margin="583,0,367,0"
-            FontFamily="Montserrat" Foreground="White"
+            FontFamily="Montserrat" Foreground="DeepSkyBlue"
             Cursor="Hand" Command="{Binding NavigateToReservations}">
             <Button.Style>
                 <Style TargetType="Button">
-                    <Setter Property="Background" Value="#00A76D"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#006C6D"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
-                        <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <Button
-            Grid.Column="1" Content="Home" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Center" Width="100" Height="26"   
-            FontFamily="Montserrat" Foreground="White"
-            Cursor="Hand" Margin="482,0,0,0" Command="{Binding NavigateToHome }">
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="Background" Value="DeepSkyBlue"/>
+                    <Setter Property="Background" Value="WHite"/>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="DarkSlateBlue"/>
@@ -125,15 +100,40 @@
             </Button.Template>
         </Button>
         <Button
+            Grid.Column="1" Content="Home" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Center" Width="100" Height="26"   
+            FontFamily="Montserrat" Foreground="DeepSkyBlue"
+            Cursor="Hand" Margin="482,0,0,0" Command="{Binding NavigateToHome }">
+            <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="WHite"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="DarkSlateBlue"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                        CornerRadius="10"
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+        </Button>
+        <Button
             Grid.Column="1" Content="Guests" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Width="100" Height="26"   Margin="381,0,0,0"
-            FontFamily="Montserrat" Foreground="White"
+            FontFamily="Montserrat" Foreground="DeepSkyBlue"
             Cursor="Hand"  Command="{Binding NavigateToGuests}">
             <Button.Style>
                 <Style TargetType="Button">
-                    <Setter Property="Background" Value="SandyBrown"/>
+                    <Setter Property="Background" Value="WHite"/>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#006C6D"/>
+                            <Setter Property="Background" Value="DarkSlateBlue"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>

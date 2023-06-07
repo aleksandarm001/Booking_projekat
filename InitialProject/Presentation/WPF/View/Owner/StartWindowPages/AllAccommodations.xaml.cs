@@ -30,5 +30,6 @@ namespace InitialProject.Presentation.WPF.View.Owner.StartWindowPages
             this.DataContext= viewModel;
             
         }
+        
     }
 }

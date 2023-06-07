@@ -1,6 +1,7 @@
 ﻿using InitialProject.Aplication.Factory;
 using InitialProject.CustomClasses;
 using InitialProject.Domen.Model;
+using InitialProject.Presentation.WPF.View.Owner;
 using InitialProject.Services.IServices;
 using InitialProject.Validation;
 using System;
@@ -17,17 +18,17 @@ using System.Windows.Controls;
 
 namespace InitialProject.Presentation.WPF.ViewModel.Owner
 {
-    public class AddRenovationViewModel : BindableBase,INotifyPropertyChanged
+    public class AddRenovationViewModel : BindableBase, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
 
         private readonly IRenovationService _renovationService;
         private int _accommodationId { get; set; }
-
+        private Window window;
         public DateRange SelectedDateRange { get; set; }
 
-        
+
         private Accommodation _selectedAccommodation;
         public Accommodation SelectedAccommodation
         {
@@ -41,7 +42,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 }
             }
         }
-        
+
         public Renovation _renovation = new Renovation();
 
         public Renovation NewRenovation
@@ -128,18 +129,21 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         public RelayCommand AddCommand { get; set; }
         public RelayCommand SearchCommand { get; set; }
 
-        public AddRenovationViewModel(Accommodation selectedAccommodation)
+        public RelayCommand CloseWindow { get; set; }
+
+        public AddRenovationViewModel(Accommodation selectedAccommodation,Window window)
         {
             _renovationService = Injector.CreateInstance<IRenovationService>();
             _selectedAccommodation = selectedAccommodation;
             _accommodationId = selectedAccommodation.AccommodationID;
-
+            this.window= window;
             AvailableDates = new ObservableCollection<DateRange>();
             // StartDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
             // EndDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
 
             AddCommand = new RelayCommand(AddRenovation_ButtonClick);
             SearchCommand = new RelayCommand(SearchDates_ButtonClick);
+            CloseWindow =new RelayCommand(CloseWindow_ButtonClick);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -147,7 +151,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        
+
         public void SearchDates_ButtonClick(object parameter)
         {
             AvailableDates.Clear();
@@ -159,14 +163,28 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             NewRenovation.Validate();
             if (NewRenovation.IsValid)
             {
-            Renovation renovation = _renovationService.CreateNewRenovation(_selectedAccommodation.Name, _accommodationId, SelectedDateRange, NewRenovation.Description);
-            _renovationService.SaveRenovation(renovation);
+                if(SelectedDateRange == null)
+                {
+                    MessageBox.Show("You must select a date range", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    Renovation renovation = _renovationService.CreateNewRenovation(_selectedAccommodation.Name, _accommodationId, SelectedDateRange, NewRenovation.Description);
+                    _renovationService.SaveRenovation(renovation);
+                    MessageBox.Show("Renovation creation successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    
+                }
             }
             else
             {
-                OnPropertyChanged(nameof(NewRenovation));  
+                OnPropertyChanged(nameof(NewRenovation));
             }
 
+        }
+
+        public void CloseWindow_ButtonClick(object parameter)
+        {
+            window?.Close();
         }
         
     }

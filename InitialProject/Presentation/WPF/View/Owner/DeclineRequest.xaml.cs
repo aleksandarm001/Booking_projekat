@@ -30,7 +30,7 @@ namespace InitialProject.Presentation.WPF.View.Owner
         public DeclineRequest(int requestId)
         {
             InitializeComponent();
-            viewModel = new DeclineRequestViewModel(requestId);
+            viewModel = new DeclineRequestViewModel(this,requestId);
             DataContext= viewModel;
         }
     }

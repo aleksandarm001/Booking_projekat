@@ -17,18 +17,16 @@ using System.Windows.Shapes;
 namespace InitialProject.Presentation.WPF.View.Owner.StartWindowPages
 {
     /// <summary>
-    /// Interaction logic for GeneratingReport.xaml
+    /// Interaction logic for ProposalForRegistrations.xaml
     /// </summary>
-    public partial class GeneratingReport : Page
+    public partial class ProposalForRegistrations : Page
     {
-        private GenerateReportViewModel viewModel { get; set; }
-        public GeneratingReport(int userId)
+        ProposalForRegistrationViewModel viewModel { get; set; }
+        public ProposalForRegistrations(int userId)
         {
             InitializeComponent();
-            viewModel = new GenerateReportViewModel(userId);
+            viewModel= new ProposalForRegistrationViewModel(userId);
             this.DataContext= viewModel;
-
-            
         }
     }
 }

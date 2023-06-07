@@ -154,7 +154,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
        // public UserToReview SelectedUserToReview { get; set; }
         //public OwnerChangeRequests SelectedRequest { get; set; }
         //public Accommodation SelectedAccommodation { get; set; }
-        public Accommodation StartSelectedAccommodation { get; set; }
+        //public Accommodation StartSelectedAccommodation { get; set; }
        // public Renovation SelectedRenovation { get; set; }
 
 
@@ -166,12 +166,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         //public RelayCommand AcceptChangeReservation { get; set; }
         //public RelayCommand DeclineChangeReservation { get; set; }
 
-        public RelayCommand AccommodationStatistics { get; set; }
-
-
-
-
-
+        
+        //public RelayCommand AccommodationStatistics { get; set; }
+       
         //public RelayCommand NavigateToAllAccommodations { get; set; }
         //public RelayCommand NavigateToAddAccommodations { get; set; }
         //public RelayCommand NavigateToGuestsToReview { get; set; } 
@@ -247,7 +244,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             //AddRenovation = new RelayCommand(AddRenovation_ButtonClick);
             //CancelRenovation = new RelayCommand(CancelRenovation_ButtonClick);
             
-            AccommodationStatistics = new RelayCommand(Statistics_ButtonClick);
+            //AccommodationStatistics = new RelayCommand(Statistics_ButtonClick);
 
         }
 
@@ -500,6 +497,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         }
         */
         //Statistics
+        /*
         private void Statistics_ButtonClick(object parameter)
         {
             if (StartSelectedAccommodation == null)
@@ -512,7 +510,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 statistics.Show();
             }
         }
-
+        */
     }
 }
         

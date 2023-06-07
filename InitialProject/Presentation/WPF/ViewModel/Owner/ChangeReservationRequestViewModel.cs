@@ -74,6 +74,9 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
                 _requestService.AcceptRequest(SelectedRequest.RequestId);
                 _requestService.ChangeReservationDateRange(SelectedRequest.NewStartDate, SelectedRequest.NewEndDate, SelectedRequest.ReservationId);
                 Requests.Remove(SelectedRequest);
+                MessageBox.Show("Request Accepted!", "Message");
+
+
             }
         }
 
@@ -82,6 +85,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             if (SelectedRequest == null)
             {
                 MessageBox.Show("Please select request");
+
             }
             else
             {

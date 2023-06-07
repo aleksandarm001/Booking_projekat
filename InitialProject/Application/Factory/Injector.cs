@@ -73,6 +73,7 @@ namespace InitialProject.Aplication.Factory
             { typeof(ITourNotificationRepository), new Lazy<object>(() => new TourNotificationRepository()) },
             { typeof(ITourNotificationService), new Lazy<object>(() => new TourNotificationService()) },
             { typeof(IAccommodationStatisticService), new Lazy<object>(() => new AccommodationStatisticsService())},
+            { typeof(IAccommodationPropositionService), new Lazy<object>(() => new AccommodationPropositionService())},
 
         };
 

@@ -38,6 +38,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public Accommodation StartSelectedAccommodation { get; set; }
+
         int UserId;
 
         public AllAccommodationsViewModel(int userId)

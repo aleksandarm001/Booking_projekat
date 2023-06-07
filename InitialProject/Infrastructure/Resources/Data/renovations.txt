@@ -1,5 +1,6 @@
-2|2|Modern Loft|5/10/2023 12:00:00 AM,5/3/2023 12:00:00 AM|AAAAAA|True
-3|3|Charming Bungalow|5/13/2023 12:00:00 AM,5/16/2023 12:00:00 AM||True
+2|2|Modern Loft|6/20/2023 12:00:00 AM,6/25/2023 12:00:00 AM|AAAAAA|False
+3|3|Charming Bungalow|6/20/2023 12:00:00 AM,6/25/2023 12:00:00 AM||False
 4|1|The Cozy Cottage|5/12/2023 12:00:00 AM,5/15/2023 12:00:00 AM|Hajdeee|True
 5|4|Luxury Villa|5/10/2023 12:00:00 AM,5/11/2023 12:00:00 AM|xxxx|True
 7|4|Luxury Villa|5/15/2023 12:00:00 AM,5/16/2023 12:00:00 AM|Idemoooooo|True
+9|1|The Cozy Cottage|6/20/2023 12:00:00 AM,6/22/2023 12:00:00 AM|HajdeSdadsaasd|False

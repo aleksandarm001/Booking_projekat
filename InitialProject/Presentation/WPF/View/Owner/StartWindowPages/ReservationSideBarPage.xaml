@@ -10,6 +10,10 @@
 
     <Grid>
         <Grid Grid.Row ="2" Grid.Column="0" x:Name="ReservationButtons" >
+            <Grid.Background>
+                <ImageBrush ImageSource="/Infrastructure/Resources/Images/Stars.jpg"></ImageBrush>
+            </Grid.Background>
+            
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -19,16 +23,16 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Label  FontSize="20" Foreground="#00A76D" FontStyle="Italic"  Padding="10" VerticalAlignment="Center" FontWeight="Bold" Margin="25,0,-7,0">Reservations:</Label>
+            <Label  FontSize="20" Foreground="White" FontStyle="Italic"  Padding="10" VerticalAlignment="Center" FontWeight="Bold" Margin="25,0,-7,0">Reservations:</Label>
             <Button  Grid.Row ="1" Content="All reservations" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="176" Height="34"
-                FontFamily="Montserrat" Foreground="White"
+                FontFamily="Montserrat" Foreground="DeepSkyBlue"
                 Cursor="Hand">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
+                        <Setter Property="Background" Value="WHite"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
+                                <Setter Property="Background" Value="DarkSlateBlue"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -45,14 +49,14 @@
                 </Button.Template>
             </Button>
             <Button  Grid.Row ="2" Content="Requests" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="176" Height="34" 
-                FontFamily="Montserrat" Foreground="White"
+                FontFamily="Montserrat" Foreground="DeepSkyBlue"
                 Cursor="Hand" Command="{Binding NavigateToChangeReservationRequest}">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
+                        <Setter Property="Background" Value="WHite"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
+                                <Setter Property="Background" Value="DarkSlateBlue"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -67,17 +71,16 @@
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
-
             </Button>
             <Button Grid.Row="3" Content="Reservation report" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="176" Height="34"
-                    FontFamily="Montserrat" Foreground="White"
+                    FontFamily="Montserrat" Foreground="DeepSkyBlue"
                      Cursor="Hand"  Command="{Binding NavigateToGeneratingReport}">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
+                        <Setter Property="Background" Value="WHite"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
+                                <Setter Property="Background" Value="DarkSlateBlue"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>

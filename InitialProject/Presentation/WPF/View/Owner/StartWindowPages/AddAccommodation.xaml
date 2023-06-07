@@ -19,7 +19,7 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Infrastructure/Resources/Images/sands-at-night.jpg"></ImageBrush>
+            <ImageBrush ImageSource="/Infrastructure/Resources/Images/dusty-sky.jfif"></ImageBrush>
         </Grid.Background>
         <DockPanel  x:Name="AddPage" >
 
@@ -39,13 +39,13 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" FontSize="10" Foreground="Blue" FontStyle="Italic" FontWeight="Bold" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Center" >Accommodation name:</Label>
-                <Label FontSize="10" Foreground="Blue" FontStyle="Italic" FontWeight="Bold" Padding="10" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"  >Country:</Label>
-                <Label FontSize="10" Foreground="Blue" FontStyle="Italic" FontWeight="Bold" Padding="10" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"  >City:</Label>
-                <Label FontSize="10" Foreground="Blue" FontStyle="Italic" FontWeight="Bold" Padding="10" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"  >Type:</Label>
-                <Label FontSize="10" Foreground="Blue" FontStyle="Italic" FontWeight="Bold" Padding="10" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" >Maximum guest number:</Label>
-                <Label FontSize="10" Foreground="Blue" FontStyle="Italic" FontWeight="Bold" Padding="10" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" >Minimum days for reservation:</Label>
-                <Label FontSize="10" Foreground="Blue" FontStyle="Italic" FontWeight="Bold" Padding="10" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" >Days for canncelation:</Label>
+                <Label Grid.Row="0" Grid.Column="0" FontSize="10" Foreground="White" FontStyle="Italic" FontWeight="Bold" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Center" >Accommodation name:</Label>
+                <Label FontSize="10" Foreground="White" FontStyle="Italic" FontWeight="Bold" Padding="10" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"  >Country:</Label>
+                <Label FontSize="10" Foreground="White"  FontStyle="Italic" FontWeight="Bold" Padding="10" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"  >City:</Label>
+                <Label FontSize="10" Foreground="White" FontStyle="Italic" FontWeight="Bold" Padding="10" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"  >Type:</Label>
+                <Label FontSize="10" Foreground="White" FontStyle="Italic" FontWeight="Bold" Padding="10" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" >Maximum guest number:</Label>
+                <Label FontSize="10" Foreground="White" FontStyle="Italic" FontWeight="Bold" Padding="10" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" >Minimum days for reservation:</Label>
+                <Label FontSize="10" Foreground="White" FontStyle="Italic" FontWeight="Bold" Padding="10" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" >Days for canncelation:</Label>
 
                 <StackPanel  Orientation="Vertical" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,18,0,0" >
                     <TextBox BorderBrush="#00A76D" Text="{Binding NewAccommodation.AccommodationName, Mode=TwoWay}" Width="198" Height="26"  />
@@ -90,7 +90,7 @@
                         <RowDefinition Height="111*" ></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <Label FontSize="10" Foreground="Blue" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="26" Width="175" Margin="30,0,0,21" >Url links for accommodation:</Label>
+                    <Label FontSize="10" Foreground="White" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="26" Width="175" Margin="30,15,0,21" >Url links for accommodation:</Label>
                     <Grid Grid.Row="1" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="447*"></ColumnDefinition>

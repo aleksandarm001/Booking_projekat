@@ -1,5 +1,6 @@
 ﻿using InitialProject.Domen.CustomClasses;
 using InitialProject.Domen.Model;
+using InitialProject.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InitialProject.Services
 {
-    public class AccommodationPropositionService
+    public class AccommodationPropositionService : IAccommodationPropositionService
     {
         private readonly AccommodationStatisticsService _accommodationStatisticService;
         private readonly ReservationService _reservationService;
@@ -22,6 +23,11 @@ namespace InitialProject.Services
             _reservationService = new ReservationService();
             _accommodationService = new AccommodationService();
             _accommodationReservationService = new AccommodationReservationService();
+        }
+
+        public Accommodation GetAccommodation(int id)
+        {
+           return _accommodationService.GetAccommodationById(id);
         }
 
 
@@ -69,7 +75,7 @@ namespace InitialProject.Services
             foreach (Accommodation accommodation in userAccommodation)
             {
                 List<StatisticsByYearDTO> statistics = _accommodationStatisticService.YearStatisticsForAccommodation(accommodation.AccommodationID);
-                int number =TodayYearHotStatistic(statistics);
+                int number = TodayYearHotStatistic(statistics);
                 if (number> max)
                 {
                     max = number;
@@ -123,7 +129,7 @@ namespace InitialProject.Services
             {
                 if (sby.Year == DateTime.Now.Year)
                 {
-                    if (sby.DaysOccupied > minDaysOccupied)
+                    if (sby.DaysOccupied < minDaysOccupied)
                     {
                         minDaysOccupied = sby.DaysOccupied;
                     }

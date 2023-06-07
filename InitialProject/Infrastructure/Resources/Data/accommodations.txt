@@ -22,3 +22,4 @@
 22|3|Novi smestaj|Russia;Mumbai|House|3|4|5|False
 23|3|Nas novi smestaj|China;Beijing|Shack|3|5|1|False
 24|3|Novi smestaj|China;Beijing|Shack|3|2|1|False
+25|3|Nova akomodacija|Mexico;Mumbai|Shack|3|2|1|False

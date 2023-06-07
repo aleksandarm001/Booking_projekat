@@ -17,6 +17,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         private readonly IChangeReservationRequestService _requestService;
         public int RequestId { get; set; }
+        private Window _window;
 
         private string _ownerComment;
         public string OwnerComment
@@ -31,23 +32,38 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         public RelayCommand OKCommand { get; set; }
 
-        public DeclineRequestViewModel(int requestId)
+        public RelayCommand CloseWindow { get; set; }
+
+        public DeclineRequestViewModel(Window window,int requestId)
         {
             _requestService = Injector.CreateInstance<IChangeReservationRequestService>();
             RequestId = requestId;
             OwnerComment = string.Empty;
+            _window = window;
 
             OKCommand = new RelayCommand(Button_Click);
+            CloseWindow = new RelayCommand(CloseWindow_ButtonClick);
         }
 
         private void Button_Click(object parameter)
         {
             _requestService.DeclineRequest(RequestId, OwnerComment);
+            MessageBoxResult result = MessageBox.Show("Request Declined!", "Message", MessageBoxButton.OK);
+            if (result == MessageBoxResult.OK)
+            {
+                _window.Close();
+            }
+
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void CloseWindow_ButtonClick(object parameter)
+        {
+            _window?.Close();
         }
     }
 

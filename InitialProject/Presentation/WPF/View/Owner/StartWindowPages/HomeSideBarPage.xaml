@@ -103,7 +103,7 @@
             </Button>
             <Button Grid.Row="4" Content="Proposal for registration" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="176" Height="34"
                 FontFamily="Montserrat" Foreground="DeepSkyBlue"
-                Cursor="Hand">
+                Cursor="Hand" Command="{Binding NavigateToProposals}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="White"/>
@@ -152,7 +152,7 @@
             </Button>
             <Button Grid.Row="6" Content="Delete accommodation" HorizontalAlignment="Center" VerticalAlignment="Center" Width="176" Height="34"
                 FontFamily="Montserrat" Foreground="DeepSkyBlue"
-                Cursor="Hand">
+                Cursor="Hand" Command="{Binding DeleteButton}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="White"/>

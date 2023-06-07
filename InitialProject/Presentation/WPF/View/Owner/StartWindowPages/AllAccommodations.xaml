@@ -2,6 +2,8 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:cmd="clr-namespace:System.Windows.Input;assembly=PresentationCore"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Owner.StartWindowPages"
       mc:Ignorable="d" 
@@ -22,11 +24,16 @@
             <RowDefinition Height="43*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.Background>
-            <ImageBrush ImageSource="/Infrastructure/Resources/Images/sands-at-night.jpg"></ImageBrush>
+            <ImageBrush ImageSource="/Infrastructure/Resources/Images/dusty-sky.jfif"></ImageBrush>
         </Grid.Background>
         <Label  FontSize="20" Foreground="GhostWhite" FontStyle="Italic"  Padding="10"  FontWeight="Bold" Height="55" VerticalAlignment="Center" Margin="2,12,-2,0" Grid.Row="0">Your accommodations:</Label>
-        <DataGrid  BorderThickness="2" BorderBrush="DarkBlue" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Background="Transparent" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}"  RowStyle="{DynamicResource DataGridRowStyle2}"  x:Name="OwnerAccommodations"  ItemsSource="{Binding Path = Accommodations, UpdateSourceTrigger=PropertyChanged}"  Margin="0,10,0,0"
+        <DataGrid    ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Background="Transparent" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}"  RowStyle="{DynamicResource DataGridRowStyle2}"  x:Name="OwnerAccommodations"  ItemsSource="{Binding Path = Accommodations, UpdateSourceTrigger=PropertyChanged}"  Margin="0,10,0,0"
                     IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" VerticalAlignment="Top" HorizontalAlignment="Center" Width="985" Height="451" SelectedItem="{Binding StartSelectedAccommodation}" Grid.Row="1" >
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridRow}">
+                    
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name"  Width="*" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Country" Width="*" Binding="{Binding Location.Country}"></DataGridTextColumn>

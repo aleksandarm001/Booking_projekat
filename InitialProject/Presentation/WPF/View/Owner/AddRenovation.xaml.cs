@@ -32,7 +32,7 @@ namespace InitialProject.Presentation.WPF.View.Owner
         public AddRenovation(Accommodation selectedAccommodation)
         {
             InitializeComponent();
-            viewModel = new AddRenovationViewModel(selectedAccommodation);
+            viewModel = new AddRenovationViewModel(selectedAccommodation,this);
             DataContext= viewModel;
         }
     }

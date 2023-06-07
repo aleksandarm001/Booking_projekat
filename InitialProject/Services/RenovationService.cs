@@ -199,14 +199,24 @@ namespace InitialProject.Services
             }
         }
 
-        public List<OwnerReportDTO> AllForReport(string AccommodationName)
+        public List<OwnerReportDTO> AllForReport(string AccommodationName,DateTime StartingDate ,DateTime EndingDate)
         {
             List<OwnerReportDTO> ownerReports = new List<OwnerReportDTO>();
+            List<Reservation> filteredReservations = new List<Reservation>();
+
             int accommodationid = _accommodationService.GetAccommodationIdByAccommodationName(AccommodationName);
             List<int> reservationIds = GetReservationId(accommodationid);
-            List<Reservation> reservations = GetReservations(reservationIds);
 
-            foreach(Reservation r in reservations)
+            List<Reservation> reservations = GetReservations(reservationIds);
+            foreach (Reservation reservation in reservations)
+            {
+                if(reservation.ReservationDateRange.StartDate >= StartingDate && reservation.ReservationDateRange.EndDate<= EndingDate)
+                {
+                    filteredReservations.Add(reservation);
+                }
+            }
+
+            foreach(Reservation r in filteredReservations)
             {
                 OwnerReportDTO report = new OwnerReportDTO();
                 string Name = _userService.GetFullName(r.UserId);

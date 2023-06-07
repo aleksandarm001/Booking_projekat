@@ -1,0 +1,103 @@
+﻿<Page x:Class="InitialProject.Presentation.WPF.View.Owner.StartWindowPages.ProposalForRegistrations"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Owner.StartWindowPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="590" d:DesignWidth="1050"
+      Title="ProposalForRegistrations">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Infrastructure/Resources/Images/dusty-sky.jfif"></ImageBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="62*"></RowDefinition>
+            <RowDefinition Height="255*"></RowDefinition>
+            <RowDefinition Height="273*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10">These accommodations are hot!</Label>
+        <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10">These accommodations are cold!</Label>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label  FontSize="15" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10" Grid.Row="0" VerticalAlignment="Center">Accommodation with most reservations:</Label>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
+                <Label FontSize="13" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10"  >Accommodation name:</Label>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top">
+                <Label FontSize="13" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10">Location:</Label>
+            </StackPanel>
+            <TextBlock Text="{Binding MostReservationAccommodation.Name}"  Foreground="White" Margin="159,11,197,36" Grid.Row="1"/>
+            <TextBlock Text="{Binding MostReservationAccommodation.Location}" Foreground="White" Margin="76,11,315,37" Grid.Row="2" />
+
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label FontSize="15" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10" Grid.Row="0" VerticalAlignment="Center">Accommodation with most days occupied::</Label>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
+                <Label FontSize="13" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10">Accommodation name:</Label>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top">
+                <Label FontSize="13" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10">Days occupied:</Label>
+            </StackPanel>
+            <TextBlock Text="{Binding MostDaysOccupied.Name}"  Foreground="White" Margin="156,10,243,44" Grid.Row="1"/>
+            <TextBlock  Text="{Binding MostDaysOccupied.Location}"  Foreground="White" Margin="109,10,306,44" Grid.Row="2" />
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label FontSize="15" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10" Grid.Row="0" VerticalAlignment="Center">Accommodation with least reservations::</Label>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
+                <Label FontSize="13" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10">Accommodation name:</Label>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top">
+                <Label FontSize="13" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10">Location:</Label>
+            </StackPanel>
+            <TextBlock Text="{Binding LeastReservationAccommodation.Name}"  Foreground="White" Margin="160,11,232,37" Grid.Row="1"/>
+            <TextBlock Text="{Binding LeastReservationAccommodation.Location}"  Foreground="White" Margin="72,11,299,37" Grid.Row="2" />
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label FontSize="15" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10"  Grid.Row="0" VerticalAlignment="Center">Accommodation with least days occupied::</Label>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
+                <Label FontSize="13" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10">Accommodation name:</Label>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top">
+                <Label FontSize="13" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10">Location:</Label>
+            </StackPanel>
+            <TextBlock Text="{Binding LeastDaysOccupied.Name}"  Foreground="White" Margin="163,11,218,43" Grid.Row="1"/>
+            <TextBlock Text="{Binding LeastDaysOccupied.Location}"  Foreground="White" Margin="74,11,303,43" Grid.Row="2" />
+        </Grid>
+
+
+    </Grid>
+</Page>

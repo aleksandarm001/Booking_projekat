@@ -9,57 +9,62 @@
       Title="GeneratingReport">
 
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Infrastructure/Resources/Images/Island.png"></ImageBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            
+
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">Create a pdf report for reservations of a accommodation:</Label>
+        <Label Grid.Row="0"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Black" FontStyle="Italic" FontWeight="Bold"  Padding="10">Create a pdf report for reservations of a accommodation:</Label>
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label>Enter accommodation name:</Label>
+            <Label FontSize="13" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10">Enter accommodation name:</Label>
             <TextBox Name="AccommodationName" Text="{Binding AccommodationName}" Width="150" ></TextBox>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label>Choose start date:</Label>
-            <DatePicker Name="DatePickerStart" IsTodayHighlighted="True"
-                        SelectedDate="{Binding Path=StartingDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                        ></DatePicker>
+            <Label FontSize="13" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10">Choose start date:</Label>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label>Choose end date:</Label>
-            <DatePicker Name="DatePickerEnd" IsTodayHighlighted="True"
-                        SelectedDate="{Binding Path=EndingDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                        ></DatePicker>
+            <Label FontSize="13" Foreground="White" FontStyle="Italic" FontWeight="Bold"  Padding="10">Choose end date:</Label>
         </StackPanel>
         <Button Grid.Row="4" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="176" Height="34"
                  FontFamily="Montserrat" Foreground="White"
                      Cursor="Hand" Content="Generate" Command="{Binding CreateReportCommand}">
             <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="Background" Value="#00A76D"/>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="DeepSkyBlue"/>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#006C6D"/>
+                            <Setter Property="Background" Value="DarkSlateBlue"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
             </Button.Style>
             <Button.Template>
-                <ControlTemplate TargetType="Button">
+                <ControlTemplate TargetType="{x:Type Button}">
                     <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
+                            CornerRadius="10"
+                            Background="{TemplateBinding Background}">
                         <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
+                            HorizontalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Button.Template>
 
         </Button>
-       
+        <DatePicker x:Name="DatePickerEnd" IsTodayHighlighted="True"
+                        SelectedDate="{Binding EndingDate, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                        Margin="586,50,362,34" Grid.Row="3"
+                        />
+        <DatePicker x:Name="DatePickerStart" IsTodayHighlighted="True"
+                        SelectedDate="{Binding StartingDate, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                        Margin="586,51,362,33" Grid.Row="2"
+                        />
+
     </Grid>
 </Page>
