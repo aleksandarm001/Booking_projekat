@@ -28,6 +28,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         public int GuestId { get; set; }
         public int AccommodationId { get; set; }
 
+        private Window _window;
         
 
         private string _ownerComment;
@@ -104,13 +105,14 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         public RelayCommand SubmitCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
 
-        public GuestReviewFormViewModel(int guestId, int accommodationId)
+        public GuestReviewFormViewModel(Window window,int guestId, int accommodationId)
         {
             _userToReviewRepository = new UserToReviewRepository();
             IsReviewd = false;
             _guestReviewRepository = new GuestReviewRepository();
             GuestId = guestId;
             AccommodationId = accommodationId;
+            _window= window;
 
             SubmitCommand = new RelayCommand(SubmitReview);
             CancelCommand = new RelayCommand(CloseWindow);
@@ -122,10 +124,15 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             NewGuestReview.Validate();
             if (NewGuestReview.IsValid)
             {
-            GuestReview newGuestReview = CreateReview();
-            _guestReviewRepository.Save(newGuestReview);
-            IsReviewd = true;
-            //CloseWindow();
+                GuestReview newGuestReview = CreateReview();
+                _guestReviewRepository.Save(newGuestReview);
+                IsReviewd = true;
+                MessageBoxResult result = MessageBox.Show("Guest reviewd!", "Message", MessageBoxButton.OK);
+                if (result == MessageBoxResult.OK)
+                {
+                    _window.Close();
+                }
+
             }
             else
             {
@@ -147,6 +154,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         public void CloseWindow(object parameter)
         {
+            _window.Close();
         }
     }
 }

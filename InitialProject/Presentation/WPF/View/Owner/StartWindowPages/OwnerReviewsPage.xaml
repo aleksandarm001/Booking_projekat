@@ -11,24 +11,27 @@
 
         <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
             <Setter Property="Foreground" Value="White"  />
-            <Setter Property="Background" Value="DeepSkyBlue"/>
+            <Setter Property="Background" Value="Transparent"/>
         </Style>
 
     </Page.Resources>
 
     <Grid>
-        <DockPanel x:Name="OwnerReviews"  Visibility="Visible">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Infrastructure/Resources/Images/LisceBato.jpg"></ImageBrush>
+        </Grid.Background>
+        <DockPanel x:Name="OwnerReviews" >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition Height="8*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label FontSize="15" Foreground="White" FontStyle="Italic" FontWeight="Bold"   Grid.Row="0"  >Your reviews:</Label>
-                <DataGrid ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"   Style="{DynamicResource DataGridStyle1}" Background="DeepSkyBlue" CellStyle="{DynamicResource DataGridCellStyle1}"  RowStyle="{DynamicResource DataGridRowStyle2}"  ItemsSource ="{Binding Path=OwnerRates}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="51,7,52,0" VerticalAlignment="Top" Height="364" Grid.Row="1">
+                <DataGrid ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"   Style="{DynamicResource DataGridStyle1}" Background="Transparent" CellStyle="{DynamicResource DataGridCellStyle1}"  RowStyle="{DynamicResource DataGridRowStyle2}"  ItemsSource ="{Binding Path=OwnerRates}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="51,7,52,0" VerticalAlignment="Top" Height="364" Grid.Row="1">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="User Id"  Width="*" Binding="{Binding UserId}"></DataGridTextColumn>
                         <DataGridTextColumn Header="AccommodationId"  Width="*" Binding="{Binding AccommodationId}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Cleanliness"  Width="*" Binding="{Binding CleanlinessRate}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Cleanliness"  Width="*" Binding="{Binding HygieneRate}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Correctness rate"  Width="*" Binding="{Binding CorrectnessRate}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Additional comment"  Width="*" Binding="{Binding Comment}"></DataGridTextColumn>
 

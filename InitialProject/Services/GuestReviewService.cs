@@ -97,7 +97,7 @@ namespace InitialProject.Services
             {
                 if (CheckDateRange(userToReview.LeavingDay)) //&& userToReview.OwnerId == ownerId)
                 {
-                    RateUser(userToReview.Guest1Id, userToReview.AccommodationId, userToReview.LeavingDay);
+                    //RateUser(userToReview.Guest1Id, userToReview.AccommodationId, userToReview.LeavingDay);
                 }
                 else
                 {

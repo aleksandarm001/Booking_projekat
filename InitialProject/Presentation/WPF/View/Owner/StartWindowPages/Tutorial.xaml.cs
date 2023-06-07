@@ -19,10 +19,36 @@ namespace InitialProject.Presentation.WPF.View.Owner.StartWindowPages
     /// </summary>
     public partial class Tutorial : Window
     {
+
         public Tutorial()
         {
             InitializeComponent();
             this.DataContext= this;
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+            StopVideo();
+        }
+        private void StopVideo()
+        {
+            if (tutorialVideo != null)
+            {
+                tutorialVideo.Stop();
+            }
+        }
+
+        private void StartVideo()
+        {
+            if (tutorialVideo != null)
+            {
+                tutorialVideo.Play();
+            }
+        }
+
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+            StartVideo();
         }
     }
 }

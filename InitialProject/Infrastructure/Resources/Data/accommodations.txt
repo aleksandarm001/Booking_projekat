@@ -23,3 +23,5 @@
 23|3|Nas novi smestaj|China;Beijing|Shack|3|5|1|False
 24|3|Novi smestaj|China;Beijing|Shack|3|2|1|False
 25|3|Nova akomodacija|Mexico;Mumbai|Shack|3|2|1|False
+26|3|Naziv |Mexico;São Paulo|Shack|3|2|1|False
+27|3|Dalje|Brazil;São Paulo|Shack|3|3|1|False

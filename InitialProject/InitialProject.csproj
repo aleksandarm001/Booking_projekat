@@ -29,6 +29,7 @@
     <None Remove="Infrastructure\Resources\Images\homePageCommands.png" />
     <None Remove="Infrastructure\Resources\Images\iconmonstr-x-mark-circle-thin.png" />
     <None Remove="Infrastructure\Resources\Images\Island.png" />
+    <None Remove="Infrastructure\Resources\Images\LisceBato.jpg" />
     <None Remove="Infrastructure\Resources\Images\moda-removebg-preview.png" />
     <None Remove="Infrastructure\Resources\Images\pin1.png" />
     <None Remove="Infrastructure\Resources\Images\pin2.png" />
@@ -64,6 +65,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure/Resources\Images\search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Infrastructure\Resources\Images\LisceBato.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Infrastructure\Resources\Videos\TutorijalVerzija2.mkv">

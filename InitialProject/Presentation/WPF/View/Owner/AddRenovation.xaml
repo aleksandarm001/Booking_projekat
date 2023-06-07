@@ -20,7 +20,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Infrastructure/Resources/Images/dusty-sky.jfif"></ImageBrush>
         </Grid.Background>
-
+        
         <Grid  Margin="0,0,326,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40*" ></RowDefinition>
@@ -32,7 +32,7 @@
                 <RowDefinition Height="46*"></RowDefinition>
                 <RowDefinition Height="214*"></RowDefinition>
             </Grid.RowDefinitions>
-
+            
             <Label FontSize="10" Foreground="White" FontStyle="Italic" FontWeight="Bold" Margin="0,16,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26" Width="66" Grid.RowSpan="2">Start Date:</Label>
             <DatePicker  BorderBrush="White" x:Name="StartDatePicker" HorizontalAlignment="Center" VerticalAlignment="Top" Height="24" Width="104" Margin="0,1,0,0" Grid.Row="1" SelectedDate="{Binding Path=StartDay, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}"></DatePicker>
             <Label FontSize="10" Foreground="White" FontStyle="Italic" FontWeight="Bold" Grid.Row="2" HorizontalAlignment="Center" Width="60" VerticalAlignment="Top" RenderTransformOrigin="0.532,1.19" Height="23" Margin="0,10,0,0">End date:</Label>

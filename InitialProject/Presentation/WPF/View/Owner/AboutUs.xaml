@@ -5,8 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Owner"
         mc:Ignorable="d"
-        Title="AboutUs" Height="450" Width="800">
+        WindowStartupLocation="CenterScreen"
+        Title="AboutUs" Height="450" Width="300">
     <Grid>
-           
+        <Grid.RowDefinitions>
+            <RowDefinition Height="63*"></RowDefinition>
+            <RowDefinition Height="154*"></RowDefinition>
+            <RowDefinition Height="109*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1">
+            <Label Grid.Row="1">Version:</Label>
+            <Label>BookBuddy.DestkopApp.1.0.HCI</Label>
+            <Label></Label>
+            <Label></Label>
+            <Label>Contact support:</Label>
+            <Label>123456778</Label>
+            <Label>4121515251</Label>
+         
+            
+        </StackPanel>
+
+        <Label Grid.Row="0" VerticalAlignment="Center" FontSize="20" Foreground="Black" FontStyle="Italic"  Padding="10">About Book Buddy</Label>
+        <StackPanel Grid.Row="2">
+            <Label >Authors:</Label>
+            <Label>Aleksandar Marinkovic</Label>
+            <Label>Antonije Erdeljan</Label>
+            <Label>Aleksandar Srajer</Label>
+        </StackPanel>
+        
+        
     </Grid>
 </Window>

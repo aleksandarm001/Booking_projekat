@@ -32,13 +32,16 @@
                 <TextBlock Text="{Binding NewGuestReview.ValidationErrors[OwnerComment]}" Foreground="Red"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" Height="97">
-                <ComboBox Grid.Column="1" Text="{Binding NewGuestReview.RuleFollowingGrade, Mode=TwoWay}" Margin="0,37,10,23" Grid.Row="1" IsEditable="True" VerticalAlignment="Center" >
-                    <ComboBoxItem>1</ComboBoxItem>
-                    <ComboBoxItem>2</ComboBoxItem>
-                    <ComboBoxItem>3</ComboBoxItem>
-                    <ComboBoxItem>4</ComboBoxItem>
-                    <ComboBoxItem>5</ComboBoxItem>
-                </ComboBox>
+                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" Height="97">
+                    <ComboBox Grid.Column="1" Text="{Binding NewGuestReview.RuleFollowingGrade, Mode=TwoWay}" Margin="0,37,10,23" Grid.Row="1" IsEditable="True" VerticalAlignment="Center" >
+                        <ComboBoxItem>1</ComboBoxItem>
+                        <ComboBoxItem>2</ComboBoxItem>
+                        <ComboBoxItem>3</ComboBoxItem>
+                        <ComboBoxItem>4</ComboBoxItem>
+                        <ComboBoxItem>5</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock Text="{Binding NewGuestReview.ValidationErrors[RuleFollowingGrade]}" Foreground="Red"></TextBlock>
+                </StackPanel>
                 <TextBlock Text="{Binding NewGuestReview.ValidationErrors[RuleFollowingGrade]}" Foreground="Red"></TextBlock>
             </StackPanel>
 

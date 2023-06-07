@@ -20,7 +20,7 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Infrastructure/Resources/Images/dusty-sky.jfif"></ImageBrush>
+            <ImageBrush ImageSource="/Infrastructure/Resources/Images/LisceBato.jpg"></ImageBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="63*"></RowDefinition>

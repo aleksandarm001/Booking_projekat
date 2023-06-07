@@ -6,6 +6,11 @@
         xmlns:local="clr-namespace:InitialProject.Presentation.WPF.View.Owner"
         mc:Ignorable="d"
         Title="ForumCommentsWindow" Height="800" Width="500">
+    
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+    
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -32,14 +37,14 @@
             </Grid>
             <Label Grid.Row="2" VerticalAlignment="Center" Height="26">Comments:</Label>
             <Grid Grid.Row="3">
-                <ItemsControl ItemsSource="{Binding Comments}">
+                <ItemsControl ItemsSource="{Binding Comments, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Text}" />
-                                <Image Source="{Binding ImageZvjezdica}" Visibility="{Binding CheckIfOwnerComment}" />
-                                <Button Content="Click me"  />
-                                <TextBlock Text="{Binding Reports}"  />
+                                <Image Source="/Infrastructure/Resources/Images/Zvjezda.png"  Visibility="{Binding Path=IsOwnerComment, Converter={StaticResource BoolToVis}}" Height="10" Width="10" />
+                                <Button Content="Click me" Command="{Binding DataContext.ReportCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" />
+                                <TextBlock Text="{Binding Path= Reports, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged }"  />
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

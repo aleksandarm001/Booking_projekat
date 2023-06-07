@@ -21,9 +21,14 @@
         <KeyBinding Command="{Binding NavigateToReservations}" Key="R" Modifiers="Control"></KeyBinding>
         <KeyBinding Command="{Binding NavigateToReport}" Key="P" Modifiers="Control"></KeyBinding>
     </Window.InputBindings>
-    
-    <Grid>
-        <Grid.RowDefinitions>
+
+    <Grid >
+        
+            <Grid.LayoutTransform>
+                <ScaleTransform ScaleX="{Binding ZoomLevel}" ScaleY="{Binding ZoomLevel}" />
+            </Grid.LayoutTransform>
+
+            <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="20"></RowDefinition>
             <RowDefinition Height="90"></RowDefinition>
             <RowDefinition Height="610"></RowDefinition>
@@ -49,11 +54,14 @@
                 <MenuItem Header="Reservation" InputGestureText="Ctrl+R" Command="{Binding NavigateToReservations}"></MenuItem>
             </MenuItem>
             <MenuItem Header="Edit">
-                <MenuItem Header="Reservation report" InputGestureText="Ctrl+R" Command="{Binding NavigateToReport}"></MenuItem>
+                <MenuItem Header="Reservation report" InputGestureText="Ctrl+P" Command="{Binding NavigateToReport}"></MenuItem>
             </MenuItem>
-            <MenuItem Header="View"></MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Zoom In" Command="{Binding ZoomInCommand}"></MenuItem>
+                <MenuItem Header="Zoom out" Command ="{Binding ZoomOutCommand}"></MenuItem>
+            </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem Header="About us"></MenuItem>
+                <MenuItem Header="About us" Command="{Binding AboutUsCommand}"></MenuItem>
                 <MenuItem Header="Tutorial" Command ="{Binding OpenTutorial}"></MenuItem>
                 
             </MenuItem>
@@ -149,7 +157,11 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Image x:Name="zvjezda"  Source="/Infrastructure/Resources/Images/Zvjezda.png"  Grid.Row="1" Height="27" Margin="212,0,716,0" VerticalAlignment="Center" Visibility="Visible" Grid.Column="1"/>
+        <Image x:Name="zvjezda"  Source="{Binding ImageSource}" Visibility="{Binding ImageVisibility}"  Grid.Row="1" Height="27" Margin="212,0,716,0" VerticalAlignment="Center"  Grid.Column="1">
+            <Image.ToolTip>
+                <ToolTip Background="Black" Placement="Bottom" Content="You are a super owner!" />
+            </Image.ToolTip>
+        </Image>
         <Grid.Background>
             <ImageBrush ImageSource="/Infrastructure/Resources/Images/Stars.jpg"></ImageBrush>
         </Grid.Background>

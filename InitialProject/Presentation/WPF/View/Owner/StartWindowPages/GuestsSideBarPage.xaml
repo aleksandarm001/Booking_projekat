@@ -23,14 +23,40 @@
             </Grid.RowDefinitions>
             <Label  FontSize="20" Foreground="White" FontStyle="Italic"  Padding="10" VerticalAlignment="Center" FontWeight="Bold" Margin="25,0,-7,0">Guests:</Label>
             <Button Grid.Row ="1" Content="Current guests" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="176" Height="34" 
-                FontFamily="Montserrat" Foreground="White"
+                FontFamily="Montserrat" Foreground="DeepSkyBlue"
                 Cursor="Hand">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
+                        <Setter Property="Background" Value="WHite"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
+                                <Setter Property="Background" Value="DarkSlateBlue"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                        CornerRadius="10"
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+
+            </Button>
+            <Button Grid.Row ="2" Content="Guests to review" HorizontalAlignment="Center" VerticalAlignment="Center" Width="176" Height="34" 
+                FontFamily="Montserrat" Foreground="DeepSkyBlue"
+                Cursor="Hand" Command="{Binding NavigateToGuestsToReview}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="WHite"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="DarkSlateBlue"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -47,39 +73,15 @@
                 </Button.Template>
 
             </Button>
-            <Button Grid.Row ="2" Content="Guests to review" HorizontalAlignment="Center" VerticalAlignment="Center" Width="176" Height="34" 
-                FontFamily="Montserrat" Foreground="White"
-                Cursor="Hand" Command="{Binding NavigateToGuestsToReview}">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                        CornerRadius="10"
-                        Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
             <Button Grid.Row="3" Content="Owner reviews" HorizontalAlignment="Center" VerticalAlignment="Center" Width="176" Height="34" 
-                FontFamily="Montserrat" Foreground="White"
+                FontFamily="Montserrat" Foreground="DeepSkyBlue"
                 Cursor="Hand" Command="{Binding NavigateToOwnerReviews}">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
+                        <Setter Property="Background" Value="WHite"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
+                                <Setter Property="Background" Value="DarkSlateBlue"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -94,16 +96,17 @@
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
+
             </Button>
             <Button Grid.Row="4" Content="Forum" HorizontalAlignment="Center" VerticalAlignment="Center" Width="176" Height="34"
-                FontFamily="Montserrat" Foreground="White"
+                FontFamily="Montserrat" Foreground="DeepSkyBlue"
                 Cursor="Hand" Command="{Binding NavigateToForums}">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="Background" Value="#00A76D"/>
+                        <Setter Property="Background" Value="WHite"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#006C6D"/>
+                                <Setter Property="Background" Value="DarkSlateBlue"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -118,6 +121,7 @@
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
+
             </Button>
         </Grid>
         

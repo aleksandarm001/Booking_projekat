@@ -23,6 +23,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         private readonly IForumCommentService _forumCommentService;
         private readonly ICommentService _commentService;
         private readonly IForumUtilityService _forumUtility;
+        private readonly IUserService _userService;
 
 
         public ObservableCollection<Comment> _comments;
@@ -62,16 +63,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             }
         }
 
-        private ImageSource _imageZvjezdica;
-        public ImageSource ImageZvjezdica
-        {
-            get { return _imageZvjezdica; }
-            set
-            {
-                _imageZvjezdica = value;
-                OnPropertyChanged(nameof(ImageZvjezdica));
-            }
-        }
 
         private Visibility _imageVisibility;
         public Visibility ImageVisibility
@@ -84,19 +75,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             }
         }
 
-        private Visibility _zvjezdicaVisibility;
-        public Visibility ZvjezdicaVisibility
-        {
-            get { return _zvjezdicaVisibility; }
-            set
-            {
-                _imageVisibility = value;
-                OnPropertyChanged(nameof(ZvjezdicaVisibility));
-            }
-        }
-
-
-
 
         public Forum selectedForum { get; set; }
         int UserId;
@@ -105,37 +83,37 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
        
 
         public RelayCommand AddComment { get; set; }
+        public RelayCommand ReportCommand { get; set; }
+
         public ForumCommentsViewMode(int userId , Forum forum) 
         {
             selectedForum = forum;    
             UserId= userId;
             ImageSource = new BitmapImage(new Uri("/Infrastructure/Resources/Images/Zvjezda.png", UriKind.Relative));
-            ImageZvjezdica = new BitmapImage(new Uri("/Infrastructure/Resources/Images/Zvjezda.png", UriKind.Relative));
+            
             ImageVisibility = Visibility.Collapsed;
-            ZvjezdicaVisibility = Visibility.Collapsed;
+            
 
 
             _forumUtility = Injector.CreateInstance<IForumUtilityService>();
             _forumCommentService = Injector.CreateInstance<IForumCommentService>();
             _commentService = Injector.CreateInstance<ICommentService>();
-
+            _userService = Injector.CreateInstance<IUserService>();
 
             isUsefull = _forumUtility.CheckUseful(selectedForum);
             CheckUsefulness(isUsefull);
 
 
             Comments = new ObservableCollection<Comment>(_commentService.CommentsByForumId(forum.ForumId));
-            CheckIfOwnerComment();
+            
 
 
             AddComment = new RelayCommand(AddComment_ButtonClick);
+            ReportCommand = new RelayCommand(ReportComment_ButtonClick);
 
         }
 
-        //public void Funkcija()
-        //{
-          //  _forumUtility
-        //}
+
 
         public void CheckUsefulness(string usefull)
         {
@@ -145,18 +123,8 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             }
             
         }
-
-        public void CheckIfOwnerComment()
-        {
-            foreach(Comment comment in Comments)
-            {
-                if(comment.IsOwnerComment == true)
-                {
-                    ZvjezdicaVisibility= Visibility.Visible;
-                }
-            }
-        }
-
+        
+        
         public void AddComment_ButtonClick(object obj)
         {
            Comment newComment = _commentService.CreateOwnerComment(CommentText, UserId);
@@ -169,6 +137,21 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         }
 
+        public void ReportComment_ButtonClick(object obj)
+        {
+            if (obj is Comment comment)
+            {
+
+                comment.Reports += 1;
+                _commentService.Update(comment);
+            }
+        }
+        /*
+        public Boolean wasOnLocation(int UserId,Forum forum)
+        {
+            
+        }
+        */
 
 
 

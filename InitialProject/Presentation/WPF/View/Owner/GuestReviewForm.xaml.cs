@@ -22,7 +22,7 @@ namespace InitialProject.View
         public GuestReviewForm(int guestId,int accommodationId)
         {
             InitializeComponent();
-            viewModel = new GuestReviewFormViewModel(guestId, accommodationId);
+            viewModel = new GuestReviewFormViewModel(this,guestId, accommodationId);
             DataContext= viewModel;
             
         }
