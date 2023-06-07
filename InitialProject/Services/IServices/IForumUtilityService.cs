@@ -10,5 +10,6 @@ namespace InitialProject.Services.IServices
     public interface IForumUtilityService
     {
         string CheckUseful(Forum forum);
+        bool WasOnLocation(User user, Forum forum);
     }
 }

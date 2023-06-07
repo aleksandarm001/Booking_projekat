@@ -77,6 +77,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
 
         public Forum selectedForum { get; set; }
+        public Comment SelectedComment { get; set; }
         int UserId;
         string isUsefull;
 
@@ -90,7 +91,6 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
             selectedForum = forum;    
             UserId= userId;
             ImageSource = new BitmapImage(new Uri("/Infrastructure/Resources/Images/Zvjezda.png", UriKind.Relative));
-            
             ImageVisibility = Visibility.Collapsed;
             
 
@@ -139,19 +139,28 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         public void ReportComment_ButtonClick(object obj)
         {
-            if (obj is Comment comment)
+            if (SelectedComment == null)
             {
-
-                comment.Reports += 1;
-                _commentService.Update(comment);
+                MessageBox.Show("You need to select a comment first", "Message");
+            }
+            else
+            {
+                SelectedComment.Reports++;
+                _commentService.Update(SelectedComment);
             }
         }
-        /*
-        public Boolean wasOnLocation(int UserId,Forum forum)
+        
+        public Boolean wasOnLocation(Comment comment,Forum forum)
         {
-            
+            int userId = comment.UserId;
+            User user = _userService.GetById(userId);
+            if (_forumUtility.WasOnLocation(user, forum))
+            {
+                return true;
+            }
+            return false;
         }
-        */
+        
 
 
 

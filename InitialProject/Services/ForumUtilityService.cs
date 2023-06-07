@@ -53,7 +53,7 @@ namespace InitialProject.Services
                 return "No";
             }
         }
-        private bool WasOnLocation(User user, Forum forum)
+        public bool WasOnLocation(User user, Forum forum)
         {
             return user.TypeOfUser == UserType.Guest1 && _accommodationReservationService.WasOnLocation(user.Id, forum.Location);
         }
