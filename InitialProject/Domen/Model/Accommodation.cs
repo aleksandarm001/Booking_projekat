@@ -84,6 +84,7 @@ namespace InitialProject.Domen.Model
                 {
                     Name = value;
                     OnPropertyChanged("AccommodationName");
+
                 }
             }
         }
